@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="vi">
 <head>
-  <meta name="zeva-wrapper-build" content="2026-09-22.3">
+  <meta name="zeva-wrapper-build" content="2026-09-22.4">
   <meta charset="UTF-8">
   <meta
     name="viewport"
@@ -383,6 +383,7 @@
       let appReadyFallbackTimer = null;
       let appMessageSource = null;
       let appMessageOrigin = '*';
+      let lastAppReloadRequestId = '';
 
       const frame = document.getElementById('zevaEducationFrame');
       const loading = document.getElementById('appLoading');
@@ -827,12 +828,35 @@
           'ZEVA_EDUCATION_SAVE_SESSION', 'BUNG_BU_SAVE_SESSION',
           'ZEVA_EDUCATION_CLEAR_SESSION', 'BUNG_BU_CLEAR_SESSION',
           'ZEVA_EDUCATION_REQUEST_SESSION', 'BUNG_BU_REQUEST_SESSION',
-          'ZEVA_EDUCATION_REJECT_SESSION'
+          'ZEVA_EDUCATION_REJECT_SESSION', 'ZEVA_EDUCATION_RELOAD_APP'
         ];
         if (!acceptedTypes.includes(type)) return;
+        if (type === 'ZEVA_EDUCATION_RELOAD_APP') {
+          if (!data.requestId || data.requestId === lastAppReloadRequestId) return;
+          if (appMessageSource && event.source !== appMessageSource) return;
+        }
         // Capture the exact inner Apps Script sandbox window. This is critical
         // on iOS because frame.contentWindow can be the outer Google shell.
         rememberAppMessageSource(event);
+
+        if (type === 'ZEVA_EDUCATION_RELOAD_APP') {
+          if (isLogoutLocked() && !data.explicitLogin) {
+            postMessageToApp({ type: 'ZEVA_EDUCATION_RELOAD_ACK', requestId: data.requestId, ok: false });
+            return;
+          }
+          if (data.explicitLogin) {
+            logoutLockUntil = 0;
+            safeRemove(WRAPPER_LOGOUT_LOCK_KEY);
+          }
+          const saved = saveSession(data.sessionData);
+          postMessageToApp({ type: 'ZEVA_EDUCATION_RELOAD_ACK', requestId: data.requestId, ok: saved });
+          if (!saved) return;
+          lastAppReloadRequestId = data.requestId;
+          // The new inner Google sandbox receives the saved token via its ready
+          // handshake. Never reload a generated userHtmlFrame URL in place.
+          loadFrame();
+          return;
+        }
 
         if (type === 'ZEVA_EDUCATION_BRIDGE_READY') {
           postSafeAreaToFrame();
