@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="vi">
 <head>
+  <meta name="zeva-wrapper-build" content="2026-09-22.3">
   <meta charset="UTF-8">
   <meta
     name="viewport"
@@ -28,6 +29,10 @@
       --zeva-bg: #eef2f7;
       --zeva-text: #111827;
       --zeva-splash-logo-size: 220px;
+      --zeva-safe-top: env(safe-area-inset-top, 0px);
+      --zeva-safe-right: env(safe-area-inset-right, 0px);
+      --zeva-safe-bottom: env(safe-area-inset-bottom, 0px);
+      --zeva-safe-left: env(safe-area-inset-left, 0px);
     }
 
     * {
@@ -46,19 +51,34 @@
     }
 
     body {
-      padding-top: env(safe-area-inset-top, 0px);
-      padding-right: env(safe-area-inset-right, 0px);
-      padding-bottom: env(safe-area-inset-bottom, 0px);
-      padding-left: env(safe-area-inset-left, 0px);
+      /* Keep the iframe below the notch/status area, but let it paint through
+         the bottom home-indicator safe area. The app receives that bottom inset
+         through postMessage and keeps its floating nav in the same safe position. */
+      padding-top: var(--zeva-safe-top);
+      padding-right: var(--zeva-safe-right);
+      padding-bottom: 0;
+      padding-left: var(--zeva-safe-left);
     }
 
     .app-shell {
       position: fixed;
-      inset: env(safe-area-inset-top, 0px)
-             env(safe-area-inset-right, 0px)
-             env(safe-area-inset-bottom, 0px)
-             env(safe-area-inset-left, 0px);
+      inset: var(--zeva-safe-top)
+             var(--zeva-safe-right)
+             0
+             var(--zeva-safe-left);
       background: var(--zeva-bg);
+      overflow: hidden;
+    }
+
+    @media (max-width: 768px) {
+      html,
+      body {
+        /* Only the app's inner panels scroll. Do not let iOS rubber-band the host. */
+        position: fixed;
+        inset: 0;
+        height: var(--zeva-viewport-height, 100vh);
+        min-height: 0;
+      }
     }
 
     .app-frame {
@@ -69,6 +89,14 @@
       background: var(--zeva-bg);
       opacity: 0;
       transition: opacity .18s ease;
+    }
+
+    /* Mobile design reference: 440 × 956 CSS px. The outer shell owns safe areas. */
+    .app-stage {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transform-origin: top left;
     }
 
     .app-frame.is-ready {
@@ -222,6 +250,7 @@
 </head>
 <body>
   <main class="app-shell">
+    <div class="app-stage">
     <iframe
       id="zevaEducationFrame"
       class="app-frame"
@@ -256,7 +285,85 @@
       </p>
       <button id="appRetryBtn" class="app-retry-btn" type="button">Tải lại</button>
     </section>
+    </div>
   </main>
+
+  <script id="zeva-mobile-design-viewport">
+    (() => {
+      'use strict';
+      const reference = { width: 440, height: 956 };
+      const shell = document.querySelector('.app-shell');
+      const stage = document.querySelector('.app-stage');
+      const mobile = window.matchMedia('(max-width: 768px)');
+      let pending = 0;
+
+      function syncMobileDesignViewport() {
+        pending = 0;
+        if (!mobile.matches) {
+          shell.removeAttribute('style');
+          stage.removeAttribute('style');
+          document.documentElement.style.removeProperty('--zeva-viewport-height');
+          return;
+        }
+        const viewport = window.visualViewport;
+        // Preserve browser pinch zoom; do not counteract accessibility magnification.
+        if (viewport && Math.abs(viewport.scale - 1) > 0.01) return;
+        const rootStyle = getComputedStyle(document.documentElement);
+        const bodyStyle = getComputedStyle(document.body);
+        const readSafe = (name, fallback) => {
+          const token = parseFloat(rootStyle.getPropertyValue(name));
+          if (Number.isFinite(token)) return Math.max(0, token);
+          return Math.max(0, parseFloat(fallback) || 0);
+        };
+        const top = readSafe('--zeva-safe-top', bodyStyle.paddingTop);
+        const right = readSafe('--zeva-safe-right', bodyStyle.paddingRight);
+        const bottom = readSafe('--zeva-safe-bottom', bodyStyle.paddingBottom);
+        const left = readSafe('--zeva-safe-left', bodyStyle.paddingLeft);
+        // Adapt BBX_SHIP getAppViewportHeight/applyAppAutoScale: the body and
+        // scaled app must share one measured viewport, including after a swipe.
+        const viewportWidth = Math.round((viewport && viewport.width) || window.innerWidth || document.documentElement.clientWidth);
+        const viewportHeight = Math.round((viewport && viewport.height) || window.innerHeight || document.documentElement.clientHeight);
+        document.documentElement.style.setProperty('--zeva-viewport-height', viewportHeight + 'px');
+        const width = Math.max(1, viewportWidth - left - right);
+        const height = Math.max(1, viewportHeight - top);
+        const scale = width / reference.width;
+        // Width controls uniform sizing; height remains flexible, including with a keyboard.
+        const heightRatio = height / reference.height;
+        // BBX_SHIP anchors its scaled shell at the top. Safari viewport scroll
+        // offsets must not slide the whole app and expose the host background.
+        shell.style.left = left + 'px';
+        shell.style.top = top + 'px';
+        shell.style.right = 'auto';
+        shell.style.bottom = 'auto';
+        shell.style.width = width + 'px';
+        shell.style.height = height + 'px';
+        stage.style.width = reference.width + 'px';
+        stage.style.height = (reference.height * heightRatio / scale) + 'px';
+        stage.style.transform = 'scale(' + scale + ')';
+        // The app uses a 440px logical canvas; insets must use that same unit.
+        const safeArea = { top: 0, right: 0, bottom: bottom / scale, left: 0 };
+        window.ZEVA_HOST_SAFE_AREA = safeArea;
+        window.dispatchEvent(new CustomEvent('zeva-host-safe-area-change', { detail: safeArea }));
+      }
+
+      function scheduleMobileDesignViewport() {
+        if (!pending) pending = requestAnimationFrame(syncMobileDesignViewport);
+      }
+      syncMobileDesignViewport();
+      window.addEventListener('resize', scheduleMobileDesignViewport);
+      window.addEventListener('pageshow', scheduleMobileDesignViewport);
+      window.addEventListener('orientationchange', scheduleMobileDesignViewport);
+      window.addEventListener('orientationchange', () => {
+        window.setTimeout(scheduleMobileDesignViewport, 150);
+      });
+      document.addEventListener('visibilitychange', () => {
+        if (!document.hidden) scheduleMobileDesignViewport();
+      });
+      mobile.addEventListener('change', scheduleMobileDesignViewport);
+      window.visualViewport?.addEventListener('resize', scheduleMobileDesignViewport);
+      window.visualViewport?.addEventListener('scroll', scheduleMobileDesignViewport);
+    })();
+  </script>
 
   <script src="./config.js"></script>
   <script>
@@ -269,10 +376,13 @@
       const WRAPPER_SESSION_KEY = 'zeva_education_wrapper_session_v1';
       const WRAPPER_TARGET_APP_KEY = 'zeva_education_wrapper_target_url_v1';
       const WRAPPER_LOGOUT_LOCK_KEY = 'zeva_education_wrapper_logout_lock_v1';
+      const WRAPPER_SESSION_COOKIE_KEY = 'zeva_education_wrapper_session_cookie_v2';
 
       let sessionSendGeneration = 0;
       let logoutLockUntil = 0;
       let appReadyFallbackTimer = null;
+      let appMessageSource = null;
+      let appMessageOrigin = '*';
 
       const frame = document.getElementById('zevaEducationFrame');
       const loading = document.getElementById('appLoading');
@@ -316,25 +426,75 @@
 
       function safeGet(key) {
         try {
-          return localStorage.getItem(key);
+          const localValue = localStorage.getItem(key);
+          if (localValue !== null && localValue !== '') return localValue;
+        } catch (err) {}
+        try {
+          return sessionStorage.getItem(key);
         } catch (err) {
           return null;
         }
       }
 
       function safeSet(key, value) {
+        let saved = false;
         try {
           localStorage.setItem(key, value);
-          return true;
-        } catch (err) {
-          return false;
-        }
+          saved = true;
+        } catch (err) {}
+        try {
+          sessionStorage.setItem(key, value);
+          saved = true;
+        } catch (err) {}
+        return saved;
       }
 
       function safeRemove(key) {
         try {
           localStorage.removeItem(key);
         } catch (err) {}
+        try {
+          sessionStorage.removeItem(key);
+        } catch (err) {}
+      }
+
+      function safeCookieGet(name) {
+        try {
+          const prefix = encodeURIComponent(name) + '=';
+          const parts = String(document.cookie || '').split(';');
+          for (let i = 0; i < parts.length; i += 1) {
+            const item = parts[i].trim();
+            if (item.indexOf(prefix) === 0) return decodeURIComponent(item.slice(prefix.length));
+          }
+        } catch (err) {}
+        return null;
+      }
+
+      function safeCookieSet(name, value, expiresAt) {
+        try {
+          const maxAge = Math.max(60, Math.floor((Number(expiresAt || 0) - Date.now()) / 1000));
+          document.cookie = encodeURIComponent(name) + '=' + encodeURIComponent(String(value || '')) +
+            '; Path=/' +
+            '; Max-Age=' + String(maxAge) +
+            '; SameSite=Lax; Secure';
+          return safeCookieGet(name) === String(value || '');
+        } catch (err) {
+          return false;
+        }
+      }
+
+      function safeCookieRemove(name) {
+        try {
+          document.cookie = encodeURIComponent(name) + '=; Path=/; Max-Age=0; SameSite=Lax; Secure';
+        } catch (err) {}
+      }
+      async function tryEnablePersistentStorage() {
+        try {
+          if (!navigator.storage || typeof navigator.storage.persist !== 'function') return false;
+          return await navigator.storage.persist();
+        } catch (err) {
+          return false;
+        }
       }
 
       function getLogoutLockUntil() {
@@ -393,7 +553,19 @@
         if (!isSessionValid(normalized)) return false;
 
         normalized.savedAt = Date.now();
-        return safeSet(WRAPPER_SESSION_KEY, JSON.stringify(normalized));
+        const raw = JSON.stringify(normalized);
+        const savedStorage = safeSet(WRAPPER_SESSION_KEY, raw);
+        // Keep the cookie deliberately small: only the signed token metadata is
+        // needed to restore; the server rebuilds the current user profile.
+        const cookieRaw = JSON.stringify({
+          token: normalized.token,
+          expiresAt: normalized.expiresAt,
+          loginMode: normalized.loginMode,
+          savedAt: normalized.savedAt
+        });
+        const savedCookie = safeCookieSet(WRAPPER_SESSION_COOKIE_KEY, cookieRaw, normalized.expiresAt);
+        if (savedStorage || savedCookie) Promise.resolve(tryEnablePersistentStorage()).catch(function() {});
+        return savedStorage || savedCookie;
       }
 
       function loadSession() {
@@ -401,27 +573,31 @@
 
         if (isLogoutLocked()) return null;
 
-        const raw = safeGet(WRAPPER_SESSION_KEY);
-        if (!raw) return null;
-
-        try {
-          const parsed = normalizeSessionData(JSON.parse(raw));
-
-          if (!isSessionValid(parsed)) {
-            safeRemove(WRAPPER_SESSION_KEY);
-            return null;
-          }
-
-          return parsed;
-        } catch (err) {
-          safeRemove(WRAPPER_SESSION_KEY);
-          return null;
+        // A corrupt/expired page-storage copy must not hide a valid cookie.
+        // Access each getter inside try: Safari may deny the storage object itself.
+        const candidates = [];
+        try { candidates.push(localStorage.getItem(WRAPPER_SESSION_KEY)); } catch (_) {}
+        try { candidates.push(sessionStorage.getItem(WRAPPER_SESSION_KEY)); } catch (_) {}
+        candidates.push(safeCookieGet(WRAPPER_SESSION_COOKIE_KEY));
+        for (const raw of candidates) {
+          if (!raw) continue;
+          try {
+            const parsed = normalizeSessionData(JSON.parse(raw));
+            if (!isSessionValid(parsed)) continue;
+            // Restore a cache only; the app still validates this token on the server.
+            safeSet(WRAPPER_SESSION_KEY, JSON.stringify(parsed));
+            return parsed;
+          } catch (_) {}
         }
+        safeRemove(WRAPPER_SESSION_KEY);
+        safeCookieRemove(WRAPPER_SESSION_COOKIE_KEY);
+        return null;
       }
 
       function clearSession() {
         startLogoutLock(15000);
         safeRemove(WRAPPER_SESSION_KEY);
+        safeCookieRemove(WRAPPER_SESSION_COOKIE_KEY);
       }
 
       function saveTargetAppUrl(url) {
@@ -456,10 +632,53 @@
 
         if (opts.logout) {
           url.searchParams.set('logout', '1');
+        } else {
+          // A saved URL must not turn every future PWA launch into a logout.
+          url.searchParams.delete('logout');
         }
 
         return url.toString();
       }
+      function rememberAppMessageSource(event) {
+        if (!event || !event.source) return false;
+        appMessageSource = event.source;
+        appMessageOrigin = event.origin && event.origin !== 'null' ? event.origin : '*';
+        return true;
+      }
+
+      function postMessageToApp(message) {
+        if (!message) return false;
+        if (appMessageSource) {
+          try {
+            appMessageSource.postMessage(message, appMessageOrigin || '*');
+            return true;
+          } catch (err) {
+            appMessageSource = null;
+            appMessageOrigin = '*';
+          }
+        }
+        // Legacy fallback for browsers where Apps Script exposes the user page
+        // directly as the outer iframe window.
+        try {
+          if (frame && frame.contentWindow) {
+            frame.contentWindow.postMessage(message, '*');
+            return true;
+          }
+        } catch (err) {}
+        return false;
+      }
+      function postSafeAreaToFrame() {
+        const safeArea = window.ZEVA_HOST_SAFE_AREA || {};
+        postMessageToApp({
+          type: 'ZEVA_EDUCATION_HOST_SAFE_AREA',
+          bottom: Math.max(0, Number(safeArea.bottom || 0)),
+          sentAt: Date.now()
+        });
+      }
+
+      window.addEventListener('zeva-host-safe-area-change', function() {
+        postSafeAreaToFrame();
+      });
 
       function setLoadingProgress(progress, text) {
         const value = Math.max(0, Math.min(100, Number(progress || 0)));
@@ -537,6 +756,11 @@
           ? targetUrl
           : loadTargetAppUrl();
 
+        // A reload creates a new inner googleusercontent window. Forget the old
+        // source and wait for ZEVA_EDUCATION_BRIDGE_READY from the new one.
+        appMessageSource = null;
+        appMessageOrigin = '*';
+        sessionSendGeneration += 1;
         frame.src = buildFrameUrl(nextUrl, options);
       }
 
@@ -546,11 +770,11 @@
         const sessionData = loadSession();
         if (!sessionData) return;
 
-        frame.contentWindow.postMessage({
+        postMessageToApp({
           type: 'ZEVA_EDUCATION_PARENT_SESSION',
           sessionData: sessionData,
           sentAt: Date.now()
-        }, '*');
+        });
       }
 
       function postSessionToFrameRepeated() {
@@ -579,12 +803,10 @@
           [500, 1200, 2500, 5000, 9000].forEach(function(delay) {
             window.setTimeout(function() {
               try {
-                if (!frame || !frame.contentWindow) return;
-
-                frame.contentWindow.postMessage({
+                postMessageToApp({
                   type: 'ZEVA_EDUCATION_FORCE_LOGOUT',
                   sentAt: Date.now()
-                }, '*');
+                });
               } catch (err) {}
             }, delay);
           });
@@ -599,6 +821,24 @@
 
         const data = event.data || {};
         const type = String(data.type || '');
+        const acceptedTypes = [
+          'ZEVA_EDUCATION_BRIDGE_READY', 'ZEVA_EDUCATION_BOOT_PROGRESS', 'BUNG_BU_BOOT_PROGRESS',
+          'ZEVA_EDUCATION_APP_READY', 'BUNG_BU_APP_READY',
+          'ZEVA_EDUCATION_SAVE_SESSION', 'BUNG_BU_SAVE_SESSION',
+          'ZEVA_EDUCATION_CLEAR_SESSION', 'BUNG_BU_CLEAR_SESSION',
+          'ZEVA_EDUCATION_REQUEST_SESSION', 'BUNG_BU_REQUEST_SESSION',
+          'ZEVA_EDUCATION_REJECT_SESSION'
+        ];
+        if (!acceptedTypes.includes(type)) return;
+        // Capture the exact inner Apps Script sandbox window. This is critical
+        // on iOS because frame.contentWindow can be the outer Google shell.
+        rememberAppMessageSource(event);
+
+        if (type === 'ZEVA_EDUCATION_BRIDGE_READY') {
+          postSafeAreaToFrame();
+          postSessionToFrameRepeated();
+          return;
+        }
 
         if (
           type === 'ZEVA_EDUCATION_BOOT_PROGRESS' ||
@@ -623,7 +863,11 @@
           type === 'ZEVA_EDUCATION_SAVE_SESSION' ||
           type === 'BUNG_BU_SAVE_SESSION'
         ) {
-          if (isLogoutLocked()) return;
+          if (isLogoutLocked() && !data.explicitLogin) return;
+          if (data.explicitLogin) {
+            logoutLockUntil = 0;
+            safeRemove(WRAPPER_LOGOUT_LOCK_KEY);
+          }
 
           saveSession(data.sessionData);
 
@@ -643,11 +887,31 @@
           return;
         }
 
+        if (type === 'ZEVA_EDUCATION_REJECT_SESSION') {
+          const saved = loadSession();
+          if (saved && String(saved.token) === String(data.token || '')) {
+            // Server rejected this token. Do not convert it into an explicit
+            // logout lock, and never delete a newer session after a late reply.
+            sessionSendGeneration += 1;
+            safeRemove(WRAPPER_SESSION_KEY);
+            safeCookieRemove(WRAPPER_SESSION_COOKIE_KEY);
+          } else if (saved) {
+            postSessionToFrameRepeated();
+          }
+          return;
+        }
+
         if (
           type === 'ZEVA_EDUCATION_CLEAR_SESSION' ||
           type === 'BUNG_BU_CLEAR_SESSION'
         ) {
-          forceFrameLogout();
+          if (type === 'ZEVA_EDUCATION_CLEAR_SESSION') {
+            clearSession();
+            clearTargetAppUrl();
+            markAppReady('Sẵn sàng');
+          } else {
+            forceFrameLogout();
+          }
           return;
         }
 
@@ -661,10 +925,12 @@
 
       frame.addEventListener('load', function() {
         setLoadingProgress(24, 'Đang kết nối ứng dụng...');
+        postSafeAreaToFrame();
         postSessionToFrameRepeated();
       });
 
       window.addEventListener('pageshow', function() {
+        postSafeAreaToFrame();
         postSessionToFrameRepeated();
       });
 
@@ -691,6 +957,8 @@
       retryBtn.addEventListener('click', function() {
         window.location.reload();
       });
+
+      Promise.resolve(tryEnablePersistentStorage()).catch(function() {});
 
       if ('serviceWorker' in navigator) {
         window.addEventListener('load', function() {

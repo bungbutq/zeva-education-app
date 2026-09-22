@@ -1,5 +1,5 @@
 /* ZEVA Education GitHub wrapper service worker */
-const CACHE_NAME = 'zeva-education-wrapper-v1';
+const CACHE_NAME = 'zeva-education-wrapper-v5-2026-09-22.3';
 const SHELL_FILES = [
   './',
   './index.html',
@@ -62,8 +62,14 @@ self.addEventListener('fetch', function(event) {
   // là cross-origin và luôn do Google tải trực tiếp.
   if (url.origin !== self.location.origin) return;
 
+  const networkRequest = (
+    request.mode === 'navigate' ||
+    url.pathname.endsWith('/index.html') ||
+    url.pathname.endsWith('/config.js')
+  ) ? new Request(request, { cache: 'no-store' }) : request;
+
   event.respondWith(
-    fetch(request)
+    fetch(networkRequest)
       .then(function(response) {
         if (response && response.ok) {
           const copy = response.clone();
