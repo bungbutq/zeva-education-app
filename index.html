@@ -596,6 +596,7 @@
       }
 
       function clearSession() {
+        stopHostSpeech();
         startLogoutLock(15000);
         safeRemove(WRAPPER_SESSION_KEY);
         safeCookieRemove(WRAPPER_SESSION_COOKIE_KEY);
@@ -677,6 +678,68 @@
         });
       }
 
+      // Google owns the inner Apps Script iframe permissions. Capture speech in
+      // this top-level app, bound to the already registered app window + origin.
+      let hostSpeech = null;
+      function stopHostSpeech() {
+        const active = hostSpeech;
+        hostSpeech = null;
+        if (!active) return;
+        clearTimeout(active.timer);
+        try { active.recognition.abort(); } catch (_) {}
+        active.reply('end');
+      }
+      window.addEventListener('message', function(event) {
+        const data = event.data || {};
+        if (data.type !== 'ZEVA_EDUCATION_SPEECH_REQUEST') return;
+        if (!appMessageSource || event.source !== appMessageSource || event.origin !== appMessageOrigin ||
+            !isAllowedAppsScriptMessageOrigin(event.origin)) return;
+        const requestId = String(data.requestId || '');
+        if (!/^[a-z0-9-]{1,100}$/i.test(requestId)) return;
+        if (data.action === 'stop' || data.action === 'abort') {
+          if (!hostSpeech || hostSpeech.requestId !== requestId) return;
+          if (data.action === 'abort') stopHostSpeech();
+          else { try { hostSpeech.recognition.stop(); } catch (_) { stopHostSpeech(); } }
+          return;
+        }
+        if (data.action !== 'start' || document.hidden || isLogoutLocked()) return;
+        if (hostSpeech && hostSpeech.requestId === requestId) return;
+        stopHostSpeech();
+        const reply = function(status, payload) {
+          // Never send a transcript to a replacement app frame.
+          if (event.source !== appMessageSource || event.origin !== appMessageOrigin) return;
+          try { event.source.postMessage(Object.assign({type:'ZEVA_EDUCATION_SPEECH', requestId:requestId, status:status}, payload || {}), event.origin); } catch (_) {}
+        };
+        const Recognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        if (!Recognition) { reply('error', {error:'unsupported'}); return; }
+        let recognition;
+        try { recognition = new Recognition(); } catch (_) { reply('error', {error:'service-not-allowed'}); return; }
+        const active = {requestId:requestId, recognition:recognition, reply:reply, timer:null};
+        hostSpeech = active;
+        recognition.lang = 'en-US';
+        recognition.continuous = false;
+        recognition.interimResults = false;
+        recognition.maxAlternatives = 1;
+        recognition.onstart = function() { if (hostSpeech === active) reply('start'); };
+        recognition.onresult = function(result) {
+          if (hostSpeech !== active) return;
+          const transcript = Array.from(result.results).filter(function(item) { return item.isFinal; })
+            .map(function(item) { return item[0].transcript; }).join(' ').trim().slice(0, 10000);
+          if (transcript) reply('result', {transcript:transcript});
+        };
+        recognition.onerror = function(error) {
+          if (hostSpeech !== active) return;
+          reply('error', {error:String(error.error || 'audio-capture')});
+          stopHostSpeech();
+        };
+        recognition.onend = function() { if (hostSpeech === active) stopHostSpeech(); };
+        active.timer = setTimeout(stopHostSpeech, 45000);
+        try { recognition.start(); } catch (_) { reply('error', {error:'not-allowed'}); stopHostSpeech(); }
+      });
+      window.addEventListener('pagehide', stopHostSpeech);
+      document.addEventListener('visibilitychange', function() { if (document.hidden) stopHostSpeech(); });
+      frame.addEventListener('load', stopHostSpeech);
+
       window.addEventListener('zeva-host-safe-area-change', function() {
         postSafeAreaToFrame();
       });
@@ -734,6 +797,7 @@
       }
 
       function loadFrame(targetUrl, options) {
+        stopHostSpeech();
         if (!isAllowedAppsScriptUrl(ZEVA_MAIN_APP_URL)) {
           showError(
             'Mở file config.js và thay mainAppUrl bằng link Web App Apps Script dạng https://script.google.com/macros/s/.../exec.'
