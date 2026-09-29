@@ -1,71 +1,71 @@
-<!doctype html>
+<!doctype html>
 <html lang="vi">
 <head>
   <meta name="zeva-wrapper-build" content="2026-09-22.4">
-  <meta charset="UTF-8">
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1, viewport-fit=cover"
-  >
-
+  <meta charset="UTF-8">
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1, viewport-fit=cover"
+  >
+
   <title>ZEVA Education</title>
-
-  <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32.png">
-  <link rel="icon" type="image/png" sizes="64x64" href="./favicon-64.png">
-  <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png">
-  <link rel="manifest" href="./manifest.webmanifest">
-  <link rel="preload" as="image" href="./icon-master-1024.png">
-
+
+  <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32.png">
+  <link rel="icon" type="image/png" sizes="64x64" href="./favicon-64.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png">
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="preload" as="image" href="./icon-master-1024.png">
+
   <meta name="theme-color" content="#075ee8">
-  <meta name="mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-title" content="ZEVA">
-  <meta name="apple-mobile-web-app-status-bar-style" content="default">
-
-  <style>
-    :root {
-      color-scheme: light;
-      --zeva-blue: #075ee8;
-      --zeva-bg: #eef2f7;
-      --zeva-text: #111827;
-      --zeva-splash-logo-size: 220px;
-      --zeva-safe-top: env(safe-area-inset-top, 0px);
-      --zeva-safe-right: env(safe-area-inset-right, 0px);
-      --zeva-safe-bottom: env(safe-area-inset-bottom, 0px);
-      --zeva-safe-left: env(safe-area-inset-left, 0px);
-    }
-
-    * {
-      box-sizing: border-box;
-    }
-
-    html,
-    body {
-      margin: 0;
-      width: 100%;
-      height: 100%;
-      overflow: hidden;
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+
+  <style>
+    :root {
+      color-scheme: light;
+      --zeva-blue: #075ee8;
+      --zeva-bg: #eef2f7;
+      --zeva-text: #111827;
+      --zeva-splash-logo-size: 220px;
+      --zeva-safe-top: env(safe-area-inset-top, 0px);
+      --zeva-safe-right: env(safe-area-inset-right, 0px);
+      --zeva-safe-bottom: env(safe-area-inset-bottom, 0px);
+      --zeva-safe-left: env(safe-area-inset-left, 0px);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      margin: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
       background: var(--zeva-bg);
-      font-family: Arial, Helvetica, sans-serif;
-      overscroll-behavior: none;
-    }
-
-    body {
-      /* Keep the iframe below the notch/status area, but let it paint through
-         the bottom home-indicator safe area. The app receives that bottom inset
-         through postMessage and keeps its floating nav in the same safe position. */
-      padding-top: var(--zeva-safe-top);
-      padding-right: var(--zeva-safe-right);
-      padding-bottom: 0;
-      padding-left: var(--zeva-safe-left);
-    }
-
+      font-family: Arial, Helvetica, sans-serif;
+      overscroll-behavior: none;
+    }
+
+    body {
+      /* Keep the iframe below the notch/status area, but let it paint through
+         the bottom home-indicator safe area. The app receives that bottom inset
+         through postMessage and keeps its floating nav in the same safe position. */
+      padding-top: var(--zeva-safe-top);
+      padding-right: var(--zeva-safe-right);
+      padding-bottom: 0;
+      padding-left: var(--zeva-safe-left);
+    }
+
     .app-shell {
       position: fixed;
-      inset: var(--zeva-safe-top)
-             var(--zeva-safe-right)
-             0
-             var(--zeva-safe-left);
+      inset: var(--zeva-safe-top)
+             var(--zeva-safe-right)
+             0
+             var(--zeva-safe-left);
       background: var(--zeva-bg);
       overflow: hidden;
     }
@@ -80,14 +80,14 @@
         min-height: 0;
       }
     }
-
+
     .app-frame {
-      width: 100%;
-      height: 100%;
-      border: 0;
-      display: block;
+      width: 100%;
+      height: 100%;
+      border: 0;
+      display: block;
       background: var(--zeva-bg);
-      opacity: 0;
+      opacity: 0;
       transition: opacity .18s ease;
     }
 
@@ -98,193 +98,193 @@
       height: 100%;
       transform-origin: top left;
     }
-
-    .app-frame.is-ready {
-      opacity: 1;
-    }
-
-    .app-loading,
-    .app-error {
-      position: absolute;
-      inset: 0;
-      z-index: 10;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 14px;
-      padding: 24px;
-      text-align: center;
-      background:
-        radial-gradient(circle at 50% 28%, rgba(42, 63, 125, .20), transparent 30%),
-        #05070d;
-      color: #f8fafc;
-      transition: opacity .2s ease, visibility .2s ease;
-    }
-
-    .app-loading.is-hidden,
-    .app-error.is-hidden {
-      opacity: 0;
-      visibility: hidden;
-      pointer-events: none;
-    }
-
-    .app-error {
+
+    .app-frame.is-ready {
+      opacity: 1;
+    }
+
+    .app-loading,
+    .app-error {
+      position: absolute;
+      inset: 0;
+      z-index: 10;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      padding: 24px;
+      text-align: center;
+      background:
+        radial-gradient(circle at 50% 28%, rgba(42, 63, 125, .20), transparent 30%),
+        #05070d;
+      color: #f8fafc;
+      transition: opacity .2s ease, visibility .2s ease;
+    }
+
+    .app-loading.is-hidden,
+    .app-error.is-hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .app-error {
       background: var(--zeva-bg);
       color: var(--zeva-text);
-    }
-
-    .app-loading img {
+    }
+
+    .app-loading img {
       width: var(--zeva-splash-logo-size);
       height: var(--zeva-splash-logo-size);
-      border-radius: 46px;
-      object-fit: contain;
-      box-shadow: 0 28px 70px rgba(0, 0, 0, .42);
-    }
-
-    .app-error img {
-      width: 92px;
-      height: 92px;
-      border-radius: 24px;
-      box-shadow: 0 14px 34px rgba(53, 94, 255, .2);
-    }
-
-    .app-loading-title,
-    .app-error-title {
-      margin: 0;
-      font-size: 20px;
-      font-weight: 900;
-    }
-
-    .app-loading-brand {
-      margin: 2px 0 0;
-      font-size: 22px;
-      line-height: 1.15;
-      font-weight: 900;
-      letter-spacing: .08em;
-      background: linear-gradient(180deg, #fff1a8 0%, #f7c454 38%, #d89222 72%, #fff0a1 100%);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      text-shadow: 0 6px 18px rgba(218, 146, 31, .16);
-    }
-
-    .app-loading-note,
-    .app-error-note {
-      margin: 0;
-      max-width: 360px;
-      font-size: 13px;
-      font-weight: 700;
-      line-height: 1.55;
-    }
-
-    .app-loading-note {
-      min-height: 20px;
-      color: #cbd5e1;
-    }
-
-    .app-error-note {
-      color: #64748b;
-    }
-
-    .app-progress-track {
-      position: relative;
+      border-radius: 46px;
+      object-fit: contain;
+      box-shadow: 0 28px 70px rgba(0, 0, 0, .42);
+    }
+
+    .app-error img {
+      width: 92px;
+      height: 92px;
+      border-radius: 24px;
+      box-shadow: 0 14px 34px rgba(53, 94, 255, .2);
+    }
+
+    .app-loading-title,
+    .app-error-title {
+      margin: 0;
+      font-size: 20px;
+      font-weight: 900;
+    }
+
+    .app-loading-brand {
+      margin: 2px 0 0;
+      font-size: 22px;
+      line-height: 1.15;
+      font-weight: 900;
+      letter-spacing: .08em;
+      background: linear-gradient(180deg, #fff1a8 0%, #f7c454 38%, #d89222 72%, #fff0a1 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      text-shadow: 0 6px 18px rgba(218, 146, 31, .16);
+    }
+
+    .app-loading-note,
+    .app-error-note {
+      margin: 0;
+      max-width: 360px;
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 1.55;
+    }
+
+    .app-loading-note {
+      min-height: 20px;
+      color: #cbd5e1;
+    }
+
+    .app-error-note {
+      color: #64748b;
+    }
+
+    .app-progress-track {
+      position: relative;
       width: var(--zeva-splash-logo-size);
-      height: 8px;
-      margin-top: 4px;
-      overflow: hidden;
-      border-radius: 999px;
-      background: rgba(148, 163, 184, .20);
-      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .06);
-    }
-
-    .app-progress-bar {
-      position: absolute;
-      inset: 0 auto 0 0;
-      width: 8%;
-      border-radius: inherit;
-      background: linear-gradient(90deg, #2563eb, #60a5fa 62%, #bfdbfe);
-      box-shadow: 0 0 16px rgba(96, 165, 250, .48);
-      transition: width .28s ease;
-    }
-
-    @media (max-width: 640px) {
-      :root {
+      height: 8px;
+      margin-top: 4px;
+      overflow: hidden;
+      border-radius: 999px;
+      background: rgba(148, 163, 184, .20);
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .06);
+    }
+
+    .app-progress-bar {
+      position: absolute;
+      inset: 0 auto 0 0;
+      width: 8%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, #2563eb, #60a5fa 62%, #bfdbfe);
+      box-shadow: 0 0 16px rgba(96, 165, 250, .48);
+      transition: width .28s ease;
+    }
+
+    @media (max-width: 640px) {
+      :root {
         --zeva-splash-logo-size: 176px;
-      }
-
-      .app-loading img {
-        border-radius: 38px;
-      }
-
-      .app-loading-brand {
-        font-size: 18px;
-      }
-    }
-
-    .app-spinner {
-      width: 34px;
-      height: 34px;
-      border: 4px solid #cbd5e1;
+      }
+
+      .app-loading img {
+        border-radius: 38px;
+      }
+
+      .app-loading-brand {
+        font-size: 18px;
+      }
+    }
+
+    .app-spinner {
+      width: 34px;
+      height: 34px;
+      border: 4px solid #cbd5e1;
       border-top-color: var(--zeva-blue);
-      border-radius: 999px;
+      border-radius: 999px;
       animation: zevaSpin .8s linear infinite;
-    }
-
-    .app-retry-btn {
-      min-width: 130px;
-      height: 42px;
-      border: 0;
-      border-radius: 999px;
+    }
+
+    .app-retry-btn {
+      min-width: 130px;
+      height: 42px;
+      border: 0;
+      border-radius: 999px;
       background: var(--zeva-blue);
-      color: #fff;
-      font-size: 14px;
-      font-weight: 900;
-      cursor: pointer;
-    }
-
+      color: #fff;
+      font-size: 14px;
+      font-weight: 900;
+      cursor: pointer;
+    }
+
     @keyframes zevaSpin {
-      to { transform: rotate(360deg); }
-    }
-  </style>
-</head>
-<body>
+      to { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
   <main class="app-shell">
     <div class="app-stage">
-    <iframe
+    <iframe
       id="zevaEducationFrame"
-      class="app-frame"
-      src="about:blank"
+      class="app-frame"
+      src="about:blank"
       title="ZEVA Education"
-      allow="clipboard-read; clipboard-write; geolocation; fullscreen; web-share; camera"
-      allowfullscreen
-    ></iframe>
-
-    <section id="appLoading" class="app-loading" aria-live="polite" aria-busy="true">
+      allow="clipboard-read; clipboard-write; geolocation; fullscreen; web-share; camera"
+      allowfullscreen
+    ></iframe>
+
+    <section id="appLoading" class="app-loading" aria-live="polite" aria-busy="true">
       <img src="./icon-master-1024.png" alt="ZEVA Education">
       <div class="app-loading-brand">ZEVA EDUCATION</div>
-      <p id="appLoadingNote" class="app-loading-note">Đang mở ứng dụng...</p>
-      <div
-        id="appProgressTrack"
-        class="app-progress-track"
-        role="progressbar"
-        aria-valuemin="0"
-        aria-valuemax="100"
-        aria-valuenow="8"
-        aria-label="Tiến độ mở ứng dụng"
-      >
-        <span id="appProgressBar" class="app-progress-bar" style="width:8%"></span>
-      </div>
-    </section>
-
-    <section id="appError" class="app-error is-hidden" aria-live="assertive">
+      <p id="appLoadingNote" class="app-loading-note">Đang mở ứng dụng...</p>
+      <div
+        id="appProgressTrack"
+        class="app-progress-track"
+        role="progressbar"
+        aria-valuemin="0"
+        aria-valuemax="100"
+        aria-valuenow="8"
+        aria-label="Tiến độ mở ứng dụng"
+      >
+        <span id="appProgressBar" class="app-progress-bar" style="width:8%"></span>
+      </div>
+    </section>
+
+    <section id="appError" class="app-error is-hidden" aria-live="assertive">
       <img src="./icon-192.png" alt="ZEVA Education">
-      <h1 class="app-error-title">Chưa cấu hình link Apps Script</h1>
-      <p id="appErrorNote" class="app-error-note">
-        Mở file config.js và thay mainAppUrl bằng link Web App Apps Script dạng /exec.
-      </p>
-      <button id="appRetryBtn" class="app-retry-btn" type="button">Tải lại</button>
-    </section>
+      <h1 class="app-error-title">Chưa cấu hình link Apps Script</h1>
+      <p id="appErrorNote" class="app-error-note">
+        Mở file config.js và thay mainAppUrl bằng link Web App Apps Script dạng /exec.
+      </p>
+      <button id="appRetryBtn" class="app-retry-btn" type="button">Tải lại</button>
+    </section>
     </div>
   </main>
 
@@ -329,10 +329,13 @@
         const scale = width / reference.width;
         // Width controls uniform sizing; height remains flexible, including with a keyboard.
         const heightRatio = height / reference.height;
-        // BBX_SHIP anchors its scaled shell at the top. Safari viewport scroll
-        // offsets must not slide the whole app and expose the host background.
+        // Keyboard focus can pan the visual viewport without resizing the layout
+        // viewport. Follow that pan only during a substantial keyboard resize;
+        // otherwise a shortened, top-anchored frame leaves a blank bottom strip.
+        const keyboardPan = mobile.matches && viewport && window.innerHeight - viewportHeight > 150
+          ? Math.max(0, viewport.offsetTop || 0) : 0;
         shell.style.left = left + 'px';
-        shell.style.top = top + 'px';
+        shell.style.top = (top + keyboardPan) + 'px';
         shell.style.right = 'auto';
         shell.style.bottom = 'auto';
         shell.style.width = width + 'px';
@@ -366,98 +369,98 @@
   </script>
 
   <script src="./config.js"></script>
-  <script>
-    (function() {
-      'use strict';
-
+  <script>
+    (function() {
+      'use strict';
+
       const CONFIG = window.ZEVA_WEBAPP_CONFIG || {};
       const ZEVA_MAIN_APP_URL = String(CONFIG.mainAppUrl || '').trim();
-
+
       const WRAPPER_SESSION_KEY = 'zeva_education_wrapper_session_v1';
       const WRAPPER_TARGET_APP_KEY = 'zeva_education_wrapper_target_url_v1';
       const WRAPPER_LOGOUT_LOCK_KEY = 'zeva_education_wrapper_logout_lock_v1';
       const WRAPPER_SESSION_COOKIE_KEY = 'zeva_education_wrapper_session_cookie_v2';
-
-      let sessionSendGeneration = 0;
-      let logoutLockUntil = 0;
+
+      let sessionSendGeneration = 0;
+      let logoutLockUntil = 0;
       let appReadyFallbackTimer = null;
       let appMessageSource = null;
       let appMessageOrigin = '*';
       let lastAppReloadRequestId = '';
-
+
       const frame = document.getElementById('zevaEducationFrame');
-      const loading = document.getElementById('appLoading');
-      const loadingNote = document.getElementById('appLoadingNote');
-      const progressTrack = document.getElementById('appProgressTrack');
-      const progressBar = document.getElementById('appProgressBar');
-      const errorPanel = document.getElementById('appError');
-      const errorNote = document.getElementById('appErrorNote');
-      const retryBtn = document.getElementById('appRetryBtn');
-
-      function isConfiguredAppUrl(url) {
-        return !String(url || '').includes('THAY_DEPLOYMENT_ID_APPS_SCRIPT_VAO_DAY');
-      }
-
-      function isAllowedAppsScriptUrl(url) {
-        try {
-          const parsed = new URL(String(url || '').trim());
-
-          return (
-            parsed.origin === 'https://script.google.com' &&
-            /^\/macros\/s\/[A-Za-z0-9_-]+\/exec$/.test(parsed.pathname)
-          );
-        } catch (err) {
-          return false;
-        }
-      }
-
-      function isAllowedAppsScriptMessageOrigin(origin) {
-        try {
-          const host = new URL(origin).hostname;
-
-          return (
-            host === 'script.google.com' ||
-            host === 'script.googleusercontent.com' ||
-            host.endsWith('.googleusercontent.com')
-          );
-        } catch (err) {
-          return false;
-        }
-      }
-
-      function safeGet(key) {
-        try {
-          const localValue = localStorage.getItem(key);
-          if (localValue !== null && localValue !== '') return localValue;
-        } catch (err) {}
-        try {
-          return sessionStorage.getItem(key);
-        } catch (err) {
-          return null;
-        }
-      }
-
-      function safeSet(key, value) {
-        let saved = false;
-        try {
-          localStorage.setItem(key, value);
-          saved = true;
-        } catch (err) {}
-        try {
-          sessionStorage.setItem(key, value);
-          saved = true;
-        } catch (err) {}
-        return saved;
-      }
-
-      function safeRemove(key) {
-        try {
-          localStorage.removeItem(key);
-        } catch (err) {}
-        try {
-          sessionStorage.removeItem(key);
-        } catch (err) {}
-      }
+      const loading = document.getElementById('appLoading');
+      const loadingNote = document.getElementById('appLoadingNote');
+      const progressTrack = document.getElementById('appProgressTrack');
+      const progressBar = document.getElementById('appProgressBar');
+      const errorPanel = document.getElementById('appError');
+      const errorNote = document.getElementById('appErrorNote');
+      const retryBtn = document.getElementById('appRetryBtn');
+
+      function isConfiguredAppUrl(url) {
+        return !String(url || '').includes('THAY_DEPLOYMENT_ID_APPS_SCRIPT_VAO_DAY');
+      }
+
+      function isAllowedAppsScriptUrl(url) {
+        try {
+          const parsed = new URL(String(url || '').trim());
+
+          return (
+            parsed.origin === 'https://script.google.com' &&
+            /^\/macros\/s\/[A-Za-z0-9_-]+\/exec$/.test(parsed.pathname)
+          );
+        } catch (err) {
+          return false;
+        }
+      }
+
+      function isAllowedAppsScriptMessageOrigin(origin) {
+        try {
+          const host = new URL(origin).hostname;
+
+          return (
+            host === 'script.google.com' ||
+            host === 'script.googleusercontent.com' ||
+            host.endsWith('.googleusercontent.com')
+          );
+        } catch (err) {
+          return false;
+        }
+      }
+
+      function safeGet(key) {
+        try {
+          const localValue = localStorage.getItem(key);
+          if (localValue !== null && localValue !== '') return localValue;
+        } catch (err) {}
+        try {
+          return sessionStorage.getItem(key);
+        } catch (err) {
+          return null;
+        }
+      }
+
+      function safeSet(key, value) {
+        let saved = false;
+        try {
+          localStorage.setItem(key, value);
+          saved = true;
+        } catch (err) {}
+        try {
+          sessionStorage.setItem(key, value);
+          saved = true;
+        } catch (err) {}
+        return saved;
+      }
+
+      function safeRemove(key) {
+        try {
+          localStorage.removeItem(key);
+        } catch (err) {}
+        try {
+          sessionStorage.removeItem(key);
+        } catch (err) {}
+      }
 
       function safeCookieGet(name) {
         try {
@@ -488,71 +491,71 @@
         try {
           document.cookie = encodeURIComponent(name) + '=; Path=/; Max-Age=0; SameSite=Lax; Secure';
         } catch (err) {}
-      }
-      async function tryEnablePersistentStorage() {
-        try {
-          if (!navigator.storage || typeof navigator.storage.persist !== 'function') return false;
-          return await navigator.storage.persist();
-        } catch (err) {
-          return false;
-        }
-      }
-
-      function getLogoutLockUntil() {
-        return Math.max(
-          Number(logoutLockUntil || 0),
-          Number(safeGet(WRAPPER_LOGOUT_LOCK_KEY) || 0)
-        );
-      }
-
-      function isLogoutLocked() {
-        return Date.now() < getLogoutLockUntil();
-      }
-
-      function startLogoutLock(durationMs) {
-        logoutLockUntil = Date.now() + Number(durationMs || 15000);
-        safeSet(WRAPPER_LOGOUT_LOCK_KEY, String(logoutLockUntil));
-        sessionSendGeneration += 1;
-      }
-
-      function clearExpiredLogoutLock() {
-        if (!isLogoutLocked()) {
-          safeRemove(WRAPPER_LOGOUT_LOCK_KEY);
-        }
-      }
-
-      function normalizeSessionData(input) {
-        const source = input && input.sessionData
-          ? input.sessionData
-          : input;
-
-        if (!source || !source.token) return null;
-
-        return {
-          token: String(source.token || '').trim(),
-          expiresAt: Number(source.expiresAt || 0),
-          user: source.user || null,
+      }
+      async function tryEnablePersistentStorage() {
+        try {
+          if (!navigator.storage || typeof navigator.storage.persist !== 'function') return false;
+          return await navigator.storage.persist();
+        } catch (err) {
+          return false;
+        }
+      }
+
+      function getLogoutLockUntil() {
+        return Math.max(
+          Number(logoutLockUntil || 0),
+          Number(safeGet(WRAPPER_LOGOUT_LOCK_KEY) || 0)
+        );
+      }
+
+      function isLogoutLocked() {
+        return Date.now() < getLogoutLockUntil();
+      }
+
+      function startLogoutLock(durationMs) {
+        logoutLockUntil = Date.now() + Number(durationMs || 15000);
+        safeSet(WRAPPER_LOGOUT_LOCK_KEY, String(logoutLockUntil));
+        sessionSendGeneration += 1;
+      }
+
+      function clearExpiredLogoutLock() {
+        if (!isLogoutLocked()) {
+          safeRemove(WRAPPER_LOGOUT_LOCK_KEY);
+        }
+      }
+
+      function normalizeSessionData(input) {
+        const source = input && input.sessionData
+          ? input.sessionData
+          : input;
+
+        if (!source || !source.token) return null;
+
+        return {
+          token: String(source.token || '').trim(),
+          expiresAt: Number(source.expiresAt || 0),
+          user: source.user || null,
           loginMode: source.loginMode || 'education',
-          savedAt: Number(source.savedAt || source.updatedAt || Date.now())
-        };
-      }
-
-      function isSessionValid(sessionData) {
-        return !!(
-          sessionData &&
-          sessionData.token &&
-          Number(sessionData.expiresAt || 0) > Date.now()
-        );
-      }
-
-      function saveSession(sessionData) {
-        clearExpiredLogoutLock();
-
-        if (isLogoutLocked()) return false;
-
-        const normalized = normalizeSessionData(sessionData);
-        if (!isSessionValid(normalized)) return false;
-
+          savedAt: Number(source.savedAt || source.updatedAt || Date.now())
+        };
+      }
+
+      function isSessionValid(sessionData) {
+        return !!(
+          sessionData &&
+          sessionData.token &&
+          Number(sessionData.expiresAt || 0) > Date.now()
+        );
+      }
+
+      function saveSession(sessionData) {
+        clearExpiredLogoutLock();
+
+        if (isLogoutLocked()) return false;
+
+        const normalized = normalizeSessionData(sessionData);
+        if (!isSessionValid(normalized)) return false;
+
         normalized.savedAt = Date.now();
         const raw = JSON.stringify(normalized);
         const savedStorage = safeSet(WRAPPER_SESSION_KEY, raw);
@@ -566,14 +569,14 @@
         });
         const savedCookie = safeCookieSet(WRAPPER_SESSION_COOKIE_KEY, cookieRaw, normalized.expiresAt);
         if (savedStorage || savedCookie) Promise.resolve(tryEnablePersistentStorage()).catch(function() {});
-        return savedStorage || savedCookie;
-      }
-
-      function loadSession() {
-        clearExpiredLogoutLock();
-
-        if (isLogoutLocked()) return null;
-
+        return savedStorage || savedCookie;
+      }
+
+      function loadSession() {
+        clearExpiredLogoutLock();
+
+        if (isLogoutLocked()) return null;
+
         // A corrupt/expired page-storage copy must not hide a valid cookie.
         // Access each getter inside try: Safari may deny the storage object itself.
         const candidates = [];
@@ -593,53 +596,53 @@
         safeRemove(WRAPPER_SESSION_KEY);
         safeCookieRemove(WRAPPER_SESSION_COOKIE_KEY);
         return null;
-      }
-
+      }
+
       function clearSession() {
         stopHostSpeech();
         startLogoutLock(15000);
         safeRemove(WRAPPER_SESSION_KEY);
         safeCookieRemove(WRAPPER_SESSION_COOKIE_KEY);
-      }
-
-      function saveTargetAppUrl(url) {
-        if (!isAllowedAppsScriptUrl(url)) return false;
-        return safeSet(WRAPPER_TARGET_APP_KEY, url);
-      }
-
-      function loadTargetAppUrl() {
-        const stored = safeGet(WRAPPER_TARGET_APP_KEY);
-
-        if (isAllowedAppsScriptUrl(stored)) {
-          return stored;
-        }
-
-        safeRemove(WRAPPER_TARGET_APP_KEY);
+      }
+
+      function saveTargetAppUrl(url) {
+        if (!isAllowedAppsScriptUrl(url)) return false;
+        return safeSet(WRAPPER_TARGET_APP_KEY, url);
+      }
+
+      function loadTargetAppUrl() {
+        const stored = safeGet(WRAPPER_TARGET_APP_KEY);
+
+        if (isAllowedAppsScriptUrl(stored)) {
+          return stored;
+        }
+
+        safeRemove(WRAPPER_TARGET_APP_KEY);
         return ZEVA_MAIN_APP_URL;
-      }
-
-      function clearTargetAppUrl() {
-        safeRemove(WRAPPER_TARGET_APP_KEY);
-      }
-
-      function buildFrameUrl(baseUrl, options) {
-        const opts = options || {};
-        const appUrl = isAllowedAppsScriptUrl(baseUrl)
-          ? baseUrl
+      }
+
+      function clearTargetAppUrl() {
+        safeRemove(WRAPPER_TARGET_APP_KEY);
+      }
+
+      function buildFrameUrl(baseUrl, options) {
+        const opts = options || {};
+        const appUrl = isAllowedAppsScriptUrl(baseUrl)
+          ? baseUrl
           : ZEVA_MAIN_APP_URL;
-
-        const url = new URL(appUrl);
-        url.searchParams.set('embed', 'github');
-        url.searchParams.set('_t', String(Date.now()));
-
+
+        const url = new URL(appUrl);
+        url.searchParams.set('embed', 'github');
+        url.searchParams.set('_t', String(Date.now()));
+
         if (opts.logout) {
           url.searchParams.set('logout', '1');
         } else {
           // A saved URL must not turn every future PWA launch into a logout.
           url.searchParams.delete('logout');
         }
-
-        return url.toString();
+
+        return url.toString();
       }
       function rememberAppMessageSource(event) {
         if (!event || !event.source) return false;
@@ -669,221 +672,221 @@
         } catch (err) {}
         return false;
       }
-      function postSafeAreaToFrame() {
-        const safeArea = window.ZEVA_HOST_SAFE_AREA || {};
-        postMessageToApp({
-          type: 'ZEVA_EDUCATION_HOST_SAFE_AREA',
-          bottom: Math.max(0, Number(safeArea.bottom || 0)),
-          sentAt: Date.now()
-        });
-      }
-
-      // Google owns the inner Apps Script iframe permissions. Capture speech in
-      // this top-level app, bound to the already registered app window + origin.
-      let hostSpeech = null;
-      function stopHostSpeech() {
-        const active = hostSpeech;
-        hostSpeech = null;
-        if (!active) return;
-        clearTimeout(active.timer);
-        try { active.recognition.abort(); } catch (_) {}
-        active.reply('end');
-      }
-      window.addEventListener('message', function(event) {
-        const data = event.data || {};
-        if (data.type !== 'ZEVA_EDUCATION_SPEECH_REQUEST') return;
-        if (!appMessageSource || event.source !== appMessageSource || event.origin !== appMessageOrigin ||
-            !isAllowedAppsScriptMessageOrigin(event.origin)) return;
-        const requestId = String(data.requestId || '');
-        if (!/^[a-z0-9-]{1,100}$/i.test(requestId)) return;
-        if (data.action === 'stop' || data.action === 'abort') {
-          if (!hostSpeech || hostSpeech.requestId !== requestId) return;
-          if (data.action === 'abort') stopHostSpeech();
-          else { try { hostSpeech.recognition.stop(); } catch (_) { stopHostSpeech(); } }
-          return;
-        }
-        if (data.action !== 'start' || document.hidden || isLogoutLocked()) return;
-        if (hostSpeech && hostSpeech.requestId === requestId) return;
-        stopHostSpeech();
-        const reply = function(status, payload) {
-          // Never send a transcript to a replacement app frame.
-          if (event.source !== appMessageSource || event.origin !== appMessageOrigin) return;
-          try { event.source.postMessage(Object.assign({type:'ZEVA_EDUCATION_SPEECH', requestId:requestId, status:status}, payload || {}), event.origin); } catch (_) {}
-        };
-        const Recognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-        if (!Recognition) { reply('error', {error:'unsupported'}); return; }
-        let recognition;
-        try { recognition = new Recognition(); } catch (_) { reply('error', {error:'service-not-allowed'}); return; }
-        const active = {requestId:requestId, recognition:recognition, reply:reply, timer:null};
-        hostSpeech = active;
-        recognition.lang = 'en-US';
-        recognition.continuous = false;
-        recognition.interimResults = false;
-        recognition.maxAlternatives = 1;
-        recognition.onstart = function() { if (hostSpeech === active) reply('start'); };
-        recognition.onresult = function(result) {
-          if (hostSpeech !== active) return;
-          const transcript = Array.from(result.results).filter(function(item) { return item.isFinal; })
-            .map(function(item) { return item[0].transcript; }).join(' ').trim().slice(0, 10000);
-          if (transcript) reply('result', {transcript:transcript});
-        };
-        recognition.onerror = function(error) {
-          if (hostSpeech !== active) return;
-          reply('error', {error:String(error.error || 'audio-capture')});
-          stopHostSpeech();
-        };
-        recognition.onend = function() { if (hostSpeech === active) stopHostSpeech(); };
-        active.timer = setTimeout(stopHostSpeech, 45000);
-        try { recognition.start(); } catch (_) { reply('error', {error:'not-allowed'}); stopHostSpeech(); }
-      });
-      window.addEventListener('pagehide', stopHostSpeech);
-      document.addEventListener('visibilitychange', function() { if (document.hidden) stopHostSpeech(); });
-      frame.addEventListener('load', stopHostSpeech);
-
-      window.addEventListener('zeva-host-safe-area-change', function() {
-        postSafeAreaToFrame();
-      });
-
-      function setLoadingProgress(progress, text) {
-        const value = Math.max(0, Math.min(100, Number(progress || 0)));
-
-        if (loadingNote && text) {
-          loadingNote.textContent = String(text);
-        }
-
-        if (progressBar) {
-          progressBar.style.width = value + '%';
-        }
-
-        if (progressTrack) {
-          progressTrack.setAttribute('aria-valuenow', String(value));
-        }
-      }
-
-      function showLoading(progress, text) {
-        loading.classList.remove('is-hidden');
-        loading.setAttribute('aria-busy', 'true');
-        setLoadingProgress(progress || 8, text || 'Đang mở ứng dụng...');
-      }
-
-      function hideLoading() {
-        loading.classList.add('is-hidden');
-        loading.setAttribute('aria-busy', 'false');
-      }
-
-      function revealApp() {
-        if (appReadyFallbackTimer) {
-          window.clearTimeout(appReadyFallbackTimer);
-          appReadyFallbackTimer = null;
-        }
-
-        frame.classList.add('is-ready');
-        hideLoading();
-      }
-
-      function markAppReady(text) {
-        setLoadingProgress(100, text || 'Sẵn sàng');
-        window.setTimeout(revealApp, 180);
-      }
-
-      function showError(message) {
-        hideLoading();
-        if (message) errorNote.textContent = message;
-        errorPanel.classList.remove('is-hidden');
-      }
-
-      function hideError() {
-        errorPanel.classList.add('is-hidden');
-      }
-
-      function loadFrame(targetUrl, options) {
-        stopHostSpeech();
+      function postSafeAreaToFrame() {
+        const safeArea = window.ZEVA_HOST_SAFE_AREA || {};
+        postMessageToApp({
+          type: 'ZEVA_EDUCATION_HOST_SAFE_AREA',
+          bottom: Math.max(0, Number(safeArea.bottom || 0)),
+          sentAt: Date.now()
+        });
+      }
+
+      // Google owns the inner Apps Script iframe permissions. Capture speech in
+      // this top-level app, bound to the already registered app window + origin.
+      let hostSpeech = null;
+      function stopHostSpeech() {
+        const active = hostSpeech;
+        hostSpeech = null;
+        if (!active) return;
+        clearTimeout(active.timer);
+        try { active.recognition.abort(); } catch (_) {}
+        active.reply('end');
+      }
+      window.addEventListener('message', function(event) {
+        const data = event.data || {};
+        if (data.type !== 'ZEVA_EDUCATION_SPEECH_REQUEST') return;
+        if (!appMessageSource || event.source !== appMessageSource || event.origin !== appMessageOrigin ||
+            !isAllowedAppsScriptMessageOrigin(event.origin)) return;
+        const requestId = String(data.requestId || '');
+        if (!/^[a-z0-9-]{1,100}$/i.test(requestId)) return;
+        if (data.action === 'stop' || data.action === 'abort') {
+          if (!hostSpeech || hostSpeech.requestId !== requestId) return;
+          if (data.action === 'abort') stopHostSpeech();
+          else { try { hostSpeech.recognition.stop(); } catch (_) { stopHostSpeech(); } }
+          return;
+        }
+        if (data.action !== 'start' || document.hidden || isLogoutLocked()) return;
+        if (hostSpeech && hostSpeech.requestId === requestId) return;
+        stopHostSpeech();
+        const reply = function(status, payload) {
+          // Never send a transcript to a replacement app frame.
+          if (event.source !== appMessageSource || event.origin !== appMessageOrigin) return;
+          try { event.source.postMessage(Object.assign({type:'ZEVA_EDUCATION_SPEECH', requestId:requestId, status:status}, payload || {}), event.origin); } catch (_) {}
+        };
+        const Recognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        if (!Recognition) { reply('error', {error:'unsupported'}); return; }
+        let recognition;
+        try { recognition = new Recognition(); } catch (_) { reply('error', {error:'service-not-allowed'}); return; }
+        const active = {requestId:requestId, recognition:recognition, reply:reply, timer:null};
+        hostSpeech = active;
+        recognition.lang = 'en-US';
+        recognition.continuous = false;
+        recognition.interimResults = false;
+        recognition.maxAlternatives = 1;
+        recognition.onstart = function() { if (hostSpeech === active) reply('start'); };
+        recognition.onresult = function(result) {
+          if (hostSpeech !== active) return;
+          const transcript = Array.from(result.results).filter(function(item) { return item.isFinal; })
+            .map(function(item) { return item[0].transcript; }).join(' ').trim().slice(0, 10000);
+          if (transcript) reply('result', {transcript:transcript});
+        };
+        recognition.onerror = function(error) {
+          if (hostSpeech !== active) return;
+          reply('error', {error:String(error.error || 'audio-capture')});
+          stopHostSpeech();
+        };
+        recognition.onend = function() { if (hostSpeech === active) stopHostSpeech(); };
+        active.timer = setTimeout(stopHostSpeech, 45000);
+        try { recognition.start(); } catch (_) { reply('error', {error:'not-allowed'}); stopHostSpeech(); }
+      });
+      window.addEventListener('pagehide', stopHostSpeech);
+      document.addEventListener('visibilitychange', function() { if (document.hidden) stopHostSpeech(); });
+      frame.addEventListener('load', stopHostSpeech);
+
+      window.addEventListener('zeva-host-safe-area-change', function() {
+        postSafeAreaToFrame();
+      });
+
+      function setLoadingProgress(progress, text) {
+        const value = Math.max(0, Math.min(100, Number(progress || 0)));
+
+        if (loadingNote && text) {
+          loadingNote.textContent = String(text);
+        }
+
+        if (progressBar) {
+          progressBar.style.width = value + '%';
+        }
+
+        if (progressTrack) {
+          progressTrack.setAttribute('aria-valuenow', String(value));
+        }
+      }
+
+      function showLoading(progress, text) {
+        loading.classList.remove('is-hidden');
+        loading.setAttribute('aria-busy', 'true');
+        setLoadingProgress(progress || 8, text || 'Đang mở ứng dụng...');
+      }
+
+      function hideLoading() {
+        loading.classList.add('is-hidden');
+        loading.setAttribute('aria-busy', 'false');
+      }
+
+      function revealApp() {
+        if (appReadyFallbackTimer) {
+          window.clearTimeout(appReadyFallbackTimer);
+          appReadyFallbackTimer = null;
+        }
+
+        frame.classList.add('is-ready');
+        hideLoading();
+      }
+
+      function markAppReady(text) {
+        setLoadingProgress(100, text || 'Sẵn sàng');
+        window.setTimeout(revealApp, 180);
+      }
+
+      function showError(message) {
+        hideLoading();
+        if (message) errorNote.textContent = message;
+        errorPanel.classList.remove('is-hidden');
+      }
+
+      function hideError() {
+        errorPanel.classList.add('is-hidden');
+      }
+
+      function loadFrame(targetUrl, options) {
+        stopHostSpeech();
         if (!isAllowedAppsScriptUrl(ZEVA_MAIN_APP_URL)) {
-          showError(
-            'Mở file config.js và thay mainAppUrl bằng link Web App Apps Script dạng https://script.google.com/macros/s/.../exec.'
-          );
-          return;
-        }
-
-        hideError();
-        frame.classList.remove('is-ready');
-        showLoading(8, 'Đang mở ứng dụng...');
-
-        if (appReadyFallbackTimer) {
-          window.clearTimeout(appReadyFallbackTimer);
-        }
-
-        appReadyFallbackTimer = window.setTimeout(function() {
-          setLoadingProgress(96, 'Đang hoàn tất khởi động...');
-        }, 18000);
-
-        const nextUrl = isAllowedAppsScriptUrl(targetUrl)
-          ? targetUrl
-          : loadTargetAppUrl();
+          showError(
+            'Mở file config.js và thay mainAppUrl bằng link Web App Apps Script dạng https://script.google.com/macros/s/.../exec.'
+          );
+          return;
+        }
+
+        hideError();
+        frame.classList.remove('is-ready');
+        showLoading(8, 'Đang mở ứng dụng...');
+
+        if (appReadyFallbackTimer) {
+          window.clearTimeout(appReadyFallbackTimer);
+        }
+
+        appReadyFallbackTimer = window.setTimeout(function() {
+          setLoadingProgress(96, 'Đang hoàn tất khởi động...');
+        }, 18000);
+
+        const nextUrl = isAllowedAppsScriptUrl(targetUrl)
+          ? targetUrl
+          : loadTargetAppUrl();
 
         // A reload creates a new inner googleusercontent window. Forget the old
         // source and wait for ZEVA_EDUCATION_BRIDGE_READY from the new one.
         appMessageSource = null;
         appMessageOrigin = '*';
-        sessionSendGeneration += 1;
-        frame.src = buildFrameUrl(nextUrl, options);
-      }
-
-      function postSessionToFrame() {
-        if (!frame || !frame.contentWindow || isLogoutLocked()) return;
-
-        const sessionData = loadSession();
-        if (!sessionData) return;
-
+        sessionSendGeneration += 1;
+        frame.src = buildFrameUrl(nextUrl, options);
+      }
+
+      function postSessionToFrame() {
+        if (!frame || !frame.contentWindow || isLogoutLocked()) return;
+
+        const sessionData = loadSession();
+        if (!sessionData) return;
+
         postMessageToApp({
           type: 'ZEVA_EDUCATION_PARENT_SESSION',
           sessionData: sessionData,
           sentAt: Date.now()
-        });
-      }
-
-      function postSessionToFrameRepeated() {
-        if (isLogoutLocked()) return;
-
-        const generation = ++sessionSendGeneration;
-
-        [0, 250, 700, 1500, 3000, 5000, 8000].forEach(function(delay) {
-          window.setTimeout(function() {
-            if (generation !== sessionSendGeneration) return;
-            if (isLogoutLocked()) return;
-            postSessionToFrame();
-          }, delay);
-        });
-      }
-
-      function forceFrameLogout() {
-        clearSession();
-        clearTargetAppUrl();
-
-        frame.src = 'about:blank';
-
-        window.setTimeout(function() {
+        });
+      }
+
+      function postSessionToFrameRepeated() {
+        if (isLogoutLocked()) return;
+
+        const generation = ++sessionSendGeneration;
+
+        [0, 250, 700, 1500, 3000, 5000, 8000].forEach(function(delay) {
+          window.setTimeout(function() {
+            if (generation !== sessionSendGeneration) return;
+            if (isLogoutLocked()) return;
+            postSessionToFrame();
+          }, delay);
+        });
+      }
+
+      function forceFrameLogout() {
+        clearSession();
+        clearTargetAppUrl();
+
+        frame.src = 'about:blank';
+
+        window.setTimeout(function() {
           loadFrame(ZEVA_MAIN_APP_URL, { logout: true });
-
-          [500, 1200, 2500, 5000, 9000].forEach(function(delay) {
-            window.setTimeout(function() {
+
+          [500, 1200, 2500, 5000, 9000].forEach(function(delay) {
+            window.setTimeout(function() {
               try {
                 postMessageToApp({
                   type: 'ZEVA_EDUCATION_FORCE_LOGOUT',
                   sentAt: Date.now()
-                });
-              } catch (err) {}
-            }, delay);
-          });
-        }, 180);
-      }
-
-      window.addEventListener('message', function(event) {
-        if (!event.data || !event.data.type) return;
-        // Apps Script có thể phát message từ iframe googleusercontent nằm bên
-        // trong iframe script.google.com, nên chỉ khóa theo origin Google hợp lệ.
-        if (!isAllowedAppsScriptMessageOrigin(event.origin)) return;
-
+                });
+              } catch (err) {}
+            }, delay);
+          });
+        }, 180);
+      }
+
+      window.addEventListener('message', function(event) {
+        if (!event.data || !event.data.type) return;
+        // Apps Script có thể phát message từ iframe googleusercontent nằm bên
+        // trong iframe script.google.com, nên chỉ khóa theo origin Google hợp lệ.
+        if (!isAllowedAppsScriptMessageOrigin(event.origin)) return;
+
         const data = event.data || {};
         const type = String(data.type || '');
         const acceptedTypes = [
@@ -926,31 +929,31 @@
           postSafeAreaToFrame();
           postSessionToFrameRepeated();
           return;
-        }
-
-        if (
+        }
+
+        if (
           type === 'ZEVA_EDUCATION_BOOT_PROGRESS' ||
-          type === 'BUNG_BU_BOOT_PROGRESS'
-        ) {
-          showLoading(
-            Number(data.progress || 0),
-            data.text || data.message || 'Đang tải ứng dụng...'
-          );
-          return;
-        }
-
-        if (
+          type === 'BUNG_BU_BOOT_PROGRESS'
+        ) {
+          showLoading(
+            Number(data.progress || 0),
+            data.text || data.message || 'Đang tải ứng dụng...'
+          );
+          return;
+        }
+
+        if (
           type === 'ZEVA_EDUCATION_APP_READY' ||
-          type === 'BUNG_BU_APP_READY'
-        ) {
-          markAppReady(data.text || data.message || 'Sẵn sàng');
-          return;
-        }
-
-        if (
+          type === 'BUNG_BU_APP_READY'
+        ) {
+          markAppReady(data.text || data.message || 'Sẵn sàng');
+          return;
+        }
+
+        if (
           type === 'ZEVA_EDUCATION_SAVE_SESSION' ||
-          type === 'BUNG_BU_SAVE_SESSION'
-        ) {
+          type === 'BUNG_BU_SAVE_SESSION'
+        ) {
           if (isLogoutLocked() && !data.explicitLogin) return;
           if (data.explicitLogin) {
             logoutLockUntil = 0;
@@ -958,23 +961,23 @@
           }
 
           saveSession(data.sessionData);
-
-          if (
-            data.targetAppUrl &&
-            isAllowedAppsScriptUrl(data.targetAppUrl)
-          ) {
-            saveTargetAppUrl(data.targetAppUrl);
-
-            if (frame.src.indexOf(data.targetAppUrl) !== 0) {
-              loadFrame(data.targetAppUrl);
-              return;
-            }
-          }
-
-          postSessionToFrameRepeated();
-          return;
-        }
-
+
+          if (
+            data.targetAppUrl &&
+            isAllowedAppsScriptUrl(data.targetAppUrl)
+          ) {
+            saveTargetAppUrl(data.targetAppUrl);
+
+            if (frame.src.indexOf(data.targetAppUrl) !== 0) {
+              loadFrame(data.targetAppUrl);
+              return;
+            }
+          }
+
+          postSessionToFrameRepeated();
+          return;
+        }
+
         if (type === 'ZEVA_EDUCATION_REJECT_SESSION') {
           const saved = loadSession();
           if (saved && String(saved.token) === String(data.token || '')) {
@@ -991,8 +994,8 @@
 
         if (
           type === 'ZEVA_EDUCATION_CLEAR_SESSION' ||
-          type === 'BUNG_BU_CLEAR_SESSION'
-        ) {
+          type === 'BUNG_BU_CLEAR_SESSION'
+        ) {
           if (type === 'ZEVA_EDUCATION_CLEAR_SESSION') {
             clearSession();
             clearTargetAppUrl();
@@ -1000,74 +1003,74 @@
           } else {
             forceFrameLogout();
           }
-          return;
-        }
-
-        if (
+          return;
+        }
+
+        if (
           type === 'ZEVA_EDUCATION_REQUEST_SESSION' ||
-          type === 'BUNG_BU_REQUEST_SESSION'
-        ) {
-          postSessionToFrameRepeated();
-        }
-      });
-
-      frame.addEventListener('load', function() {
-        setLoadingProgress(24, 'Đang kết nối ứng dụng...');
-        postSafeAreaToFrame();
-        postSessionToFrameRepeated();
-      });
-
-      window.addEventListener('pageshow', function() {
-        postSafeAreaToFrame();
-        postSessionToFrameRepeated();
-      });
-
-      window.addEventListener('focus', function() {
-        postSessionToFrameRepeated();
-      });
-
-      document.addEventListener('visibilitychange', function() {
-        if (!document.hidden) {
-          postSessionToFrameRepeated();
-        }
-      });
-
-      window.addEventListener('online', function() {
-        if (frame.src === 'about:blank') {
-          loadFrame();
-        }
-      });
-
-      window.addEventListener('offline', function() {
-        showError('Thiết bị đang mất kết nối Internet. Hãy kết nối lại rồi bấm Tải lại.');
-      });
-
-      retryBtn.addEventListener('click', function() {
-        window.location.reload();
-      });
-
-      Promise.resolve(tryEnablePersistentStorage()).catch(function() {});
-
-      if ('serviceWorker' in navigator) {
-        window.addEventListener('load', function() {
-          navigator.serviceWorker.register('./service-worker.js').catch(function(err) {
+          type === 'BUNG_BU_REQUEST_SESSION'
+        ) {
+          postSessionToFrameRepeated();
+        }
+      });
+
+      frame.addEventListener('load', function() {
+        setLoadingProgress(24, 'Đang kết nối ứng dụng...');
+        postSafeAreaToFrame();
+        postSessionToFrameRepeated();
+      });
+
+      window.addEventListener('pageshow', function() {
+        postSafeAreaToFrame();
+        postSessionToFrameRepeated();
+      });
+
+      window.addEventListener('focus', function() {
+        postSessionToFrameRepeated();
+      });
+
+      document.addEventListener('visibilitychange', function() {
+        if (!document.hidden) {
+          postSessionToFrameRepeated();
+        }
+      });
+
+      window.addEventListener('online', function() {
+        if (frame.src === 'about:blank') {
+          loadFrame();
+        }
+      });
+
+      window.addEventListener('offline', function() {
+        showError('Thiết bị đang mất kết nối Internet. Hãy kết nối lại rồi bấm Tải lại.');
+      });
+
+      retryBtn.addEventListener('click', function() {
+        window.location.reload();
+      });
+
+      Promise.resolve(tryEnablePersistentStorage()).catch(function() {});
+
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', function() {
+          navigator.serviceWorker.register('./service-worker.js').catch(function(err) {
             console.warn('[ZEVA] Không đăng ký được service worker:', err);
-          });
-        });
-      }
-
+          });
+        });
+      }
+
       if (!isConfiguredAppUrl(ZEVA_MAIN_APP_URL)) {
-        showError();
-        return;
-      }
-
+        showError();
+        return;
+      }
+
       if (!isAllowedAppsScriptUrl(ZEVA_MAIN_APP_URL)) {
-        showError('mainAppUrl trong config.js không đúng định dạng link Web App Apps Script /exec.');
-        return;
-      }
-
-      loadFrame();
-    })();
-  </script>
-</body>
-</html>
+        showError('mainAppUrl trong config.js không đúng định dạng link Web App Apps Script /exec.');
+        return;
+      }
+
+      loadFrame();
+    })();
+  </script>
+</body>
+</html>
