@@ -296,10 +296,12 @@
       const stage = document.querySelector('.app-stage');
       const mobile = window.matchMedia('(max-width: 768px)');
       let pending = 0;
+      let mobileCanvas = null;
 
       function syncMobileDesignViewport() {
         pending = 0;
         if (!mobile.matches) {
+          mobileCanvas = null;
           shell.removeAttribute('style');
           stage.removeAttribute('style');
           document.documentElement.style.removeProperty('--zeva-viewport-height');
@@ -326,9 +328,19 @@
         document.documentElement.style.setProperty('--zeva-viewport-height', viewportHeight + 'px');
         const width = Math.max(1, viewportWidth - left - right);
         const height = Math.max(1, viewportHeight - top);
-        const scale = width / reference.width;
-        // Width controls uniform sizing; height remains flexible, including with a keyboard.
-        const heightRatio = height / reference.height;
+        const design = reference;
+        // Keep the approved mobile canvas intact: cards, text and icons all use
+        // the same fit scale. A keyboard reduces the scrollport, not the design scale.
+        const sameWidth = mobileCanvas && Math.abs(mobileCanvas.width - width) < 2;
+        const keyboard = mobile.matches && ((sameWidth && height < mobileCanvas.height - 150)
+          || (viewport && window.innerHeight - viewportHeight > 150));
+        const fitHeight = keyboard ? (sameWidth ? mobileCanvas.height : Math.max(height, window.innerHeight - top)) : height;
+        const scale = Math.min(width / design.width, fitHeight / design.height);
+        if (mobile.matches && !keyboard) mobileCanvas = { width, height };
+        const canvasWidth = mobile.matches ? design.width : width / scale;
+        const canvasHeight = mobile.matches && !keyboard ? design.height : height / scale;
+        const canvasLeft = mobile.matches ? Math.max(0, (width - canvasWidth * scale) / 2) : 0;
+        const canvasTop = mobile.matches && !keyboard ? Math.max(0, (height - canvasHeight * scale) / 2) : 0;
         // Keyboard focus can pan the visual viewport without resizing the layout
         // viewport. Follow that pan only during a substantial keyboard resize;
         // otherwise a shortened, top-anchored frame leaves a blank bottom strip.
@@ -340,11 +352,13 @@
         shell.style.bottom = 'auto';
         shell.style.width = width + 'px';
         shell.style.height = height + 'px';
-        stage.style.width = reference.width + 'px';
-        stage.style.height = (reference.height * heightRatio / scale) + 'px';
+        stage.style.width = canvasWidth + 'px';
+        stage.style.height = canvasHeight + 'px';
+        stage.style.left = canvasLeft + 'px';
+        stage.style.top = canvasTop + 'px';
         stage.style.transform = 'scale(' + scale + ')';
-        // The app uses a 440px logical canvas; insets must use that same unit.
-        const safeArea = { top: 0, right: 0, bottom: bottom / scale, left: 0 };
+        // Insets use logical canvas units on both platforms.
+        const safeArea = { top: 0, right: 0, bottom: Math.max(0, bottom - canvasTop) / scale, left: 0 };
         window.ZEVA_HOST_SAFE_AREA = safeArea;
         window.dispatchEvent(new CustomEvent('zeva-host-safe-area-change', { detail: safeArea }));
       }
@@ -355,7 +369,7 @@
       syncMobileDesignViewport();
       window.addEventListener('resize', scheduleMobileDesignViewport);
       window.addEventListener('pageshow', scheduleMobileDesignViewport);
-      window.addEventListener('orientationchange', scheduleMobileDesignViewport);
+      window.addEventListener('orientationchange', () => { mobileCanvas = null; scheduleMobileDesignViewport(); });
       window.addEventListener('orientationchange', () => {
         window.setTimeout(scheduleMobileDesignViewport, 150);
       });
