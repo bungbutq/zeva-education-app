@@ -329,7 +329,7 @@
         const width = Math.max(1, viewportWidth - left - right);
         const height = Math.max(1, viewportHeight - top);
         const design = reference;
-        // Keep the approved mobile canvas intact: cards, text and icons all use
+        // Use the approved mobile reference: cards, text and icons all use
         // the same fit scale. A keyboard reduces the scrollport, not the design scale.
         const sameWidth = mobileCanvas && Math.abs(mobileCanvas.width - width) < 2;
         const keyboard = mobile.matches && ((sameWidth && height < mobileCanvas.height - 150)
@@ -337,10 +337,12 @@
         const fitHeight = keyboard ? (sameWidth ? mobileCanvas.height : Math.max(height, window.innerHeight - top)) : height;
         const scale = Math.min(width / design.width, fitHeight / design.height);
         if (mobile.matches && !keyboard) mobileCanvas = { width, height };
-        const canvasWidth = mobile.matches ? design.width : width / scale;
-        const canvasHeight = mobile.matches && !keyboard ? design.height : height / scale;
-        const canvasLeft = mobile.matches ? Math.max(0, (width - canvasWidth * scale) / 2) : 0;
-        const canvasTop = mobile.matches && !keyboard ? Math.max(0, (height - canvasHeight * scale) / 2) : 0;
+        // Fill the entire available viewport. Extra space belongs to layout,
+        // while cards, typography and icons retain one uniform design scale.
+        const canvasWidth = width / scale;
+        const canvasHeight = height / scale;
+        const canvasLeft = 0;
+        const canvasTop = 0;
         // Keyboard focus can pan the visual viewport without resizing the layout
         // viewport. Follow that pan only during a substantial keyboard resize;
         // otherwise a shortened, top-anchored frame leaves a blank bottom strip.
