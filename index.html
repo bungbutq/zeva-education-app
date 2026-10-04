@@ -91,7 +91,7 @@
       transition: opacity .18s ease;
     }
 
-    /* Mobile design reference: 440 × 956 CSS px. The outer shell owns safe areas. */
+    /* Design references: mobile 440 × 956, PC 1368 × 838 CSS px. Shell owns safe areas. */
     .app-stage {
       position: relative;
       width: 100%;
@@ -332,15 +332,17 @@
     (() => {
       'use strict';
       const reference = { width: 440, height: 956 };
+      const desktopReference = { width: 1368, height: 838 };
       const shell = document.querySelector('.app-shell');
       const stage = document.querySelector('.app-stage');
       const mobile = window.matchMedia('(max-width: 768px)');
+      const desktop = window.matchMedia('(min-width: 901px)');
       let pending = 0;
       let mobileCanvas = null;
 
       function syncMobileDesignViewport() {
         pending = 0;
-        if (!mobile.matches) {
+        if (!mobile.matches && !desktop.matches) {
           mobileCanvas = null;
           shell.removeAttribute('style');
           stage.removeAttribute('style');
@@ -368,8 +370,8 @@
         document.documentElement.style.setProperty('--zeva-viewport-height', viewportHeight + 'px');
         const width = Math.max(1, viewportWidth - left - right);
         const height = Math.max(1, viewportHeight - top);
-        const design = reference;
-        // Use the approved mobile reference: cards, text and icons all use
+        const design = desktop.matches ? desktopReference : reference;
+        // Use the approved mobile/PC reference: cards, text and icons all use
         // the same fit scale. A keyboard reduces the scrollport, not the design scale.
         const sameWidth = mobileCanvas && Math.abs(mobileCanvas.width - width) < 2;
         const keyboard = mobile.matches && ((sameWidth && height < mobileCanvas.height - 150)
@@ -419,6 +421,7 @@
         if (!document.hidden) scheduleMobileDesignViewport();
       });
       mobile.addEventListener('change', scheduleMobileDesignViewport);
+      desktop.addEventListener('change', scheduleMobileDesignViewport);
       window.visualViewport?.addEventListener('resize', scheduleMobileDesignViewport);
       window.visualViewport?.addEventListener('scroll', scheduleMobileDesignViewport);
     })();
