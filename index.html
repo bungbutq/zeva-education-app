@@ -247,6 +247,46 @@
       to { transform: rotate(360deg); }
     }
   </style>
+<script id="zeva-window-viewport-title">
+/* UI_SHARED: report the usable viewport in the installed app's window title. */
+(() => {
+  'use strict';
+  if (window.__zevaViewportTitleMounted) return;
+  window.__zevaViewportTitleMounted = true;
+  const baseTitle = document.title || 'ZEVA Education';
+  let pending = false;
+
+  function updateViewportTitle() {
+    pending = false;
+    const width = window.innerWidth;
+    const height = window.innerHeight;
+    if (!width || !height) return;
+    const ratio = (width / height).toFixed(2);
+    const dpr = Math.round((window.devicePixelRatio || 1) * 100) / 100;
+    document.title = `${width} × ${height} CSS px | ${ratio}:1 | DPR ${dpr} — ${baseTitle}`;
+  }
+
+  function scheduleViewportTitle() {
+    if (pending) return;
+    pending = true;
+    window.requestAnimationFrame(updateViewportTitle);
+  }
+
+  // Re-arm when zoom or a move between monitors changes the pixel density.
+  function watchPixelRatio() {
+    const query = window.matchMedia(`(resolution: ${window.devicePixelRatio || 1}dppx)`);
+    query.addEventListener('change', () => {
+      scheduleViewportTitle();
+      watchPixelRatio();
+    }, { once: true });
+  }
+
+  window.addEventListener('resize', scheduleViewportTitle);
+  window.addEventListener('pageshow', scheduleViewportTitle);
+  watchPixelRatio();
+  updateViewportTitle();
+})();
+</script>
 </head>
 <body>
   <main class="app-shell">
