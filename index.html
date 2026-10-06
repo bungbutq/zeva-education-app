@@ -223,7 +223,7 @@
       overflow: hidden;
     }
 
-    @media (max-width: 768px) {
+    @media ((max-width: 768px) or (orientation: portrait)) {
       html,
       body {
         /* Only the app's inner panels scroll. Do not let iOS rubber-band the host. */
@@ -488,8 +488,8 @@
       const desktopReference = { width: 1368, height: 838 };
       const shell = document.querySelector('.app-shell');
       const stage = document.querySelector('.app-stage');
-      const mobile = window.matchMedia('(max-width: 768px)');
-      const desktop = window.matchMedia('(min-width: 901px)');
+      const mobile = window.matchMedia('((max-width: 768px) or (orientation: portrait))');
+      const desktop = window.matchMedia('((min-width: 901px) and (orientation: landscape))');
       let pending = 0;
       let mobileCanvas = null;
 
@@ -530,7 +530,11 @@
         const keyboard = mobile.matches && ((sameWidth && height < mobileCanvas.height - 150)
           || (viewport && window.innerHeight - viewportHeight > 150));
         const fitHeight = keyboard ? (sameWidth ? mobileCanvas.height : Math.max(height, window.innerHeight - top)) : height;
-        const scale = Math.min(width / design.width, fitHeight / design.height);
+        const fitScale = Math.min(width / design.width, fitHeight / design.height);
+        // Keep the embedded app inside its mobile breakpoint, even on wide
+        // portrait/square windows or when the keyboard shortens the viewport.
+        // A 1px guard avoids fractional iframe rounding above 768 CSS pixels.
+        const scale = mobile.matches ? Math.max(fitScale, width / 767) : fitScale;
         if (mobile.matches && !keyboard) mobileCanvas = { width, height };
         // Fill the entire available viewport. Extra space belongs to layout,
         // while cards, typography and icons retain one uniform design scale.
