@@ -1,6 +1,159 @@
 <!doctype html>
 <html lang="vi">
 <head>
+<script>window.__ZEVA_BOOT_SCOPE__ = "wrapper";</script>
+<script>
+(() => {
+  'use strict';
+  if (window.ZevaBoot) return;
+  const scope = window.__ZEVA_BOOT_SCOPE__ === 'wrapper' ? 'wrapper' : 'app';
+  const HOST = 'https://bungbutq.github.io';
+  const stages = new Set(['WRAPPER_HEAD','WRAPPER_DOM_CONTENT_LOADED','WRAPPER_LOAD','FRAME_NAVIGATE',
+    'FRAME_LOAD','FRAME_ERROR','WAITING_FOR_APP','FIRST_APP_MESSAGE','BRIDGE_READY','SESSION_SEND',
+    'APP_HEAD','APP_SERVER_CONTEXT','APP_SCRIPTS_START','APP_CORE_START','APP_DOM_CONTENT_LOADED','APP_LOAD',
+    'APP_PROGRESS','APP_READY_SIGNAL','HOST_REVEAL','HOST_ERROR','SESSION_READ','SESSION_RECEIVED',
+    'SESSION_VALIDATE_START','SESSION_VALIDATE_END','VISUALS_START','VISUALS_END','CONTEXT_START',
+    'CONTEXT_CALLBACK','CONTEXT_TIMEOUT','APP_SCRIPT_ERROR','APP_RESOURCE_ERROR','APP_UNHANDLED_REJECTION',
+    'WRAPPER_SCRIPT_ERROR','WRAPPER_RESOURCE_ERROR','WRAPPER_UNHANDLED_REJECTION',
+    'APP_NAVIGATION','WRAPPER_NAVIGATION','IFRAME_RESOURCE','LONG_TASKS','PAGE_SHOW','ONLINE','OFFLINE']);
+  const numbers = new Set(['progress','durationMs','setupMs','line','column','childMs','sinceNavigationMs',
+    'ttfbMs','downloadMs','dnsMs','connectMs','tlsMs','redirectMs','domInteractiveMs','domContentLoadedMs',
+    'loadMs','transferBytes','encodedBytes','decodedBytes','longTaskCount','longTaskMs','maxLongTaskMs']);
+  const booleans = new Set(['online','hasToken','persisted','serviceWorkerControlled','detailedTimingsAvailable','responseComplete','ok']);
+  const rows = [], seenChild = new Set();
+  const clock = () => performance.now();
+  let attempt = 0, frameAt = null, timer = null, ready = false, firstMessage = false;
+  let count = 0, taskMs = 0, maxTaskMs = 0, childSequence = 0, lastChildMs = 0;
+  let lastAppStage = 'NONE';
+  function clean(data) {
+    const result = {};
+    if (!data || typeof data !== 'object') return result;
+    for (const [key,value] of Object.entries(data)) {
+      if (numbers.has(key) && typeof value === 'number' && Number.isFinite(value) && value >= 0 && value < 1e12) result[key] = Math.round(value * 10) / 10;
+      if (booleans.has(key) && typeof value === 'boolean') result[key] = value;
+      if (key === 'traceId' && typeof value === 'string' && /^[a-f0-9-]{36}$/i.test(value)) result[key] = value;
+      if (key === 'lastAppStage' && (value === 'NONE' || stages.has(value))) result[key] = value;
+    }
+    return result;
+  }
+  function record(stage, data, from = scope) {
+    if (!stages.has(stage)) return;
+    const now = clock(), details = clean(data);
+    if(from==='app')lastAppStage=stage;
+    const row = {attempt,scope:from,stage,atMs:Math.round(now*10)/10,
+      gapMs:rows.length ? Math.round((now-rows[rows.length-1].atMs)*10)/10 : 0,
+      ...(frameAt === null ? {} : {iframeMs:Math.round((now-frameAt)*10)/10}),...details};
+    rows.push(row);if(rows.length>400)rows.shift();
+    console.info('[ZEVA BOOT]['+from+'][+'+row.atMs+' ms] '+stage,JSON.stringify(row));
+    return row;
+  }
+  function mark(stage, data) {
+    try {
+      const row = record(stage,data);if(!row)return;
+      if(scope==='app' && window.top!==window) {
+        window.top.postMessage({type:'ZEVA_BOOT_DIAGNOSTIC',version:1,stage,sequence:++childSequence,
+          timeOrigin:performance.timeOrigin,details:{...clean(data),childMs:clock()}},HOST);
+      }
+    } catch (_) {} // Instrumentation must never block startup.
+  }
+  function timing(entry, stage) {
+    if(!entry)return;
+    const available=entry.requestStart>0 && entry.responseStart>=entry.requestStart;
+    const responseComplete=available && entry.responseEnd>=entry.responseStart;
+    const details={durationMs:entry.duration,detailedTimingsAvailable:available,responseComplete,
+      transferBytes:entry.transferSize,encodedBytes:entry.encodedBodySize,decodedBytes:entry.decodedBodySize};
+    if(available)Object.assign(details,{ttfbMs:Math.max(0,entry.responseStart-entry.requestStart),
+      ...(responseComplete?{downloadMs:entry.responseEnd-entry.responseStart}:{}),dnsMs:entry.domainLookupEnd-entry.domainLookupStart,
+      connectMs:entry.connectEnd-entry.connectStart,redirectMs:entry.redirectEnd-entry.redirectStart,
+      tlsMs:entry.secureConnectionStart>0?entry.connectEnd-entry.secureConnectionStart:0});
+    if(entry.entryType==='navigation')Object.assign(details,{domInteractiveMs:entry.domInteractive,
+      domContentLoadedMs:entry.domContentLoadedEventEnd,loadMs:entry.loadEventEnd});
+    mark(stage,details);
+  }
+  function navigation(){timing(performance.getEntriesByType('navigation')[0],scope==='app'?'APP_NAVIGATION':'WRAPPER_NAVIGATION');}
+  function report() {
+    const copy=rows.map(row=>({...row}));
+    console.table(copy);
+    console.info('[ZEVA BOOT] Timing unavailable/zero-size may be caused by cross-origin restrictions or cache; it is not proof of zero delay.');
+    return {schema:1,scope,attempt,summary:summary(false),events:copy};
+  }
+  function summary(print = true) {
+    const current=rows.filter(row=>row.attempt===attempt);
+    const pairs=[['FRAME_NAVIGATE','APP_HEAD'],['APP_HEAD','APP_SCRIPTS_START'],
+      ['APP_SCRIPTS_START','CONTEXT_START'],['CONTEXT_START','CONTEXT_CALLBACK'],
+      ['SESSION_VALIDATE_START','SESSION_VALIDATE_END'],['VISUALS_START','VISUALS_END'],
+      ['FRAME_NAVIGATE','APP_READY_SIGNAL'],['FRAME_NAVIGATE','HOST_REVEAL']];
+    const result=pairs.map(([start,end])=>{
+      const a=current.find(row=>row.stage===start),b=a&&current.find(row=>row.stage===end&&row.atMs>=a.atMs);
+      return {phase:start+' -> '+end,ms:a&&b?Math.round((b.atMs-a.atMs)*10)/10:null};
+    });
+    if(print){console.info('[ZEVA BOOT] SUMMARY (wrapper receipt clock; null = not observed)');console.table(result);}
+    return result;
+  }
+  function beginFrame() {
+    try {
+      attempt++;frameAt=clock();ready=false;firstMessage=false;seenChild.clear();lastChildMs=0;lastAppStage='NONE';
+      if(timer)clearInterval(timer);
+      mark('FRAME_NAVIGATE',{online:navigator.onLine,serviceWorkerControlled:Boolean(navigator.serviceWorker?.controller)});
+      let ticks=0;
+      timer=setInterval(()=>{
+        if(ready || ++ticks>60){clearInterval(timer);timer=null;return;}
+        mark('WAITING_FOR_APP',{durationMs:clock()-frameAt,childMs:lastChildMs,lastAppStage,online:navigator.onLine});
+      },2000);
+    } catch (_) {}
+  }
+  function hostMessage(type) {
+    try {
+      if(!firstMessage){firstMessage=true;mark('FIRST_APP_MESSAGE');}
+      if(type==='ZEVA_EDUCATION_BRIDGE_READY')mark('BRIDGE_READY');
+      if(type==='ZEVA_EDUCATION_APP_READY'||type==='BUNG_BU_APP_READY') {
+        ready=true;if(timer)clearInterval(timer);timer=null;mark('APP_READY_SIGNAL');
+      }
+    } catch (_) {}
+  }
+  window.ZevaBoot=Object.freeze({mark,beginFrame,hostMessage,report,summary,
+    export:()=>JSON.stringify({schema:1,scope,attempt,summary:summary(false),events:rows.map(row=>({...row}))},null,2)});
+  mark(scope==='app'?'APP_HEAD':'WRAPPER_HEAD',{sinceNavigationMs:clock(),online:navigator.onLine,
+    serviceWorkerControlled:Boolean(navigator.serviceWorker?.controller)});
+  try { navigation(); } catch (_) {}
+  if(scope==='wrapper')window.addEventListener('message',event=>{
+    try {
+      if(!event.source || !/^https:\/\/[a-z0-9-]+-script\.googleusercontent\.com$/.test(event.origin))return;
+      const data=event.data;
+      if(!data || data.type!=='ZEVA_BOOT_DIAGNOSTIC' || data.version!==1 || !stages.has(data.stage) ||
+        !Number.isSafeInteger(data.sequence)||data.sequence<1||data.sequence>500||
+        !Number.isFinite(data.timeOrigin)||frameAt===null||
+        data.timeOrigin < performance.timeOrigin+frameAt-1000 || data.timeOrigin>Date.now()+1000)return;
+      const key=data.timeOrigin+':'+data.sequence;if(seenChild.has(key)||seenChild.size>=500)return;seenChild.add(key);
+      if(!firstMessage){firstMessage=true;mark('FIRST_APP_MESSAGE');}
+      const safe=clean(data.details);lastChildMs=safe.childMs||lastChildMs;
+      record(data.stage,safe,'app');
+    } catch (_) {}
+  });
+  document.addEventListener('DOMContentLoaded',()=>{mark(scope==='app'?'APP_DOM_CONTENT_LOADED':'WRAPPER_DOM_CONTENT_LOADED');navigation();});
+  window.addEventListener('load',()=>{mark(scope==='app'?'APP_LOAD':'WRAPPER_LOAD');setTimeout(navigation,0);});
+  window.addEventListener('pageshow',event=>mark('PAGE_SHOW',{persisted:event.persisted}));
+  window.addEventListener('online',()=>mark('ONLINE',{online:true}));
+  window.addEventListener('offline',()=>mark('OFFLINE',{online:false}));
+  window.addEventListener('error',event=>{
+    const resource=event.target && event.target!==window;
+    mark(scope.toUpperCase()+(resource?'_RESOURCE_ERROR':'_SCRIPT_ERROR'),{line:event.lineno,column:event.colno});
+  },true);
+  window.addEventListener('unhandledrejection',()=>mark(scope.toUpperCase()+'_UNHANDLED_REJECTION'));
+  window.addEventListener('pagehide',()=>{if(timer)clearInterval(timer);});
+  try {
+    new PerformanceObserver(list=>{
+      for(const entry of list.getEntries()){
+        if(entry.entryType==='longtask'){count++;taskMs+=entry.duration;maxTaskMs=Math.max(maxTaskMs,entry.duration);}
+        if(scope==='wrapper' && entry.entryType==='resource' && entry.initiatorType==='iframe' &&
+          /^https:\/\/script\.google\.com\/macros\//.test(entry.name))timing(entry,'IFRAME_RESOURCE');
+      }
+    }).observe({entryTypes:['longtask','resource']});
+    window.addEventListener('load',()=>mark('LONG_TASKS',{longTaskCount:count,longTaskMs:taskMs,maxLongTaskMs:maxTaskMs}));
+  } catch (_) {}
+})();
+</script>
+
   <meta name="zeva-wrapper-build" content="2026-09-22.4">
   <meta charset="UTF-8">
   <meta
@@ -833,7 +986,9 @@
         loading.setAttribute('aria-busy', 'false');
       }
 
-      function revealApp() {
+      function revealApp() {
+        window.ZevaBoot?.mark('HOST_REVEAL');
+        window.ZevaBoot?.summary();
         if (appReadyFallbackTimer) {
           window.clearTimeout(appReadyFallbackTimer);
           appReadyFallbackTimer = null;
@@ -848,7 +1003,8 @@
         window.setTimeout(revealApp, 180);
       }
 
-      function showError(message) {
+      function showError(message) {
+        window.ZevaBoot?.mark('HOST_ERROR');
         hideLoading();
         if (message) errorNote.textContent = message;
         errorPanel.classList.remove('is-hidden');
@@ -888,10 +1044,12 @@
         appMessageSource = null;
         appMessageOrigin = '*';
         sessionSendGeneration += 1;
+        window.ZevaBoot?.beginFrame();
         frame.src = buildFrameUrl(nextUrl, options);
       }
 
-      function postSessionToFrame() {
+      function postSessionToFrame() {
+        window.ZevaBoot?.mark('SESSION_SEND', {hasToken: Boolean(loadSession())});
         if (!frame || !frame.contentWindow || isLogoutLocked()) return;
 
         const sessionData = loadSession();
@@ -957,6 +1115,7 @@
           'ZEVA_EDUCATION_REJECT_SESSION', 'ZEVA_EDUCATION_RELOAD_APP'
         ];
         if (!acceptedTypes.includes(type)) return;
+        window.ZevaBoot?.hostMessage(type);
         if (type === 'ZEVA_EDUCATION_RELOAD_APP') {
           if (!data.requestId || data.requestId === lastAppReloadRequestId) return;
           if (appMessageSource && event.source !== appMessageSource) return;
@@ -1073,7 +1232,9 @@
         }
       });
 
-      frame.addEventListener('load', function() {
+      frame.addEventListener('error', function() { window.ZevaBoot?.mark('FRAME_ERROR'); });
+      frame.addEventListener('load', function() {
+        window.ZevaBoot?.mark('FRAME_LOAD');
         setLoadingProgress(24, 'Đang kết nối ứng dụng...');
         postSafeAreaToFrame();
         postSessionToFrameRepeated();
