@@ -1,0 +1,76 @@
+<style>
+.znav-launch{width:100%;border:1px solid #d9ba76;border-radius:20px;padding:26px;text-align:left;color:#fff;background:linear-gradient(125deg,#122e43,#176379);cursor:pointer;box-shadow:0 12px 28px #092d4226}.znav-launch strong{display:block;font-size:25px;margin:10px 0}.znav-launch span{color:#d7e8e7}.znav-launch:focus-visible,.znav button:focus-visible{outline:3px solid #ffd984;outline-offset:4px}
+.znav{border:1px solid #ba9964;border-radius:24px;padding:0;color:#f9efd7;background:#102b3e;width:min(1120px,96vw);max-width:96vw;max-height:94dvh;overflow:auto;box-shadow:0 30px 100px #0008;font-family:inherit}.znav::backdrop{background:#041521d9;backdrop-filter:blur(7px)}.znav *{box-sizing:border-box}.znav [hidden]{display:none}.znav button{font:inherit;cursor:pointer}.znav-head,.znav-foot{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:18px 24px}.znav-head small{letter-spacing:.2em;color:#dfbd7d}.znav h2{font-size:25px;margin:5px 0}.znav-close,.znav-secondary{background:#ffffff12;color:#fff;border:1px solid #ffffff40;padding:10px 15px;border-radius:12px}.znav-sea{position:relative;isolation:isolate;overflow:hidden;min-height:340px;background:radial-gradient(ellipse at 50% 0%,#eeddb8aa,transparent 55%),linear-gradient(#729eae 0%,#b9c8bd 50%,#32818f 51%,#124a64 100%)}.znav-sea:before,.znav-sea:after{content:'';position:absolute;z-index:-1;width:180%;height:95px;left:-40%;bottom:-35px;border-radius:50%;background:#69bbc735;animation:znav-wave 7s ease-in-out infinite alternate}.znav-sea:after{bottom:-60px;background:#0b374a88;animation-delay:-3s}.znav-scores{display:flex;justify-content:space-between;padding:20px 24px;gap:16px}.znav-team{width:210px;background:#102c3ccc;padding:12px;border:1px solid #ffffff33;border-radius:14px}.znav-team.active{border-color:#ffdc8b;box-shadow:0 0 20px #ffdc8b35}.znav-team strong{display:block;font-size:16px}.znav-team small{display:block;margin-top:6px;color:#e1eeee}.znav-bars{display:flex;gap:3px;margin-top:9px}.znav-bars i{height:7px;flex:1;background:#6fe0c8;border-radius:3px}.znav-bars i.lost{background:#ed7468}.znav-ship{position:absolute;bottom:26px;width:42%;aspect-ratio:2 / 1;filter:drop-shadow(0 18px 8px #052a4580);animation:znav-bob 3.5s ease-in-out infinite alternate}.znav-ship[data-team="0"]{left:1%}.znav-ship[data-team="1"]{right:1%;animation-delay:-1.5s}.znav-sprite{width:100%;height:100%;background-size:200% 1100%;background-repeat:no-repeat;transition:filter .3s}.znav-ship.hit{animation:znav-hit .55s ease-out}.znav-ship.sunk{animation:znav-sink 1.6s forwards}.znav-ball{position:absolute;left:25%;bottom:32%;width:15px;height:15px;border-radius:50%;background:#282329;box-shadow:-12px 0 15px 6px #ffc15d;z-index:4}.znav-ball.fire-right{animation:znav-shot-right .65s ease-in forwards}.znav-ball.fire-left{left:75%;animation:znav-shot-left .65s ease-in forwards}.znav-flash{position:absolute;bottom:24%;font-size:70px;z-index:5;animation:znav-boom .65s forwards;pointer-events:none}.znav-center{position:absolute;top:25px;left:50%;transform:translateX(-50%);color:#143b49;font-size:12px;letter-spacing:.14em;font-weight:800}.znav-play{padding:20px 28px 10px;text-align:center;background:linear-gradient(#14374b,#102b3e)}.znav-turn{color:#e1be79;font-size:13px;letter-spacing:.06em}.znav-word{margin:12px 0 20px;font-size:clamp(25px,4vw,40px);font-weight:800;color:#fff;overflow-wrap:anywhere}.znav-word.drop{animation:znav-drop .6s cubic-bezier(.2,.8,.3,1)}.znav-answers{display:grid;grid-template-columns:1fr 1fr;gap:12px}.znav-answers button{border:1px solid #7392a4;background:#23465b;color:#fff;border-radius:13px;padding:16px;text-align:left;min-height:55px;transition:background .2s,transform .2s;overflow-wrap:anywhere}.znav-answers button:hover:not(:disabled){background:#35647a;transform:translateY(-2px)}.znav-answers button:disabled{cursor:default;opacity:.7}.znav-answers button.correct{background:#126951;border-color:#74e5b4;opacity:1}.znav-answers button.wrong{background:#873e40;border-color:#ff9b87;opacity:1}.znav-status{min-height:44px;margin:16px 0 0;color:#e7e9dc;line-height:1.5}.znav-primary{border:0;border-radius:12px;background:linear-gradient(#f4d99b,#d9ad5d);color:#263442;font-weight:800;padding:12px 22px}.znav-foot p{margin:0;color:#a9c5ce;font-size:13px}.znav-result{color:#ffe0a0;font-size:22px}
+@keyframes znav-wave{to{transform:translateX(14%) rotate(3deg)}}@keyframes znav-bob{to{transform:translateY(-7px) rotate(1deg)}}@keyframes znav-hit{25%,75%{transform:translateX(-9px)}50%{transform:translateX(9px);filter:brightness(1.8)}}@keyframes znav-sink{to{transform:translateY(70px) rotate(-9deg);opacity:.3}}@keyframes znav-shot-right{to{left:74%;bottom:27%}}@keyframes znav-shot-left{to{left:24%;bottom:27%}}@keyframes znav-boom{from{transform:scale(.3);opacity:1}to{transform:scale(1.7);opacity:0}}@keyframes znav-drop{from{transform:translateY(-65px);opacity:0}to{transform:translateY(0);opacity:1}}
+.znav-word-position{position:absolute;z-index:2;left:33%;width:34%;top:95px;text-align:center;pointer-events:none}.znav-word-position .znav-word{padding:12px;background:#102c3ce8;border:1px solid #ebce8a88;border-radius:15px;box-shadow:0 8px 28px #132f4655;font-size:clamp(19px,3vw,34px)}.znav-turn{margin-bottom:18px}.znav-scores{position:relative;z-index:3}
+@media(max-width:600px){.znav-head,.znav-foot{padding:14px}.znav h2{font-size:20px}.znav-sea{min-height:290px}.znav-scores{padding:12px;gap:50px}.znav-team{width:145px;padding:9px}.znav-team strong{font-size:13px}.znav-center{top:112px}.znav-word-position{top:130px;left:24%;width:52%}.znav-word-position .znav-word{font-size:20px;margin:0;padding:8px}.znav-play{padding:16px}.znav-answers{gap:8px}.znav-answers button{padding:12px}.znav-foot{flex-wrap:wrap}}
+@media(prefers-reduced-motion:reduce){.znav *,.znav-sea:before,.znav-sea:after{animation:none!important;transition:none!important}}
+</style>
+<dialog id="znavDialog" class="znav" aria-labelledby="znavTitle">
+ <header class="znav-head"><div><small>ZEVA • WORD BATTLE</small><h2 id="znavTitle">Hải chiến từ vựng</h2></div><button class="znav-close" type="button" aria-label="Đóng trò chơi">✕</button></header>
+ <div class="znav-sea"><div class="znav-center">ĐẠI HẢI TRÌNH</div><div class="znav-scores"></div><div class="znav-word-position"><div class="znav-word"></div></div><div class="znav-ship" data-team="0"><div class="znav-sprite"></div></div><div class="znav-ship" data-team="1"><div class="znav-sprite"></div></div><div class="znav-ball" hidden></div></div>
+ <section class="znav-play"><div class="znav-turn"></div><div class="znav-answers"></div><p class="znav-status" role="status" aria-live="polite"></p></section>
+ <footer class="znav-foot"><p>Hai đội luân phiên • Đúng: bắn đối thủ • Sai: nhận đạn<br>Trúng 10 phát sẽ chìm. Luyện tập không cộng EXP.</p><button type="button" class="znav-primary">Bắt đầu trận</button></footer>
+</dialog>
+<script>
+(() => {
+ 'use strict';
+ const dialog=document.getElementById('znavDialog');
+ if(!dialog) return;
+ const $=s=>dialog.querySelector(s), names=['Cướp biển','Hải quân'];
+ const damageNames=['Nguyên vẹn','Vết cháy trên thân','Gãy lan can','Buồm rách nhẹ','Thủng mạn tàu','Buồm rách lớn','Gãy thanh ngang','Đổ cột buồm phụ','Nước tràn vào tàu','Gãy cột buồm chính','Đã chìm'];
+ let words=[],deck=[],damage=[0,0],turn=0,round=0,question=null,locked=true,generation=0,session='',timers=[];
+ const shuffle=items=>{const a=items.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;};
+ const norm=s=>String(s||'').normalize('NFC').trim().replace(/\s+/g,' ').toLocaleLowerCase('vi');
+ function clearTimers(){timers.forEach(clearTimeout);timers=[];$('.znav-ball').hidden=true;dialog.querySelectorAll('.znav-flash').forEach(n=>n.remove());dialog.querySelectorAll('.znav-ship').forEach(n=>n.classList.remove('hit'));}
+ function later(fn,ms){const g=generation;timers.push(setTimeout(()=>{if(g===generation&&dialog.open)fn();},ms));}
+ function validSession(){return session&&session===String(window.BBG_STATE?.session?.token||'');}
+ function scores(){
+  $('.znav-scores').replaceChildren(...names.map((name,i)=>{const box=document.createElement('div');box.className='znav-team'+(turn===i?' active':'');const title=document.createElement('strong');title.textContent=name;const bars=document.createElement('div');bars.className='znav-bars';for(let n=0;n<10;n++){const b=document.createElement('i');b.className=n<damage[i]?'lost':'';bars.append(b);}const label=document.createElement('small');label.textContent=`${damage[i]}/10 phát • ${damageNames[damage[i]]}`;box.append(title,bars,label);return box;}));
+  dialog.querySelectorAll('.znav-ship').forEach((ship,i)=>{ship.classList.toggle('sunk',damage[i]===10);ship.setAttribute('role','img');ship.setAttribute('aria-label',names[i]+': '+damageNames[damage[i]]);ship.firstElementChild.style.backgroundPosition=`${i*100}% ${damage[i]*10}%`;});
+ }
+ function next(){
+  if(!validSession())return fail('Phiên đăng nhập đã thay đổi. Hãy đóng game và đăng nhập lại.');
+  if(!deck.length)deck=shuffle(words);
+  question=deck.pop();round++;locked=false;
+  $('.znav-turn').textContent=`LƯỢT ${round} · ĐỘI ${names[turn].toLocaleUpperCase('vi')} TRẢ LỜI`;
+  const word=$('.znav-word');word.classList.remove('drop');word.textContent=question.word;void word.offsetWidth;word.classList.add('drop');
+  const alternatives=shuffle(words.filter(w=>norm(w.meaning)!==norm(question.meaning))).slice(0,3).map(w=>w.meaning);
+  $('.znav-answers').replaceChildren(...shuffle([question.meaning,...alternatives]).map((meaning,i)=>{const b=document.createElement('button');b.type='button';b.textContent=`${i+1}. ${meaning}`;b.addEventListener('click',()=>answer(meaning,b));b.dataset.meaning=meaning;return b;}));
+  $('.znav-status').textContent='Chọn nghĩa đúng để khai hỏa!';$('.znav-primary').hidden=true;scores();
+ }
+ function answer(meaning,selected){
+  if(locked||!dialog.open)return;
+  if(!validSession())return fail('Phiên đăng nhập đã thay đổi. Hãy mở lại trò chơi.');
+  locked=true;const correct=norm(meaning)===norm(question.meaning),target=correct?1-turn:turn,shooter=1-target;
+  dialog.querySelectorAll('.znav-answers button').forEach(b=>{b.disabled=true;if(norm(b.dataset.meaning)===norm(question.meaning))b.classList.add('correct');});
+  if(!correct)selected.classList.add('wrong');
+  $('.znav-status').textContent=(correct?'Chính xác! ':'Chưa đúng! ')+question.word+' = '+question.meaning+'. '+names[target]+' nhận một phát đạn.';
+  const ball=$('.znav-ball');ball.className='znav-ball '+(shooter===0?'fire-right':'fire-left');ball.hidden=false;
+  later(()=>{ball.hidden=true;damage[target]=Math.min(10,damage[target]+1);scores();const ship=dialog.querySelectorAll('.znav-ship')[target];ship.classList.add('hit');const flash=document.createElement('div');flash.className='znav-flash';flash.textContent='✹';flash.style.left=target===0?'20%':'73%';flash.style.color='#ffcf78';$('.znav-sea').append(flash);later(()=>{ship.classList.remove('hit');flash.remove();},600);},650);
+  later(()=>{if(damage[target]===10){$('.znav-turn').textContent='TRẬN ĐẤU KẾT THÚC';$('.znav-word').textContent=names[1-target]+' chiến thắng!';$('.znav-status').textContent=names[target]+' đã nhận 10 phát đạn và chìm. Cùng thử một hải trình mới nhé!';$('.znav-primary').textContent='Chơi lại';$('.znav-primary').hidden=false;$('.znav-primary').focus();}else{turn=1-turn;$('.znav-primary').textContent='Lượt đội '+names[turn];$('.znav-primary').hidden=false;$('.znav-primary').focus();}},1700);
+ }
+ function fail(message){locked=true;$('.znav-status').textContent=message;$('.znav-primary').textContent='Tải lại bộ từ';$('.znav-primary').hidden=false;$('.znav-primary').disabled=false;words=[];$('.znav-answers').replaceChildren();}
+ async function start(){
+  clearTimers();generation++;const g=generation;locked=true;words=[];deck=[];damage=[0,0];turn=0;round=0;question=null;session=String(window.BBG_STATE?.session?.token||'');scores();
+  $('.znav-answers').replaceChildren();$('.znav-word').textContent='Chuẩn bị ra khơi';$('.znav-turn').textContent='TỪ VỰNG TRONG HỌC MỚI';$('.znav-status').textContent='Đang tải bộ từ của bạn…';$('.znav-primary').disabled=true;
+  try{
+   if(!session)throw Error('Vui lòng đăng nhập để chơi với bộ từ của bạn.');
+   const result=await window.bbgCall('getBbgVocabularySample',{token:session,contentType:'vocabulary'},{priority:'interactive'});
+   if(g!==generation||!dialog.open)return;
+   if(!validSession())throw Error('Phiên đăng nhập đã thay đổi. Hãy mở lại game.');
+   if(!result?.ok)throw Error(result?.error?.message||'Không tải được từ vựng. Hãy thử lại.');
+   const raw=Array.isArray(result.data?.rows)?result.data.rows.map(r=>({word:String(r[1]||'').trim(),meaning:String(r[2]||'').trim()})):(result.data?.words||[]);
+   const ambiguous=new Map();raw.forEach(w=>{const key=norm(w.word);if(!ambiguous.has(key))ambiguous.set(key,new Set());ambiguous.get(key).add(norm(w.meaning));});
+   const seen=new Set();words=raw.filter(w=>{const m=norm(w.meaning);if(!norm(w.word)||!m||seen.has(m)||ambiguous.get(norm(w.word)).size!==1)return false;seen.add(m);return true;});
+   if(words.length<4)throw Error('Bài học cần ít nhất 4 từ có nghĩa khác nhau để tạo đủ 4 đáp án. Hãy thử lại khi bộ từ đã đủ.');
+   next();
+  }catch(e){if(g===generation&&dialog.open)fail(e.message||'Không thể tải game.');}
+  finally{if(g===generation)$('.znav-primary').disabled=false;}
+ }
+ function close(){generation++;clearTimers();locked=true;words=[];deck=[];question=null;session='';}
+ dialog.addEventListener('close',close);$('.znav-close').addEventListener('click',()=>dialog.close());
+ $('.znav-primary').addEventListener('click',()=>{if(!words.length||damage.includes(10)||!round)start();else next();});
+ const list=document.getElementById('gamesCardList');if(list){const b=document.createElement('button');b.type='button';b.className='znav-launch';b.innerHTML='<span>ĐỐI KHÁNG · 2 ĐỘI</span><strong>⚓ Hải chiến từ vựng</strong><span>Cướp biển vs Hải quân — Chọn đúng nghĩa, khai hỏa đại bác!</span>';b.addEventListener('click',()=>{dialog.showModal();start();});list.append(b);const empty=document.getElementById('gamesEmptyState');if(empty)empty.hidden=true;}
+})();
+</script>
