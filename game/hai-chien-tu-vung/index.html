@@ -89,6 +89,7 @@
 .znav-health{width:100%;max-width:255px}
 .znav-team:last-child .znav-health{margin-left:auto}
 @media(max-height:500px) and (orientation:landscape){.znav-scores{width:min(740px,calc(100% - 20px))}.znav-team{min-height:59px}.znav-team:first-child{padding-left:55px;padding-right:39px}.znav-team:last-child{padding-left:39px;padding-right:55px}.znav-team:before{width:39px;font-size:29px;top:4px;bottom:4px}.znav-health{max-width:165px}}
+.znav-status:empty{display:none}
 </style>
 <dialog id="znavDialog" class="znav" aria-label="Hải chiến từ vựng">
  <div class="znav-rotate"><svg viewBox="0 0 80 80" aria-hidden="true"><rect x="20" y="10" width="40" height="60" rx="6" transform="rotate(90 40 40)"/><path d="M12 20A32 32 0 0 1 62 12m-1-8 3 10-11 1M68 60A32 32 0 0 1 18 68m1 8-3-10 11-1"/></svg><strong>Xoay ngang điện thoại để chơi</strong><span>Hải chiến từ vựng chỉ chơi ở chế độ màn hình ngang.</span><button type="button" class="znav-rotate-home">Home — Thoát trò chơi</button></div>
@@ -158,7 +159,7 @@
   const word=$('.znav-word');word.classList.remove('drop');word.textContent=question.word;void word.offsetWidth;word.classList.add('drop');
   const alternatives=shuffle(words.filter(w=>norm(w.meaning)!==norm(question.meaning))).slice(0,3).map(w=>w.meaning);
   $('.znav-answers').replaceChildren(...shuffle([question.meaning,...alternatives]).map((meaning,i)=>{const b=document.createElement('button');b.type='button';const letter=document.createElement('span');letter.className='znav-letter';letter.textContent='ABCD'[i];letter.setAttribute('aria-hidden','true');const text=document.createElement('span');text.textContent=meaning;b.append(letter,text);b.addEventListener('click',()=>answer(meaning,b));b.dataset.meaning=meaning;return b;}));
-  $('.znav-status').textContent='Chọn nghĩa đúng để khai hỏa!';$('.znav-primary').hidden=true;scores();
+  $('.znav-status').textContent='';$('.znav-primary').hidden=true;scores();
  }
  async function answer(meaning,selected){
   if(locked||!dialog.open)return;
