@@ -61,7 +61,7 @@
 .znav-team:first-child{padding-right:36px;border-radius:7px 0 0 7px}.znav-team:last-child{grid-column:3;padding-left:64px;border-radius:0 7px 7px 0}.znav-team:last-child:before{left:31px}
 .znav-ship{width:51%;height:74%;bottom:18%}
 .znav-ship[data-team="0"]{left:-3%}.znav-ship[data-team="1"]{right:-3%}
-.znav-ocean-near{top:58%;opacity:1;mask-image:linear-gradient(transparent,#000 32%)}
+.znav-ocean-near{top:62%;opacity:.9;mask-image:linear-gradient(transparent,#000 45%)}
 .znav-play{bottom:max(12px,env(safe-area-inset-bottom));padding-bottom:0}
 .znav-primary{display:block;margin:9px auto 0}
 .znav-primary[hidden]{display:none}
@@ -71,7 +71,7 @@
 @media(max-height:500px) and (orientation:landscape){.znav-scores{top:8px;width:min(540px,calc(100% - 20px))}.znav-team{padding-top:5px;padding-bottom:5px}.znav-team strong{font-size:11px}.znav-team small{font-size:8px}.znav-team:before{height:29px;line-height:26px;font-size:18px;top:5px}.znav-home{width:48px;height:48px;padding:10px}.znav-play{bottom:7px;padding:0 14px}.znav-question{min-height:0;margin:0 12% 5px;padding:5px 14px}.znav-word{font-size:23px}.znav-turn{font-size:8px;margin-bottom:2px}.znav-answers{grid-template-columns:repeat(4,minmax(0,1fr));gap:7px}.znav-answers button{font-size:13px;min-height:40px;padding:5px;gap:7px}.znav-letter{width:24px;height:24px;flex-basis:24px;font-size:17px}.znav-status{font-size:9px;margin:4px 0 0;min-height:12px}.znav-ship{width:51%;height:75%;bottom:23%}.znav-setup{padding:3px 0;font-size:13px}.znav-setup select{padding:4px;font-size:13px}.znav-primary{margin-top:4px;padding:4px 15px}}
 
 /* Joined fleet bars with mirrored emblems and an overlapping Home medallion. */
-.znav-scores{width:min(760px,calc(100% - 24px))}
+.znav-scores{width:min(620px,calc(100% - 24px))}
 .znav-home{width:76px;height:76px;padding:17px;border-width:2px;box-shadow:0 5px 16px #0009,0 0 0 4px #c6a36566}
 .znav-home svg{width:34px;height:34px}
 .znav-team:first-child{padding-right:47px;border-right:0}
@@ -80,7 +80,7 @@
 @media(max-height:500px) and (orientation:landscape){.znav-scores{width:min(690px,calc(100% - 20px));top:12px}.znav-home{width:64px;height:64px;padding:13px}.znav-home svg{width:30px;height:30px}.znav-team:first-child{padding-right:39px}.znav-team:last-child{padding-left:39px;padding-right:40px}.znav-team strong{font-size:12px}.znav-team small{font-size:9px}}
 
 /* Wider information panels; compact health meters and full-height emblems. */
-.znav-scores{width:min(760px,calc(100% - 24px))}
+.znav-scores{width:min(620px,calc(100% - 24px))}
 .znav-team{min-height:72px}
 .znav-team:first-child{padding-left:64px;padding-right:48px}
 .znav-team:last-child{padding-left:48px;padding-right:64px}
@@ -88,19 +88,21 @@
 .znav-team:last-child:before{left:auto;right:6px}
 .znav-health{width:100%;max-width:230px}
 .znav-team:last-child .znav-health{margin-left:auto}
-@media(max-height:500px) and (orientation:landscape){.znav-scores{width:min(680px,calc(100% - 20px))}.znav-team{min-height:59px}.znav-team:first-child{padding-left:55px;padding-right:39px}.znav-team:last-child{padding-left:39px;padding-right:55px}.znav-team:before{width:39px;font-size:29px;top:4px;bottom:4px}.znav-health{max-width:145px}}
+@media(max-height:500px) and (orientation:landscape){.znav-scores{width:min(560px,calc(100% - 20px))}.znav-team{min-height:59px}.znav-team:first-child{padding-left:55px;padding-right:39px}.znav-team:last-child{padding-left:39px;padding-right:55px}.znav-team:before{width:39px;font-size:29px;top:4px;bottom:4px}.znav-health{max-width:145px}}
 .znav-status:empty{display:none}
 /* Blend only the lower hull into the foreground water. */
-.znav-sprite{mask-image:linear-gradient(to bottom,#000 0%,#000 83%,#0009 93%,transparent 100%)}
+.znav-sprite{mask-image:linear-gradient(to bottom,#000 0%,#000 91%,#000b 97%,transparent 100%)}
 .znav-team:before{width:56px;height:56px;top:7px;bottom:auto;left:5px;border-radius:0;font-size:37px}
 .znav-team:last-child:before{right:5px;left:auto}
 .znav-team:first-child{padding-left:68px}.znav-team:last-child{padding-right:68px}
 @media(max-height:500px) and (orientation:landscape){.znav-team:before{width:47px;height:47px;top:5px;font-size:32px}.znav-team:first-child{padding-left:58px}.znav-team:last-child{padding-right:58px}}
+.znav-bars{height:19px}.znav-hp{font:700 12px/18px Arial,sans-serif}.znav-health{margin-top:7px}
+@media(max-height:500px) and (orientation:landscape){.znav-bars{height:17px}.znav-hp{font-size:11px;line-height:16px}.znav-health{margin-top:5px}}
 </style>
 <dialog id="znavDialog" class="znav" aria-label="Hải chiến từ vựng">
  <div class="znav-rotate"><svg viewBox="0 0 80 80" aria-hidden="true"><rect x="20" y="10" width="40" height="60" rx="6" transform="rotate(90 40 40)"/><path d="M12 20A32 32 0 0 1 62 12m-1-8 3 10-11 1M68 60A32 32 0 0 1 18 68m1 8-3-10 11-1"/></svg><strong>Xoay ngang điện thoại để chơi</strong><span>Hải chiến từ vựng chỉ chơi ở chế độ màn hình ngang.</span><button type="button" class="znav-rotate-home">Home — Thoát trò chơi</button></div>
  <div class="znav-scores"><button class="znav-close znav-home" type="button" aria-label="Home — Thoát trò chơi" title="Home — Thoát trò chơi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3 10 9-7 9 7M5 9v12h5v-7h4v7h5V9"/></svg></button></div>
- <div class="znav-sea"><div class="znav-sky" aria-hidden="true"></div><div class="znav-ocean" aria-hidden="true"></div><div class="znav-ocean-near" aria-hidden="true"></div><div class="znav-center">ĐẠI HẢI TRÌNH</div><div class="znav-ship" data-team="0"><img class="znav-sprite" alt="" decoding="async"><i class="znav-smoke"></i><i class="znav-smoke"></i><i class="znav-wake"></i></div><div class="znav-ship" data-team="1"><img class="znav-sprite" alt="" decoding="async"><i class="znav-smoke"></i><i class="znav-smoke"></i><i class="znav-wake"></i></div></div>
+ <div class="znav-sea"><div class="znav-sky" aria-hidden="true"></div><div class="znav-ocean" aria-hidden="true"></div><div class="znav-ocean-near" aria-hidden="true"></div><div class="znav-ship" data-team="0"><img class="znav-sprite" alt="" decoding="async"><i class="znav-smoke"></i><i class="znav-smoke"></i><i class="znav-wake"></i></div><div class="znav-ship" data-team="1"><img class="znav-sprite" alt="" decoding="async"><i class="znav-smoke"></i><i class="znav-smoke"></i><i class="znav-wake"></i></div></div>
  <section class="znav-play"><div class="znav-question"><div class="znav-setup" hidden><label>Chọn lớp học <select class="znav-class" aria-label="Lớp học"><option value="">Chọn một lớp…</option></select></label></div><div class="znav-turn"></div><div class="znav-word"></div></div><div class="znav-answers"></div><p class="znav-status" role="status" aria-live="polite"></p><button type="button" class="znav-primary">Bắt đầu trận</button></section>
 
 </dialog>
@@ -153,7 +155,7 @@
  }
  function validSession(){return session&&session===String(window.BBG_STATE?.session?.token||'');}
  function scores(){
-  $('.znav-scores').replaceChildren(...names.map((name,i)=>{const box=document.createElement('div');box.className='znav-team'+(round>0&&!damage.includes(10)&&turn===i?' active':'');const title=document.createElement('strong');title.textContent=name;const health=document.createElement('div');health.className='znav-health';const bars=document.createElement('div');bars.className='znav-bars';bars.setAttribute('role','meter');bars.setAttribute('aria-label','Độ bền tàu '+name);bars.setAttribute('aria-valuemin','0');bars.setAttribute('aria-valuemax','10');bars.setAttribute('aria-valuenow',String(10-damage[i]));for(let n=0;n<10;n++){const b=document.createElement('i');b.className=n>=10-damage[i]?'lost':'';bars.append(b);}const hp=document.createElement('span');hp.className='znav-hp';hp.textContent=`${10-damage[i]} / 10`;health.append(bars,hp);const label=document.createElement('small');label.textContent=`${damage[i]}/10 loạt • ${damageNames[damage[i]]}`;box.append(title,health,label);return box;}));
+  $('.znav-scores').replaceChildren(...names.map((name,i)=>{const box=document.createElement('div');box.className='znav-team'+(round>0&&!damage.includes(10)&&turn===i?' active':'');const title=document.createElement('strong');title.textContent=name;const health=document.createElement('div');health.className='znav-health';const bars=document.createElement('div');bars.className='znav-bars';bars.setAttribute('role','meter');bars.setAttribute('aria-label','Độ bền tàu '+name);bars.setAttribute('aria-valuemin','0');bars.setAttribute('aria-valuemax','10');bars.setAttribute('aria-valuenow',String(10-damage[i]));for(let n=0;n<10;n++){const b=document.createElement('i');b.className=n>=10-damage[i]?'lost':'';bars.append(b);}const hp=document.createElement('span');hp.className='znav-hp';hp.textContent=`${10-damage[i]} / 10`;health.append(bars,hp);box.append(title,health);return box;}));
   $('.znav-scores').insertBefore(home,$('.znav-scores').children[1]);
   dialog.querySelectorAll('.znav-ship').forEach((ship,i)=>{ship.dataset.damage=String(damage[i]);ship.classList.toggle('sunk',damage[i]===10);ship.setAttribute('role','img');ship.setAttribute('aria-label',names[i]+': '+damageNames[damage[i]]);const url=frameUrl(i,damage[i]);if(ship.firstElementChild.getAttribute('src')!==url)ship.firstElementChild.src=url;});
  }
