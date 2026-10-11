@@ -1,4 +1,4 @@
-<!doctype html><html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Hải chiến từ vựng — Chơi thử</title><style>body{margin:0;padding:24px;background:#111c24;color:#f4e6c9;font:16px/1.5 Arial,sans-serif}main{max-width:1100px;margin:40px auto}a{color:#eed091}.znav{font-family:Georgia,serif}</style></head><body><main><h1>Hải chiến từ vựng</h1><p>Bản chơi thử · Hai đội dùng chung màn hình · Bộ từ minh họa</p><div id="gamesCardList"></div><p id="gamesEmptyState" hidden></p><p><a href="damage-gallery.html">Xem 10 mức hư hại của từng tàu</a></p></main><script>window.ZevaNavalArt={base:'./'};document.documentElement.style.setProperty('--znav-ocean-art','url("./ocean.png")');window.BBG_STATE={session:{token:'local-preview-only'}};window.bbgCall=async function(method,args){if(method!=='getBbgVocabularySample')throw Error('Bản chơi thử chỉ đọc từ minh họa');if(args.listClasses)return {ok:true,data:{classes:[{classCode:'DEMO',className:'Lớp minh họa'}]}};return {ok:true,data:{lesson:{lessonId:'U1',className:'Lớp minh họa'},rows:[["1","Island","Hòn đảo"],["2","Ship","Con thuyền"],["3","Ocean","Đại dương"],["4","Mountain","Ngọn núi"],["5","Treasure","Kho báu"],["6","Captain","Thuyền trưởng"],["7","Sail","Cánh buồm"],["8","Anchor","Mỏ neo"],["9","Wave","Con sóng"],["10","Compass","La bàn"],["11","Harbor","Bến cảng"],["12","Storm","Cơn bão"]]}};};</script><style>
+<!doctype html><html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Hải chiến từ vựng — Chơi thử</title><style>body{margin:0;padding:24px;background:#111c24;color:#f4e6c9;font:16px/1.5 Arial,sans-serif}main{max-width:1100px;margin:40px auto}a{color:#eed091}.znav{font-family:Georgia,serif}</style></head><body><main><h1>Hải chiến từ vựng</h1><p>Bản chơi thử · Hai đội dùng chung màn hình · Bộ từ minh họa</p><div id="gamesCardList"></div><p id="gamesEmptyState" hidden></p><p><a href="damage-gallery.html">Xem 10 mức hư hại của từng tàu</a></p></main><script>window.ZevaNavalAudioBase='./audio/';window.ZevaNavalArt={base:'./'};document.documentElement.style.setProperty('--znav-ocean-art','url("./ocean.png")');window.BBG_STATE={session:{token:'local-preview-only'}};window.bbgCall=async function(method,args){if(method!=='getBbgVocabularySample')throw Error('Bản chơi thử chỉ đọc từ minh họa');if(args.listClasses)return {ok:true,data:{classes:[{classCode:'DEMO',className:'Lớp minh họa'}]}};return {ok:true,data:{lesson:{lessonId:'U1',className:'Lớp minh họa'},rows:[["1","Island","Hòn đảo"],["2","Ship","Con thuyền"],["3","Ocean","Đại dương"],["4","Mountain","Ngọn núi"],["5","Treasure","Kho báu"],["6","Captain","Thuyền trưởng"],["7","Sail","Cánh buồm"],["8","Anchor","Mỏ neo"],["9","Wave","Con sóng"],["10","Compass","La bàn"],["11","Harbor","Bến cảng"],["12","Storm","Cơn bão"]]}};};</script><style>
 .znav-launch{width:100%;border:2px solid #b58a44;border-radius:14px;padding:26px;text-align:left;color:#fff5d9;background:linear-gradient(110deg,#132834e8,#172a32aa),var(--znav-ocean-art,linear-gradient(#234452,#122b38)) center/cover;cursor:pointer;box-shadow:0 12px 28px #092d4238}.znav-launch strong{display:block;font:700 27px Georgia,serif;margin:10px 0}.znav-launch span{color:#e3cf9f}.znav-launch:focus-visible,.znav button:focus-visible{outline:3px solid #ffe39d;outline-offset:3px}
 .znav{border:2px solid #8e6736;border-radius:6px;padding:0;color:#f9efd7;background:#17120f;width:min(1680px,98vw);max-width:98vw;max-height:97dvh;overflow:auto;box-shadow:0 30px 100px #000b;font-family:Georgia,'Times New Roman',serif}.znav::backdrop{background:#090c10e8;backdrop-filter:blur(5px)}.znav *{box-sizing:border-box}.znav [hidden]{display:none}.znav button{font:inherit;cursor:pointer}.znav-head{display:flex;justify-content:space-between;align-items:center;padding:8px 16px;background:linear-gradient(#2e251c,#141512);border-bottom:1px solid #a47a43;gap:12px}.znav-head>div{display:flex;align-items:center;gap:18px}.znav-head small{font:10px Arial,sans-serif;letter-spacing:.18em;color:#d3b783}.znav h2{font-size:18px;margin:0;color:#f5deb0}.znav-close{background:#201d19;color:#ead8b3;border:1px solid #9e7949;width:34px;height:30px;border-radius:4px}
 .znav-sea{position:relative;isolation:isolate;overflow:hidden;height:clamp(340px,55dvh,640px);background:#1d4656}.znav-sky{position:absolute;inset:0;background:var(--znav-ocean-art) center/cover;animation:znav-horizon 28s ease-in-out infinite alternate}.znav-ocean{position:absolute;inset:48% -5% -8%;background:var(--znav-ocean-art) center bottom/100% 210%;mask-image:linear-gradient(transparent,#000 28%);animation:znav-tide 7s ease-in-out infinite alternate;transform-origin:bottom center}.znav-ocean-near{z-index:4;pointer-events:none;position:absolute;inset:80% -8% -16%;background:var(--znav-ocean-art) center bottom/110% 300%;mask-image:linear-gradient(transparent,#000 35%);opacity:.8;animation:znav-tide-near 5s ease-in-out infinite alternate}.znav-sea:after{content:'';position:absolute;inset:0;pointer-events:none;z-index:2;box-shadow:inset 0 -35px 35px -25px #111c20,inset 0 25px 30px -20px #0e1821}
@@ -96,14 +96,41 @@
 .znav-team:last-child:before{right:5px;left:auto}
 .znav-team:first-child{padding-left:68px}.znav-team:last-child{padding-right:68px}
 @media(max-height:500px) and (orientation:landscape){.znav-team:before{width:47px;height:47px;top:5px;font-size:32px}.znav-team:first-child{padding-left:58px}.znav-team:last-child{padding-right:58px}}
-.znav-bars{height:19px}.znav-hp{font:700 12px/18px Arial,sans-serif}.znav-health{margin-top:7px}
-@media(max-height:500px) and (orientation:landscape){.znav-bars{height:17px}.znav-hp{font-size:11px;line-height:16px}.znav-health{margin-top:5px}}
+.znav-team{display:flex;flex-direction:column;padding-bottom:7px}
+.znav-bars{height:19px}.znav-hp{font:700 12px/18px Arial,sans-serif}.znav-health{margin-top:auto}
+@media(max-height:500px) and (orientation:landscape){.znav-team{padding-bottom:5px}.znav-bars{height:17px}.znav-hp{font-size:11px;line-height:16px}.znav-health{margin-top:auto}}
+/* One central parchment for class selection, loading and the final result. */
+.znav-centered .znav-play{top:50%;bottom:auto;left:50%;right:auto;transform:translate(-50%,-50%);width:min(460px,calc(100% - 60px));min-height:min(480px,calc(100dvh - 190px));max-height:calc(100dvh - 190px);justify-content:center;display:flex;flex-direction:column;padding:26px 30px;color:#35220f;background:radial-gradient(ellipse at center,#fff0c9,#e1c18b 78%,#ad793c);border:3px solid #91602d;border-radius:8px;box-shadow:0 16px 60px #0009,inset 0 0 28px #94602b55}
+.znav-centered .znav-play:before,.znav-centered .znav-play:after{content:'';position:absolute;left:-14px;right:-14px;height:20px;border:2px solid #805323;border-radius:10px;background:linear-gradient(180deg,#70451f,#efd29b 45%,#ac783a);box-shadow:3px 3px 8px #0005;pointer-events:none}
+.znav-centered .znav-play:before{top:-12px}.znav-centered .znav-play:after{bottom:-12px}
+.znav-centered .znav-question{display:contents}.znav-centered .znav-question:before,.znav-centered .znav-question:after{display:none}
+.znav-centered .znav-turn{order:0;margin:0 0 8px}.znav-centered .znav-word{display:block!important;order:1;font-size:clamp(24px,3vw,36px);margin:0 0 14px;color:#35220f}
+.znav-centered .znav-setup{order:2;min-height:0;display:flex;flex-direction:column;padding:0;gap:12px;text-align:left}
+.znav-centered .znav-status{order:3;color:#61431f;font-size:13px;flex-shrink:0;margin-top:12px}
+.znav-centered .znav-primary{order:4;flex-shrink:0;min-width:200px;min-height:52px;padding:12px 28px;margin-top:18px;font-size:22px;font-weight:700;border:3px ridge #ffe3a0;box-shadow:0 4px 0 #795022,0 7px 15px #6b421f44}
+.znav-centered .znav-answers{display:none}
+.znav-search{width:100%;min-height:44px;padding:10px 13px;border:1px solid #9a6c36;border-radius:6px;background:#fff8e6;color:#35220f;font:16px Arial,sans-serif}
+.znav-class-list{min-height:0;max-height:30dvh;overflow-y:auto;overscroll-behavior:contain;scrollbar-width:none;display:flex;flex-direction:column;gap:8px;padding:3px}
+.znav-class-list::-webkit-scrollbar{display:none}
+.znav-class-list button{flex-shrink:0;min-height:48px;padding:10px 14px;text-align:left;border:1px solid #b08951;border-radius:5px;background:#fff4d6a8;color:#392710;font-size:16px;overflow-wrap:anywhere}
+.znav-class-list button:hover:not(:disabled){background:#fff8e7;border-color:#805323}.znav-search:focus-visible,.znav-class-list button:focus-visible{outline:3px solid #805323;outline-offset:1px}
+.znav-class-empty{font:14px Arial,sans-serif;text-align:center;margin:8px 0}
+.znav-centered .znav-setup[hidden]{display:none}
+@media(max-height:500px) and (orientation:landscape){.znav-centered .znav-play{top:58%;max-height:calc(100dvh - 104px);width:min(420px,calc(100% - 54px));min-height:0;padding:16px 24px}.znav-centered .znav-word{font-size:24px;margin-bottom:8px}.znav-centered .znav-turn{margin-bottom:4px}.znav-centered .znav-setup{gap:6px}.znav-search{min-height:36px;padding:7px 10px;font-size:14px}.znav-class-list{max-height:24dvh;gap:5px}.znav-class-list button{min-height:38px;padding:7px 10px;font-size:14px}.znav-centered .znav-status{font-size:11px;margin-top:7px}.znav-centered .znav-primary{min-height:44px;margin-top:10px;padding:8px 24px;font-size:20px}}
+/* Keep the waterline low, but make the wave texture opaque over the keel. */
+.znav-ocean-near{top:61%;opacity:1;filter:brightness(.92) contrast(1.08);mask-image:linear-gradient(transparent 10%,#0003 20%,#000e 32%,#000 40%)}
+.znav-sprite{mask-image:linear-gradient(to bottom,#000 0%,#000 89%,#000b 96%,transparent 100%)}
+.znav-audio-controls{position:absolute;z-index:12;right:max(10px,env(safe-area-inset-right));top:max(100px,calc(env(safe-area-inset-top) + 90px));display:flex;gap:6px}
+.znav-audio-controls button{min-height:44px;padding:8px 12px;border:1px solid #c6a365;border-radius:8px;background:#211d17e8;color:#ffe5a7;font:13px Arial,sans-serif;cursor:pointer}
+.znav-audio-controls button[aria-pressed="false"]{color:#b9b1a2}
+.znav-audio-controls button:focus-visible{outline:3px solid #ffda77;outline-offset:2px}
 </style>
 <dialog id="znavDialog" class="znav" aria-label="Hải chiến từ vựng">
+ <div class="znav-audio-controls" aria-label="Âm thanh"><button type="button" class="znav-music" aria-pressed="true">Nhạc: Bật</button><button type="button" class="znav-effects" aria-pressed="true">Hiệu ứng: Bật</button></div>
  <div class="znav-rotate"><svg viewBox="0 0 80 80" aria-hidden="true"><rect x="20" y="10" width="40" height="60" rx="6" transform="rotate(90 40 40)"/><path d="M12 20A32 32 0 0 1 62 12m-1-8 3 10-11 1M68 60A32 32 0 0 1 18 68m1 8-3-10 11-1"/></svg><strong>Xoay ngang điện thoại để chơi</strong><span>Hải chiến từ vựng chỉ chơi ở chế độ màn hình ngang.</span><button type="button" class="znav-rotate-home">Home — Thoát trò chơi</button></div>
  <div class="znav-scores"><button class="znav-close znav-home" type="button" aria-label="Home — Thoát trò chơi" title="Home — Thoát trò chơi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3 10 9-7 9 7M5 9v12h5v-7h4v7h5V9"/></svg></button></div>
  <div class="znav-sea"><div class="znav-sky" aria-hidden="true"></div><div class="znav-ocean" aria-hidden="true"></div><div class="znav-ocean-near" aria-hidden="true"></div><div class="znav-ship" data-team="0"><img class="znav-sprite" alt="" decoding="async"><i class="znav-smoke"></i><i class="znav-smoke"></i><i class="znav-wake"></i></div><div class="znav-ship" data-team="1"><img class="znav-sprite" alt="" decoding="async"><i class="znav-smoke"></i><i class="znav-smoke"></i><i class="znav-wake"></i></div></div>
- <section class="znav-play"><div class="znav-question"><div class="znav-setup" hidden><label>Chọn lớp học <select class="znav-class" aria-label="Lớp học"><option value="">Chọn một lớp…</option></select></label></div><div class="znav-turn"></div><div class="znav-word"></div></div><div class="znav-answers"></div><p class="znav-status" role="status" aria-live="polite"></p><button type="button" class="znav-primary">Bắt đầu trận</button></section>
+ <section class="znav-play"><div class="znav-question"><div class="znav-setup" hidden><select class="znav-class" aria-label="Lớp học" hidden><option value="">Chọn một lớp…</option></select><input class="znav-search" type="search" placeholder="Tìm tên hoặc mã lớp…" aria-label="Tìm lớp học" autocomplete="off"><div class="znav-class-list" aria-label="Danh sách lớp học"></div><p class="znav-class-empty" hidden>Không tìm thấy lớp phù hợp.</p></div><div class="znav-turn"></div><div class="znav-word"></div></div><div class="znav-answers"></div><p class="znav-status" role="status" aria-live="polite"></p><button type="button" class="znav-primary">Bắt đầu trận</button></section>
 
 </dialog>
 <script>
@@ -122,6 +149,52 @@
  }
  async function warmFrames(g){for(let level=1;level<=10;level++){if(g!==generation||!dialog.open)return;await Promise.allSettled([loadFrame(0,level),loadFrame(1,level)]);}}
  let words=[],deck=[],damage=[0,0],turn=0,round=0,question=null,locked=true,generation=0,session='',timers=[];
+ // Audio is optional: failures must never block vocabulary loading or damage updates.
+ const soundFiles={music:'nhacnen.mp3',cannon:'cannon-fire-161072.mp3',break:'wooden-ship-break-85277.mp3',explosion:'massive-explosion-2-397983.mp3',sink:'big-bubbles-1-169077.mp3'};
+ const soundBase=window.ZevaNavalAudioBase||'https://raw.githubusercontent.com/bungbutq/zeva-education-app/main/game/hai-chien-tu-vung/audio/';
+ let audioContext=null,musicSource=null,musicGain=null,audioActive=false,musicEnabled=true,effectsEnabled=true,duckUntil=0;
+ const soundBuffers=new Map(),soundLoads=new Map(),effectSources=new Set();
+ try{const saved=JSON.parse(localStorage.getItem('zeva-naval-audio')||'{}');musicEnabled=saved.music!==false;effectsEnabled=saved.effects!==false;}catch(_){}
+ function audioButtons(){
+  for(const [selector,label,on] of [['.znav-music','Nhạc',musicEnabled],['.znav-effects','Hiệu ứng',effectsEnabled]]){const b=$(selector);b.textContent=label+': '+(on?'Bật':'Tắt');b.setAttribute('aria-pressed',String(on));}
+ }
+ function saveAudio(){audioButtons();try{localStorage.setItem('zeva-naval-audio',JSON.stringify({music:musicEnabled,effects:effectsEnabled}));}catch(_){} }
+ function stopMusic(){if(musicSource){try{musicSource.stop();}catch(_){}musicSource.disconnect();musicSource=null;}if(musicGain){musicGain.disconnect();musicGain=null;}}
+ function stopEffects(){for(const source of effectSources){try{source.stop();}catch(_){}source.disconnect();}effectSources.clear();duckUntil=0;}
+ function stopAudio(){audioActive=false;stopMusic();stopEffects();if(audioContext?.state==='running')void audioContext.suspend().catch(()=>{});}
+ function startMusic(){
+  if(!audioActive||!dialog.open||document.hidden||!validSession()||!musicEnabled||musicSource||audioContext?.state!=='running'||!soundBuffers.has('music'))return;
+  musicGain=audioContext.createGain();musicGain.gain.value=.17;musicGain.connect(audioContext.destination);
+  musicSource=audioContext.createBufferSource();musicSource.buffer=soundBuffers.get('music');musicSource.loop=true;musicSource.connect(musicGain);musicSource.start();
+ }
+ function loadSound(name){
+  if(soundBuffers.has(name))return Promise.resolve();if(soundLoads.has(name))return soundLoads.get(name);
+  const controller=new AbortController(),timeout=setTimeout(()=>controller.abort(),20000);
+  const pending=fetch(soundBase+soundFiles[name],{signal:controller.signal,credentials:'omit'}).then(r=>{if(!r.ok)throw Error('Audio unavailable');return r.arrayBuffer();}).then(data=>audioContext.decodeAudioData(data)).then(buffer=>{soundBuffers.set(name,buffer);if(name==='music')startMusic();}).catch(()=>{}).finally(()=>{clearTimeout(timeout);soundLoads.delete(name);});
+  soundLoads.set(name,pending);return pending;
+ }
+ function unlockAudio(){
+  if(!dialog.open||document.hidden||!validSession())return;
+  try{
+   const Context=window.AudioContext||window.webkitAudioContext;if(!Context)return;
+   if(!audioContext)audioContext=new Context();audioActive=true;
+   void audioContext.resume().then(()=>{if(!audioActive||document.hidden||!dialog.open){void audioContext.suspend().catch(()=>{});return;}startMusic();}).catch(()=>{});
+   Object.keys(soundFiles).forEach(name=>void loadSound(name));
+  }catch(_){}
+ }
+ function playEffect(name,volume=.65){
+  if(!audioActive||!effectsEnabled||!validSession()||document.hidden||!dialog.open||audioContext?.state!=='running'||!soundBuffers.has(name))return;
+  try{
+   const source=audioContext.createBufferSource(),gain=audioContext.createGain();source.buffer=soundBuffers.get(name);gain.gain.value=volume;source.connect(gain);gain.connect(audioContext.destination);effectSources.add(source);
+   source.onended=()=>{effectSources.delete(source);source.disconnect();gain.disconnect();};source.start();
+   if(musicGain){const now=audioContext.currentTime;duckUntil=Math.max(duckUntil,now+source.buffer.duration);musicGain.gain.cancelScheduledValues(now);musicGain.gain.setTargetAtTime(.055,now,.06);musicGain.gain.setTargetAtTime(.17,duckUntil,.35);}
+  }catch(_){}
+ }
+ $('.znav-music').addEventListener('click',()=>{musicEnabled=!musicEnabled;saveAudio();if(!musicEnabled)stopMusic();else{unlockAudio();startMusic();}});
+ $('.znav-effects').addEventListener('click',()=>{effectsEnabled=!effectsEnabled;saveAudio();if(!effectsEnabled){stopEffects();if(musicGain){musicGain.gain.cancelScheduledValues(audioContext.currentTime);musicGain.gain.setTargetAtTime(.17,audioContext.currentTime,.1);}}else unlockAudio();});
+ dialog.addEventListener('pointerdown',unlockAudio);dialog.addEventListener('keydown',unlockAudio);
+ document.addEventListener('visibilitychange',()=>{if(document.hidden)stopAudio();else if(dialog.open&&validSession())unlockAudio();});
+ audioButtons();
  const shuffle=items=>{const a=items.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;};
  const norm=s=>String(s||'').normalize('NFC').trim().replace(/\s+/g,' ').toLocaleLowerCase('vi');
  function clearTimers(){timers.forEach(clearTimeout);timers=[];dialog.querySelectorAll('.znav-projectile,.znav-flash,.znav-splash').forEach(n=>{n.getAnimations().forEach(a=>a.cancel());n.remove();});dialog.querySelectorAll('.znav-ship').forEach(n=>n.classList.remove('hit'));}
@@ -138,7 +211,7 @@
   const count=reduced?1:5,spacing=110,flight=reduced?180:720;
   for(let i=0;i<count;i++)later(()=>{
    if(!validSession()){clearTimers();fail('Phiên đăng nhập đã thay đổi. Hãy mở lại trò chơi.');return;}
-   const from=point(shooter,i),to=point(target,4-i);flash(from,true);
+   const from=point(shooter,i),to=point(target,4-i);flash(from,true);if(i===0)playEffect('cannon',.7);
    let ball;
    if(!reduced){
     ball=document.createElement('div');ball.className='znav-projectile';ball.setAttribute('aria-hidden','true');sea.append(ball);
@@ -149,7 +222,7 @@
    later(()=>{
     if(!validSession()){clearTimers();fail('Phiên đăng nhập đã thay đổi. Hãy mở lại trò chơi.');return;}
     if(ball){ball.getAnimations().forEach(a=>a.cancel());ball.remove();}flash(to,false);
-    if(i===count-1)later(onImpact,80);
+    if(i===count-1){playEffect('break',.6);later(onImpact,80);}
    },flight);
   },i*spacing);
  }
@@ -160,6 +233,7 @@
   dialog.querySelectorAll('.znav-ship').forEach((ship,i)=>{ship.dataset.damage=String(damage[i]);ship.classList.toggle('sunk',damage[i]===10);ship.setAttribute('role','img');ship.setAttribute('aria-label',names[i]+': '+damageNames[damage[i]]);const url=frameUrl(i,damage[i]);if(ship.firstElementChild.getAttribute('src')!==url)ship.firstElementChild.src=url;});
  }
  function next(){
+  dialog.classList.remove('znav-centered');
   if(!validSession())return fail('Phiên đăng nhập đã thay đổi. Hãy đóng game và đăng nhập lại.');
   if(!deck.length)deck=shuffle(words);
   question=deck.pop();round++;locked=false;
@@ -181,12 +255,21 @@
   dialog.querySelectorAll('.znav-answers button').forEach(b=>{b.disabled=true;if(norm(b.dataset.meaning)===norm(question.meaning))b.classList.add('correct');});
   if(!correct)selected.classList.add('wrong');
   $('.znav-status').textContent=(correct?'Chính xác! ':'Chưa đúng! ')+question.word+' = '+question.meaning+'. '+names[shooter]+' khai hỏa một loạt đại bác!';
-  fireVolley(shooter,target,()=>{if(!validSession()){clearTimers();fail('Phiên đăng nhập đã thay đổi. Hãy mở lại trò chơi.');return;}damage[target]=Math.min(10,damage[target]+1);scores();const ship=dialog.querySelectorAll('.znav-ship')[target];ship.classList.add('hit');$('.znav-status').textContent=names[target]+' trúng loạt đạn, mất 1 độ bền.';later(()=>ship.classList.remove('hit'),450);});
-  later(()=>{if(!validSession()){clearTimers();fail('Phiên đăng nhập đã thay đổi. Hãy mở lại trò chơi.');return;}if(damage[target]===10){$('.znav-turn').textContent='TRẬN ĐẤU KẾT THÚC';$('.znav-word').textContent=names[1-target]+' chiến thắng!';$('.znav-status').textContent=names[target]+' đã nhận 10 loạt đạn và chìm. Cùng thử một hải trình mới nhé!';$('.znav-primary').textContent='Chơi lại';$('.znav-primary').hidden=false;$('.znav-primary').focus();}else{turn=1-turn;next();$('.znav-answers button').focus();}},1700);
+  fireVolley(shooter,target,()=>{if(!validSession()){clearTimers();fail('Phiên đăng nhập đã thay đổi. Hãy mở lại trò chơi.');return;}damage[target]=Math.min(10,damage[target]+1);scores();if(damage[target]===10){playEffect('explosion',.8);later(()=>playEffect('sink',.85),850);}const ship=dialog.querySelectorAll('.znav-ship')[target];ship.classList.add('hit');$('.znav-status').textContent=names[target]+' trúng loạt đạn, mất 1 độ bền.';later(()=>ship.classList.remove('hit'),450);});
+  later(()=>{if(!validSession()){clearTimers();fail('Phiên đăng nhập đã thay đổi. Hãy mở lại trò chơi.');return;}if(damage[target]===10){dialog.classList.add('znav-centered');$('.znav-setup').hidden=true;$('.znav-answers').replaceChildren();$('.znav-turn').textContent='TRẬN ĐẤU KẾT THÚC';$('.znav-word').textContent=names[1-target]+' chiến thắng!';$('.znav-status').textContent=names[target]+' đã nhận 10 loạt đạn và chìm. Cùng thử một hải trình mới nhé!';$('.znav-primary').textContent='Chơi lại';$('.znav-primary').hidden=false;$('.znav-primary').focus();}else{turn=1-turn;next();$('.znav-answers button').focus();}},1700);
  }
- function fail(message){locked=true;$('.znav-status').textContent=message;$('.znav-primary').textContent='Tải lại bộ từ';$('.znav-primary').hidden=false;$('.znav-primary').disabled=false;words=[];$('.znav-answers').replaceChildren();}
+ function fail(message){stopAudio();dialog.classList.add('znav-centered');locked=true;$('.znav-status').textContent=message;$('.znav-primary').textContent='Tải lại bộ từ';$('.znav-primary').hidden=false;$('.znav-primary').disabled=false;words=[];$('.znav-answers').replaceChildren();}
+ function renderClasses(){
+  const query=norm($('.znav-search').value).normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/đ/g,'d');
+  const options=Array.from($('.znav-class').options).filter(o=>o.value&&norm(o.textContent).normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/đ/g,'d').includes(query));
+  $('.znav-class-list').replaceChildren(...options.map(o=>{const b=document.createElement('button');b.type='button';b.textContent=o.textContent;b.dataset.classCode=o.value;b.disabled=$('.znav-class').disabled;b.addEventListener('click',()=>{if($('.znav-class').disabled)return;$('.znav-class').value=o.value;start();});return b;}));
+  $('.znav-class-empty').hidden=options.length>0||$('.znav-class').disabled;
+ }
+ $('.znav-search').addEventListener('input',renderClasses);
  async function chooseClasses(){
-  clearTimers();const g=++generation;locked=true;words=[];deck=[];round=0;damage=[0,0];session=String(window.BBG_STATE?.session?.token||'');scores();
+  dialog.classList.add('znav-centered');$('.znav-search').value='';$('.znav-search').disabled=true;
+  $('.znav-class-list').replaceChildren();$('.znav-class-empty').hidden=true;
+  clearTimers();stopAudio();const g=++generation;locked=true;words=[];deck=[];round=0;damage=[0,0];session=String(window.BBG_STATE?.session?.token||'');scores();
   $('.znav-setup').hidden=false;$('.znav-answers').replaceChildren();$('.znav-word').textContent='Chọn lớp để ra khơi';$('.znav-turn').textContent='BÀI HỌC GẦN NHẤT CỦA LỚP';$('.znav-status').textContent='Đang tải danh sách lớp…';
   const select=$('.znav-class');select.replaceChildren(new Option('Chọn một lớp…',''));select.disabled=true;$('.znav-primary').hidden=true;$('.znav-primary').disabled=true;$('.znav-primary').textContent='Tải từ vựng';
   try{
@@ -196,14 +279,14 @@
    if(!result?.ok)throw Error(result?.error?.message||'Không tải được lớp học.');
    const classes=result.data?.classes||[];if(!classes.length)throw Error('Chưa có lớp học để chọn.');
    classes.forEach(c=>select.append(new Option((c.className||c.classCode)+' · '+c.classCode,c.classCode)));
-   select.disabled=false;$('.znav-status').textContent='Chọn lớp để tự động tải câu hỏi từ bài gần nhất đã ghi nhận.';
+   select.disabled=false;$('.znav-search').disabled=false;renderClasses();$('.znav-search').focus();$('.znav-status').textContent='Chọn lớp để tự động tải câu hỏi từ bài gần nhất đã ghi nhận.';
   }catch(e){if(g===generation&&dialog.open){fail(e.message);$('.znav-primary').textContent='Tải lại danh sách lớp';}}
  }
  $('.znav-class').addEventListener('change',()=>{if($('.znav-class').value)start();});
  async function start(){
   const classCode=$('.znav-class').value;if(!classCode)return chooseClasses();
-  $('.znav-class').disabled=true;
-  clearTimers();generation++;const g=generation;locked=true;words=[];deck=[];damage=[0,0];turn=0;round=0;question=null;session=String(window.BBG_STATE?.session?.token||'');scores();
+  dialog.classList.add('znav-centered');$('.znav-class').disabled=true;$('.znav-search').disabled=true;renderClasses();
+  clearTimers();stopEffects();generation++;const g=generation;locked=true;words=[];deck=[];damage=[0,0];turn=0;round=0;question=null;session=String(window.BBG_STATE?.session?.token||'');scores();
   $('.znav-answers').replaceChildren();$('.znav-word').textContent='Chuẩn bị ra khơi';$('.znav-turn').textContent='BÀI HỌC GẦN NHẤT CỦA LỚP';$('.znav-status').textContent='Đang tải từ vựng của lớp…';$('.znav-primary').disabled=true;
   try{
    if(!session)throw Error('Vui lòng đăng nhập để chơi với bộ từ của bạn.');
@@ -223,13 +306,13 @@
    $('.znav-setup').hidden=true;next();
    void warmFrames(g);
   }catch(e){if(g===generation&&dialog.open)fail(e.message||'Không thể tải game.');}
-  finally{if(g===generation){$('.znav-primary').disabled=false;$('.znav-class').disabled=false;if(!words.length)$('.znav-setup').hidden=false;}}
+  finally{if(g===generation){$('.znav-primary').disabled=false;$('.znav-class').disabled=false;$('.znav-search').disabled=false;renderClasses();if(!words.length)$('.znav-setup').hidden=false;}}
  }
- function close(){generation++;clearTimers();locked=true;words=[];deck=[];question=null;session='';}
+ function close(){generation++;clearTimers();stopAudio();locked=true;words=[];deck=[];question=null;session='';}
  dialog.addEventListener('close',close);$('.znav-close').addEventListener('click',()=>dialog.close());
  $('.znav-rotate-home').addEventListener('click',()=>dialog.close());
  $('.znav-primary').addEventListener('click',()=>{if(!words.length||damage.includes(10)||!round)start();else next();});
- const list=document.getElementById('gamesCardList');if(list){const b=document.createElement('button');b.type='button';b.className='znav-launch';b.innerHTML='<span>ĐỐI KHÁNG · 2 ĐỘI</span><strong>⚓ Hải chiến từ vựng</strong><span>Cướp biển vs Hải quân — Chọn đúng nghĩa, khai hỏa đại bác!</span>';b.addEventListener('click',()=>{dialog.showModal();chooseClasses();});list.append(b);const empty=document.getElementById('gamesEmptyState');if(empty)empty.hidden=true;}
+ const list=document.getElementById('gamesCardList');if(list){const b=document.createElement('button');b.type='button';b.className='znav-launch';b.innerHTML='<span>ĐỐI KHÁNG · 2 ĐỘI</span><strong>⚓ Hải chiến từ vựng</strong><span>Cướp biển vs Hải quân — Chọn đúng nghĩa, khai hỏa đại bác!</span>';b.addEventListener('click',()=>{dialog.showModal();chooseClasses();unlockAudio();});list.append(b);const empty=document.getElementById('gamesEmptyState');if(empty)empty.hidden=true;}
 })();
 </script>
 </body></html>
