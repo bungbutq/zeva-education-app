@@ -18,13 +18,28 @@
 .znav-ship[data-team="0"]{left:-16px;--roll:0deg;--drift:0px}
 .znav-ship[data-team="1"]{right:-16px;--roll:0deg;--drift:0px}
 @media(max-width:700px){.znav-scores{padding:8px;gap:12px}.znav-sea{height:32dvh;min-height:220px}.znav-sprite{object-fit:cover}.znav-team{width:49%}}
+
+/* The sea fills the game viewport; controls sit above the scene. */
+.znav{width:98vw;max-width:1920px;height:96dvh;max-height:96dvh;overflow:hidden}
+.znav-head{position:absolute;inset:0 0 auto;z-index:12;padding:6px 14px;background:linear-gradient(#171611e8,#17161188);border:0}.znav h2{font-size:15px}.znav-head small{font-size:9px}
+.znav-sea{position:absolute;inset:0;height:100%;min-height:0}
+.znav-scores{position:absolute;top:52px;left:16px;right:16px;padding:0;z-index:8;background:none;border:0;gap:30%}
+.znav-team{width:30%;max-width:390px;padding:6px 9px 6px 43px;border-width:1px}.znav-team:before{left:7px;top:7px;width:27px;height:33px;line-height:30px;font-size:21px;border-width:1px}.znav-team strong{font-size:14px}.znav-team small{font-size:9px;margin-top:4px}.znav-bars{height:12px;padding:1px}.znav-hp{font:10px/11px Arial,sans-serif;inset:0}.znav-health{margin-top:4px}
+.znav-ship{height:110%;width:calc(100% + 32px);bottom:-10%}.znav-sprite{object-fit:contain;object-position:left top;padding:0}.znav-ship[data-team="1"] .znav-sprite{object-position:right top}
+.znav-ocean-near{inset:62% -8% -16%;opacity:1;z-index:4;background-size:110% 300%;mask-image:linear-gradient(transparent,#000 40%)}
+.znav-play{position:absolute;bottom:43px;left:0;right:0;z-index:9;padding:0 22px 5px;background:linear-gradient(transparent,#21170fd9 35%);border:0;box-shadow:none}
+.znav-question{min-height:72px;margin:0 9% 9px;padding:10px 20px}.znav-word{font-size:clamp(24px,3vw,38px)}.znav-turn{font-size:10px;margin-bottom:4px}.znav-answers button{min-height:59px;font-size:20px}.znav-letter{width:31px;height:31px;flex-basis:31px;font-size:20px}.znav-status{font-size:11px;margin:7px 0 0;min-height:16px}
+.znav-foot{position:absolute;bottom:0;left:0;right:0;z-index:10;min-height:43px;padding:5px 18px;background:#19140ee8}.znav-foot p{font-size:9px}.znav-primary{font-size:12px;padding:6px 14px}
+.znav-context{position:absolute;top:123px;left:50%;transform:translateX(-50%);max-width:55%;z-index:8;padding:4px 10px;background:#111a20aa;border-radius:4px;text-align:center;font-size:10px}
+.znav-setup{background:none;padding:8px 0;color:#392710;font-size:17px}.znav-setup select{width:min(420px,68%);max-width:68%;font-size:16px}.znav-question:has(.znav-setup:not([hidden])) .znav-word{display:none}.znav-center{bottom:32%;font-size:9px}
+@media(max-width:700px){.znav{width:100vw;max-width:100vw;height:98dvh;max-height:98dvh}.znav-scores{top:47px;left:7px;right:7px;gap:15px}.znav-team{width:47%;padding-left:33px}.znav-team:before{width:20px;font-size:17px;left:5px}.znav-team strong{font-size:11px}.znav-team small{font-size:8px}.znav-context{top:114px;max-width:85%;width:max-content}.znav-play{padding:0 12px 5px;bottom:54px}.znav-question{margin:0 2% 8px;padding:9px 14px}.znav-answers button{font-size:15px;min-height:49px}.znav-setup{font-size:14px}.znav-setup select{font-size:14px}.znav-foot{min-height:54px}.znav-ship{height:110%;bottom:-10%}.znav-sprite{object-fit:contain;object-position:left center}.znav-ship[data-team="1"] .znav-sprite{object-position:right center}}
 </style>
 <dialog id="znavDialog" class="znav" aria-labelledby="znavTitle">
  <header class="znav-head"><div><small>ZEVA • WORD BATTLE</small><h2 id="znavTitle">Hải chiến từ vựng</h2></div><button class="znav-close" type="button" aria-label="Đóng trò chơi">✕</button></header>
- <div class="znav-setup" hidden><label>Chọn lớp học <select class="znav-class" aria-label="Lớp học"><option value="">Chọn một lớp…</option></select></label></div><div class="znav-context" hidden></div>
+ <div class="znav-context" hidden></div>
  <div class="znav-scores"></div>
  <div class="znav-sea"><div class="znav-sky" aria-hidden="true"></div><div class="znav-ocean" aria-hidden="true"></div><div class="znav-ocean-near" aria-hidden="true"></div><div class="znav-center">ĐẠI HẢI TRÌNH</div><div class="znav-ship" data-team="0"><img class="znav-sprite" alt="" decoding="async"><i class="znav-smoke"></i><i class="znav-smoke"></i><i class="znav-wake"></i></div><div class="znav-ship" data-team="1"><img class="znav-sprite" alt="" decoding="async"><i class="znav-smoke"></i><i class="znav-smoke"></i><i class="znav-wake"></i></div><div class="znav-ball" hidden></div></div>
- <section class="znav-play"><div class="znav-question"><div class="znav-turn"></div><div class="znav-word"></div></div><div class="znav-answers"></div><p class="znav-status" role="status" aria-live="polite"></p></section>
+ <section class="znav-play"><div class="znav-question"><div class="znav-setup" hidden><label>Chọn lớp học <select class="znav-class" aria-label="Lớp học"><option value="">Chọn một lớp…</option></select></label></div><div class="znav-turn"></div><div class="znav-word"></div></div><div class="znav-answers"></div><p class="znav-status" role="status" aria-live="polite"></p></section>
  <footer class="znav-foot"><p>Hai đội luân phiên • Đúng: bắn đối thủ • Sai: nhận đạn<br>Trúng 10 phát sẽ chìm. Luyện tập không cộng EXP.</p><button type="button" class="znav-primary">Bắt đầu trận</button></footer>
 </dialog>
 <script>
@@ -83,7 +98,7 @@
  async function chooseClasses(){
   clearTimers();const g=++generation;locked=true;words=[];deck=[];round=0;damage=[0,0];session=String(window.BBG_STATE?.session?.token||'');scores();
   $('.znav-setup').hidden=false;$('.znav-context').hidden=true;$('.znav-answers').replaceChildren();$('.znav-word').textContent='Chọn lớp để ra khơi';$('.znav-turn').textContent='BÀI HỌC GẦN NHẤT CỦA LỚP';$('.znav-status').textContent='Đang tải danh sách lớp…';
-  const select=$('.znav-class');select.replaceChildren(new Option('Chọn một lớp…',''));select.disabled=true;$('.znav-primary').hidden=false;$('.znav-primary').disabled=true;$('.znav-primary').textContent='Tải từ vựng';
+  const select=$('.znav-class');select.replaceChildren(new Option('Chọn một lớp…',''));select.disabled=true;$('.znav-primary').hidden=true;$('.znav-primary').disabled=true;$('.znav-primary').textContent='Tải từ vựng';
   try{
    if(!session)throw Error('Vui lòng đăng nhập để chọn lớp.');
    const result=await window.bbgCall('getBbgVocabularySample',{token:session,gameMode:'naval',listClasses:true},{priority:'interactive'});
@@ -91,10 +106,10 @@
    if(!result?.ok)throw Error(result?.error?.message||'Không tải được lớp học.');
    const classes=result.data?.classes||[];if(!classes.length)throw Error('Chưa có lớp học để chọn.');
    classes.forEach(c=>select.append(new Option((c.className||c.classCode)+' · '+c.classCode,c.classCode)));
-   select.disabled=false;$('.znav-status').textContent='Chọn lớp, sau đó bấm Tải từ vựng. Game dùng bài gần nhất đã ghi nhận của lớp.';
+   select.disabled=false;$('.znav-status').textContent='Chọn lớp để tự động tải câu hỏi từ bài gần nhất đã ghi nhận.';
   }catch(e){if(g===generation&&dialog.open){fail(e.message);$('.znav-primary').textContent='Tải lại danh sách lớp';}}
  }
- $('.znav-class').addEventListener('change',()=>{$('.znav-primary').disabled=!$('.znav-class').value;});
+ $('.znav-class').addEventListener('change',()=>{if($('.znav-class').value)start();});
  async function start(){
   const classCode=$('.znav-class').value;if(!classCode)return chooseClasses();
   $('.znav-class').disabled=true;
