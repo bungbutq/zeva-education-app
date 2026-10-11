@@ -1,6 +1,6 @@
 # Hải chiến từ vựng
 
-Mở index.html để chơi thử hai đội trên cùng màn hình với bộ từ minh họa. Trong app ZEVA, menu Trò chơi dùng từ của bài Học mới hiện tại.
+Mở index.html để chơi thử hai đội trên cùng màn hình với bộ từ minh họa. Trong app ZEVA, menu Trò chơi cho chọn lớp và dùng từ của bài gần nhất đã ghi nhận trong chuyên cần của lớp (không lấy ngày tương lai).
 
 - Đúng: đối thủ nhận một phát; sai: đội trả lời nhận một phát.
 - Đủ 10 phát: chìm tàu và thua. Chơi lại tải lại bộ từ.
