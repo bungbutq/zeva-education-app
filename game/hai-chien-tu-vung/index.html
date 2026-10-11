@@ -120,13 +120,23 @@
 /* Keep the waterline low, but make the wave texture opaque over the keel. */
 .znav-ocean-near{top:61%;opacity:1;filter:brightness(.92) contrast(1.08);mask-image:linear-gradient(transparent 10%,#0003 20%,#000e 32%,#000 40%)}
 .znav-sprite{mask-image:linear-gradient(to bottom,#000 0%,#000 89%,#000b 96%,transparent 100%)}
-.znav-audio-controls{position:absolute;z-index:12;right:max(10px,env(safe-area-inset-right));top:max(100px,calc(env(safe-area-inset-top) + 90px));display:flex;gap:6px}
-.znav-audio-controls button{min-height:44px;padding:8px 12px;border:1px solid #c6a365;border-radius:8px;background:#211d17e8;color:#ffe5a7;font:13px Arial,sans-serif;cursor:pointer}
+/* Navy-only water and spray conceal the lower hull's cutout edge. */
+.znav-ship[data-team="1"] .znav-wake{display:block;left:15%;right:3%;bottom:-3%;height:19%;border:0;border-radius:0;filter:none;animation:none;mask-image:radial-gradient(ellipse 58% 52% at 53% 52%,#000 18%,#000e 48%,transparent 88%)}
+.znav-ship[data-team="1"] .znav-wake:before{content:'';position:absolute;inset:0;background:var(--znav-ocean-art) 72% bottom/240% 520%;filter:brightness(.64) contrast(1.18)}
+.znav-ship[data-team="1"] .znav-wake:after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 16% 15% at 15% 36%,#f3f8f1b8,transparent 78%),radial-gradient(ellipse 20% 17% at 31% 48%,#f1f7f0c9,transparent 76%),radial-gradient(ellipse 17% 13% at 47% 55%,#e8f1ecc2,transparent 78%),radial-gradient(ellipse 19% 18% at 65% 50%,#f5f9f1d4,transparent 77%),radial-gradient(ellipse 14% 22% at 82% 37%,#f3f8f0cf,transparent 79%),radial-gradient(ellipse 13% 25% at 91% 51%,#edf4edbf,transparent 80%);filter:blur(2px);animation:znav-navy-spray 3.6s ease-in-out infinite alternate}
+@keyframes znav-navy-spray{from{opacity:.7;transform:translate(-.5%,2%) scaleX(.98)}to{opacity:1;transform:translate(.7%,-3%) scaleX(1.03)}}
+@media(prefers-reduced-motion:reduce){.znav-ship[data-team="1"] .znav-wake:after{animation:none}}
+.znav-audio-controls{position:absolute;z-index:12;right:max(10px,env(safe-area-inset-right));top:max(10px,env(safe-area-inset-top));display:flex;gap:8px}
+.znav-audio-controls button{display:grid;place-items:center;width:44px;height:44px;padding:10px;border:1px solid #c6a365;border-radius:50%;background:radial-gradient(circle at 35% 25%,#51412a,#211d17 75%);color:#ffe5a7;box-shadow:0 3px 10px #0008;cursor:pointer}
+.znav-audio-controls svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.znav-audio-controls .znav-muted-slash{display:none}
+.znav-audio-controls button[aria-pressed="false"] .znav-muted-slash{display:block}
 .znav-audio-controls button[aria-pressed="false"]{color:#b9b1a2}
 .znav-audio-controls button:focus-visible{outline:3px solid #ffda77;outline-offset:2px}
+@media(max-width:740px) and (orientation:landscape){.znav-scores{left:12px;transform:none;width:calc(100% - 132px)}}
 </style>
 <dialog id="znavDialog" class="znav" aria-label="Hải chiến từ vựng">
- <div class="znav-audio-controls" aria-label="Âm thanh"><button type="button" class="znav-music" aria-pressed="true">Nhạc: Bật</button><button type="button" class="znav-effects" aria-pressed="true">Hiệu ứng: Bật</button></div>
+ <div class="znav-audio-controls" aria-label="Âm thanh"><button type="button" class="znav-music" aria-pressed="true" aria-label="Nhạc: Bật" title="Nhạc: Bật"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18V5l11-2v13M9 9l11-2"/><ellipse cx="6" cy="18" rx="3" ry="2.5"/><ellipse cx="17" cy="16" rx="3" ry="2.5"/><path class="znav-muted-slash" d="m3 3 18 18"/></svg></button><button type="button" class="znav-effects" aria-pressed="true" aria-label="Hiệu ứng: Bật" title="Hiệu ứng: Bật"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 4 6 8H3v8h3l5 4ZM15 8a6 6 0 0 1 0 8m3-11a10 10 0 0 1 0 14"/><path class="znav-muted-slash" d="m3 3 18 18"/></svg></button></div>
  <div class="znav-rotate"><svg viewBox="0 0 80 80" aria-hidden="true"><rect x="20" y="10" width="40" height="60" rx="6" transform="rotate(90 40 40)"/><path d="M12 20A32 32 0 0 1 62 12m-1-8 3 10-11 1M68 60A32 32 0 0 1 18 68m1 8-3-10 11-1"/></svg><strong>Xoay ngang điện thoại để chơi</strong><span>Hải chiến từ vựng chỉ chơi ở chế độ màn hình ngang.</span><button type="button" class="znav-rotate-home">Home — Thoát trò chơi</button></div>
  <div class="znav-scores"><button class="znav-close znav-home" type="button" aria-label="Home — Thoát trò chơi" title="Home — Thoát trò chơi"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3 10 9-7 9 7M5 9v12h5v-7h4v7h5V9"/></svg></button></div>
  <div class="znav-sea"><div class="znav-sky" aria-hidden="true"></div><div class="znav-ocean" aria-hidden="true"></div><div class="znav-ocean-near" aria-hidden="true"></div><div class="znav-ship" data-team="0"><img class="znav-sprite" alt="" decoding="async"><i class="znav-smoke"></i><i class="znav-smoke"></i><i class="znav-wake"></i></div><div class="znav-ship" data-team="1"><img class="znav-sprite" alt="" decoding="async"><i class="znav-smoke"></i><i class="znav-smoke"></i><i class="znav-wake"></i></div></div>
@@ -151,12 +161,12 @@
  let words=[],deck=[],damage=[0,0],turn=0,round=0,question=null,locked=true,generation=0,session='',timers=[];
  // Audio is optional: failures must never block vocabulary loading or damage updates.
  const soundFiles={music:'nhacnen.mp3',cannon:'cannon-fire-161072.mp3',break:'wooden-ship-break-85277.mp3',explosion:'massive-explosion-2-397983.mp3',sink:'big-bubbles-1-169077.mp3'};
- const soundBase=window.ZevaNavalAudioBase||'https://raw.githubusercontent.com/bungbutq/zeva-education-app/main/game/hai-chien-tu-vung/audio/';
+ const soundBase=window.ZevaNavalAudioBase||'https://raw.githubusercontent.com/bungbutq/zeva-education-app/517dbd1d4d65ff2d9e8055c084f1619569489d3c/game/hai-chien-tu-vung/audio/';
  let audioContext=null,musicSource=null,musicGain=null,audioActive=false,musicEnabled=true,effectsEnabled=true,duckUntil=0;
  const soundBuffers=new Map(),soundLoads=new Map(),effectSources=new Set();
  try{const saved=JSON.parse(localStorage.getItem('zeva-naval-audio')||'{}');musicEnabled=saved.music!==false;effectsEnabled=saved.effects!==false;}catch(_){}
  function audioButtons(){
-  for(const [selector,label,on] of [['.znav-music','Nhạc',musicEnabled],['.znav-effects','Hiệu ứng',effectsEnabled]]){const b=$(selector);b.textContent=label+': '+(on?'Bật':'Tắt');b.setAttribute('aria-pressed',String(on));}
+  for(const [selector,label,on] of [['.znav-music','Nhạc',musicEnabled],['.znav-effects','Hiệu ứng',effectsEnabled]]){const b=$(selector),text=label+': '+(on?'Bật':'Tắt');b.setAttribute('aria-label',text);b.title=text;b.setAttribute('aria-pressed',String(on));}
  }
  function saveAudio(){audioButtons();try{localStorage.setItem('zeva-naval-audio',JSON.stringify({music:musicEnabled,effects:effectsEnabled}));}catch(_){} }
  function stopMusic(){if(musicSource){try{musicSource.stop();}catch(_){}musicSource.disconnect();musicSource=null;}if(musicGain){musicGain.disconnect();musicGain=null;}}
@@ -255,7 +265,7 @@
   dialog.querySelectorAll('.znav-answers button').forEach(b=>{b.disabled=true;if(norm(b.dataset.meaning)===norm(question.meaning))b.classList.add('correct');});
   if(!correct)selected.classList.add('wrong');
   $('.znav-status').textContent=(correct?'Chính xác! ':'Chưa đúng! ')+question.word+' = '+question.meaning+'. '+names[shooter]+' khai hỏa một loạt đại bác!';
-  fireVolley(shooter,target,()=>{if(!validSession()){clearTimers();fail('Phiên đăng nhập đã thay đổi. Hãy mở lại trò chơi.');return;}damage[target]=Math.min(10,damage[target]+1);scores();if(damage[target]===10){playEffect('explosion',.8);later(()=>playEffect('sink',.85),850);}const ship=dialog.querySelectorAll('.znav-ship')[target];ship.classList.add('hit');$('.znav-status').textContent=names[target]+' trúng loạt đạn, mất 1 độ bền.';later(()=>ship.classList.remove('hit'),450);});
+  fireVolley(shooter,target,()=>{if(!validSession()){clearTimers();fail('Phiên đăng nhập đã thay đổi. Hãy mở lại trò chơi.');return;}damage[target]=Math.min(10,damage[target]+1);scores();if(damage[target]===8)playEffect('explosion',.8);if(damage[target]===10){playEffect('explosion',.8);later(()=>playEffect('sink',.85),850);}const ship=dialog.querySelectorAll('.znav-ship')[target];ship.classList.add('hit');$('.znav-status').textContent=names[target]+' trúng loạt đạn, mất 1 độ bền.';later(()=>ship.classList.remove('hit'),450);});
   later(()=>{if(!validSession()){clearTimers();fail('Phiên đăng nhập đã thay đổi. Hãy mở lại trò chơi.');return;}if(damage[target]===10){dialog.classList.add('znav-centered');$('.znav-setup').hidden=true;$('.znav-answers').replaceChildren();$('.znav-turn').textContent='TRẬN ĐẤU KẾT THÚC';$('.znav-word').textContent=names[1-target]+' chiến thắng!';$('.znav-status').textContent=names[target]+' đã nhận 10 loạt đạn và chìm. Cùng thử một hải trình mới nhé!';$('.znav-primary').textContent='Chơi lại';$('.znav-primary').hidden=false;$('.znav-primary').focus();}else{turn=1-turn;next();$('.znav-answers button').focus();}},1700);
  }
  function fail(message){stopAudio();dialog.classList.add('znav-centered');locked=true;$('.znav-status').textContent=message;$('.znav-primary').textContent='Tải lại bộ từ';$('.znav-primary').hidden=false;$('.znav-primary').disabled=false;words=[];$('.znav-answers').replaceChildren();}
