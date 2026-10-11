@@ -78,6 +78,17 @@
 .znav-team:last-child{padding-left:47px;padding-right:42px;border-left:0;text-align:right}
 .znav-team:last-child:before{left:auto;right:7px}
 @media(max-height:500px) and (orientation:landscape){.znav-scores{width:min(690px,calc(100% - 20px));top:12px}.znav-home{width:64px;height:64px;padding:13px}.znav-home svg{width:30px;height:30px}.znav-team:first-child{padding-right:39px}.znav-team:last-child{padding-left:39px;padding-right:40px}.znav-team strong{font-size:12px}.znav-team small{font-size:9px}}
+
+/* Wider information panels; compact health meters and full-height emblems. */
+.znav-scores{width:min(840px,calc(100% - 24px))}
+.znav-team{min-height:72px}
+.znav-team:first-child{padding-left:64px;padding-right:48px}
+.znav-team:last-child{padding-left:48px;padding-right:64px}
+.znav-team:before{top:5px;bottom:5px;left:6px;width:46px;height:auto;display:grid;place-items:center;line-height:1;font-size:35px;border-radius:6px 6px 13px 13px}
+.znav-team:last-child:before{left:auto;right:6px}
+.znav-health{width:100%;max-width:255px}
+.znav-team:last-child .znav-health{margin-left:auto}
+@media(max-height:500px) and (orientation:landscape){.znav-scores{width:min(740px,calc(100% - 20px))}.znav-team{min-height:59px}.znav-team:first-child{padding-left:55px;padding-right:39px}.znav-team:last-child{padding-left:39px;padding-right:55px}.znav-team:before{width:39px;font-size:29px;top:4px;bottom:4px}.znav-health{max-width:165px}}
 </style>
 <dialog id="znavDialog" class="znav" aria-label="Hải chiến từ vựng">
  <div class="znav-rotate"><svg viewBox="0 0 80 80" aria-hidden="true"><rect x="20" y="10" width="40" height="60" rx="6" transform="rotate(90 40 40)"/><path d="M12 20A32 32 0 0 1 62 12m-1-8 3 10-11 1M68 60A32 32 0 0 1 18 68m1 8-3-10 11-1"/></svg><strong>Xoay ngang điện thoại để chơi</strong><span>Hải chiến từ vựng chỉ chơi ở chế độ màn hình ngang.</span><button type="button" class="znav-rotate-home">Home — Thoát trò chơi</button></div>
