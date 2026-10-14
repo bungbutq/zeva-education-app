@@ -1,0 +1,65 @@
+{
+  "baseURL": "https://bungbutq.github.io/zeva-education-app/Gamebaothu/",
+  "files": [
+    {
+      "path": "audio/hover.wav",
+      "original": "di chuột.wav",
+      "bytes": 398634,
+      "sha256": "a005358f8c4fb840649303cce5e79c2996b6965a1c08409d0b91da2c418d4a30"
+    },
+    {
+      "path": "audio/select.wav",
+      "original": "chốt vị trí bắn.wav",
+      "bytes": 274068,
+      "sha256": "8c66b12ae8d31f6a656d53b23d9eb81bde351be851b49a83677a7520e1a388a1"
+    },
+    {
+      "path": "audio/flight.mp3",
+      "original": "tên lửa bay.mp3",
+      "bytes": 59520,
+      "sha256": "1c6e5c5f334c4b2f1bc00a7a94c8fd22aa2d85fd39721288b1c1f706d6f508a4"
+    },
+    {
+      "path": "audio/explosion.mp3",
+      "original": "nổ bom.mp3",
+      "bytes": 161332,
+      "sha256": "7203fcd50b3606d182f0df60fa6186403711d96851cc9a67ca8067cec2b3640b"
+    },
+    {
+      "path": "audio/friendly-miss.wav",
+      "original": "bắn nhầm đồng đội + bắn vào chỗ trống.wav",
+      "bytes": 257092,
+      "sha256": "75bdf650ec6ec11bb14104be9ef88efafd2586bf9e8b2916e0bf76e95d1c610b"
+    },
+    {
+      "path": "audio/reveal.wav",
+      "original": "phát hiện địch + lộ vị trí.wav",
+      "bytes": 424934,
+      "sha256": "7a5c0b2fb7f7cf77f6b3d36e9e165176a0b2f463c6ff3e6f3c133eda7fc945a1"
+    },
+    {
+      "path": "audio/radar.wav",
+      "original": "radar quét.wav",
+      "bytes": 1916328,
+      "sha256": "478195e5618b5a14692966fb82cff955a204ca2e27b195d741ba468853da943d"
+    },
+    {
+      "path": "audio/hit-enemy.mp3",
+      "original": "trúng địch.mp3",
+      "bytes": 35520,
+      "sha256": "5fa556d6ad2870239a757092fa57f00e64140df10f5d77d2a0b4cb0b59be9ce7"
+    },
+    {
+      "path": "audio/victory.mp3",
+      "original": "chúc mừng cuối ván.mp3",
+      "bytes": 265440,
+      "sha256": "bd79c9d35a9ad542fb73486135bcf3373933020eb4b893d85cd1585628656c4c"
+    },
+    {
+      "path": "audio/music.mp3",
+      "original": "nhạc nền.mp3",
+      "bytes": 5005207,
+      "sha256": "a5bb345c23849ad0786aa0bc5157a9f2d4039660fe00282e55754d475f36dc14"
+    }
+  ]
+}
