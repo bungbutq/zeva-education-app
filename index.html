@@ -936,15 +936,16 @@
         const active = {requestId:requestId, recognition:recognition, reply:reply, timer:null};
         hostSpeech = active;
         recognition.lang = 'en-US';
-        recognition.continuous = false;
-        recognition.interimResults = false;
-        recognition.maxAlternatives = 1;
+        recognition.continuous = true;
+        recognition.interimResults = true;
+        recognition.maxAlternatives = 5;
         recognition.onstart = function() { if (hostSpeech === active) reply('start'); };
         recognition.onresult = function(result) {
           if (hostSpeech !== active) return;
-          const transcript = Array.from(result.results).filter(function(item) { return item.isFinal; })
+          const results = Array.from(result.results || []);
+          const transcript = results
             .map(function(item) { return item[0].transcript; }).join(' ').trim().slice(0, 10000);
-          if (transcript) reply('result', {transcript:transcript});
+          reply(results.length && results.every(function(item) { return item.isFinal; }) ? 'result' : 'interim', {transcript:transcript, results:results.slice(0, 100).map(function(item) { return {isFinal:item.isFinal === true, alternatives:Array.from(item).slice(0, 5).map(function(alt) { return {transcript:String(alt.transcript || '').slice(0, 10000)}; })}; })});
         };
         recognition.onerror = function(error) {
           if (hostSpeech !== active) return;
