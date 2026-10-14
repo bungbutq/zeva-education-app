@@ -4,9 +4,19 @@
   "baseURL": "https://bungbutq.github.io/zeva-education-app/Gamebaothu/",
   "files": [
     {
+      "path": "bao-1-reactions-v6.png",
+      "bytes": 2312435,
+      "sha256": "a98fe9d968ac5baae7c0ea5f5a3ef64aa856a5d1f0eb198670d2eaef45425139"
+    },
+    {
       "path": "bao-1-v5.png",
       "bytes": 1301660,
       "sha256": "041dd689784ed33babca38ad6db9cae4094b37bb337db21d4c974138da65a9d1"
+    },
+    {
+      "path": "bao-10-reactions-v6.png",
+      "bytes": 2386044,
+      "sha256": "00c9f9fda6ca221b120d255a35639b68aed89b8a0a6b7f22041fd2c4d95de607"
     },
     {
       "path": "bao-10-v5.png",
@@ -14,9 +24,19 @@
       "sha256": "05bf4cbb68fe1cfa2abb62c5ced18f513f82489198af90a045c7aa0f7552b3a1"
     },
     {
+      "path": "bao-2-reactions-v6.png",
+      "bytes": 1635705,
+      "sha256": "224058fb843e8c9d38c4dbb109cf614ca296bf622ca35f6bbade23298975fc03"
+    },
+    {
       "path": "bao-2-v5.png",
       "bytes": 1346797,
       "sha256": "7a2cd60d8414fab1933e6b5987ab14fe683ee965b121583ad238df75c1d1251b"
+    },
+    {
+      "path": "bao-3-reactions-v6.png",
+      "bytes": 1757733,
+      "sha256": "3678b5c9785d402918ddf74b43023c7985307640a8507a5fa00436edcabce87c"
     },
     {
       "path": "bao-3-v5.png",
@@ -24,9 +44,19 @@
       "sha256": "100e4c9ab8d269ad32cad70ba5a2883154e0dcb69d7106ed0350d19ac1cc7900"
     },
     {
+      "path": "bao-4-reactions-v6.png",
+      "bytes": 2410721,
+      "sha256": "19ddf4e204d2470bb384cd93323a807667fb10a3cb9824a132fae52d89a92d55"
+    },
+    {
       "path": "bao-4-v5.png",
       "bytes": 1423023,
       "sha256": "a6389393fc45ba2426f26897c4d92887f3f47a25723c4a41664698e0c455c206"
+    },
+    {
+      "path": "bao-5-reactions-v6.png",
+      "bytes": 2334808,
+      "sha256": "d3f19996e8c35bcd2ceaaafd3ab4a8c8fbb97900af72867d0e6041e99e196c94"
     },
     {
       "path": "bao-5-v5.png",
@@ -34,9 +64,19 @@
       "sha256": "dd86e2b0fd22ec1cb726b06b8f7e420b520c6ab3994a5aca237527f16c39b4bd"
     },
     {
+      "path": "bao-6-reactions-v6.png",
+      "bytes": 2303708,
+      "sha256": "37c72d285c41e8839a20ba8ada5c5dea1fe6afe1b633160f2fa91a0d5e4ae2fd"
+    },
+    {
       "path": "bao-6-v5.png",
       "bytes": 1354529,
       "sha256": "705de364b25058d6f25771a07834cba35b31aa48d7d67a5e70daebe94936ec8d"
+    },
+    {
+      "path": "bao-7-reactions-v6.png",
+      "bytes": 2342041,
+      "sha256": "f496255b8b2855a2f75bbb1bcf91983c689b4ac156fd92e9084ded83e791ebbb"
     },
     {
       "path": "bao-7-v5.png",
@@ -44,9 +84,19 @@
       "sha256": "000ddf2d6c6434727219b05c57025019436760cbf6352803dc337e3084fd1fea"
     },
     {
+      "path": "bao-8-reactions-v6.png",
+      "bytes": 2445101,
+      "sha256": "add65770f963773c0c8d41c28c547ff0d179a1730a564a593963e6d6f3a725b3"
+    },
+    {
       "path": "bao-8-v5.png",
       "bytes": 1391959,
       "sha256": "97853a1e6355f63adb84a77bdbc29dbbe94f44d783b436463c0226337dffc6f9"
+    },
+    {
+      "path": "bao-9-reactions-v6.png",
+      "bytes": 2399630,
+      "sha256": "64420a4047e58fe08c8da45bf52c21fb857f3c0f2e3cc4b75e9bf7fd911e6a1b"
     },
     {
       "path": "bao-9-v5.png",
