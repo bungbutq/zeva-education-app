@@ -1,0 +1,182 @@
+{
+  "game": "Biệt Đội Báo Thủ",
+  "version": "v4",
+  "baseURL": "https://bungbutq.github.io/zeva-education-app/Gamebaothu/",
+  "files": [
+    {
+      "path": "avatars-swapped-v4.png",
+      "bytes": 2393425,
+      "sha256": "9f0355e74281885b9f8148fad2740de037e9cb0d48a5cd876b2653a1e2ba9c1b"
+    },
+    {
+      "path": "avatars-swapped-v4.webp",
+      "bytes": 358258,
+      "sha256": "772588baa58c503900ef7c304a912cc8204a4036016dce0dfc97db442a29cd63"
+    },
+    {
+      "path": "avatars.png",
+      "bytes": 2437155,
+      "sha256": "18df0b4de00f7bf7d1b8056750e61f77bb0240c29fb2ead851e3c9d96e2d8d57"
+    },
+    {
+      "path": "avatars.webp",
+      "bytes": 308504,
+      "sha256": "a615b20408d774fde0419daa119349e273e739cc8c71be6170d34ffb7bc0de93"
+    },
+    {
+      "path": "characters-swapped-v4.png",
+      "bytes": 2279145,
+      "sha256": "ea819cd4d909fd6b809f45d44eec87d1443d8dace5ac3329e21f0f8bd5c89c54"
+    },
+    {
+      "path": "characters-swapped-v4.webp",
+      "bytes": 562136,
+      "sha256": "d820420e9d7f593ee38ce3fa2dc152bb2a37c865769dd6033604d3e5b32448f7"
+    },
+    {
+      "path": "characters-v2.png",
+      "bytes": 2310421,
+      "sha256": "b551980e67c014b3aa88c8b9e842f9cc07b399456ed45b4a20d7b088d419c92c"
+    },
+    {
+      "path": "characters-v2.webp",
+      "bytes": 512108,
+      "sha256": "c7128598fc30aeb229166ea9f5ff387c4cf64be243f46afce75fb8a7ce689925"
+    },
+    {
+      "path": "hills.png",
+      "bytes": 2038618,
+      "sha256": "3c68d3c41996c5d2c52c1f1769773c54e0fbdec6f18a283080b77fcea1d9ce7f"
+    },
+    {
+      "path": "hills.webp",
+      "bytes": 438900,
+      "sha256": "7c179246a4b8b38e3cfc4fd9237f777f69750176348339f9af41155ed8c1a6ce"
+    },
+    {
+      "path": "logo-v2.png",
+      "bytes": 1526343,
+      "sha256": "7c3912864f082f5cf4a191745c522342b2dbd812952c094a8d6a626344efe92b"
+    },
+    {
+      "path": "logo-v2.webp",
+      "bytes": 225732,
+      "sha256": "935c602fada694af65b3de4f76e7a7ef2b47a008df00b4aa7705916fd049912d"
+    },
+    {
+      "path": "logo-v3.png",
+      "bytes": 1567376,
+      "sha256": "9a5ebe2be78ec265daa9db58cae63b567e04af3aa020dd9de535f9ede4516ad9"
+    },
+    {
+      "path": "logo-v3.webp",
+      "bytes": 204766,
+      "sha256": "8cde495639433d14f6da4f9aa3bae3249e1df9d87b120df56ba7377aa35c2b58"
+    },
+    {
+      "path": "panel-v2.png",
+      "bytes": 1360705,
+      "sha256": "17704ab7ba18c7cc41dc20cb97625d2c3e89c1a6b8d3d988a3f4a45a12390f04"
+    },
+    {
+      "path": "panel-v2.webp",
+      "bytes": 70994,
+      "sha256": "0ef30c118cee4ad7c0c48f13037cfd85e539f78ad08a89e53ef7066f6bd1d079"
+    },
+    {
+      "path": "rocket-v2.png",
+      "bytes": 873901,
+      "sha256": "92fbae172a673dc71a041f237cf11e34cea0a7bdc30029f13bfea4ff6a79c4dd"
+    },
+    {
+      "path": "rocket-v2.webp",
+      "bytes": 96818,
+      "sha256": "9e6a4cac45c00e1192be5d33ef5e2941b83343472f23ebb7e955c2f239058561"
+    },
+    {
+      "path": "scene-blossom-v3.png",
+      "bytes": 2989640,
+      "sha256": "b822c4d46df01d1054cad35575561c938fc1698ff8799a1926c3a04b96b896b0"
+    },
+    {
+      "path": "scene-blossom-v3.webp",
+      "bytes": 451548,
+      "sha256": "b01b448a6b5a678ddd8eb42d67f167630d77b330620d42850684d9160a6d8b11"
+    },
+    {
+      "path": "scene-desert-v3.png",
+      "bytes": 2632618,
+      "sha256": "5ce00e5d883980167eeb78901291c7b1b3498b50cedcc0e6eccd371ecdae9543"
+    },
+    {
+      "path": "scene-desert-v3.webp",
+      "bytes": 357026,
+      "sha256": "eb03932b0b5be4345ceb4bdfd610706dbcf94eca2be256e94091a7fa86aa7ced"
+    },
+    {
+      "path": "scene-green-v2.png",
+      "bytes": 2674410,
+      "sha256": "f349088aafc077a83b1b17668d943be0aa3bbf5b0fbb1c26dfd7528638f0b7fa"
+    },
+    {
+      "path": "scene-green-v2.webp",
+      "bytes": 386132,
+      "sha256": "a76f0171d9b871a352bd34e882856c41c2cd9c744430e257e249824465f79c72"
+    },
+    {
+      "path": "scene-rock-v2.png",
+      "bytes": 3058359,
+      "sha256": "353b31f3ce585058ae45766e4b0acbd96fa3d3c4161a5436057b6109e797258e"
+    },
+    {
+      "path": "scene-rock-v2.webp",
+      "bytes": 468600,
+      "sha256": "f5be7bee2d510046bfcb774ee483fd87a290e4fca3089a669ac196cc144304a5"
+    },
+    {
+      "path": "scene-snow-v2.png",
+      "bytes": 2613541,
+      "sha256": "22c9ff5262fa25cbc725e98a36674b7afc24659df20053bab51c02f5b4f5762e"
+    },
+    {
+      "path": "scene-snow-v2.webp",
+      "bytes": 366856,
+      "sha256": "06d662e6caee450e495badbe0e5632d1ecfd314a66cbb760557f2ba5bab9dc48"
+    },
+    {
+      "path": "stink-cloud-v3.png",
+      "bytes": 1524364,
+      "sha256": "530f6bd71c8b7c9975577740d394efff1503012bee5f351eb27b5d444b1a574e"
+    },
+    {
+      "path": "stink-cloud-v3.webp",
+      "bytes": 238714,
+      "sha256": "5c525bf18b15485fd10e1e4499678dcd571b95b1636329428483d8fb3cc91a8d"
+    },
+    {
+      "path": "terrain.png",
+      "bytes": 2967149,
+      "sha256": "4d73ae2cacf15db804f48dbc7e854364e15c626539334b099dec5152f65f6c39"
+    },
+    {
+      "path": "terrain.webp",
+      "bytes": 449230,
+      "sha256": "68f509a5150be82a839ad9580ec50babc518990def3f5ab589588bd5b6b2b474"
+    },
+    {
+      "path": "fonts/Nunito.ttf",
+      "bytes": 276932,
+      "sha256": "bb55a5ca5c2042335b3991af27c4d0705d0ef41cac6164ac737fd8f2a1e85207"
+    },
+    {
+      "path": "fonts/OFL.txt",
+      "bytes": 4385,
+      "sha256": "580df76c95a1ec5ab878ceb25bb3d85c6a076804e9c970c8c6972aea775fdf65"
+    },
+    {
+      "path": "fonts/SOURCE.txt",
+      "bytes": 359,
+      "sha256": "45b23e531aa5e15c21391e2b1878ccbda1e386ea03912d3f1287e611deb0612b"
+    }
+  ]
+}
