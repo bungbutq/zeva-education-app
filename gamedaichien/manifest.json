@@ -163,6 +163,41 @@
       "sha256": "330a5523003513f9d964396a9e52a4202596d50bdc58d21393a94eeaa82a68b9"
     },
     {
+      "path": "ambient-boat-v1.png",
+      "bytes": 1842648,
+      "sha256": "9c14ba62c765a74d3600600dcc373600406dee489a1b310a5cd4c6bb7a45665d"
+    },
+    {
+      "path": "ambient-dinosaur-swim-v1.png",
+      "bytes": 969717,
+      "sha256": "26dd793f2cb390109d0f8e3825bbad9b4a269662076225d047ae12d3c3ce4c31"
+    },
+    {
+      "path": "ambient-birds-flap-v1.png",
+      "bytes": 1148245,
+      "sha256": "aa0f982fb2943a1120daaad1e850f0ae8663f8cd937ce348e993d7913a33392c"
+    },
+    {
+      "path": "ambient-dragon-flap-v1.png",
+      "bytes": 818693,
+      "sha256": "b7ea68afe98dc272bf6fadd33dc6c48cb27696feaeb899e4a9796a379a0c3f97"
+    },
+    {
+      "path": "ambient-wind-v1.png",
+      "bytes": 874136,
+      "sha256": "55795093d74c3987fd82cb53f33ca01e7a5310bb12ce9a830a663b486048b687"
+    },
+    {
+      "path": "skill-meteor-fall-v1.png",
+      "bytes": 1724525,
+      "sha256": "753fcdc8538eaf0a182466de4376a245e83a2afecc5f9192d5b107f56167b849"
+    },
+    {
+      "path": "skill-holy-sword-v1.png",
+      "bytes": 1469762,
+      "sha256": "2a3eb1bc2b0ff6798839a6daccbd5cf808daea29b384d7e6b730d8c779da90ce"
+    },
+    {
       "path": "blue-castle-v1/blue_castle_lv0_hp000.png",
       "bytes": 883849,
       "sha256": "b9bb2fe4c73748a39fd35aa1437706d8474abaabbb89d62c7d35a4059e047fd0"
