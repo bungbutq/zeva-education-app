@@ -1,16 +1,16 @@
 {
   "game": "Đại Chiến Tri Thức",
-  "version": "v1",
+  "version": "v2-layered-artwork",
   "files": [
-    {
-      "path": "ui-original.png",
-      "bytes": 2829492,
-      "sha256": "00b4b7d4e5b88f4e51e79befe2904ebd8fe3e68020d149915b7107eaa3f0200f"
-    },
     {
       "path": "scene-v2.webp",
       "bytes": 2179010,
       "sha256": "17ed5de5594334b16a09b44c1318a5bf4f6dcda4309d3087111e5923229bbe1c"
+    },
+    {
+      "path": "cliffs-bushes-v2.png",
+      "bytes": 1400558,
+      "sha256": "be977bd5c32b36ba12cea302f100eba597710d5da082467f911505537049a9a1"
     },
     {
       "path": "Nunito.ttf",
@@ -23,29 +23,84 @@
       "sha256": "580df76c95a1ec5ab878ceb25bb3d85c6a076804e9c970c8c6972aea775fdf65"
     },
     {
-      "path": "watchtower-blue.webp",
-      "bytes": 771646,
-      "sha256": "56f5e8ac0cd16d3b43ca03e7e49ab6375e8883898d0bbd239ed7b354667f1abd"
+      "path": "team-blue-panel.png",
+      "bytes": 1530400,
+      "sha256": "fc0419b0ed95ae442304b7c497f38622bb6017b136c0f30cca80274a738efb25"
     },
     {
-      "path": "wall-blue.webp",
-      "bytes": 1025066,
-      "sha256": "24a493aba8ea701378d84dce8c433413fdda4c0f2205450d653832cdf067b198"
+      "path": "team-red-panel.png",
+      "bytes": 1348631,
+      "sha256": "953812e4cf85e22b4b471b806ca140f6d2521e4414cb52b10174e0f94a273430"
     },
     {
-      "path": "monastery-blue.webp",
-      "bytes": 1078018,
-      "sha256": "960d853349792e80b88c5dd078f022689c325bd65001ca0ccb1e7bd733b4957a"
+      "path": "question-panel-tall.png",
+      "bytes": 2036549,
+      "sha256": "1cf750e6264f40e76a20f056b234aa16f26805f3940b74902a38ee4dc71987f4"
     },
     {
-      "path": "forge-blue.webp",
-      "bytes": 1359708,
-      "sha256": "e1e2406c96cc90078b80f03135b12223ea0309ea23adb1a810de13e3f0408b16"
+      "path": "construction-panel.png",
+      "bytes": 109538,
+      "sha256": "1f04ccb9c861cf79c1ec63b85a334089b52c22e56ba3209734ec27c88a1dc303"
     },
     {
-      "path": "warehouse-blue.webp",
-      "bytes": 1346416,
-      "sha256": "43d0778c8695312bae3c3f5a3afab13a3f68301a9b2d39bab63e50ca120f021b"
+      "path": "unlock-slot.png",
+      "bytes": 1471537,
+      "sha256": "5a5574493357d79c0c411447d8201ad91af4e8d79bcb11cf6146baa6b2b36e97"
+    },
+    {
+      "path": "shop-panel.png",
+      "bytes": 407971,
+      "sha256": "b450e75bfbf517015f382ae3fb9bc80fbc3ddf4bc9e3df1ddf565e193567172e"
+    },
+    {
+      "path": "shop-card-watchtower.png",
+      "bytes": 1722118,
+      "sha256": "220140f72e1d9584e5a5d8d928e45f821e3bb0558469c350d8ff4fd64e48beef"
+    },
+    {
+      "path": "shop-card-wall.png",
+      "bytes": 1650978,
+      "sha256": "ad31ede66787583791d82704adb7e1e91919475039b0c39be63a0bb419f57f03"
+    },
+    {
+      "path": "shop-card-monastery.png",
+      "bytes": 1697022,
+      "sha256": "d2739a09693d5eee56fd0362e78fe02ce8f4e0976d19b2cdd86cdfd0a60fcce9"
+    },
+    {
+      "path": "shop-card-forge.png",
+      "bytes": 1706670,
+      "sha256": "3400b57d8e3f3b38d0d3e12adf657520807c99bed3fca4e555bb8c75c18de328"
+    },
+    {
+      "path": "shop-card-warehouse.png",
+      "bytes": 1736095,
+      "sha256": "96b384c25b876182fd5c9cb4270254831a6dc6d87d71b66692a1bf1d7ffb2bf0"
+    },
+    {
+      "path": "shop-button-ammo.png",
+      "bytes": 1161604,
+      "sha256": "a0a9ff11fe22cff8f9bff5d84d027ccc40ffaad798d3262b9a9eb9249e4efbb8"
+    },
+    {
+      "path": "shop-button-build.png",
+      "bytes": 1427544,
+      "sha256": "e76258e275a9c9dcafaff29ae83db450d6d8f329a09aa70bc995d7065f0bd294"
+    },
+    {
+      "path": "shop-button-fire.png",
+      "bytes": 1181357,
+      "sha256": "92437825d4ba23a9b3ae14d6a6a595ffad0573bc920dc61e0bfa554e2682896b"
+    },
+    {
+      "path": "shop-button-heal.png",
+      "bytes": 1090738,
+      "sha256": "0728d82dd98239663f5641d3fbd51ade2515196c2c5582ca7cff0576cff9c3c1"
+    },
+    {
+      "path": "castle-red-v2.webp",
+      "bytes": 1281424,
+      "sha256": "61921c33bb55df2c0078b1a969073a84ec30f7daddbe1ae1272755b1547d0ec2"
     },
     {
       "path": "watchtower-red.webp",
@@ -73,16 +128,6 @@
       "sha256": "16ab93d48443f4d0ee21abf28991919284c96ef9e9b380eb7ae853af061aea02"
     },
     {
-      "path": "castle-blue-v2.webp",
-      "bytes": 1363486,
-      "sha256": "5018d7dfb6d4006e2dbeae6004b90f67fc00666eb32b025954c633352a000b29"
-    },
-    {
-      "path": "castle-red-v2.webp",
-      "bytes": 1281424,
-      "sha256": "61921c33bb55df2c0078b1a969073a84ec30f7daddbe1ae1272755b1547d0ec2"
-    },
-    {
       "path": "shrine-angel.webp",
       "bytes": 1103246,
       "sha256": "79af5430ccc4752a93299053c6108bf24444b7a2f954f6450542fad8d57b3c9d"
@@ -91,6 +136,186 @@
       "path": "shrine-demon.webp",
       "bytes": 1137222,
       "sha256": "330a5523003513f9d964396a9e52a4202596d50bdc58d21393a94eeaa82a68b9"
+    },
+    {
+      "path": "blue-castle-v1/blue_castle_lv0_hp000.png",
+      "bytes": 727941,
+      "sha256": "2b96b1a75fbfab4285b0b0d28a8fde767857fe4fda7a7a2d2e331947614bcb71"
+    },
+    {
+      "path": "blue-castle-v1/blue_castle_lv0_hp020.png",
+      "bytes": 891330,
+      "sha256": "acce127ecdbcea09f60e8c797700475d40ace1cc11b82dfc9cb21fdfc9274cae"
+    },
+    {
+      "path": "blue-castle-v1/blue_castle_lv0_hp040.png",
+      "bytes": 1108458,
+      "sha256": "5899826769fb2ec0b141b46edd738fcf320fd257598ab8b4552637ce57bd6cc8"
+    },
+    {
+      "path": "blue-castle-v1/blue_castle_lv0_hp060.png",
+      "bytes": 1018807,
+      "sha256": "2e94621f253fa2777a53ba1e2f1765fe4115dba80a19cff9eef050dc9664b02e"
+    },
+    {
+      "path": "blue-castle-v1/blue_castle_lv0_hp080.png",
+      "bytes": 1008217,
+      "sha256": "c87312f51836139c8dc600943ada03054292e8ca9ab34828e5eea2cbc3653d28"
+    },
+    {
+      "path": "blue-castle-v1/blue_castle_lv0_hp100.png",
+      "bytes": 976979,
+      "sha256": "e8195e7766386470fab73b2c453a2e81b85b30e60a8970dc020a5e04ae982a59"
+    },
+    {
+      "path": "blue-castle-v1/blue_castle_lv1_hp000.png",
+      "bytes": 750335,
+      "sha256": "1b4b0c9ed7330dcdac47f2f77ff188268eb4c2adbc51da0253f0f6e6c0f85ced"
+    },
+    {
+      "path": "blue-castle-v1/blue_castle_lv1_hp020.png",
+      "bytes": 984833,
+      "sha256": "cbdc949eb0e8a74e08d4f1fef0d7a20d5d3616f44befe6c50adab03c22fdca66"
+    },
+    {
+      "path": "blue-castle-v1/blue_castle_lv1_hp040.png",
+      "bytes": 1545171,
+      "sha256": "5bacc9cbd87846db33fe076eed2cc1fddc447c80beabcf620bdf141599177d07"
+    },
+    {
+      "path": "blue-castle-v1/blue_castle_lv1_hp060.png",
+      "bytes": 1481500,
+      "sha256": "2f6d8bcf3d91ce8e758be48dc1a3436eeec41f9945cae8eeeafec063d49213a5"
+    },
+    {
+      "path": "blue-castle-v1/blue_castle_lv1_hp080.png",
+      "bytes": 1434414,
+      "sha256": "80e3af56ccdf4c91dd0bd3fd9b125954fba4968fa0d544a293db597d4fc0b3dd"
+    },
+    {
+      "path": "blue-castle-v1/blue_castle_lv1_hp100.png",
+      "bytes": 1439512,
+      "sha256": "4acb919a746c2bfab4223d5bc9c18ba291bd59d4742606e4ef7bf269e459e4a4"
+    },
+    {
+      "path": "blue-castle-v1/blue_castle_lv2_hp000.png",
+      "bytes": 1000339,
+      "sha256": "f44417c1848f2d2bc346f5ae80c30f3472770e12556828342023783e56151dd4"
+    },
+    {
+      "path": "blue-castle-v1/blue_castle_lv2_hp020.png",
+      "bytes": 1031663,
+      "sha256": "5d0dc51f2830d1f730211d79fb159f670d2d7d0187e866425f27b49828e92e81"
+    },
+    {
+      "path": "blue-castle-v1/blue_castle_lv2_hp040.png",
+      "bytes": 1623518,
+      "sha256": "21185d03bd8b4de3a25775e0ba0d0feda465f06826b7caca1b78948248e482ad"
+    },
+    {
+      "path": "blue-castle-v1/blue_castle_lv2_hp060.png",
+      "bytes": 1612084,
+      "sha256": "e773dfe8d0fcffa75e1cc7d25a30a751228a6ecf3201a4592b273a14274288a7"
+    },
+    {
+      "path": "blue-castle-v1/blue_castle_lv2_hp080.png",
+      "bytes": 1581065,
+      "sha256": "48ae3bb49203b1d6f5f4fa280bcc9af0c403ec97d89a0edfe25e2575376fc34e"
+    },
+    {
+      "path": "blue-castle-v1/blue_castle_lv2_hp100.png",
+      "bytes": 1587422,
+      "sha256": "2541a1b68e62c6e1af69d847ee216caf78bc48fe2a68e6f1d7339f378de06bd3"
+    },
+    {
+      "path": "blue-castle-v1/blue_castle_lv3_hp000.png",
+      "bytes": 824503,
+      "sha256": "38cfd149412e59d9da408a582b0e95889495ebccd77afbcce90edab3192be259"
+    },
+    {
+      "path": "blue-castle-v1/blue_castle_lv3_hp020.png",
+      "bytes": 1050717,
+      "sha256": "56cb62cd929b57fbeebaf02c704f180d8c81205b458ea93f4148998a50a45ad4"
+    },
+    {
+      "path": "blue-castle-v1/blue_castle_lv3_hp040.png",
+      "bytes": 1663297,
+      "sha256": "dfcc5d1f654dc464a2439ecde42bc75ec4b933b7ea02d734f5b435675dd35de5"
+    },
+    {
+      "path": "blue-castle-v1/blue_castle_lv3_hp060.png",
+      "bytes": 1548639,
+      "sha256": "940042ff9da2919d224f3881d79048f755e2082604c5ac6639edc65bbb5b428f"
+    },
+    {
+      "path": "blue-castle-v1/blue_castle_lv3_hp080.png",
+      "bytes": 1609049,
+      "sha256": "95fadd21a321b44d19baca805e902edca9505599da5a542932be7695dff0c299"
+    },
+    {
+      "path": "blue-castle-v1/blue_castle_lv3_hp100.png",
+      "bytes": 1554267,
+      "sha256": "cae1c25c11335504e0d4df625f98288ba7ecacdee5bd0b0a02f9c00e1486c15c"
+    },
+    {
+      "path": "blue-castle-v1/blue_castle_lv4_hp000.png",
+      "bytes": 906667,
+      "sha256": "5208d3de20b98bf94201befa7ca3bc32cefa102620ca3c8d3977b3241867212c"
+    },
+    {
+      "path": "blue-castle-v1/blue_castle_lv4_hp020.png",
+      "bytes": 1057385,
+      "sha256": "011d3a436b0c07f188eaef80ae8d8f1f92c27c6d5d583e5a141efea878233c55"
+    },
+    {
+      "path": "blue-castle-v1/blue_castle_lv4_hp040.png",
+      "bytes": 1638221,
+      "sha256": "cea3cfec2e5a8bffeb659b8368753eaea4c03cf0520e0abf8f70653fe961e4ca"
+    },
+    {
+      "path": "blue-castle-v1/blue_castle_lv4_hp060.png",
+      "bytes": 1673803,
+      "sha256": "8aa77e44bb4c96474ee81eb7b3f14fdd32b6108d083dd9724eeb873d20a5a0dc"
+    },
+    {
+      "path": "blue-castle-v1/blue_castle_lv4_hp080.png",
+      "bytes": 1682605,
+      "sha256": "2b8b1281bc753aa7e2d34a1760c71384e1ebb5b6bfb8be20f8a131240eec19ba"
+    },
+    {
+      "path": "blue-castle-v1/blue_castle_lv4_hp100.png",
+      "bytes": 1647715,
+      "sha256": "d4190e1cbe781030874728989afcf6c3b871e00dc6cb6588033951ded27434a3"
+    },
+    {
+      "path": "blue-castle-v1/blue_castle_lv5_hp000.png",
+      "bytes": 1011959,
+      "sha256": "4b3cb6603c37c9cd21e1010e33501789924f0b136654da59ec58b239129c3287"
+    },
+    {
+      "path": "blue-castle-v1/blue_castle_lv5_hp020.png",
+      "bytes": 1120448,
+      "sha256": "4413b23fc9513ffc04a4e9f616ba17a6b4332f6ee3aa06438830627794be99ec"
+    },
+    {
+      "path": "blue-castle-v1/blue_castle_lv5_hp040.png",
+      "bytes": 1716117,
+      "sha256": "4c536f4a42e9888edc333b40818198fb714f7df7f50b1f420492ab9511ae8900"
+    },
+    {
+      "path": "blue-castle-v1/blue_castle_lv5_hp060.png",
+      "bytes": 1744381,
+      "sha256": "cbe73d7da046059a61afdfc4e2b4df5799e9de8603778641cb9e1c14cfbd7884"
+    },
+    {
+      "path": "blue-castle-v1/blue_castle_lv5_hp080.png",
+      "bytes": 1733154,
+      "sha256": "4b329a630e9e4beddc2c9dc31dc4f367dfef268083a571598d114b1ce96548d1"
+    },
+    {
+      "path": "blue-castle-v1/blue_castle_lv5_hp100.png",
+      "bytes": 1693979,
+      "sha256": "27dd5bac70841ab88fe97783474ee960d340520cc6fc3c95c684cf5a9164a83a"
     }
   ]
 }
