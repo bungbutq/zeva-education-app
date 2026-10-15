@@ -1,0 +1,96 @@
+{
+  "game": "Đại Chiến Tri Thức",
+  "version": "v1",
+  "files": [
+    {
+      "path": "ui-original.png",
+      "bytes": 2829492,
+      "sha256": "00b4b7d4e5b88f4e51e79befe2904ebd8fe3e68020d149915b7107eaa3f0200f"
+    },
+    {
+      "path": "scene-v2.webp",
+      "bytes": 2179010,
+      "sha256": "17ed5de5594334b16a09b44c1318a5bf4f6dcda4309d3087111e5923229bbe1c"
+    },
+    {
+      "path": "Nunito.ttf",
+      "bytes": 276932,
+      "sha256": "bb55a5ca5c2042335b3991af27c4d0705d0ef41cac6164ac737fd8f2a1e85207"
+    },
+    {
+      "path": "OFL.txt",
+      "bytes": 4385,
+      "sha256": "580df76c95a1ec5ab878ceb25bb3d85c6a076804e9c970c8c6972aea775fdf65"
+    },
+    {
+      "path": "castle-blue.webp",
+      "bytes": 1284454,
+      "sha256": "8791ebb66daf9db8b993bb9ab9b65e1ae7f3dd02271db2d02fb33948c4a0b38a"
+    },
+    {
+      "path": "watchtower-blue.webp",
+      "bytes": 771646,
+      "sha256": "56f5e8ac0cd16d3b43ca03e7e49ab6375e8883898d0bbd239ed7b354667f1abd"
+    },
+    {
+      "path": "wall-blue.webp",
+      "bytes": 1025066,
+      "sha256": "24a493aba8ea701378d84dce8c433413fdda4c0f2205450d653832cdf067b198"
+    },
+    {
+      "path": "monastery-blue.webp",
+      "bytes": 1078018,
+      "sha256": "960d853349792e80b88c5dd078f022689c325bd65001ca0ccb1e7bd733b4957a"
+    },
+    {
+      "path": "forge-blue.webp",
+      "bytes": 1359708,
+      "sha256": "e1e2406c96cc90078b80f03135b12223ea0309ea23adb1a810de13e3f0408b16"
+    },
+    {
+      "path": "warehouse-blue.webp",
+      "bytes": 1346416,
+      "sha256": "43d0778c8695312bae3c3f5a3afab13a3f68301a9b2d39bab63e50ca120f021b"
+    },
+    {
+      "path": "castle-red.webp",
+      "bytes": 1169428,
+      "sha256": "21f687c4b1059722cfb0c01182284b5f58fb4dcf62cf9fdd983de4e4a10c5011"
+    },
+    {
+      "path": "watchtower-red.webp",
+      "bytes": 706012,
+      "sha256": "ee4bf76adbc2703c60017a6eafab957c91e190f4ca63cf925e106619c2f00048"
+    },
+    {
+      "path": "wall-red.webp",
+      "bytes": 1103030,
+      "sha256": "ad055b07cd7c3edccd2954deb92683c8d3231cb0797d97593155b5a702db4ae0"
+    },
+    {
+      "path": "monastery-red.webp",
+      "bytes": 960720,
+      "sha256": "de2e82f864ef160f23198f6f9f9680779daf47cef42a15414a4ca08431aec786"
+    },
+    {
+      "path": "forge-red.webp",
+      "bytes": 1270578,
+      "sha256": "17a4baf555ccd2e1847284cf6f7544834d8dd77104f9b7bdb032f0eb87f2e813"
+    },
+    {
+      "path": "warehouse-red.webp",
+      "bytes": 1312392,
+      "sha256": "16ab93d48443f4d0ee21abf28991919284c96ef9e9b380eb7ae853af061aea02"
+    },
+    {
+      "path": "shrine-angel.webp",
+      "bytes": 1103246,
+      "sha256": "79af5430ccc4752a93299053c6108bf24444b7a2f954f6450542fad8d57b3c9d"
+    },
+    {
+      "path": "shrine-demon.webp",
+      "bytes": 1137222,
+      "sha256": "330a5523003513f9d964396a9e52a4202596d50bdc58d21393a94eeaa82a68b9"
+    }
+  ]
+}
