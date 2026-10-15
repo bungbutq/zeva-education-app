@@ -23,11 +23,6 @@
       "sha256": "580df76c95a1ec5ab878ceb25bb3d85c6a076804e9c970c8c6972aea775fdf65"
     },
     {
-      "path": "castle-blue.webp",
-      "bytes": 1284454,
-      "sha256": "8791ebb66daf9db8b993bb9ab9b65e1ae7f3dd02271db2d02fb33948c4a0b38a"
-    },
-    {
       "path": "watchtower-blue.webp",
       "bytes": 771646,
       "sha256": "56f5e8ac0cd16d3b43ca03e7e49ab6375e8883898d0bbd239ed7b354667f1abd"
@@ -53,11 +48,6 @@
       "sha256": "43d0778c8695312bae3c3f5a3afab13a3f68301a9b2d39bab63e50ca120f021b"
     },
     {
-      "path": "castle-red.webp",
-      "bytes": 1169428,
-      "sha256": "21f687c4b1059722cfb0c01182284b5f58fb4dcf62cf9fdd983de4e4a10c5011"
-    },
-    {
       "path": "watchtower-red.webp",
       "bytes": 706012,
       "sha256": "ee4bf76adbc2703c60017a6eafab957c91e190f4ca63cf925e106619c2f00048"
@@ -81,6 +71,16 @@
       "path": "warehouse-red.webp",
       "bytes": 1312392,
       "sha256": "16ab93d48443f4d0ee21abf28991919284c96ef9e9b380eb7ae853af061aea02"
+    },
+    {
+      "path": "castle-blue-v2.webp",
+      "bytes": 1363486,
+      "sha256": "5018d7dfb6d4006e2dbeae6004b90f67fc00666eb32b025954c633352a000b29"
+    },
+    {
+      "path": "castle-red-v2.webp",
+      "bytes": 1281424,
+      "sha256": "61921c33bb55df2c0078b1a969073a84ec30f7daddbe1ae1272755b1547d0ec2"
     },
     {
       "path": "shrine-angel.webp",
