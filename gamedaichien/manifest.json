@@ -3,9 +3,9 @@
   "version": "v2-layered-artwork",
   "files": [
     {
-      "path": "scene-v2.webp",
-      "bytes": 2179010,
-      "sha256": "17ed5de5594334b16a09b44c1318a5bf4f6dcda4309d3087111e5923229bbe1c"
+      "path": "anhnen.png",
+      "bytes": 2196352,
+      "sha256": "d1e4c70ea90042f7c16466ee1f202542cab5242bc8fddc7d8f57c946f02f277f"
     },
     {
       "path": "cliffs-bushes-v2.png",
