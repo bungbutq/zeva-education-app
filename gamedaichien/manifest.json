@@ -53,6 +53,26 @@
       "sha256": "b450e75bfbf517015f382ae3fb9bc80fbc3ddf4bc9e3df1ddf565e193567172e"
     },
     {
+      "path": "rage-blue-frame-v1.png",
+      "bytes": 1215347,
+      "sha256": "585c8fa0173f2089e6185e33f0efb059875d5697aa23ffd158ccdde9ba151f06"
+    },
+    {
+      "path": "rage-blue-skill-v1.png",
+      "bytes": 1217036,
+      "sha256": "7eb32e6d790985bcd841063b0a0fb1347e2a61e690e3db40addce675163dd188"
+    },
+    {
+      "path": "rage-red-frame-v1.png",
+      "bytes": 1255717,
+      "sha256": "5db7e344d0a5a0015baac13939a4b509574ebf719a410587de4f64185174420c"
+    },
+    {
+      "path": "rage-red-skill-v1.png",
+      "bytes": 1012209,
+      "sha256": "b98ab7a9b2a40050751075de7d3615ed8449fa6d4de3fbd352125dd1c883f227"
+    },
+    {
       "path": "shop-card-watchtower.png",
       "bytes": 1722118,
       "sha256": "220140f72e1d9584e5a5d8d928e45f821e3bb0558469c350d8ff4fd64e48beef"
