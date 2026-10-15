@@ -98,6 +98,11 @@
       "sha256": "96b384c25b876182fd5c9cb4270254831a6dc6d87d71b66692a1bf1d7ffb2bf0"
     },
     {
+      "path": "shop-card-library.png",
+      "bytes": 1756360,
+      "sha256": "1f86d93d5dd8c4a09d8942459950eac544b6f17ce966851088778b458a352feb"
+    },
+    {
       "path": "shop-button-ammo.png",
       "bytes": 1161604,
       "sha256": "a0a9ff11fe22cff8f9bff5d84d027ccc40ffaad798d3262b9a9eb9249e4efbb8"
@@ -146,6 +151,11 @@
       "path": "warehouse-red.webp",
       "bytes": 1312392,
       "sha256": "16ab93d48443f4d0ee21abf28991919284c96ef9e9b380eb7ae853af061aea02"
+    },
+    {
+      "path": "library-red.png",
+      "bytes": 1474485,
+      "sha256": "1be5ccb6b3fa37ec6649e22d16bba742d6b6a3172a734cd45e34f8ce495f8756"
     },
     {
       "path": "shrine-angel.webp",
