@@ -78,9 +78,19 @@
       "sha256": "220140f72e1d9584e5a5d8d928e45f821e3bb0558469c350d8ff4fd64e48beef"
     },
     {
+      "path": "slot-card-watchtower.png",
+      "bytes": 2040546,
+      "sha256": "88f7001ce3982ff06c3c3ca24b8d5107dfaf782b03a50c091bdea0cead2d19a9"
+    },
+    {
       "path": "shop-card-wall.png",
       "bytes": 1650978,
       "sha256": "ad31ede66787583791d82704adb7e1e91919475039b0c39be63a0bb419f57f03"
+    },
+    {
+      "path": "slot-card-wall.png",
+      "bytes": 2033348,
+      "sha256": "5852d90d6f4d180a2af12df930476bb62c0b05c6e18a3268044757db2978a02d"
     },
     {
       "path": "shop-card-monastery.png",
@@ -88,9 +98,19 @@
       "sha256": "d2739a09693d5eee56fd0362e78fe02ce8f4e0976d19b2cdd86cdfd0a60fcce9"
     },
     {
+      "path": "slot-card-monastery.png",
+      "bytes": 2113246,
+      "sha256": "ac4b4bec69d14f06c1fa6af2ee480c0a902ced2bb707c1c063074b5c8f533739"
+    },
+    {
       "path": "shop-card-forge.png",
       "bytes": 1706670,
       "sha256": "3400b57d8e3f3b38d0d3e12adf657520807c99bed3fca4e555bb8c75c18de328"
+    },
+    {
+      "path": "slot-card-forge.png",
+      "bytes": 2100099,
+      "sha256": "7133ff09263b041ae62b6fa15d0c5a1da6fbcb8ac411913fb61cf28818127a28"
     },
     {
       "path": "shop-card-warehouse.png",
@@ -98,9 +118,19 @@
       "sha256": "96b384c25b876182fd5c9cb4270254831a6dc6d87d71b66692a1bf1d7ffb2bf0"
     },
     {
+      "path": "slot-card-warehouse.png",
+      "bytes": 2126598,
+      "sha256": "da2b6211093ca3891ff1dce6d92e83980317ce61fe312e43fd82c8c1876d9722"
+    },
+    {
       "path": "shop-card-library.png",
       "bytes": 1756360,
       "sha256": "1f86d93d5dd8c4a09d8942459950eac544b6f17ce966851088778b458a352feb"
+    },
+    {
+      "path": "slot-card-library.png",
+      "bytes": 2186935,
+      "sha256": "4c0f51defaf45189a0f93afa19cedc8436532d7ad9052ff0e28e07a731162707"
     },
     {
       "path": "shop-button-ammo.png",
