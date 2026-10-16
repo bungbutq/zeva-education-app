@@ -1,0 +1,59 @@
+{
+  "files": [
+    {
+      "path": "bgm-battle.mp3",
+      "bytes": 3289143,
+      "sha256": "6042399782e581d753d616bc703e66483d5eccb5fb687a20c9a552d68c49e620"
+    },
+    {
+      "path": "heal.mp3",
+      "bytes": 201984,
+      "sha256": "7827a9ecaeae030b4dfa5d0b5ee85b71805337486de7d22e3602165e24ebd11c"
+    },
+    {
+      "path": "holy-sword-cast.wav",
+      "bytes": 918128,
+      "sha256": "f95f33e8dc5a7c5b90fa8d088e69c526551233a88e57dcc5850860e64fde4634"
+    },
+    {
+      "path": "holy-sword-impact.wav",
+      "bytes": 2275904,
+      "sha256": "8529c0caed900e43b3dafe01e0f7baa5d8946bc62bf97762ceba7bf279182c6a"
+    },
+    {
+      "path": "meteor-cast.wav",
+      "bytes": 2494928,
+      "sha256": "23b011c052dfbc1d20f2a2bbe2cdfe297dcde0648c4b94a19d7cb77083055af4"
+    },
+    {
+      "path": "meteor-impact.mp3",
+      "bytes": 103488,
+      "sha256": "9ccbac87769d733c975c3100842c0ced3b4ff7433e0cc8b3381160c5caa77ed9"
+    },
+    {
+      "path": "build.mp3",
+      "bytes": 28255,
+      "sha256": "561f9ae28eb57ac21640108d0c17188b1fb1ec5bdf91c976ec79657d19e95ddf"
+    },
+    {
+      "path": "button-click.mp3",
+      "bytes": 3804,
+      "sha256": "d3f2e24926bacd40bc1328e1b5b0dd671f08166d3dfd0f5ef19de804b4f3433d"
+    },
+    {
+      "path": "answer-correct.mp3",
+      "bytes": 14462,
+      "sha256": "ef1f1e9f5de9da87b15b5b33128d0a67d95d29a7a342fbfeeb32b9a1695ce56d"
+    },
+    {
+      "path": "cannon-fire.mp3",
+      "bytes": 173035,
+      "sha256": "20d77d17fd805f645fee80cf70edda4f2425d630625d8d673926ecdd2787496b"
+    },
+    {
+      "path": "damage-hit.mp3",
+      "bytes": 84000,
+      "sha256": "4775b8c6149b3fb49006869fce6711b0705b153c2eb88c663b900590b463a8e0"
+    }
+  ]
+}
