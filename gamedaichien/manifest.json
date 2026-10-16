@@ -163,6 +163,11 @@
       "sha256": "330a5523003513f9d964396a9e52a4202596d50bdc58d21393a94eeaa82a68b9"
     },
     {
+      "path": "effect-dialog-frame-v1.png",
+      "bytes": 1985922,
+      "sha256": "b98548db85dad32e3624c379f1aa4d47d2432a71309f64174dd980cc92c7ddd2"
+    },
+    {
       "path": "ambient-boat-v1.png",
       "bytes": 1842648,
       "sha256": "9c14ba62c765a74d3600600dcc373600406dee489a1b310a5cd4c6bb7a45665d"
