@@ -153,6 +153,21 @@
       "sha256": "b28c6f00f11829966c2d4021fcbd083b86a0480dba124d18fb0d974a48589f1b"
     },
     {
+      "path": "ocean-water.png",
+      "bytes": 1883478,
+      "sha256": "2974ee643e3312d9a38d0896a0d7beb4cf51ab2029e0de31b478ac2a3eb85ea0"
+    },
+    {
+      "path": "map-foreground.png",
+      "bytes": 744286,
+      "sha256": "b46cbf3f7f288a5ed806c638e0bd14f291b5e5d460689b3dfcf8b88e305b87ab"
+    },
+    {
+      "path": "ui-picker-frame-clean.png",
+      "bytes": 2109171,
+      "sha256": "f27e3562d59244cfd4f569f7b3c1a7161374011a12718ac43d1398fb3e0de349"
+    },
+    {
       "path": "Nunito.ttf",
       "bytes": 276932,
       "sha256": "bb55a5ca5c2042335b3991af27c4d0705d0ef41cac6164ac737fd8f2a1e85207"
