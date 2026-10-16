@@ -168,6 +168,61 @@
       "sha256": "b98548db85dad32e3624c379f1aa4d47d2432a71309f64174dd980cc92c7ddd2"
     },
     {
+      "path": "effects-v1/blessing.svg",
+      "bytes": 1463,
+      "sha256": "b059d9d0bb2812216da32f58db3783be442c2fa7cfec23121f064829976f62a0"
+    },
+    {
+      "path": "effects-v1/divine-shield.svg",
+      "bytes": 1371,
+      "sha256": "85839ade6dee4b6beeca0a24d1b0f100445f572a726bf2fb94aea15a73ef97d6"
+    },
+    {
+      "path": "effects-v1/heavenly-gold.svg",
+      "bytes": 1939,
+      "sha256": "95823f514ec36c6f8638a96543f1fe85b15254c8624e487699c01711273e1d26"
+    },
+    {
+      "path": "effects-v1/wrong-address.svg",
+      "bytes": 1638,
+      "sha256": "0ea0e71b8c711cfd41f90624b4bf8daacd7237bb831427f76f3ec46ced9c988a"
+    },
+    {
+      "path": "effects-v1/exchange.svg",
+      "bytes": 1643,
+      "sha256": "0c867692a083fd6ac6f0414a713ab12bfe082091fe88820d457a90e76eff0f59"
+    },
+    {
+      "path": "effects-v1/forbidden-fire.svg",
+      "bytes": 1505,
+      "sha256": "f89c1d419d6401a9a67efff99ed6bb3c1084f81a7b315240b032217db07fec88"
+    },
+    {
+      "path": "effects-v1/seal.svg",
+      "bytes": 1692,
+      "sha256": "22f5a21e3f3151048b74c83a3b9b0345529f17caa08f69bc629ec5af2ab40eac"
+    },
+    {
+      "path": "effects-v1/theft.svg",
+      "bytes": 1681,
+      "sha256": "764cdd476982873484aca775e4c560aae351599a1efb1d8a162ad6684f8f4e80"
+    },
+    {
+      "path": "effects-v1/backfire.svg",
+      "bytes": 1543,
+      "sha256": "bb1fdfcaa0a738b7531c9e60f6e6cff931e1a18d4350172e8305efade90394be"
+    },
+    {
+      "path": "effects-v1/blood-price.svg",
+      "bytes": 1556,
+      "sha256": "b71000bfec12e503b9e262368b3413eaa78cedc9906965874e7b591a9abb97d3"
+    },
+    {
+      "path": "effects-v1/castle-seal.svg",
+      "bytes": 17444,
+      "sha256": "d00e7a679c02313f1e09a1bad1a7b72b087683968a0c44f7f9df4c3cb33f88a7"
+    },
+    {
       "path": "ambient-boat-v1.png",
       "bytes": 1842648,
       "sha256": "9c14ba62c765a74d3600600dcc373600406dee489a1b310a5cd4c6bb7a45665d"
