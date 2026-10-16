@@ -1,0 +1,1 @@
+Original SVG artwork for ZEVA Dai Chien: ten square effect icons and a castle seal with iron chains. Created for this project; no third-party image or font dependencies. Source generator: tools/create_dai_chien_effect_art.cjs in the ZEVA workspace.
