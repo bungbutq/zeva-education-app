@@ -168,6 +168,76 @@
       "sha256": "f27e3562d59244cfd4f569f7b3c1a7161374011a12718ac43d1398fb3e0de349"
     },
     {
+      "path": "island-12-crystal.png",
+      "bytes": 2642640,
+      "sha256": "4a9efe36a862fbf7f20bd1c320d748c2d40a20dd824353a611a22b8a9a9e6b65"
+    },
+    {
+      "path": "island-13-turtle.png",
+      "bytes": 2501434,
+      "sha256": "53c93bcc4a6b56916347aa13e20d493b3699d610979211a5d2b8be0cc8996d2a"
+    },
+    {
+      "path": "island-14-fortress.png",
+      "bytes": 2608244,
+      "sha256": "0613192f10d3b197a34b1ee00ebcf9a466cf90d05fe6d43b106fa9794ef0b795"
+    },
+    {
+      "path": "island-15-mangrove.png",
+      "bytes": 2972288,
+      "sha256": "09b6e7922a11d7bfd85627c3d9bd2dd06b67b973d675989d8885e90f4c0dd2fa"
+    },
+    {
+      "path": "island-16-mushroom.png",
+      "bytes": 2643767,
+      "sha256": "a29f8a46ec729216323cd40842c092a729beb6eeefab5d27e42b10aad46e70cb"
+    },
+    {
+      "path": "island-17-pearl.png",
+      "bytes": 2764820,
+      "sha256": "d13b03148ecba1942fcf90843e419e92d623ca9baac2dc1d35cab89e2cd4160a"
+    },
+    {
+      "path": "island-18-dragon.png",
+      "bytes": 2684192,
+      "sha256": "da75ed8e3c4b27d71bd806d751e23cb35ca0c40452e48d6373f4fe0fc256c51f"
+    },
+    {
+      "path": "island-19-thunder.png",
+      "bytes": 1960187,
+      "sha256": "730824104b1baf7201921cadae3656736c711dd1d133834c348edbcbeba48fcd"
+    },
+    {
+      "path": "island-20-windmill.png",
+      "bytes": 2206586,
+      "sha256": "f18596f60886d5606126fac35bd96efbfa32519f78dd89d84727039bb60662e1"
+    },
+    {
+      "path": "island-21-sword.png",
+      "bytes": 2380174,
+      "sha256": "77c0501686ad23b4fce701c433f95177fd62ef083390898e2c1f6fd99cf04c1f"
+    },
+    {
+      "path": "island-22-fossil.png",
+      "bytes": 2741655,
+      "sha256": "39255dc83a08a43283e590833e722e3da569ea1bf7d7cd98265df38fad37903e"
+    },
+    {
+      "path": "island-23-kraken.png",
+      "bytes": 1857281,
+      "sha256": "0eb7a2afd630616099e9ed8fdf0e28907663c98792592965aac3453eaf510d55"
+    },
+    {
+      "path": "kraken-tentacle.png",
+      "bytes": 1621143,
+      "sha256": "8e51b97559409fc1e7e6601a1b52ff4cd0b64f850c404cb0af7dd840c02b82b9"
+    },
+    {
+      "path": "island-24-whale.png",
+      "bytes": 2175197,
+      "sha256": "14c3473443323d18a789ab14cfeb88a9823a80bd457ff85754d71eb39b8d4d3e"
+    },
+    {
       "path": "Nunito.ttf",
       "bytes": 276932,
       "sha256": "bb55a5ca5c2042335b3991af27c4d0705d0ef41cac6164ac737fd8f2a1e85207"
