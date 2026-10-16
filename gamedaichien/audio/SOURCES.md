@@ -28,4 +28,4 @@ bgm-battle.mp3, heal.mp3, holy-sword-cast.wav, holy-sword-impact.wav, meteor-cas
 
 ## Nhạc nhấn lúc giới thiệu chiêu nộ (16/10)
 
-`rage-intro.wav` là âm thanh gốc tổng hợp riêng cho ZEVA bằng `tools/create_dai_chien_rage_audio.py`: vệt gió ngắn, hợp âm Rê trưởng với âm sắc đồng, tiếng trầm và đuôi vang nhẹ. Không sử dụng bản thu hoặc mẫu âm thanh bên ngoài. Dài 1,32 giây; WAV PCM stereo 44,1 kHz, 16 bit; chỉ phát một lần lúc ảnh nhân vật xuất hiện, trước âm triệu hồi và va chạm hiện tại. Tạo theo yêu cầu chủ dự án; không có thành phần âm thanh của bên thứ ba cần ghi nguồn.
+`rage-intro.wav` là âm thanh gốc tổng hợp riêng cho ZEVA bằng `tools/create_dai_chien_rage_audio.py`, nâng cấp theo yêu cầu chủ dự án ngày 16/10: fanfare Rê thứ với nhiều bè âm sắc đồng, hai nhịp trống trầm tại lúc vào/ổn định, lớp âm gợi hợp xướng không lời, tiếng kim loại và gió stereo, đuôi vang rộng. Không sử dụng bản thu hoặc mẫu âm thanh bên ngoài. Dài 1,44 giây; WAV PCM stereo 44,1 kHz, 16 bit; peak dưới −1,5 dBFS. Chỉ phát một lần lúc ảnh nhân vật xuất hiện, kết thúc trước cast ở chế độ thường. Tạo theo yêu cầu chủ dự án; không có thành phần âm thanh của bên thứ ba cần ghi nguồn.

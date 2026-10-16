@@ -6,7 +6,7 @@
 | --- | --- |
 | bgm-battle.mp3 | Nhạc nền |
 | heal.mp3 | Hồi máu |
-| rage-intro.wav | Nhạc nhấn bất ngờ 1,32 giây khi nhân vật và tên chiêu trượt vào |
+| rage-intro.wav | Fanfare hùng tráng 1,44 giây: tiếng đồng nhiều lớp, hai nhịp trống trầm, âm vút stereo và đuôi vang khi nhân vật trượt vào |
 | holy-sword-cast.wav | Thánh Kiếm: triệu hồi |
 | holy-sword-impact.wav | Thánh Kiếm: va chạm |
 | meteor-cast.wav | Vẫn Tinh: triệu hồi |
