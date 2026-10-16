@@ -1,0 +1,106 @@
+{
+  "game": "Đảo Kho Báu",
+  "version": "20261016-layered-art",
+  "files": [
+    {
+      "path": "captains-atlas.png",
+      "bytes": 1919412,
+      "sha256": "5c18c25c0e5380da668a4f8b60f2e311af3b9f5ddf30c929fd0c511ca681fc4d"
+    },
+    {
+      "path": "chest-closed.png",
+      "bytes": 1164994,
+      "sha256": "8d6a34a67826c176e03de1c06dc389b11a196d3ba1ac3325da092238c19403de"
+    },
+    {
+      "path": "chest-open.png",
+      "bytes": 1740689,
+      "sha256": "e97bfdc2a0afbd7f6adaebdf2bb4b13525924cc275f95f9f6065cc97a109cd34"
+    },
+    {
+      "path": "map-board-clean.png",
+      "bytes": 2522066,
+      "sha256": "6bff4b10749c87997857af790f246e999e6a3b05ca286bd00c4ba0e23acbf2c2"
+    },
+    {
+      "path": "map-board.png",
+      "bytes": 2565425,
+      "sha256": "f271232fe921a62105447b072a0712aa0d02d7c8e11a6f4d9cd73023775ce915"
+    },
+    {
+      "path": "result-backdrop.png",
+      "bytes": 2446682,
+      "sha256": "259b79c00be6a97b54f7fc31a6f6bc9c39f27fca6b500c65870c02bfaaafd523"
+    },
+    {
+      "path": "result-captains-atlas.png",
+      "bytes": 1462858,
+      "sha256": "2e01032193f3cebd822c861520b7c6e2103a5cce75946d78cbc5e53054c7e711"
+    },
+    {
+      "path": "ship-blue.png",
+      "bytes": 1051803,
+      "sha256": "6409911cff0ae45ec2f184254cddab6efb168bf49c47ddeb7777f244fbb66e43"
+    },
+    {
+      "path": "ship-red.png",
+      "bytes": 1130477,
+      "sha256": "a831832c3f7f2720af4e3b957432de28dd107ab89e01c4eb2970642a7acc86ad"
+    },
+    {
+      "path": "ui-action-green.png",
+      "bytes": 1235922,
+      "sha256": "5a9463e4edf4b910ad890cbaa625a4490f4203fe7bd5774d01b4b3887e8566a3"
+    },
+    {
+      "path": "ui-buttons-atlas.png",
+      "bytes": 1321447,
+      "sha256": "732019731ef57ea8b43101b19eda997773ab834ce511129acf8638ffc9491fd3"
+    },
+    {
+      "path": "ui-icons-atlas.png",
+      "bytes": 1662662,
+      "sha256": "cc01978add46bc16b25f6794a3bb5a9712eb90c831581cf22326593c2f112659"
+    },
+    {
+      "path": "ui-island-label.png",
+      "bytes": 1051845,
+      "sha256": "1690c40e7447fa5dbf7eb47fe023508c27e9a7ef8b20bfb1e97aa3247a629c1c"
+    },
+    {
+      "path": "ui-navigation.png",
+      "bytes": 1809885,
+      "sha256": "90bc1311955373bd5cde24f9062dcb4eeb89bf8a647529049ace1d14271848dc"
+    },
+    {
+      "path": "ui-question-frame.png",
+      "bytes": 2121560,
+      "sha256": "33a6c6510f6a363a6539730a83c245e9d19c7e8c05f4e4d5c43f849f09bfdfc9"
+    },
+    {
+      "path": "ui-team-blue.png",
+      "bytes": 1815485,
+      "sha256": "6776682ddce655d0c7538a89f893c520bd02a0c1523d1d2af3dba03d3df02ead"
+    },
+    {
+      "path": "ui-team-red.png",
+      "bytes": 1659147,
+      "sha256": "1f523bba3ce2c78e13ea3b1864f9887d06f328a39f547eabde33c50e0063ea01"
+    },
+    {
+      "path": "ui-title.png",
+      "bytes": 1683501,
+      "sha256": "e47d0454c59b83bc71dd0ee4b937d05f9e525606a5fe23a9a7eb1fa60299e4a6"
+    },
+    {
+      "path": "Nunito.ttf",
+      "bytes": 276932,
+      "sha256": "bb55a5ca5c2042335b3991af27c4d0705d0ef41cac6164ac737fd8f2a1e85207"
+    },
+    {
+      "path": "OFL.txt",
+      "bytes": 4385,
+      "sha256": "580df76c95a1ec5ab878ceb25bb3d85c6a076804e9c970c8c6972aea775fdf65"
+    }
+  ]
+}
