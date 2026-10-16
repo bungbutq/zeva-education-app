@@ -93,6 +93,66 @@
       "sha256": "e47d0454c59b83bc71dd0ee4b937d05f9e525606a5fe23a9a7eb1fa60299e4a6"
     },
     {
+      "path": "ocean-background.png",
+      "bytes": 1949635,
+      "sha256": "314f31b608e3a65784a7f806a2d7e520434e1efbc88f185adedc7e4c1720c3d4"
+    },
+    {
+      "path": "island-01-volcano.png",
+      "bytes": 2291630,
+      "sha256": "ca254de13c0b5d9111476953e0a5a908bc93fe853ba4d2d860826f6ae15d2e0b"
+    },
+    {
+      "path": "island-02-skull.png",
+      "bytes": 2148795,
+      "sha256": "84230589ef716988d94a7112a482bb43e072d6d8292fef36c6202f2b23303c8b"
+    },
+    {
+      "path": "island-03-lighthouse.png",
+      "bytes": 1982436,
+      "sha256": "61f9aafc2fa7b44ae903bc99c4eb7a974f3ae24b51a96703c77085c6e67e71e3"
+    },
+    {
+      "path": "island-04-ruins.png",
+      "bytes": 2456240,
+      "sha256": "6f2e7891d59bb3e748df1a218b9e23e79730e22e7b9a98688f87bad2c940b72a"
+    },
+    {
+      "path": "island-05-waterfall.png",
+      "bytes": 2448542,
+      "sha256": "5714f678ff8e55516c76046ae0c1831c9b2b20ca606e6f291f4d612495dcdab2"
+    },
+    {
+      "path": "island-06-village.png",
+      "bytes": 2198796,
+      "sha256": "732e0f2a36ffb15db629c082434e6531218b421048283dadc53a691480195053"
+    },
+    {
+      "path": "island-07-crab.png",
+      "bytes": 2379455,
+      "sha256": "9d7b89b8587581632e699a41efa2ec8946ff92d1509469200977dd2ee950e77c"
+    },
+    {
+      "path": "island-08-shipwreck.png",
+      "bytes": 2100269,
+      "sha256": "c41cba8cb252f6c029056ad239b2b7478f21ef86553cebe401e20e7d15a2ec46"
+    },
+    {
+      "path": "island-09-lookout.png",
+      "bytes": 2156470,
+      "sha256": "9f1f46c60fef718d5c034400aaa8eca586a4b3dc49b2b86b24775ca1457d2c81"
+    },
+    {
+      "path": "island-10-totem.png",
+      "bytes": 2202156,
+      "sha256": "3a46f971e01c3416b3e807fe9776744140277b51a805810e334efa63be620b15"
+    },
+    {
+      "path": "island-11-cave.png",
+      "bytes": 2299708,
+      "sha256": "b28c6f00f11829966c2d4021fcbd083b86a0480dba124d18fb0d974a48589f1b"
+    },
+    {
       "path": "Nunito.ttf",
       "bytes": 276932,
       "sha256": "bb55a5ca5c2042335b3991af27c4d0705d0ef41cac6164ac737fd8f2a1e85207"
