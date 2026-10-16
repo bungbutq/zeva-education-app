@@ -54,6 +54,11 @@
       "path": "damage-hit.mp3",
       "bytes": 84000,
       "sha256": "4775b8c6149b3fb49006869fce6711b0705b153c2eb88c663b900590b463a8e0"
+    },
+    {
+      "path": "victory.mp3",
+      "bytes": 265440,
+      "sha256": "bd79c9d35a9ad542fb73486135bcf3373933020eb4b893d85cd1585628656c4c"
     }
   ]
 }

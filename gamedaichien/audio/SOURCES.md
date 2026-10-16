@@ -21,3 +21,7 @@ Người dùng đã chọn dùng tiếng trả lời đúng miễn phí mới th
 ## Bộ 6 file đã chọn trước đó
 
 bgm-battle.mp3, heal.mp3, holy-sword-cast.wav, holy-sword-impact.wav, meteor-cast.wav do chủ dự án cung cấp trong bộ âm thanh Đại Chiến; giữ nguyên byte. meteor-impact.mp3 được ghép từ file va chạm cùng bộ thành 3 cú cách 450ms; tổng 4.25 giây. Chưa có thông tin nguồn riêng cho các file này trong bộ cung cấp.
+
+## Tiếng chiến thắng chung cuộc (16/10)
+
+`victory.mp3` sao chép nguyên byte theo yêu cầu chủ dự án từ [Gamebaothu/audio/victory.mp3](https://github.com/bungbutq/zeva-education-app/blob/main/Gamebaothu/audio/victory.mp3). Không chỉnh sửa âm thanh. Runtime Đại Chiến dùng bản riêng trong `gamedaichien/audio/`; không dùng chung URL Báo Thủ.
