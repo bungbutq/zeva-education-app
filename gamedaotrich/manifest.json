@@ -1,0 +1,136 @@
+{
+  "game": "Siêu Đạo Trích",
+  "version": "v2-layered-artwork",
+  "files": [
+    {
+      "path": "city.webp",
+      "bytes": 339520,
+      "sha256": "51e0bf5c5ccff0236b36722b3e0733f76274ce9a92c57f22219c8aed3f131ff6"
+    },
+    {
+      "path": "school.webp",
+      "bytes": 103520,
+      "sha256": "c74c2cd25670698b498520092a8b96f8528f0b13b8a2db45fe1b7ce1661546a2"
+    },
+    {
+      "path": "library.webp",
+      "bytes": 95750,
+      "sha256": "08c60252186f9eb23e92cdf2e7d2506df3914316ca9ec1f514521098d3d29f43"
+    },
+    {
+      "path": "museum.webp",
+      "bytes": 94610,
+      "sha256": "b80f38c507e75dbf442efd1938a4a8aa58c213b1024a3fd6ceb0ca1bbdefbf09"
+    },
+    {
+      "path": "bank.webp",
+      "bytes": 83862,
+      "sha256": "2fd484fc940255dceb765510dab7374c58666b0de8f00aa0b10ac93ad0c5f1bd"
+    },
+    {
+      "path": "hospital.webp",
+      "bytes": 94330,
+      "sha256": "b92e08374d420d674cf5347d7dd9280a9c5a10d2d4bc574f4c747a1f31a8315f"
+    },
+    {
+      "path": "tech.webp",
+      "bytes": 86450,
+      "sha256": "4fd3500520cc3ffe63525d0dc864fc4c2135173109a87a8da1fe47ad3e114035"
+    },
+    {
+      "path": "office.webp",
+      "bytes": 52484,
+      "sha256": "ad7b81a1b4930d9ba95555cdf50d24fbd6a8a7edd4ee5aeaa9f0e613296cb255"
+    },
+    {
+      "path": "gallery.webp",
+      "bytes": 94370,
+      "sha256": "6de108db1acc50b8847f3d9ab4b491b3ae571a4d0ca756772fb977930b6e1d72"
+    },
+    {
+      "path": "security.webp",
+      "bytes": 94304,
+      "sha256": "8c16cc2418a4e43751adead8c5831f738357ec1b45e213119dae4f3919323cbe"
+    },
+    {
+      "path": "factory.webp",
+      "bytes": 92626,
+      "sha256": "27118d8a9f85bd3fec3bfe0df028f48a93926fc392df9374edb6972c65dc45cf"
+    },
+    {
+      "path": "cinema.webp",
+      "bytes": 102294,
+      "sha256": "e517d3f645847bb4cfe297fe3d17275354a08257d187809989d37c3054c4f82b"
+    },
+    {
+      "path": "mall.webp",
+      "bytes": 105276,
+      "sha256": "c8e94eb443209b33c0dd5b3100f96a54df39e12b2f187ff1a03e6dda7453285a"
+    },
+    {
+      "path": "research.webp",
+      "bytes": 95140,
+      "sha256": "e45f3c0f66ec433a53a3c5ea80322fcfdd16a612e64b674c1f92893c9ea31109"
+    },
+    {
+      "path": "harbor.webp",
+      "bytes": 84238,
+      "sha256": "78b1f0f72d3a9fe9b9a8ece032515c6dffe81ab820aa40c98688ac34853c9fdb"
+    },
+    {
+      "path": "hotel.webp",
+      "bytes": 103544,
+      "sha256": "4a341bf36758f0239b59411b8b8cd453e760c57b6f0466ccc360064198cd10cb"
+    },
+    {
+      "path": "thief.webp",
+      "bytes": 48482,
+      "sha256": "412af7aa03b89cb691a5398b3a75a0c8ce97bcc077333dc210c5f9aebe1f989c"
+    },
+    {
+      "path": "Nunito.ttf",
+      "bytes": 276932,
+      "sha256": "bb55a5ca5c2042335b3991af27c4d0705d0ef41cac6164ac737fd8f2a1e85207"
+    },
+    {
+      "path": "OFL.txt",
+      "bytes": 4385,
+      "sha256": "580df76c95a1ec5ab878ceb25bb3d85c6a076804e9c970c8c6972aea775fdf65"
+    },
+    {
+      "path": "audio/night.wav",
+      "bytes": 635052,
+      "sha256": "72b819b0c66a94bf887108ecf659900f7c9d26dd92130bfd643bc1145b84ac81"
+    },
+    {
+      "path": "audio/step.wav",
+      "bytes": 9302,
+      "sha256": "371fdbe1565239b7330778b5da7268afaa9577d7a7ab576cf87fb65571eeb23f"
+    },
+    {
+      "path": "audio/unlock.wav",
+      "bytes": 22972,
+      "sha256": "f911f0005149ec7159625b2af2199ab46cac10b0d44092a9c331b9bb51920816"
+    },
+    {
+      "path": "audio/damage.wav",
+      "bytes": 21212,
+      "sha256": "ff4d46f597b695d8f047a9541fcc68375b10b2f285dc938aa62d7561cb34f8cf"
+    },
+    {
+      "path": "audio/alarm.wav",
+      "bytes": 21212,
+      "sha256": "5f7d12b7c17680a8f8bdf4c92e536d7c9e9dbcb256d79330160bd3581c7a555f"
+    },
+    {
+      "path": "audio/win.wav",
+      "bytes": 58690,
+      "sha256": "3f9b6393ce26b1798d82178b4dfaa30d605c7aba35270dd7bf3a5c470a42a291"
+    },
+    {
+      "path": "audio/lose.wav",
+      "bytes": 60896,
+      "sha256": "98b387cb9dc91fe68ee6168e7a15ad65b8dddead0766ee380c5421c10db7edc5"
+    }
+  ]
+}
