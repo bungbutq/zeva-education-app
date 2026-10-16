@@ -25,3 +25,7 @@ bgm-battle.mp3, heal.mp3, holy-sword-cast.wav, holy-sword-impact.wav, meteor-cas
 ## Tiếng chiến thắng chung cuộc (16/10)
 
 `victory.mp3` sao chép nguyên byte theo yêu cầu chủ dự án từ [Gamebaothu/audio/victory.mp3](https://github.com/bungbutq/zeva-education-app/blob/main/Gamebaothu/audio/victory.mp3). Không chỉnh sửa âm thanh. Runtime Đại Chiến dùng bản riêng trong `gamedaichien/audio/`; không dùng chung URL Báo Thủ.
+
+## Nhạc nhấn lúc giới thiệu chiêu nộ (16/10)
+
+`rage-intro.wav` là âm thanh gốc tổng hợp riêng cho ZEVA bằng `tools/create_dai_chien_rage_audio.py`: vệt gió ngắn, hợp âm Rê trưởng với âm sắc đồng, tiếng trầm và đuôi vang nhẹ. Không sử dụng bản thu hoặc mẫu âm thanh bên ngoài. Dài 1,32 giây; WAV PCM stereo 44,1 kHz, 16 bit; chỉ phát một lần lúc ảnh nhân vật xuất hiện, trước âm triệu hồi và va chạm hiện tại. Tạo theo yêu cầu chủ dự án; không có thành phần âm thanh của bên thứ ba cần ghi nguồn.

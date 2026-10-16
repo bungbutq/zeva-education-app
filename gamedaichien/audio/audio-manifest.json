@@ -11,6 +11,11 @@
       "sha256": "7827a9ecaeae030b4dfa5d0b5ee85b71805337486de7d22e3602165e24ebd11c"
     },
     {
+      "path": "rage-intro.wav",
+      "bytes": 232892,
+      "sha256": "ce78b853e46959f6b3fb3ea5460964956b1a7c2203b6c76c1be65c7c0c7253fb"
+    },
+    {
       "path": "holy-sword-cast.wav",
       "bytes": 918128,
       "sha256": "f95f33e8dc5a7c5b90fa8d088e69c526551233a88e57dcc5850860e64fde4634"

@@ -1,11 +1,12 @@
 # Âm thanh Đại Chiến Tri Thức
 
-12 âm thanh riêng cho Đại Chiến. Runtime sử dụng bản copy trong `gamedaichien/audio/`, ghim commit để không phụ thuộc đường dẫn game khác.
+13 âm thanh riêng cho Đại Chiến. Runtime sử dụng bản copy trong `gamedaichien/audio/`, ghim commit để không phụ thuộc đường dẫn game khác.
 
 | File | Công dụng |
 | --- | --- |
 | bgm-battle.mp3 | Nhạc nền |
 | heal.mp3 | Hồi máu |
+| rage-intro.wav | Nhạc nhấn bất ngờ 1,32 giây khi nhân vật và tên chiêu trượt vào |
 | holy-sword-cast.wav | Thánh Kiếm: triệu hồi |
 | holy-sword-impact.wav | Thánh Kiếm: va chạm |
 | meteor-cast.wav | Vẫn Tinh: triệu hồi |
