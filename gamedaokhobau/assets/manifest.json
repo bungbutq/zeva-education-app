@@ -373,6 +373,41 @@
       "sha256": "72bb38c0350f785c1011d08456810e5ed06e833367da0b5fbc26af369201fcc2"
     },
     {
+      "path": "island-25-mist-clear.png",
+      "bytes": 2476440,
+      "sha256": "7f035dfafa92c74b8d6d247cfd308258eabc1f416106fa9a0c2eb59ea38b8839"
+    },
+    {
+      "path": "sprite-snake-overhead.png",
+      "bytes": 1030109,
+      "sha256": "1b4268716ab3a7548e356b7b80c1243a5950317286608409003158be6b12b3f3"
+    },
+    {
+      "path": "sprite-shark-overhead.png",
+      "bytes": 1422871,
+      "sha256": "83ffbc3237d7837d7d2f77f98a881486b5ad6a042a6dd1c44571a0fd0725f984"
+    },
+    {
+      "path": "sprite-island-patrol.png",
+      "bytes": 2173412,
+      "sha256": "adb2cf396f0e53391ce203efe8e6bdd739e19c688fd31ae8baebcedd15560d16"
+    },
+    {
+      "path": "island-17-mermaid-bay.png",
+      "bytes": 3068433,
+      "sha256": "a80fb052b9be128dc973fd858c132b92328783cd35b6f39c98d989dd07257468"
+    },
+    {
+      "path": "sprite-mermaid-swim.png",
+      "bytes": 1845786,
+      "sha256": "b1e63d07cc9dba5619d24049a69a52ba89d00470eb8882c4dd210811900254c4"
+    },
+    {
+      "path": "sprite-penguin-walk.png",
+      "bytes": 1774480,
+      "sha256": "bd1a71b0bffa88087f8a0f6fdc0a600aab93ed038cf578c83aca52efd19e6000"
+    },
+    {
       "path": "Nunito.ttf",
       "bytes": 276932,
       "sha256": "bb55a5ca5c2042335b3991af27c4d0705d0ef41cac6164ac737fd8f2a1e85207"
