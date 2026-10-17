@@ -238,6 +238,141 @@
       "sha256": "14c3473443323d18a789ab14cfeb88a9823a80bd457ff85754d71eb39b8d4d3e"
     },
     {
+      "path": "island-05-waterfall-hd.png",
+      "bytes": 2580428,
+      "sha256": "47dc2c0df17d38ea998ced991f109587224f9944188c4d7af278c7f2486dbb4e"
+    },
+    {
+      "path": "island-06-village-hd.png",
+      "bytes": 2240081,
+      "sha256": "a1f910dad1d86c8adb73f29b48f1d3e531b73d4472af889ae1feb0edd8a5d850"
+    },
+    {
+      "path": "island-07-crab-base-hd.png",
+      "bytes": 2431552,
+      "sha256": "fa065d62a28e1a35765721e7d806811e224004b00e284a4aedcd3f94529d5126"
+    },
+    {
+      "path": "island-09-lookout-hd.png",
+      "bytes": 2386397,
+      "sha256": "bbda79e284a199417bf9da9bcd26f208990ccda06a43a189302f4706af87f9dc"
+    },
+    {
+      "path": "island-10-totem-hd.png",
+      "bytes": 2492863,
+      "sha256": "8502544cf2f125eb9f754348f0d7d23d794407c7313dbb8e3f8221a93ed47769"
+    },
+    {
+      "path": "island-11-cave-hd.png",
+      "bytes": 2480116,
+      "sha256": "3c17308c5876dcda3fcff2cec6c4895c4d8e0d7c0f4abbf30371f6909ad1ce0e"
+    },
+    {
+      "path": "island-15-mangrove-hd.png",
+      "bytes": 3041045,
+      "sha256": "edfa53c10dbc28d756504648d9e096c1231262ca180569650d1ac6373cd260a0"
+    },
+    {
+      "path": "island-25-mist.png",
+      "bytes": 2530731,
+      "sha256": "e37bee9fb12449bfca464d52f6ae40a35f4c09276043b3816c77db14dedc2689"
+    },
+    {
+      "path": "island-26-storm-base.png",
+      "bytes": 2071232,
+      "sha256": "159127149c9c4921009e5402783d3b1215565f76ef2eee64abac32ef0ae7ba1c"
+    },
+    {
+      "path": "island-26-storm.png",
+      "bytes": 2464696,
+      "sha256": "d56ad81b5c2bb2bffbf1bfb1a13aee1a7a9199ba9890dd2e2ed8905407559350"
+    },
+    {
+      "path": "island-27-sandbar.png",
+      "bytes": 2338789,
+      "sha256": "87bda1105023aa1bd52d8b0fa0cf209747ff390d007e3d9f6f2176cee7dec48c"
+    },
+    {
+      "path": "island-28-drift-ice.png",
+      "bytes": 1942939,
+      "sha256": "f8b282989d4102a1f7239bc67835bcbbf231f468b974737d8655b1a67c41c2f9"
+    },
+    {
+      "path": "island-29-reef-rocks.png",
+      "bytes": 2140012,
+      "sha256": "6208a96bbdf4e1f623908221d8d470bb4e0ff95652b7f28ce76016d2e54070da"
+    },
+    {
+      "path": "island-30-snow.png",
+      "bytes": 2247272,
+      "sha256": "3cead3bb502c13f22908c4f16b083ef668f47146816cb03ac5e92367ce42eee8"
+    },
+    {
+      "path": "island-31-fruit-mountain.png",
+      "bytes": 2886377,
+      "sha256": "0e06b385228ccd48f898e84374f54d2c28389a7c8aa5b7069b0ab55ed28e4abd"
+    },
+    {
+      "path": "island-32-sakura.png",
+      "bytes": 2684443,
+      "sha256": "78cf5a4272eb56c5022c4b0b6dc1b42fbc9116d744a447fdafbad8423b07d630"
+    },
+    {
+      "path": "island-33-island-village.png",
+      "bytes": 2705826,
+      "sha256": "144c82dc8fda615c8948a1c62b51d73ba5059b56d1d466122153f382983edac6"
+    },
+    {
+      "path": "island-34-snake-base.png",
+      "bytes": 2387174,
+      "sha256": "d54001e567c12e986bf335e1874279e8636a9a4958f4249ea167197157dd42c2"
+    },
+    {
+      "path": "island-35-sharks-base.png",
+      "bytes": 2283473,
+      "sha256": "b8fabb47e8557b450701d1fd9b71795794a2a6416c726aba4fa5413e1ed23f01"
+    },
+    {
+      "path": "island-36-coral.png",
+      "bytes": 2608495,
+      "sha256": "48bd0816985f201936776aaf2bc1eb43b7a926c642a77efc27401698724cd25f"
+    },
+    {
+      "path": "sprite-giant-crab.png",
+      "bytes": 2000242,
+      "sha256": "0d50b49819906829ab9d3cdac7fac562c16dce9680f1bb106c97731d2d89e629"
+    },
+    {
+      "path": "sprite-giant-snake.png",
+      "bytes": 1821660,
+      "sha256": "981a85e2e755c65300b80ba35b6321fe1585ae477d581c4211d5c6eb994a16d6"
+    },
+    {
+      "path": "sprite-guard-walk.png",
+      "bytes": 1867845,
+      "sha256": "91ff1809a21fea28139902e63552158ac18eaed4edbfafee0e9ec49f473cb171"
+    },
+    {
+      "path": "sprite-mangrove-fish.png",
+      "bytes": 2045672,
+      "sha256": "638910f944b8aa44e859ed6b9b57c982ad86c53323816238dfb8c7139a69c338"
+    },
+    {
+      "path": "sprite-totem-bird.png",
+      "bytes": 1063216,
+      "sha256": "6634c6b459d48e6376ea874507d0fc4f832534850c366bd855210c44a2ce6398"
+    },
+    {
+      "path": "sprite-villagers-walk.png",
+      "bytes": 1020447,
+      "sha256": "108c8c9363e473335e01c58bcb3375421c54e16a8d1049129d5ad4cba1804c8b"
+    },
+    {
+      "path": "sprite-swimming-shark-v2.png",
+      "bytes": 1412001,
+      "sha256": "72bb38c0350f785c1011d08456810e5ed06e833367da0b5fbc26af369201fcc2"
+    },
+    {
       "path": "Nunito.ttf",
       "bytes": 276932,
       "sha256": "bb55a5ca5c2042335b3991af27c4d0705d0ef41cac6164ac737fd8f2a1e85207"
