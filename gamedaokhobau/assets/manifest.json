@@ -408,6 +408,21 @@
       "sha256": "bd1a71b0bffa88087f8a0f6fdc0a600aab93ed038cf578c83aca52efd19e6000"
     },
     {
+      "path": "sprite-mermaid-poses-v2.png",
+      "bytes": 1713363,
+      "sha256": "f306ebb1f75e6fe75704d7fca1757c702e1f10e1fa53d07b935b8d38621477cc"
+    },
+    {
+      "path": "sprite-monkey-climb.png",
+      "bytes": 1875333,
+      "sha256": "243c617d34751ac35b1b13e639d06b256a7a5d21d7705a74dc9eeb748446ec96"
+    },
+    {
+      "path": "island-31-fruit-base.png",
+      "bytes": 2826286,
+      "sha256": "db0cc08d6265908d2ae4b7d0a479015dfefe310016a05be0e50b9556097cd183"
+    },
+    {
       "path": "Nunito.ttf",
       "bytes": 276932,
       "sha256": "bb55a5ca5c2042335b3991af27c4d0705d0ef41cac6164ac737fd8f2a1e85207"
