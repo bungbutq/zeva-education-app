@@ -428,6 +428,11 @@
       "sha256": "3dc4197febb97b4814997d74d9fe7c2bffa179874c9ef3f4a7e432f9d2cac91c"
     },
     {
+      "path": "ui-island-challenge-frame.png",
+      "bytes": 2129625,
+      "sha256": "2894a5152801a988edfbc15144012f00457a10ea044aa53a592cdbaa14e4c0e0"
+    },
+    {
       "path": "Nunito.ttf",
       "bytes": 276932,
       "sha256": "bb55a5ca5c2042335b3991af27c4d0705d0ef41cac6164ac737fd8f2a1e85207"
