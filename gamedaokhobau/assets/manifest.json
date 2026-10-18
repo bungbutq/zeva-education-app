@@ -423,6 +423,11 @@
       "sha256": "db0cc08d6265908d2ae4b7d0a479015dfefe310016a05be0e50b9556097cd183"
     },
     {
+      "path": "ui-tools-atlas.png",
+      "bytes": 1279551,
+      "sha256": "3dc4197febb97b4814997d74d9fe7c2bffa179874c9ef3f4a7e432f9d2cac91c"
+    },
+    {
       "path": "Nunito.ttf",
       "bytes": 276932,
       "sha256": "bb55a5ca5c2042335b3991af27c4d0705d0ef41cac6164ac737fd8f2a1e85207"
