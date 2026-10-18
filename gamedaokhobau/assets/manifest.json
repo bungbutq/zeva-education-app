@@ -433,6 +433,16 @@
       "sha256": "2894a5152801a988edfbc15144012f00457a10ea044aa53a592cdbaa14e4c0e0"
     },
     {
+      "path": "ui-island-info.png",
+      "bytes": 1910042,
+      "sha256": "5157811c89e020aeb66177a11a03d84ecd212b36741ca04262c3b5c6c7698ad4"
+    },
+    {
+      "path": "ocean-challenge.png",
+      "bytes": 1893245,
+      "sha256": "5977a72eab6b0949664774a490a1d1abff472804e3a485a927cc1f483d07c9a8"
+    },
+    {
       "path": "Nunito.ttf",
       "bytes": 276932,
       "sha256": "bb55a5ca5c2042335b3991af27c4d0705d0ef41cac6164ac737fd8f2a1e85207"
