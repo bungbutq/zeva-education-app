@@ -443,6 +443,21 @@
       "sha256": "5977a72eab6b0949664774a490a1d1abff472804e3a485a927cc1f483d07c9a8"
     },
     {
+      "path": "ui-challenge-board-clean.png",
+      "bytes": 1960126,
+      "sha256": "9aec22ee7c609df8a0f32e86d7de61446d157acef9a187ea44978f7231d02354"
+    },
+    {
+      "path": "ui-challenge-rocks.png",
+      "bytes": 1588650,
+      "sha256": "6ce10d7c36f26f8e60993ea48b01262257bdefc84ea421a79fbda766fec24ff4"
+    },
+    {
+      "path": "ui-challenge-barrel.png",
+      "bytes": 1664016,
+      "sha256": "031a3e2f718ca21873ed871a80e693aa5c37ce988c38837d8538266b5feadd0a"
+    },
+    {
       "path": "Nunito.ttf",
       "bytes": 276932,
       "sha256": "bb55a5ca5c2042335b3991af27c4d0705d0ef41cac6164ac737fd8f2a1e85207"
