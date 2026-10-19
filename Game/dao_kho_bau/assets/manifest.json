@@ -799,13 +799,143 @@
     },
     {
       "path": "merchant-red-bristol.png",
-      "bytes": 2778325,
-      "sha256": "e2da11e6db49e1b25f7f997bd8a67916cc6ef6e4b1f714b863fea6f7875d258d"
+      "bytes": 2689682,
+      "sha256": "901d788a0f86e5ecb99fe36f813e8ed72ec825460639f2abd1b8234495f3ecaf"
     },
     {
       "path": "merchant-blue-dover.png",
       "bytes": 2667858,
       "sha256": "147c6326a55986e41d7408b3eafdf6b181ab2ad057721c9bd49244b53aa51597"
+    },
+    {
+      "path": "ui-tool-merchant.png",
+      "bytes": 1745061,
+      "sha256": "a2b8a423be6aab73ac182e7e9cd67e6054dae8368a7458a93a2b2251622943b8"
+    },
+    {
+      "path": "product-01.png",
+      "bytes": 1935459,
+      "sha256": "98c7f2e5d418924b6d8d35cdfae89650f733f8e0b988da9ef2ecc5f61df2eb60"
+    },
+    {
+      "path": "product-05.png",
+      "bytes": 1778978,
+      "sha256": "08494d379e3a251d9fba83fe4d267714d477b158472b98413c8f0b60f4e870bb"
+    },
+    {
+      "path": "product-06.png",
+      "bytes": 1802592,
+      "sha256": "79ded0798ee1093399600b29e877bcc2a48cd7f3aa985fbfdd2f7f7cb801454b"
+    },
+    {
+      "path": "product-07.png",
+      "bytes": 1351873,
+      "sha256": "192ad30e88d47e0331261916096da354adf1215bdf01152365587c5cc299aa57"
+    },
+    {
+      "path": "product-09.png",
+      "bytes": 1267167,
+      "sha256": "834bcc7b2417b6f2787767cafa15a831f7e115978822b309095e285bf8e6c568"
+    },
+    {
+      "path": "product-12.png",
+      "bytes": 1731558,
+      "sha256": "60d1fb3e5ad0034188ebd221bd70a92ad7158c53e3043b4a87a91366de4a601a"
+    },
+    {
+      "path": "product-13.png",
+      "bytes": 1543220,
+      "sha256": "3e71139b13b5dc34cb28dd4bbf3f011cc7c18194ff86c1863ee38269500c5774"
+    },
+    {
+      "path": "product-14.png",
+      "bytes": 1449489,
+      "sha256": "7af7861186ad796981315903c2a3f1dc9a2e193179fe40965df24ae6c9170ceb"
+    },
+    {
+      "path": "product-15.png",
+      "bytes": 1881214,
+      "sha256": "aadeb8eb87ec50f472c8542d88d59cb3907ab8431d47da8a1264f68d54c1b02d"
+    },
+    {
+      "path": "product-16.png",
+      "bytes": 2120157,
+      "sha256": "b067f999237ba2fc347264c713e863c6ae0731aa4ab80cfad697f778039615f3"
+    },
+    {
+      "path": "product-17.png",
+      "bytes": 1654591,
+      "sha256": "7431b927aafc38361361a3080a5a6318b2e76d841e218d1d1abec68515eea241"
+    },
+    {
+      "path": "product-18.png",
+      "bytes": 2105503,
+      "sha256": "20c9343e5edc27273637b7523fe9fbfc889737772982f5961380586222c3a46c"
+    },
+    {
+      "path": "product-11.png",
+      "bytes": 2316270,
+      "sha256": "c32d7c6e7d0136ab07e2ba5889bba6e624135b6c6878df6ded5cac857f996fc7"
+    },
+    {
+      "path": "product-19.png",
+      "bytes": 2180538,
+      "sha256": "7bdaa30531e42477fb382bf40690502d1fda55f9e7fe59b74c824c0625f30ba2"
+    },
+    {
+      "path": "product-20.png",
+      "bytes": 1915427,
+      "sha256": "6d51e3494fc8cb5440eb3c720293572861c0f0dfb9f43b482dbd2e6e27a9f255"
+    },
+    {
+      "path": "product-24.png",
+      "bytes": 1644664,
+      "sha256": "beb2c807c6d4a336bfaeeacd507ceb7ecbc985804366fe75e7b1eac7048a6496"
+    },
+    {
+      "path": "product-27.png",
+      "bytes": 1866507,
+      "sha256": "f676f5a2460fa27273373b7714078b3a1ea1f228549799477b815fbbe10020e5"
+    },
+    {
+      "path": "product-29.png",
+      "bytes": 1885083,
+      "sha256": "8cd6fa7bac20b6e5e2cde7889493af7a22f8e2a115a4b090851669f5561b1e1a"
+    },
+    {
+      "path": "product-28.png",
+      "bytes": 1384896,
+      "sha256": "dbc389de36e84f088063849d431082721208a55044e8dd8da45cd14153caa718"
+    },
+    {
+      "path": "product-30.png",
+      "bytes": 1813640,
+      "sha256": "4dd9109c8ed28ea3602016c979612419c60afa488e19ba2d70e3c73018144a68"
+    },
+    {
+      "path": "product-31.png",
+      "bytes": 2053913,
+      "sha256": "54a091e77e14873b8416b7a2debb424da3db0579f6069b41fba83fa2c1da8b8d"
+    },
+    {
+      "path": "product-32.png",
+      "bytes": 979700,
+      "sha256": "a8b2e9a81e81d352f496d7133a6da43de6616bd900844e9a3f802c459060ee66"
+    },
+    {
+      "path": "product-33.png",
+      "bytes": 1628287,
+      "sha256": "1103c3a23b35aca4b11b0a29770a4ea17d24fbcf2d910f4ec6a971f1d16985b7"
+    },
+    {
+      "path": "product-34.png",
+      "bytes": 1318932,
+      "sha256": "812c58bc533384158f31f2c4b42adb1ac97e46acf72e1b7e4e3902e0f1102f57"
+    },
+    {
+      "path": "product-35.png",
+      "bytes": 1627499,
+      "sha256": "5ea4b8cbe747fa81ebb6b77cdab94d243cf94a16ddc0717107911d2303d563ab"
     },
     {
       "path": "Nunito.ttf",
