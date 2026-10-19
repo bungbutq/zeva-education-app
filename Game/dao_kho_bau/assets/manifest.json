@@ -778,6 +778,16 @@
       "sha256": "c20c680552080dfcebfcf9132468bb03bb796691d4c2b786824bdf66dabaffea"
     },
     {
+      "path": "ui-upgrade-icons.png",
+      "bytes": 1603802,
+      "sha256": "4fb2b372106823d323c38299633d6547a4074eb7e387328af56b285ff6a0cf8b"
+    },
+    {
+      "path": "ui-upgrade-tab.png",
+      "bytes": 1379831,
+      "sha256": "854ed1bebcb3f4c070f4acd816d27d1713642c3d4f27467635c0dc418119b6f2"
+    },
+    {
       "path": "Nunito.ttf",
       "bytes": 276932,
       "sha256": "bb55a5ca5c2042335b3991af27c4d0705d0ef41cac6164ac737fd8f2a1e85207"
