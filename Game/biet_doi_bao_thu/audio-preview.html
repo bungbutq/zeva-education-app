@@ -1,0 +1,601 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Biệt Đội Báo Thủ · ZEVA</title>
+<style>
+@font-face{font-family:"BaoNunito";src:url("https://bungbutq.github.io/zeva-education-app/Game/biet_doi_bao_thu/fonts/Nunito.ttf?v=bb55a5ca5c204233") format("truetype");font-weight:200 1000;font-style:normal;font-display:swap}
+:root{font-family:"BaoNunito","Segoe UI",Arial,sans-serif;font-weight:700;color:#10265d;--characters:url("https://bungbutq.github.io/zeva-education-app/Game/biet_doi_bao_thu/characters-v2.webp?v=c7128598fc30aeb2");--characters-swapped:url("https://bungbutq.github.io/zeva-education-app/Game/biet_doi_bao_thu/characters-swapped-v4.webp?v=d820420e9d7f593e");--scene-green:url("https://bungbutq.github.io/zeva-education-app/Game/biet_doi_bao_thu/scene-green-v2.webp?v=a76f0171d9b871a3");--scene-rock:url("https://bungbutq.github.io/zeva-education-app/Game/biet_doi_bao_thu/scene-rock-v2.webp?v=f5be7bee2d510046");--scene-snow:url("https://bungbutq.github.io/zeva-education-app/Game/biet_doi_bao_thu/scene-snow-v2.webp?v=06d662e6caee450e");--logo:url("https://bungbutq.github.io/zeva-education-app/Game/biet_doi_bao_thu/logo-v3.webp?v=8cde495639433d14");--panel:url("https://bungbutq.github.io/zeva-education-app/Game/biet_doi_bao_thu/panel-v2.webp?v=0ef30c118cee4ad7");--scene:var(--scene-green)}
+*{box-sizing:border-box}body{margin:0;background:#31583b}button,select,input{font:inherit}button{cursor:pointer;touch-action:manipulation}button:disabled{cursor:default}button:focus-visible{outline:3px solid #ffd342;outline-offset:3px}[hidden]{display:none!important}.svg-defs{position:absolute;width:0;height:0;overflow:hidden}.sr-only{position:absolute;width:1px;height:1px;padding:0;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap}
+/* One painting owns the entire terrain. Map positions are hotspots in that same scene. */
+.game{--scene-height:100dvh;--edge:1.5vw;isolation:isolate;position:relative;height:100dvh;min-height:380px;overflow:hidden}.game:before{content:"";position:absolute;inset:0 0 auto;height:var(--scene-height);z-index:-2;background:var(--scene) center/100% 100% no-repeat}.theme-green{--scene:var(--scene-green)}.theme-rock{--scene:var(--scene-rock)}.theme-snow{--scene:var(--scene-snow)}
+.topbar{position:absolute;inset:2% 1.8% auto;display:flex;justify-content:space-between;align-items:start;z-index:5;pointer-events:none}.brand{position:absolute;left:29%;top:-1.3vh;width:42%;aspect-ratio:3;background:var(--logo) center/contain no-repeat;filter:drop-shadow(0 3px 1px #51321640)}
+.team-score{position:relative;display:flex;align-items:center;gap:8px;width:28%;height:6.2vh;min-height:38px;padding:3px 12px 3px 6px;border:3px solid #b7e8ff;border-radius:15px;box-shadow:0 0 0 2px #148cff,0 4px 0 #15457799,inset 0 2px 3px #fff7;color:#fff;background:linear-gradient(100deg,#199ef2,#0052bc 60%,#003591)}.team-score:after{content:"";position:absolute;left:4%;right:6%;top:100%;height:4.2vh;min-height:24px;border:2px solid #bfefff;border-top:0;border-radius:0 0 20px 20px;background:linear-gradient(100deg,#a8dfffeb,#66b3f7e6);box-shadow:0 2px #075bac;z-index:-1;transform:skew(-10deg)}.team-score>div{flex:1;min-width:0}.team-score strong{font-size:clamp(13px,2vw,32px);line-height:1;white-space:nowrap;letter-spacing:.5px;text-shadow:0 3px #003b87,-1px -1px #003b87}.team-score b{font-size:clamp(23px,2.8vw,44px);line-height:1;white-space:nowrap}.team-score b:before{content:"Điểm: ";font-size:clamp(10px,1.2vw,20px)}.team-score [id^="score-"]{position:absolute;top:calc(100% + 1.35vh);left:12%;font-size:clamp(10px,1.2vw,19px);font-weight:900;color:#073f7d;white-space:nowrap}.paw{display:grid;place-items:center;width:5vw;height:7.2vh;min-width:35px;flex-shrink:0;background:linear-gradient(#1395f6,#004dbd);border:3px solid #8be1ff;border-radius:30% 30% 35% 35%;transform:rotate(-6deg);box-shadow:0 3px #002c79}.paw svg{width:80%;height:90%;fill:#fff8d8;filter:drop-shadow(0 2px 0 #004589)}.lives{position:absolute;right:10%;top:calc(100% + 1.15vh);height:2.7vh;display:flex;gap:.7vw}.life{display:block;width:1.7vw;min-width:11px;height:100%}.life svg{width:100%;height:100%;fill:#005bad;stroke:#bee7ff;stroke-width:1.4}.life.lost{opacity:.24}
+.team-score.red{background:linear-gradient(100deg,#9e1422,#ee2139 70%,#f65a67);border-color:#ffd9c3;box-shadow:0 0 0 2px #f95161,0 4px 0 #77202b99,inset 0 2px 3px #fff7;text-align:right}.team-score.red:after{background:linear-gradient(100deg,#ffb4b3ee,#f77a8fe6);border-color:#ffd7c8;box-shadow:0 2px #b61b37;transform:skew(10deg)}.red .paw{background:linear-gradient(#ff6b69,#de1630);border-color:#ffd888;box-shadow:0 3px #911624;transform:rotate(6deg)}.red .paw svg{filter:drop-shadow(0 2px 0 #a32720)}.team-score.red [id^="score-"]{color:#951d2d}.red .life svg{fill:#c91132;stroke:#ffd0ba}
+
+:root{--scene-desert:url("https://bungbutq.github.io/zeva-education-app/Game/biet_doi_bao_thu/scene-desert-v3.webp?v=eb03932b0b5be434");--scene-blossom:url("https://bungbutq.github.io/zeva-education-app/Game/biet_doi_bao_thu/scene-blossom-v3.webp?v=b01b448a6b5a678d");--rocket:url("https://bungbutq.github.io/zeva-education-app/Game/biet_doi_bao_thu/rocket-v2.webp?v=9e6a4cac45c00e11");--mushroom:url("https://bungbutq.github.io/zeva-education-app/Game/biet_doi_bao_thu/stink-cloud-v3.webp?v=5c525bf18b15485f")}
+.theme-desert{--scene:var(--scene-desert)}.theme-blossom{--scene:var(--scene-blossom)}
+.hills,.effects{position:absolute;inset:0}.effects{pointer-events:none;z-index:50}.hill{position:absolute;width:9%;height:12%;min-height:24px;transform:translate(-50%,-50%);border:0;background:transparent;padding:0;z-index:20;color:white;display:grid;place-items:center}.hill .number{display:block;min-width:2.5vw;padding:2px 8px;border:2px solid #efc28d;border-radius:4px;background:linear-gradient(100deg,#744a2b,#a36a3a 60%,#764625);box-shadow:inset 0 1px #ffdeb877,0 2px #60401e;font-size:clamp(13px,1.5vw,24px);font-weight:900;line-height:1;text-shadow:0 2px #4e2b14;transform:rotate(-3deg)}.hill:nth-child(3n) .number{transform:rotate(3deg)}.hill:not(:disabled):hover .number,.hill.selected .number{transform:scale(1.1)}.hill:not(:disabled):hover:after,.hill.selected:after{content:"";position:absolute;width:4.5vw;height:4.5vw;min-width:34px;min-height:34px;border:3px solid #ff344d;border-radius:50%;box-shadow:0 0 0 3px #fff9,inset 0 0 0 2px #fff9;background:linear-gradient(#ff344d,#ff344d) center/2px 100% no-repeat,linear-gradient(#ff344d,#ff344d) center/100% 2px no-repeat;pointer-events:none}.hill.destroyed .number{background:#675746;color:#dfceac;border-color:#c6aa79;text-decoration:line-through;opacity:.8}.hill .revealed{position:absolute;width:clamp(28px,3.6vw,62px);bottom:65%;left:50%;transform:translateX(-50%);border:3px solid #268be6;box-shadow:0 0 0 2px #fff0cc}.hill .revealed.red{border-color:#e63042}.hill .revealed.out{filter:grayscale(1);animation:poof 2.4s ease-in both}.hill .warning{position:absolute;top:-10px;right:2px;border:2px solid white;background:#e13235;border-radius:50%;width:18px;height:18px;font:900 12px/14px sans-serif}
+
+.avatar{--ax:0%;--ay:0%;display:block;aspect-ratio:1;width:60px;border:2px solid #d7a664;border-radius:22%;background-position:var(--ax) var(--ay);background-size:500% 200%;background-color:#fff5dc;flex-shrink:0}.full-character{clip-path:var(--body-clip,none);aspect-ratio:2/3;border:0;border-radius:0;background-image:var(--body-art,var(--characters));background-color:transparent}
+.team-swapped{--body-art:var(--characters-swapped)}
+.battle-layout{position:absolute;inset:0;pointer-events:none}.battle-map{position:absolute;left:16%;top:15%;width:68%;height:49%;pointer-events:auto;isolation:isolate}
+.roster{position:absolute;left:var(--edge);top:17%;width:clamp(72px,7vw,105px);height:49%;padding:1.8vh 3px .7vh;border:8px solid transparent;border-image:var(--panel) 105 140 fill/18px 12px;z-index:3;pointer-events:auto;filter:drop-shadow(0 4px 1px #45332166)}.roster.red{left:auto;right:var(--edge)}.roster h2{position:absolute;top:-2.8vh;left:0;right:0;height:4.8vh;min-height:28px;margin:0;display:flex;align-items:center;justify-content:center;gap:4px;background:linear-gradient(#1299f0,#0653b2);border:2px solid #a4e9ff;border-radius:12px;box-shadow:0 0 0 3px #69411e;color:#fff5d9;text-shadow:0 2px #123c75;font-size:clamp(10px,1.1vw,18px);white-space:nowrap}.roster h2 svg{width:2vw;height:3.5vh;fill:#fff6d9}.roster.red h2{background:linear-gradient(#ff4d5e,#d21430);border-color:#ffe0a1;text-shadow:0 2px #93202e}.roster>div{display:flex;flex-direction:column;gap:3px;height:100%}.roster-item{position:relative;display:flex;flex-direction:row;align-items:center;justify-content:center;gap:0;flex:1;min-height:0;padding:2px;border:1px solid #e8bd8366;border-radius:9px;background:#fff3df66}.roster-item .avatar{width:100%;height:100%;max-width:100%;border:0;border-radius:12%;aspect-ratio:1}.roster-item strong{display:none;position:absolute;left:100%;top:-1px;bottom:-1px;align-items:center;padding:0 12px;background:#d9efff;border:2px solid #318cd0;border-left:0;border-radius:0 12px 12px 0;font-size:clamp(11px,1vw,16px);line-height:1.15;text-align:center;white-space:nowrap;font-weight:900;pointer-events:none}.roster-item.active strong{display:flex}.roster.red .roster-item strong{left:auto;right:100%;border-left:2px solid #e05b6c;border-right:0;border-radius:12px 0 0 12px;background:#ffe1e5;color:#a41c35}.roster-item.active{z-index:2}.roster-item.active{border-color:#e4a51c;background:#ffe58e;box-shadow:0 0 0 2px #fff4a7}.roster-item.dead{filter:grayscale(1);opacity:.55}.roster-item.dead:after{content:"×";position:absolute;top:0;right:3px;font-size:16px;color:#a13440}
+.question-panel{position:absolute;left:var(--edge);right:var(--edge);bottom:var(--edge);height:31%;display:grid;grid-template-columns:24% minmax(0,1fr) 14%;gap:1.1%;z-index:4}.rules-panel,.quiz{border:5px solid transparent;border-image:var(--panel) 105 140 fill/13px;filter:drop-shadow(0 3px 1px #48301e55);min-width:0;min-height:0}.rules-panel{display:flex;flex-direction:column;justify-content:space-between;gap:6px;padding:10px;overflow:auto;scrollbar-width:none}.rules-heading{display:flex;align-items:center;justify-content:space-between;gap:6px;margin-bottom:8px}.rules-panel h2{margin:0;line-height:1;display:flex;align-items:center;min-height:30px;font-size:clamp(16px,1.5vw,25px);font-weight:1000}.rules-panel p{display:flex;align-items:start;gap:8px;margin:0;font-size:clamp(12px,1vw,18px);line-height:1.4}.rules-panel b{display:block;font-weight:1000}.rules-panel i{display:grid;place-items:center;flex-shrink:0;width:24px;height:24px;border-radius:50%;font-style:normal;font-size:20px;font-weight:1000;line-height:1;color:white;background:#0a9c43;box-shadow:0 2px #406826}.rules-panel .rule-wrong{background:#d42642}.rules-panel .rule-radar{background:#159a87}.rules-panel .rule-fire{background:#f29824;font-size:16px;box-shadow:0 2px #a46122}.rules-panel small{display:block;color:#805432;font-size:clamp(10px,.82vw,14px);line-height:1.4}
+.quiz{display:flex;align-items:stretch;padding:10px}.quiz-copy{display:flex;flex-direction:column;justify-content:space-between;min-width:0;width:100%;min-height:0;max-height:100%;overflow-y:auto;scrollbar-width:none;padding:0}.quiz-eyebrow{display:flex;align-items:center;justify-content:space-between;gap:10px;color:#8d6239;font-size:clamp(9px,.8vw,14px);font-weight:900;line-height:1.3}#question-category{padding:5px 10px;border:1px solid #80bae7;border-radius:8px;background:#e2f2ff;color:#07589b}#question-category[data-team="red"]{border-color:#f3a0aa;background:#ffe6e9;color:#b51c35}.quiz-eyebrow span:last-child{max-width:32%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.quiz h2{margin:8px 0 12px;font-size:clamp(18px,1.85vw,32px);line-height:1.25;text-align:center;font-weight:1000;overflow-wrap:anywhere}.answers{display:grid;grid-template-columns:1fr 1fr;gap:8px 13px}.answer{--choice:#087aed;display:flex;align-items:center;gap:10px;min-width:0;min-height:5.2vh;padding:0 8px 0 0;border:2px solid color-mix(in srgb,var(--choice),white 30%);border-radius:11px;background:linear-gradient(110deg,#fff,color-mix(in srgb,var(--choice),white 86%));color:#10275b;box-shadow:inset 0 2px #fff9;font-size:clamp(14px,1.35vw,24px);font-weight:900;line-height:1.2;text-align:left;overflow-wrap:anywhere}.answer:nth-child(2){--choice:#ed354b}.answer:nth-child(3){--choice:#08a97d}.answer:nth-child(4){--choice:#e9a006}.answer b{flex:0 0 15%;display:grid;place-items:center;align-self:stretch;border-radius:8px;background:linear-gradient(color-mix(in srgb,var(--choice),white 20%),var(--choice));color:white;font-size:clamp(22px,2vw,34px);font-weight:1000;text-shadow:0 2px #172b58}.answer:not(:disabled):hover{filter:brightness(1.05);transform:translateY(-1px)}.answer.correct{background:#d7f4b6;border-color:#439b2b}.answer.wrong{background:#ffd1ce;border-color:#c92037}.answer:disabled:not(.correct):not(.wrong){opacity:.65}.feedback{font-size:clamp(10px,.8vw,14px);line-height:1.3;color:#745233;min-height:15px;margin:7px 0 0;overflow-wrap:anywhere}
+.actions{display:grid;grid-template-rows:1fr 1fr;gap:12px;padding:8px 3px;min-width:0;min-height:0}.action-button{display:flex;align-items:center;justify-content:center;gap:5px;padding:6px 9px;border:4px solid #ffe291;border-radius:19px;box-shadow:0 0 0 3px #7e481f,0 4px #603a1b,inset 0 0 0 2px #fff7b0;color:#fff;font-size:clamp(12px,1.2vw,21px);font-weight:1000;line-height:1.2;text-shadow:0 2px #6b301d;background:linear-gradient(140deg,#ffc438,#ff7b0b 60%,#ed4117);min-height:0;min-width:0}.action-button:disabled{filter:grayscale(1);opacity:.65;background:linear-gradient(#bcbdb5,#7d837e);border-color:#d3d1bd;cursor:not-allowed;box-shadow:0 0 0 3px #706653,0 3px #49412f}.action-button:not(:disabled){animation:ready-glow 1.6s ease-in-out infinite alternate}.rocket-icon{display:block;background:var(--rocket) center/contain no-repeat;width:40%;height:100%;max-height:10vh;flex-shrink:0}.radar{background:linear-gradient(135deg,#64d59d,#168573);border-color:#baffc1;text-shadow:0 2px #1b6655}.radar svg{width:38%;height:100%;max-height:9vh;fill:none;stroke:#dbffbd;stroke-width:2;flex-shrink:0}.radar-dot{fill:#fff99e;stroke:#fff99e}.radar:not(:disabled) svg{filter:drop-shadow(0 0 4px #aaff82)}
+.corner-controls{display:flex;align-items:center;flex-shrink:0;gap:6px}.corner-controls button{display:grid;place-items:center;padding:0;line-height:1;width:32px;height:30px;border:2px solid #efc88c;border-radius:12px;background:linear-gradient(#976132,#623c22);color:#fff7da;box-shadow:0 3px #3e2e20}.corner-controls svg{display:block;width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}.mute-slash{display:none}#sound-control[aria-pressed=false] .mute-slash{display:block}
+.overlay{position:absolute;inset:0;z-index:80;display:flex;align-items:center;justify-content:center;padding:24px;background:#112f3259;backdrop-filter:blur(3px);overflow:auto}.parchment{border:12px solid transparent;border-image:var(--panel) 105 140 fill/25px 24px;color:#132959;filter:drop-shadow(0 8px 6px #15322066)}.eyebrow{font-size:clamp(10px,1vw,14px);letter-spacing:1px;font-weight:1000;color:#977040}.primary,.secondary{border:3px solid #fff1a3;border-radius:14px;background:linear-gradient(#ffc847,#ed891a);box-shadow:0 0 0 2px #975426,0 5px #754018,inset 0 2px #fff8;color:#63380f;padding:11px 29px;font-size:18px;font-weight:1000;line-height:1.3}.secondary{background:#fff0d2;border-color:#ddbd87}.primary:disabled{filter:grayscale(1);opacity:.5}
+.setup-panel{width:min(700px,95%);padding:24px 32px;text-align:center}.setup-logo{width:100%;aspect-ratio:3;background:var(--logo) center/contain no-repeat;margin-top:-15px}.setup h2{font-size:clamp(25px,2.3vw,39px);font-weight:1000;line-height:1.2;margin:3px 0 10px}.intro{line-height:1.5;font-size:16px;color:#705339;margin:0}.setup-mascots{display:flex;justify-content:center;align-items:center;gap:23px;margin:20px}.setup-mascots .avatar{width:74px;transform:rotate(-5deg)}.setup-mascots .avatar:last-child{transform:rotate(5deg)}.setup-mascots>span{font-size:24px;font-weight:1000;color:#ae6b2e}.setup-source{font-size:12px;color:#96734a;margin:18px 0 0}
+.response-panel{width:min(840px,88vw);max-height:90dvh;overflow:auto;padding:20px 30px 24px;text-align:center;animation:panel-in .25s ease-out}.response-panel h2{font-size:clamp(24px,2.2vw,36px);font-weight:1000;margin:5px 0 10px;line-height:1.25}.dialogue-characters{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:20px;align-items:start}.dialogue-characters.single{grid-template-columns:1fr;max-width:430px;margin-inline:auto}.dialogue-card{display:grid;grid-template-rows:auto auto auto auto;justify-items:center;align-content:start;min-width:0}.dialogue-card>.full-character{height:min(26vh,230px);width:auto;aspect-ratio:2/3;filter:drop-shadow(0 3px #88593133)}.dialogue-card>strong{font-size:23px;font-weight:1000;color:#97592b}.dialogue-role{font-size:10px;color:#897452;font-weight:900;letter-spacing:1px}.dialogue-bubble{position:relative;align-self:stretch;justify-self:stretch;margin:0 0 18px;padding:12px;border:2px solid #e9c08b;border-radius:17px;background:#fffef4;font-size:clamp(14px,1.2vw,19px);font-weight:800;line-height:1.4;overflow-wrap:anywhere}.dialogue-bubble p{margin:0}.dialogue-bubble:after{content:"";position:absolute;left:50%;bottom:-10px;width:16px;height:16px;background:#fffef4;border-right:2px solid #e9c08b;border-bottom:2px solid #e9c08b;transform:translateX(-50%) rotate(45deg)}.victim .dialogue-bubble{background:#f0ffd9;border-color:#b1ce6c}.victim .dialogue-bubble:after{background:#f0ffd9;border-color:#b1ce6c}.victim>.full-character{filter:saturate(.75) drop-shadow(0 0 7px #84c66488)}
+.result-panel{width:min(700px,95%);padding:30px;text-align:center}.result h2{font-size:clamp(28px,3vw,46px);font-weight:1000;margin:10px 0}.result p{font-size:16px;color:#846749}.survivors{display:flex;justify-content:center;gap:10px;margin:20px 0}.survivors .avatar{width:65px}.result-stats{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:20px 0}.result-stats>div{border:2px solid #e4c49a;border-radius:14px;padding:13px;background:#fff8e8}.result-stats strong,.result-stats span{display:block}.result-stats strong{margin-bottom:5px}.result-stats span{font-size:14px;line-height:1.5}.result-buttons{display:flex;justify-content:center;gap:15px}.confetti{display:none}
+/* Zero-size effect anchors remain on the hill; only their artwork scales. Rocket nose in its source is at 89%, 11%. */
+.missile{position:absolute;left:0;top:0;width:0;height:0}.missile-art{position:absolute;display:block;width:56px;height:56px;left:-49.84px;top:-6.16px;background:var(--rocket) center/contain no-repeat;transform-origin:89% 11%;transform:rotate(135deg);filter:drop-shadow(-8px 8px 5px #efffd5aa)}.mushroom,.shockwave{position:absolute;width:0;height:0;z-index:5}.mushroom-art{position:absolute;display:block;width:clamp(160px,23vw,370px);aspect-ratio:1;background:var(--mushroom) center/contain no-repeat;transform-origin:50% 92%;animation:mushroom-rise 1.6s ease-out both}.shockwave-art{position:absolute;display:block;width:180px;height:65px;border:8px solid #b5ff67;border-radius:50%;background:#b0eb652e;box-shadow:0 0 18px #daff91;transform-origin:center;animation:shockwave .85s ease-out both}.soul{position:absolute;width:64px;height:100px;transform:translate(-50%,-90%);filter:grayscale(1) sepia(1) hue-rotate(75deg) brightness(1.6) drop-shadow(0 0 9px #e6ffea);animation:soul-rise 1.8s ease-in both}.soul .full-character{width:100%;height:100%}.halo{position:absolute;top:-9px;left:25%;width:50%;height:11px;border:3px solid #f5ffac;border-radius:50%;box-shadow:0 0 12px #f0ff92}.radar-pulse{position:absolute;width:110px;height:110px;border:5px solid #abff95;border-radius:50%;box-shadow:0 0 0 22px #53e88455,0 0 0 44px #aaff7822;animation:radar-scan .95s ease-out both;transform:translate(-50%,-50%)}
+.stink-stain{position:absolute;left:50%;top:75%;width:230%;height:150%;transform:translate(-50%,-30%) rotate(-4deg);border-radius:42% 58% 63% 37%/55% 41% 59% 45%;background:radial-gradient(ellipse at 23% 38%,#8a2cb9da 0 9%,transparent 19%),radial-gradient(ellipse at 73% 54%,#773caecf 0 12%,transparent 23%),radial-gradient(ellipse at 49% 22%,#a946cce0 0 8%,transparent 19%),radial-gradient(ellipse at 43% 74%,#672c8abf 0 10%,transparent 21%),radial-gradient(ellipse at 58% 57%,#a7d735e6 0 24%,transparent 53%),radial-gradient(ellipse at 40% 45%,#48852dde 0 22%,#7bd832d4 44%,transparent 69%);filter:drop-shadow(0 3px 1px #3e5a2866);pointer-events:none;z-index:-1}.stink-smoke{position:absolute;left:50%;bottom:20%;width:120%;height:200%;transform:translateX(-50%);pointer-events:none;z-index:3}.stink-smoke i{position:absolute;bottom:0;left:calc(5% + var(--i)*16%);width:65%;aspect-ratio:1;border-radius:43% 57% 38% 62%;background:radial-gradient(ellipse,#d4f477eb 0 18%,#8ccc41d9 42%,#318b4580 64%,transparent 73%);filter:blur(.5px) drop-shadow(0 1px 2px #1e5e3944);opacity:.28;transform:translateY(calc(var(--i)*-8px)) scale(.8)}.fallen-bao{position:absolute;left:50%;bottom:32%;width:105px;height:62px;transform:translateX(-50%);pointer-events:none;z-index:2}.fallen-bao .full-character{position:absolute;width:48px;height:73px;left:28px;top:-4px;transform:rotate(82deg);filter:saturate(.8)}.foam{position:absolute;left:88px;top:34px;width:24px;height:15px;transform:rotate(-15deg)}.foam i{position:absolute;width:9px;height:9px;border-radius:50%;background:#efffe4;border:1px solid #a5cba6;box-shadow:inset 2px 2px #fff;animation:foam-bubble 1.5s infinite alternate}.foam i:nth-child(2){left:6px;top:-5px;animation-delay:-.4s}.foam i:nth-child(3){left:11px;top:4px;width:7px;height:7px;animation-delay:-.8s}.foam i:nth-child(4){left:17px;top:0;width:5px;height:5px;animation-delay:-1s}.hill.destroyed .number{transform:translateY(20px) rotate(3deg);position:relative;z-index:4;background:#596c31;color:#e5e6c5;opacity:.85}.impact-banner{display:none}
+@keyframes ready-glow{to{box-shadow:0 0 0 3px #986124,0 0 18px #fff4a4,inset 0 0 0 2px #fff5ae}}@keyframes panel-in{from{opacity:0;translate:0 15px;scale:.96}to{opacity:1;translate:0 0;scale:1}}@keyframes mushroom-rise{0%{transform:translate(-50%,-92%) scale(.04);opacity:0}12%{transform:translate(-50%,-92%) scale(.22);opacity:1}65%{transform:translate(-50%,-92%) scale(1);opacity:1}100%{transform:translate(-50%,-92%) scale(1.15);opacity:0}}@keyframes shockwave{from{transform:translate(-50%,-50%) scale(.1);opacity:1}to{transform:translate(-50%,-50%) scale(2.5);opacity:0}}@keyframes soul-rise{0%{translate:0 0;opacity:0;scale:.75}20%{opacity:.9}100%{translate:12px var(--soul-lift,-500px);opacity:0;scale:1.15}}@keyframes radar-scan{0%{scale:.3;opacity:0}40%{scale:1;opacity:1}100%{scale:1.5;opacity:0}}@keyframes stink-rise{0%{translate:-8px 5px;scale:.5;opacity:0}20%{opacity:.95}100%{translate:12px -110px;scale:1.6;opacity:0}}@keyframes foam-bubble{from{scale:.7;opacity:.65}to{scale:1.15;opacity:1}}@keyframes shake{25%{translate:4px -2px}50%{translate:-4px 2px}75%{translate:2px -1px}}.battle-map.shake{animation:shake .4s ease-out}
+.no-motion *,.no-motion *:before,.no-motion *:after{animation:none!important;transition:none!important}.no-motion .stink-smoke{opacity:.45}.no-motion .stink-smoke i{opacity:.6}
+@media(max-height:720px) and (min-width:701px){.roster{border-width:6px;padding:1.6vh .3vw .5vh}.roster h2{height:5vh;font-size:11px;gap:2px}.roster-item{gap:1px;padding:1px}.roster-item strong{font-size:9px}.quiz{}.quiz h2{font-size:20px;margin:4px 0 7px}.quiz-eyebrow{font-size:9px}.answer{min-height:5vh;font-size:14px;gap:7px}.answer b{font-size:22px}.answers{gap:5px 9px}.feedback{font-size:10px;margin-top:5px}.rules-panel{}.rules-panel h2{font-size:18px;margin:0}.rules-panel p{font-size:12px;margin:7px 0;gap:5px}.rules-panel i{width:19px;height:19px;font-size:16px}.rules-panel small{font-size:9px}.action-button{border-width:3px;border-radius:13px;font-size:13px;padding:5px}.actions{gap:10px;padding:5px 2px}.corner-controls button{width:28px;height:27px;border-radius:10px}.corner-controls svg{display:block;width:18px;height:18px}.response-panel{padding:15px 22px}.response-panel h2{font-size:27px}.dialogue-card>.full-character{height:23vh}.dialogue-bubble{font-size:14px;padding:10px}.dialogue-card>strong{font-size:20px}}
+@media(max-width:1000px) and (orientation:landscape){.team-score strong{font-size:18px}.team-score b{font-size:25px}.team-score b:before{font-size:11px}.team-score{padding-inline:5px;gap:5px;border-width:2px}.paw{min-width:30px;border-width:2px}.roster{width:8%;left:var(--edge)}.roster.red{right:1%}.roster h2{font-size:9px}.roster h2 svg{display:none}.roster-item strong{font-size:8px}.question-panel{grid-template-columns:25% minmax(0,1fr) 14%;gap:1.2%}.rules-panel p{font-size:11px}.rules-panel small{font-size:8px}.quiz h2{font-size:18px}.answer{font-size:13px}.action-button{font-size:12px;gap:1px;padding:4px}.response-panel{width:80vw}}
+@media(max-height:480px) and (orientation:landscape){.team-score{height:7vh;min-height:27px}.team-score strong{font-size:15px}.team-score b{font-size:22px}.team-score b:before{font-size:9px}.team-score:after{height:4.5vh;min-height:17px}.team-score [id^="score-"]{font-size:10px;top:calc(100% + 1.15vh)}.lives{height:3vh;gap:5px;top:calc(100% + .5vh)}.paw{height:9vh;width:4vw}.brand{width:37%;left:31.5%}.roster{top:19%;height:47%;padding:1vh 3px 3px;border-width:6px;border-image-width:13px 10px}.roster h2{height:23px;min-height:0;top:-23px;font-size:10px}.roster-item{flex-direction:row;border:0;background:transparent;gap:0}.roster-item strong{font-size:7px}.roster>div{gap:1px}.hill .number{font-size:12px;min-width:22px;padding:1px 5px;border-width:1px}.hill .revealed{width:25px;border-width:2px}.hill .warning{font-size:9px;width:13px;height:13px;line-height:9px;top:-5px}.fallen-bao{scale:.65;transform-origin:50% 100%}.question-panel{height:31%}.quiz{}.quiz h2{font-size:14px;margin:2px 0 5px}.quiz-eyebrow{font-size:7px}.answer{font-size:11px;min-height:24px;border-width:1px;border-radius:6px;gap:6px}.answer b{font-size:17px;border-radius:5px}.answers{gap:4px 7px}.feedback{font-size:8px;min-height:10px;margin-top:4px}.rules-panel{}.rules-panel h2{font-size:12px;margin:0}.rules-panel p{font-size:9px;line-height:1.35;margin:4px 0;gap:4px}.rules-panel i{width:14px;height:14px;font-size:12px}.rules-panel small{font-size:7px}.actions{padding:3px;gap:8px}.action-button{font-size:10px;border-width:2px;border-radius:10px;padding:2px}.rocket-icon{max-height:9vh}.radar svg{max-height:7vh}.corner-controls{gap:4px}.corner-controls button{width:24px;height:23px;border-width:1px;border-radius:7px}.corner-controls svg{display:block;width:17px;height:17px}.setup-panel{padding:10px 20px;max-width:620px}.setup-logo{height:90px;width:auto;aspect-ratio:auto;margin-top:0}.setup h2{font-size:24px}.intro{font-size:12px}.setup-mascots{display:none}.setup-source{font-size:10px;margin-top:12px}.primary,.secondary{font-size:13px;padding:7px 20px;border-width:2px}.response-panel{padding:10px 20px;max-height:92dvh}.response-panel h2{font-size:22px;margin:2px 0 7px}.response-panel .eyebrow{font-size:9px}.dialogue-characters{gap:15px;margin-bottom:9px}.dialogue-card>.full-character{height:20vh}.dialogue-card>strong{font-size:15px}.dialogue-role{font-size:8px}.dialogue-bubble{font-size:12px;padding:7px}.result-panel{padding:14px}.result h2{font-size:27px}.result p{font-size:12px;margin:5px}.survivors{margin:10px}.survivors .avatar{width:35px}.result-stats{margin:10px;gap:10px}.result-stats>div{padding:6px}.result-stats span{font-size:10px}}
+@media(max-width:700px) and (orientation:portrait){.game{--edge:8px;--scene-height:630px;height:auto;min-height:100dvh;padding-top:416px;padding-bottom:10px;overflow:hidden;background:#3b673f}.battle-layout{height:var(--scene-height);bottom:auto}.topbar{top:12px;left:3%;right:3%}.brand{width:62%;left:19%;top:62px}.team-score{width:47%;height:38px;min-height:0;padding:4px;gap:3px;border-width:2px}.team-score strong{font-size:13px;letter-spacing:0}.team-score b{font-size:23px}.team-score b:before{content:""}.paw{width:31px;height:40px;border-width:2px;min-width:31px}.team-score:after{height:24px;min-height:0;border-radius:0 0 10px 10px}.team-score [id^="score-"]{font-size:9px;top:calc(100% + 6px);left:5%}.lives{height:14px;top:calc(100% + 5px);right:5%;gap:3px}.life{min-width:0;width:10px}.roster{top:25%;height:38%;width:15%;left:var(--edge);border-width:4px;padding:10px 1px 4px;border-image-width:13px 6px}.roster.red{right:.6%}.roster h2{top:-18px;height:23px;min-height:0;border-width:1px;border-radius:6px;left:-3%;right:-3%;font-size:7px;box-shadow:0 0 0 2px #68401f}.roster h2 svg{display:none}.roster-item{gap:1px;padding:1px;border-radius:5px}.roster-item strong{font-size:6.8px}.roster-item.active{box-shadow:0 0 0 1px #ffe080}.hill{width:10%;height:10%;min-height:26px}.hill .number{font-size:12px;min-width:20px;padding:3px 4px;border-width:1px}.hill .revealed{width:26px;border-width:2px}.hill .warning{width:13px;height:13px;font-size:9px;line-height:9px;right:-3px;top:-6px}.hill:not(:disabled):hover:after,.hill.selected:after{min-width:29px;min-height:29px;border-width:2px}.fallen-bao{scale:.55;transform-origin:50% 100%}.stink-stain{width:180%}.stink-smoke{width:80%}.question-panel{position:relative;inset:auto;height:auto;margin:0 8px;grid-template-columns:1fr;gap:9px}.rules-panel{order:2;min-height:230px;}.rules-panel h2{font-size:17px}.rules-panel p{font-size:12px;display:flex;width:auto;margin:8px 0;gap:6px;line-height:1.45}.rules-panel i{width:17px;height:17px;font-size:15px}.rules-panel small{font-size:10px}.quiz{order:0;min-height:230px;}.quiz h2{font-size:19px;margin:8px 0 11px}.quiz-eyebrow{font-size:9px}.answer{font-size:13px;min-height:44px;gap:7px;border-radius:9px}.answer b{font-size:21px;flex-basis:29px;border-radius:7px}.answers{gap:7px}.feedback{font-size:11px}.actions{order:1;grid-template-columns:1fr 1fr;grid-template-rows:62px;gap:12px;padding:5px 6px}.action-button{font-size:13px;border-width:3px;border-radius:13px;padding:5px}.rocket-icon{height:47px;width:44px}.radar svg{height:43px;width:43px}.corner-controls{gap:8px}.corner-controls button{width:34px;height:32px}.overlay{position:fixed;padding:10px}.setup-panel{width:100%;padding:20px 14px}.setup h2{font-size:27px}.intro{font-size:14px}.setup-mascots .avatar{width:63px}.response-panel{width:100%;padding:18px 13px;max-height:90dvh}.response-panel h2{font-size:24px}.dialogue-characters{gap:8px;margin-bottom:18px}.dialogue-card>.full-character{height:150px}.dialogue-card>strong{font-size:18px}.dialogue-role{font-size:8px}.dialogue-bubble{font-size:12px;padding:8px;border-radius:12px}.primary,.secondary{font-size:15px;padding:10px 20px}.result-panel{padding:22px 13px}.result h2{font-size:28px}.result p{font-size:13px}.survivors{gap:6px}.survivors .avatar{width:42px}.result-stats{gap:7px}.result-stats>div{padding:8px}.result-stats span{font-size:11px}.result-buttons{gap:10px}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important}.stink-smoke{opacity:.45}.stink-smoke i{opacity:.6}}
+
+/* Character sheets contain independently framed blue/red/fallen poses. */
+.avatar.character-sprite{position:relative;background:none;clip-path:none;overflow:hidden}
+.character-sprite>img{display:block;width:100%;height:100%;object-fit:cover;object-position:50% 0}
+.character-sprite.full-character>img,.character-sprite.fallen-character>img{object-fit:contain;object-position:center}
+.roster-item .character-sprite>img{width:auto;max-width:100%;height:100%;aspect-ratio:1;margin-inline:auto}
+.fallen-bao .fallen-character{position:absolute;width:94px;height:55px;left:0;top:0;border:0;border-radius:0;filter:drop-shadow(0 2px 1px #68472255)}
+.dialogue-bubble .shutdown-bubble{margin-top:8px;padding-top:8px;border-top:1px solid #e3ab30;color:#95601c}
+
+:root{--bao-1-sheet:url("https://bungbutq.github.io/zeva-education-app/Game/biet_doi_bao_thu/bao-1-v5.png?v=041dd689784ed33b");--bao-2-sheet:url("https://bungbutq.github.io/zeva-education-app/Game/biet_doi_bao_thu/bao-2-v5.png?v=7a2cd60d8414fab1");--bao-3-sheet:url("https://bungbutq.github.io/zeva-education-app/Game/biet_doi_bao_thu/bao-3-v5.png?v=100e4c9ab8d269ad");--bao-4-sheet:url("https://bungbutq.github.io/zeva-education-app/Game/biet_doi_bao_thu/bao-4-v5.png?v=a6389393fc45ba24");--bao-5-sheet:url("https://bungbutq.github.io/zeva-education-app/Game/biet_doi_bao_thu/bao-5-v5.png?v=dd86e2b0fd22ec1c");--bao-6-sheet:url("https://bungbutq.github.io/zeva-education-app/Game/biet_doi_bao_thu/bao-6-v5.png?v=705de364b25058d6");--bao-7-sheet:url("https://bungbutq.github.io/zeva-education-app/Game/biet_doi_bao_thu/bao-7-v5.png?v=000ddf2d6c643472");--bao-8-sheet:url("https://bungbutq.github.io/zeva-education-app/Game/biet_doi_bao_thu/bao-8-v5.png?v=97853a1e6355f63a");--bao-9-sheet:url("https://bungbutq.github.io/zeva-education-app/Game/biet_doi_bao_thu/bao-9-v5.png?v=d640262f386c8999");--bao-10-sheet:url("https://bungbutq.github.io/zeva-education-app/Game/biet_doi_bao_thu/bao-10-v5.png?v=05bf4cbb68fe1cfa");}
+
+.rules-panel::-webkit-scrollbar,.quiz-copy::-webkit-scrollbar{display:none}
+
+:root{--bao-1-reactions-sheet:url("https://bungbutq.github.io/zeva-education-app/Game/biet_doi_bao_thu/bao-1-reactions-v6.png?v=a98fe9d968ac5baa");--bao-2-reactions-sheet:url("https://bungbutq.github.io/zeva-education-app/Game/biet_doi_bao_thu/bao-2-reactions-v6.png?v=224058fb843e8c9d");--bao-3-reactions-sheet:url("https://bungbutq.github.io/zeva-education-app/Game/biet_doi_bao_thu/bao-3-reactions-v6.png?v=3678b5c9785d4029");--bao-4-reactions-sheet:url("https://bungbutq.github.io/zeva-education-app/Game/biet_doi_bao_thu/bao-4-reactions-v6.png?v=19ddf4e204d2470b");--bao-5-reactions-sheet:url("https://bungbutq.github.io/zeva-education-app/Game/biet_doi_bao_thu/bao-5-reactions-v6.png?v=d3f19996e8c35bcd");--bao-6-reactions-sheet:url("https://bungbutq.github.io/zeva-education-app/Game/biet_doi_bao_thu/bao-6-reactions-v6.png?v=37c72d285c41e883");--bao-7-reactions-sheet:url("https://bungbutq.github.io/zeva-education-app/Game/biet_doi_bao_thu/bao-7-reactions-v6.png?v=f496255b8b2855a2");--bao-8-reactions-sheet:url("https://bungbutq.github.io/zeva-education-app/Game/biet_doi_bao_thu/bao-8-reactions-v6.png?v=add65770f963773c");--bao-9-reactions-sheet:url("https://bungbutq.github.io/zeva-education-app/Game/biet_doi_bao_thu/bao-9-reactions-v6.png?v=64420a4047e58fe0");--bao-10-reactions-sheet:url("https://bungbutq.github.io/zeva-education-app/Game/biet_doi_bao_thu/bao-10-reactions-v6.png?v=00c9f9fda6ca221b");}
+
+/* Separated name cards follow the team whose turn is active. */
+.roster{width:clamp(82px,7.7vw,116px);height:51%;top:15%;padding:5px 3px;background-color:transparent}
+.roster .roster-item strong{display:none;left:calc(100% + 18px);right:auto;top:0;bottom:0;min-width:92px;padding:0 10px;background:#f8ecd4;color:#193d64;border:2px solid #b89560;border-radius:10px;white-space:normal;font-size:clamp(12px,1.1vw,17px)}
+.roster.red .roster-item strong{left:auto;right:calc(100% + 18px);border:2px solid #b89560;background:#f8ecd4;color:#9f2937;border-radius:10px}
+.roster.turn-team .roster-item strong{display:flex;justify-content:center}
+.roster-item.dead{filter:none;opacity:1}
+.roster-item.dead .avatar{filter:grayscale(1);opacity:.55}
+.quiz-eyebrow{font-size:clamp(14px,1.2vw,18px)}
+@media(max-width:1000px) and (orientation:landscape){.roster{width:9%}.roster .roster-item strong{min-width:66px;font-size:11px;padding:0 6px;left:calc(100% + 12px)}.roster.red .roster-item strong{left:auto;right:calc(100% + 12px)}.quiz-eyebrow{font-size:13px}}
+@media(max-width:700px) and (orientation:portrait){.roster{top:25%;height:39%;width:16%;padding:4px 1px}.roster .roster-item strong{min-width:58px;max-width:72px;font-size:10px;padding:0 5px;left:calc(100% + 9px)}.roster.red .roster-item strong{left:auto;right:calc(100% + 9px)}.quiz-eyebrow{font-size:13px}}
+@media(max-height:480px) and (orientation:landscape){.roster{top:18%;height:48%}.roster .roster-item strong{font-size:9px;min-width:58px}.quiz-eyebrow{font-size:11px}}
+
+:root{--bao-1-art-0:url("https://bungbutq.github.io/zeva-education-app/Game/biet_doi_bao_thu/bao-1-art-0-v7.png?v=bd7696467dfbd4c1");--bao-1-portrait-0:url("https://bungbutq.github.io/zeva-education-app/Game/biet_doi_bao_thu/bao-1-portrait-0-v7.png?v=86aa50f38bdf8b45");--bao-1-art-1:url("https://bungbutq.github.io/zeva-education-app/Game/biet_doi_bao_thu/bao-1-art-1-v7.png?v=aac3aa3981685dbc");--bao-1-portrait-1:url("https://bungbutq.github.io/zeva-education-app/Game/biet_doi_bao_thu/bao-1-portrait-1-v7.png?v=25bab8c20756db56");--bao-1-art-2:url("https://bungbutq.github.io/zeva-education-app/Game/biet_doi_bao_thu/bao-1-art-2-v7.png?v=431219f4f764509c");--bao-1-reactions-0:url("https://bungbutq.github.io/zeva-education-app/Game/biet_doi_bao_thu/bao-1-reactions-0-v7.png?v=592852bef601f8c1");--bao-1-reactions-1:url("https://bungbutq.github.io/zeva-education-app/Game/biet_doi_bao_thu/bao-1-reactions-1-v7.png?v=f4f0e88fa4b05ec7");--bao-1-reactions-2:url("https://bungbutq.github.io/zeva-education-app/Game/biet_doi_bao_thu/bao-1-reactions-2-v7.png?v=1ec3d5a1926a3d14");--bao-1-reactions-3:url("https://bungbutq.github.io/zeva-education-app/Game/biet_doi_bao_thu/bao-1-reactions-3-v7.png?v=8892ae2e931b36b2");--bao-2-art-0:url("https://bungbutq.github.io/zeva-education-app/Game/biet_doi_bao_thu/bao-2-art-0-v7.png?v=3d7020556e4dcbcc");--bao-2-portrait-0:url("https://bungbutq.github.io/zeva-education-app/Game/biet_doi_bao_thu/bao-2-portrait-0-v7.png?v=e9bf35c4171c13e3");--bao-2-art-1:url("https://bungbutq.github.io/zeva-education-app/Game/biet_doi_bao_thu/bao-2-art-1-v7.png?v=e1ac4105d1596a10");--bao-2-portrait-1:url("https://bungbutq.github.io/zeva-education-app/Game/biet_doi_bao_thu/bao-2-portrait-1-v7.png?v=ef124d1d72fe357e");--bao-2-art-2:url("https://bungbutq.github.io/zeva-education-app/Game/biet_doi_bao_thu/bao-2-art-2-v7.png?v=7d0c0246599898b7");--bao-2-reactions-0:url("https://bungbutq.github.io/zeva-education-app/Game/biet_doi_bao_thu/bao-2-reactions-0-v7.png?v=3e87016f9a0550e3");--bao-2-reactions-1:url("https://bungbutq.github.io/zeva-education-app/Game/biet_doi_bao_thu/bao-2-reactions-1-v7.png?v=c8a433cf7a5c6299");--bao-2-reactions-2:url("https://bungbutq.github.io/zeva-education-app/Game/biet_doi_bao_thu/bao-2-reactions-2-v7.png?v=ee4aa19b5e5a84ab");--bao-2-reactions-3:url("https://bungbutq.github.io/zeva-education-app/Game/biet_doi_bao_thu/bao-2-reactions-3-v7.png?v=7fbcfa0df22c058a");--bao-3-art-0:url("https://bungbutq.github.io/zeva-education-app/Game/biet_doi_bao_thu/bao-3-art-0-v7.png?v=e4e3c8797155e9d8");--bao-3-portrait-0:url("https://bungbutq.github.io/zeva-education-app/Game/biet_doi_bao_thu/bao-3-portrait-0-v7.png?v=53a6c22bd9e1d0a0");--bao-3-art-1:url("https://bungbutq.github.io/zeva-education-app/Game/biet_doi_bao_thu/bao-3-art-1-v7.png?v=79dd3cb80073fbc8");--bao-3-portrait-1:url("https://bungbutq.github.io/zeva-education-app/Game/biet_doi_bao_thu/bao-3-portrait-1-v7.png?v=38f46143b3154e2a");--bao-3-art-2:url("https://bungbutq.github.io/zeva-education-app/Game/biet_doi_bao_thu/bao-3-art-2-v7.png?v=17245eff4490f4f9");--bao-3-reactions-0:url("https://bungbutq.github.io/zeva-education-app/Game/biet_doi_bao_thu/bao-3-reactions-0-v7.png?v=49c58745ea5aef0d");--bao-3-reactions-1:url("https://bungbutq.github.io/zeva-education-app/Game/biet_doi_bao_thu/bao-3-reactions-1-v7.png?v=af929435e5ba1a95");--bao-3-reactions-2:url("https://bungbutq.github.io/zeva-education-app/Game/biet_doi_bao_thu/bao-3-reactions-2-v7.png?v=ee33924ff7b5d931");--bao-3-reactions-3:url("https://bungbutq.github.io/zeva-education-app/Game/biet_doi_bao_thu/bao-3-reactions-3-v7.png?v=fc487642df3b390a");--bao-4-art-0:url("https://bungbutq.github.io/zeva-education-app/Game/biet_doi_bao_thu/bao-4-art-0-v7.png?v=dbbc0f9d24ca0be9");--bao-4-portrait-0:url("https://bungbutq.github.io/zeva-education-app/Game/biet_doi_bao_thu/bao-4-portrait-0-v7.png?v=e0993916b67c608c");--bao-4-art-1:url("https://bungbutq.github.io/zeva-education-app/Game/biet_doi_bao_thu/bao-4-art-1-v7.png?v=10fccb153c6ce6a2");--bao-4-portrait-1:url("https://bungbutq.github.io/zeva-education-app/Game/biet_doi_bao_thu/bao-4-portrait-1-v7.png?v=38a93b81fa73884a");--bao-4-art-2:url("https://bungbutq.github.io/zeva-education-app/Game/biet_doi_bao_thu/bao-4-art-2-v7.png?v=0535f3b304f1707b");--bao-4-reactions-0:url("https://bungbutq.github.io/zeva-education-app/Game/biet_doi_bao_thu/bao-4-reactions-0-v7.png?v=c6e4d29ca591537f");--bao-4-reactions-1:url("https://bungbutq.github.io/zeva-education-app/Game/biet_doi_bao_thu/bao-4-reactions-1-v7.png?v=9a9621e33d1fb663");--bao-4-reactions-2:url("https://bungbutq.github.io/zeva-education-app/Game/biet_doi_bao_thu/bao-4-reactions-2-v7.png?v=b883304c4ec7f6e7");--bao-4-reactions-3:url("https://bungbutq.github.io/zeva-education-app/Game/biet_doi_bao_thu/bao-4-reactions-3-v7.png?v=ad8a957184a21477");--bao-5-art-0:url("https://bungbutq.github.io/zeva-education-app/Game/biet_doi_bao_thu/bao-5-art-0-v7.png?v=ba8d9c96e7b0b696");--bao-5-portrait-0:url("https://bungbutq.github.io/zeva-education-app/Game/biet_doi_bao_thu/bao-5-portrait-0-v7.png?v=2b9c5cbe7ffc88e3");--bao-5-art-1:url("https://bungbutq.github.io/zeva-education-app/Game/biet_doi_bao_thu/bao-5-art-1-v7.png?v=24d04bdb9a5512df");--bao-5-portrait-1:url("https://bungbutq.github.io/zeva-education-app/Game/biet_doi_bao_thu/bao-5-portrait-1-v7.png?v=b6555dffac27e38d");--bao-5-art-2:url("https://bungbutq.github.io/zeva-education-app/Game/biet_doi_bao_thu/bao-5-art-2-v7.png?v=4f88f24131b3808c");--bao-5-reactions-0:url("https://bungbutq.github.io/zeva-education-app/Game/biet_doi_bao_thu/bao-5-reactions-0-v7.png?v=4024e8bbc38f4a73");--bao-5-reactions-1:url("https://bungbutq.github.io/zeva-education-app/Game/biet_doi_bao_thu/bao-5-reactions-1-v7.png?v=dd92e6a6b27c4635");--bao-5-reactions-2:url("https://bungbutq.github.io/zeva-education-app/Game/biet_doi_bao_thu/bao-5-reactions-2-v7.png?v=89c4bd383e8d73dc");--bao-5-reactions-3:url("https://bungbutq.github.io/zeva-education-app/Game/biet_doi_bao_thu/bao-5-reactions-3-v7.png?v=bfca29ba261bd69c");--bao-6-art-0:url("https://bungbutq.github.io/zeva-education-app/Game/biet_doi_bao_thu/bao-6-art-0-v7.png?v=0b3e0c98cfc069e2");--bao-6-portrait-0:url("https://bungbutq.github.io/zeva-education-app/Game/biet_doi_bao_thu/bao-6-portrait-0-v7.png?v=fd0da570c830ec66");--bao-6-art-1:url("https://bungbutq.github.io/zeva-education-app/Game/biet_doi_bao_thu/bao-6-art-1-v7.png?v=203cf53efca6513f");--bao-6-portrait-1:url("https://bungbutq.github.io/zeva-education-app/Game/biet_doi_bao_thu/bao-6-portrait-1-v7.png?v=744d6b326e1ecf70");--bao-6-art-2:url("https://bungbutq.github.io/zeva-education-app/Game/biet_doi_bao_thu/bao-6-art-2-v7.png?v=67eed509d360f3e5");--bao-6-reactions-0:url("https://bungbutq.github.io/zeva-education-app/Game/biet_doi_bao_thu/bao-6-reactions-0-v7.png?v=c014859328db0470");--bao-6-reactions-1:url("https://bungbutq.github.io/zeva-education-app/Game/biet_doi_bao_thu/bao-6-reactions-1-v7.png?v=db143c761486ab95");--bao-6-reactions-2:url("https://bungbutq.github.io/zeva-education-app/Game/biet_doi_bao_thu/bao-6-reactions-2-v7.png?v=957c40a6ef8c83bf");--bao-6-reactions-3:url("https://bungbutq.github.io/zeva-education-app/Game/biet_doi_bao_thu/bao-6-reactions-3-v7.png?v=d5174871fd3ff4f3");--bao-7-art-0:url("https://bungbutq.github.io/zeva-education-app/Game/biet_doi_bao_thu/bao-7-art-0-v7.png?v=79631fa289472f93");--bao-7-portrait-0:url("https://bungbutq.github.io/zeva-education-app/Game/biet_doi_bao_thu/bao-7-portrait-0-v7.png?v=7cbd5b2d83f01a69");--bao-7-art-1:url("https://bungbutq.github.io/zeva-education-app/Game/biet_doi_bao_thu/bao-7-art-1-v7.png?v=3204aae0599b47d0");--bao-7-portrait-1:url("https://bungbutq.github.io/zeva-education-app/Game/biet_doi_bao_thu/bao-7-portrait-1-v7.png?v=f7d49e5abab292d5");--bao-7-art-2:url("https://bungbutq.github.io/zeva-education-app/Game/biet_doi_bao_thu/bao-7-art-2-v7.png?v=d6a7117301122011");--bao-7-reactions-0:url("https://bungbutq.github.io/zeva-education-app/Game/biet_doi_bao_thu/bao-7-reactions-0-v7.png?v=486723a4b479cfc3");--bao-7-reactions-1:url("https://bungbutq.github.io/zeva-education-app/Game/biet_doi_bao_thu/bao-7-reactions-1-v7.png?v=06075273e083389b");--bao-7-reactions-2:url("https://bungbutq.github.io/zeva-education-app/Game/biet_doi_bao_thu/bao-7-reactions-2-v7.png?v=656592700b257945");--bao-7-reactions-3:url("https://bungbutq.github.io/zeva-education-app/Game/biet_doi_bao_thu/bao-7-reactions-3-v7.png?v=1e0d0035598d805b");--bao-8-art-0:url("https://bungbutq.github.io/zeva-education-app/Game/biet_doi_bao_thu/bao-8-art-0-v7.png?v=f9fdb6593b3f58f9");--bao-8-portrait-0:url("https://bungbutq.github.io/zeva-education-app/Game/biet_doi_bao_thu/bao-8-portrait-0-v7.png?v=4c3f55299af15290");--bao-8-art-1:url("https://bungbutq.github.io/zeva-education-app/Game/biet_doi_bao_thu/bao-8-art-1-v7.png?v=c9e3c85e7db165e9");--bao-8-portrait-1:url("https://bungbutq.github.io/zeva-education-app/Game/biet_doi_bao_thu/bao-8-portrait-1-v7.png?v=4b7a80168a141187");--bao-8-art-2:url("https://bungbutq.github.io/zeva-education-app/Game/biet_doi_bao_thu/bao-8-art-2-v7.png?v=96f53e6faf0aa908");--bao-8-reactions-0:url("https://bungbutq.github.io/zeva-education-app/Game/biet_doi_bao_thu/bao-8-reactions-0-v7.png?v=0ceae915b0553839");--bao-8-reactions-1:url("https://bungbutq.github.io/zeva-education-app/Game/biet_doi_bao_thu/bao-8-reactions-1-v7.png?v=3dc2d84ce6b06111");--bao-8-reactions-2:url("https://bungbutq.github.io/zeva-education-app/Game/biet_doi_bao_thu/bao-8-reactions-2-v7.png?v=60c6578fb505e6d6");--bao-8-reactions-3:url("https://bungbutq.github.io/zeva-education-app/Game/biet_doi_bao_thu/bao-8-reactions-3-v7.png?v=1d216bad52388f43");--bao-9-art-0:url("https://bungbutq.github.io/zeva-education-app/Game/biet_doi_bao_thu/bao-9-art-0-v7.png?v=f9d822bca43e5e86");--bao-9-portrait-0:url("https://bungbutq.github.io/zeva-education-app/Game/biet_doi_bao_thu/bao-9-portrait-0-v7.png?v=5cd12feade75032f");--bao-9-art-1:url("https://bungbutq.github.io/zeva-education-app/Game/biet_doi_bao_thu/bao-9-art-1-v7.png?v=2bc2ae09841dffcf");--bao-9-portrait-1:url("https://bungbutq.github.io/zeva-education-app/Game/biet_doi_bao_thu/bao-9-portrait-1-v7.png?v=f565a7154cff6389");--bao-9-art-2:url("https://bungbutq.github.io/zeva-education-app/Game/biet_doi_bao_thu/bao-9-art-2-v7.png?v=a8a736e9098032cc");--bao-9-reactions-0:url("https://bungbutq.github.io/zeva-education-app/Game/biet_doi_bao_thu/bao-9-reactions-0-v7.png?v=2f44218e63081a1e");--bao-9-reactions-1:url("https://bungbutq.github.io/zeva-education-app/Game/biet_doi_bao_thu/bao-9-reactions-1-v7.png?v=f5cc1e9ce79bd12e");--bao-9-reactions-2:url("https://bungbutq.github.io/zeva-education-app/Game/biet_doi_bao_thu/bao-9-reactions-2-v7.png?v=03e194dc77eceedf");--bao-9-reactions-3:url("https://bungbutq.github.io/zeva-education-app/Game/biet_doi_bao_thu/bao-9-reactions-3-v7.png?v=f6a99c2264bd6b11");--bao-10-art-0:url("https://bungbutq.github.io/zeva-education-app/Game/biet_doi_bao_thu/bao-10-art-0-v7.png?v=6b982b7d0f055df3");--bao-10-portrait-0:url("https://bungbutq.github.io/zeva-education-app/Game/biet_doi_bao_thu/bao-10-portrait-0-v7.png?v=8324c2ebea3b7dea");--bao-10-art-1:url("https://bungbutq.github.io/zeva-education-app/Game/biet_doi_bao_thu/bao-10-art-1-v7.png?v=6a295afa72250503");--bao-10-portrait-1:url("https://bungbutq.github.io/zeva-education-app/Game/biet_doi_bao_thu/bao-10-portrait-1-v7.png?v=d15fbe60bd9f3e07");--bao-10-art-2:url("https://bungbutq.github.io/zeva-education-app/Game/biet_doi_bao_thu/bao-10-art-2-v7.png?v=352a9287a00568c4");--bao-10-reactions-0:url("https://bungbutq.github.io/zeva-education-app/Game/biet_doi_bao_thu/bao-10-reactions-0-v7.png?v=1dd5da07e09f5abc");--bao-10-reactions-1:url("https://bungbutq.github.io/zeva-education-app/Game/biet_doi_bao_thu/bao-10-reactions-1-v7.png?v=99773fc80fa5c383");--bao-10-reactions-2:url("https://bungbutq.github.io/zeva-education-app/Game/biet_doi_bao_thu/bao-10-reactions-2-v7.png?v=f568332d92b40d4a");--bao-10-reactions-3:url("https://bungbutq.github.io/zeva-education-app/Game/biet_doi_bao_thu/bao-10-reactions-3-v7.png?v=4166f607fbf3b31a");}
+
+</style>
+</head>
+<body>
+<svg class="svg-defs" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><defs>
+<symbol id="bao-paw" viewBox="0 0 64 64"><ellipse cx="13" cy="23" rx="7" ry="10" transform="rotate(-24 13 23)"/><ellipse cx="26" cy="14" rx="7" ry="10" transform="rotate(-8 26 14)"/><ellipse cx="42" cy="15" rx="7" ry="10" transform="rotate(10 42 15)"/><ellipse cx="54" cy="27" rx="7" ry="10" transform="rotate(28 54 27)"/><path d="M15 45c1-9 10-20 18-20 8 0 16 11 18 20 3 13-11 11-18 7-8 4-21 6-18-7Z"/></symbol>
+<symbol id="bao-person" viewBox="0 0 32 32"><path d="M16 2a8 8 0 0 1 5 14l8 11q2 3-2 3H5q-4 0-2-3l8-11a8 8 0 0 1 5-14Z"/></symbol>
+<symbol id="bao-map" viewBox="0 0 64 64"><path d="m3 12 18-8 22 8 18-8v48l-18 8-22-8-18 8Z" fill="#87dcef" stroke="#714219" stroke-width="3"/><path d="m3 32 18-17 19 16 21-14v20L43 49 23 33 3 51Z" fill="#8ccb43" stroke="#f8eeaa" stroke-width="3"/><path d="M21 5v47M43 13v47" stroke="#fff3b7" stroke-width="3"/></symbol>
+</defs></svg>
+<main id="game" class="game theme-green">
+  <header class="topbar">
+    <div class="team-score blue"><span class="paw" aria-hidden="true"><svg viewBox="0 0 64 64"><use href="#bao-paw"/></svg></span><div><strong>ĐỘI XANH</strong><span id="score-blue">Còn lại: 5/5</span><span id="lives-blue" class="lives" aria-hidden="true"></span></div><b id="points-blue">0</b></div>
+    <div class="brand" role="img" aria-label="Biệt Đội Báo Thủ — Tên lửa trứng thối, đại chiến bốc mùi!"><h1 class="sr-only">Biệt Đội Báo Thủ</h1></div>
+    <div class="team-score red"><b id="points-red">0</b><div><strong>ĐỘI ĐỎ</strong><span id="score-red">Còn lại: 5/5</span><span id="lives-red" class="lives" aria-hidden="true"></span></div><span class="paw" aria-hidden="true"><svg viewBox="0 0 64 64"><use href="#bao-paw"/></svg></span></div>
+  </header>
+  <div class="battle-layout">
+    <aside class="roster blue" aria-label="Đội Xanh"><div id="roster-blue"></div></aside>
+    <section id="battle-map" class="battle-map" aria-label="Bản đồ chiến đấu">
+      <div id="hills" class="hills"></div>
+      <div id="effects" class="effects" aria-hidden="true"></div>
+      <div id="impact-banner" class="impact-banner" role="status" hidden></div>
+    </section>
+    <aside class="roster red" aria-label="Đội Đỏ"><div id="roster-red"></div></aside>
+  </div>
+  <section class="question-panel" aria-label="Câu hỏi và hành động">
+    <aside class="rules-panel"><div class="rules-heading"><h2>Luật chơi</h2><nav class="corner-controls" aria-label="Điều khiển game"><button id="home-control" type="button" aria-label="Về màn hình chọn lớp" title="Về màn hình chọn lớp"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="m3 15 13-11 13 11M7 13v15h7v-9h4v9h7V13"/></svg></button><button id="sound-control" type="button" aria-label="Tắt âm thanh" title="Tắt âm thanh" aria-pressed="true"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M4 12h6l8-7v22l-8-7H4ZM23 10q8 6 0 12M26 5q13 11 0 22"/><path class="mute-slash" d="m3 3 26 26"/></svg></button></nav></div><p><i class="rule-right">✓</i><span><b>Trả lời đúng</b>Chọn tên lửa hoặc Radar.</span></p><p><i class="rule-wrong">×</i><span><b>Trả lời sai</b>Lộ vị trí, mất lượt hành động.</span></p><p><i class="rule-radar">◎</i><span><b>Radar</b>Lộ 1 đối thủ, mất lượt bắn.</span></p><p><i class="rule-fire" aria-hidden="true">🚀</i><span><b>Bắn tên lửa</b>Có thể trúng quân ta hoặc đối thủ.</span></p></aside>
+    <div class="quiz"><div class="quiz-copy"><div class="quiz-eyebrow"><span id="question-category">THỬ THÁCH TIẾNG ANH</span><span id="question-source"></span></div><h2 id="question">Sẵn sàng xuất kích!</h2><div id="answers" class="answers"></div><p id="feedback" class="sr-only" role="status" aria-live="polite"></p></div></div>
+    <div class="actions"><button id="fire" class="action-button fire" type="button" disabled><span class="rocket-icon" aria-hidden="true"></span><span class="action-label">PHÓNG TÊN LỬA</span></button><button id="radar" class="action-button radar" type="button" disabled><svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="27"/><circle cx="32" cy="32" r="18"/><circle cx="32" cy="32" r="8"/><path d="M32 5v54M5 32h54M32 32 51 13"/><circle class="radar-dot" cx="44" cy="21" r="4"/></svg><span class="action-label">RADAR</span></button></div>
+  </section>
+
+  <section id="turn-dialog" class="overlay turn-overlay" role="dialog" aria-modal="true" aria-labelledby="turn-dialog-title" hidden><div class="response-panel parchment"><span id="turn-dialog-kicker" class="eyebrow"></span><h2 id="turn-dialog-title"></h2><div id="dialogue-characters" class="dialogue-characters"></div><button id="continue" class="primary" type="button">LƯỢT TIẾP</button></div></section>
+  <section id="setup" class="overlay setup" aria-labelledby="setup-title">
+    <div class="setup-panel parchment"><div class="setup-logo" role="img" aria-label="Biệt Đội Báo Thủ"></div><h2 id="setup-title">Lập biệt đội, sẵn sàng!</h2><p class="intro">Trả lời đúng để chọn tên lửa hoặc Radar.<br>Mỗi trận khám phá một trong 5 vùng đất bất ngờ.</p><div class="setup-mascots" aria-hidden="true"><div class="avatar" style="--ax:25%;--ay:0%"></div><span>VS</span><div class="avatar" style="--ax:0%;--ay:100%"></div></div><button id="start" class="primary" type="button">VÀO TRẬN →</button><p id="setup-source" class="setup-source"></p><p class="setup-source">Nhạc: Monkeys Spinning Monkeys — Kevin MacLeod (incompetech.com) · <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a></p></div>
+  </section>
+  <section id="result" class="overlay result" aria-labelledby="result-title" hidden>
+    <div class="confetti" aria-hidden="true"></div><div class="result-panel parchment"><span class="eyebrow">TRẬN ĐẤU KẾT THÚC</span><h2 id="result-title"></h2><p id="result-caption"></p><div id="survivors" class="survivors"></div><div id="result-stats" class="result-stats"></div><div class="result-buttons"><button id="replay" class="primary" type="button">CHƠI LẠI</button><button id="result-home" class="secondary" type="button">CHỌN LỚP</button></div></div>
+  </section>
+</main>
+<script>
+(function(root,factory){if(typeof module==='object'&&module.exports)module.exports=factory();else root.BaoData=factory();})(globalThis,function(){return {"characters":[{"id":"bao-1","name":"Báo Đời","team":0,"avatar":0,"personality":"Bất cần đời, kính đen","dialogue":{"hitEnemy":["Đời không như là mơ đâu em!","Cuộc đời là những cú lừa!"],"hitFriend":["Đời xô đẩy, tay bấm nhầm!","Anh em à, đời mà... thông cảm!"],"miss":["Đời bạc như vôi!","Đời không như mình tính!"],"eliminated":["Đời tôi đến đây là hết!"],"selfHit":["Đời chưa kịp xô, mình đã tự ngã!"],"streak":{"2":"Hai mạng rồi. Đời vẫn còn thương!","3":"Ba mạng. Đời bắt đầu nể!","4":"Bốn mạng. Sóng gió này anh quen rồi!","5":"Năm mạng. Hôm nay đời như là mơ!"},"shutdown":["Chuỗi đẹp đấy. Tiếc là đời có khúc cua!"]},"art":{"size":[2172,724],"frames":[[65,24,516,675],[704,23,512,676],[1307,299,808,389]]},"reactions":{"size":[1024,1536],"frames":[[0,0,512,768],[512,0,512,768],[0,768,512,768],[512,768,512,768]]}},{"id":"bao-2","name":"Báo Đốm","team":0,"avatar":1,"personality":"Tự tin, đốm nổi bật","dialogue":{"hitEnemy":["Đốm này không phải dạng vừa!","Thấy trình của Đốm chưa?"],"hitFriend":["Ơ! Đốm tưởng phe bên kia!","Chết rồi! Đốm nhìn nhầm đốm!"],"miss":["Chắc tại đốm nhiều quá, hoa mắt!","Đốm ngắm chuẩn mà tên lửa ngáo!"],"eliminated":["Đốm này xin phép biến mất!"],"selfHit":["Đốm ngắm chuẩn… đúng ngay đốm của mình!"],"streak":{"2":"Hai mạng! Đốm đã nói là làm!","3":"Ba mạng! Đốm nào cũng có dấu ấn!","4":"Bốn mạng! Đừng đếm đốm, đếm thành tích!","5":"Năm mạng! Đốm phủ sóng cả bản đồ!"},"shutdown":["Chuỗi của bạn đẹp, nhưng Đốm nổi bật hơn!"]},"art":{"size":[2172,724],"frames":[[93,0,477,713],[732,0,480,713],[1286,294,829,400]]},"reactions":{"size":[1227,1282],"frames":[[0,0,613,641],[613,0,614,641],[0,641,613,641],[613,641,614,641]]}},{"id":"bao-3","name":"Báo Ngầu","team":0,"avatar":2,"personality":"Lạnh lùng, kính ngầu","dialogue":{"hitEnemy":["Đẳng cấp không cần giải thích!","Quá dễ cho một huyền thoại!"],"hitFriend":["Đoạn này đừng quay video nhé!","Ơ... mất hình tượng rồi!"],"miss":["Tôi chỉ bắn cảnh cáo thôi!","Cao thủ đôi khi cũng phải nhường!"],"eliminated":["Huyền thoại cũng có ngày nằm xuống!"],"selfHit":["Không ai hạ được tôi… ngoài chính tôi."],"streak":{"2":"Hai. Khởi động xong.","3":"Ba. Đẳng cấp lên tiếng.","4":"Bốn. Không cần vỗ tay.","5":"Năm. Huyền thoại đã hoàn tất."},"shutdown":["Chuỗi kết thúc. Đến lượt huyền thoại."]},"art":{"size":[2172,724],"frames":[[69,18,519,683],[754,18,511,682],[1337,306,818,385]]},"reactions":{"size":[1223,1286],"frames":[[0,0,611,643],[611,0,612,643],[0,643,611,643],[611,643,612,643]]}},{"id":"bao-4","name":"Báo Cute","team":0,"avatar":3,"personality":"Mắt to, má hồng","dialogue":{"hitEnemy":["Hihi! Cute nhưng không dễ bắt nạt!","Trúng rồi! Cho xin viên kẹo!"],"hitFriend":["Huhu! Tớ xin lỗiii!","Tớ định gửi tim, ai ngờ gửi tên lửa!"],"miss":["Hông sao, mình vẫn cute mà!","Tên lửa đi chơi mất tiêu rồi!"],"eliminated":["Huhu! Người ta cute mà!"],"selfHit":["Huhu! Tớ tự gửi tên lửa cho mình mất rồi!"],"streak":{"2":"Hai bạn rồi! Cute xin hai viên kẹo nha!","3":"Ba bạn rồi! Tim hồng mà ngắm siêu chuẩn!","4":"Bốn bạn rồi! Đừng coi thường chiếc nơ này!","5":"Năm bạn rồi! Cute ôm trọn chiến thắng nè!"},"shutdown":["Xin lỗi nha! Tớ thắt nơ vào cuối chuỗi của bạn rồi!"]},"art":{"size":[2172,724],"frames":[[65,8,526,699],[677,8,528,700],[1261,297,895,403]]},"reactions":{"size":[1024,1536],"frames":[[0,0,512,768],[512,0,512,768],[0,768,512,768],[512,768,512,768]]}},{"id":"bao-5","name":"Báo Ngáo","team":0,"avatar":4,"personality":"Ngơ ngác, hài hước","dialogue":{"hitEnemy":["Ủa? Trúng thiệt luôn hả?","Tui bấm đại mà cũng trúng!"],"hitFriend":["Ủa! Bên mình hả?","Ơ? Sao đồng đội đứng bên đó?"],"miss":["Ủa? Tên lửa đâu mất rồi?","Ai vừa bắn vậy? À, tui hả?"],"eliminated":["Ủa? Sao tự nhiên tối thui?"],"selfHit":["Ủa? Đồi này là nhà tui hả?"],"streak":{"2":"Ủa? Hai rồi hả? Tưởng mới một!","3":"Ba mạng? Ai bắn hộ tui vậy?","4":"Bốn rồi? Khoan, để tui đếm lại!","5":"Năm luôn?! Tui còn chưa hiểu nút này!"},"shutdown":["Ủa? Tui vừa bấm tắt chuỗi của bạn hả?"]},"art":{"size":[2172,724],"frames":[[88,12,494,694],[743,13,489,693],[1303,304,816,393]]},"reactions":{"size":[1024,1536],"frames":[[0,0,512,768],[512,0,512,768],[0,768,512,768],[512,768,512,768]]}},{"id":"bao-6","name":"Báo Hại","team":1,"avatar":5,"personality":"Tinh nghịch, chuyên gây họa","dialogue":{"hitEnemy":["Cuối cùng cũng báo hại đúng người!","Hôm nay tui hết báo rồi nha!"],"hitFriend":["Ơ kìa! Bản năng trỗi dậy!","Tới công chuyện rồi anh em ơi!"],"miss":["May quá! Chưa hại ai!","Không trúng ai là thành công rồi!"],"eliminated":["Cuối cùng người bị hại lại là tui!"],"selfHit":["Báo hại cả bản thân, đúng là có nghề!"],"streak":{"2":"Hai mạng! Hôm nay hại đúng địa chỉ!","3":"Ba mạng! Bên kia bắt đầu thấy có hại rồi!","4":"Bốn mạng! Tai họa có tên, tên tui đó!","5":"Năm mạng! Báo Hại nhận giải có ích cho đội!"},"shutdown":["Chuỗi đang ngon thì gặp tui… tới công chuyện!"]},"art":{"size":[2172,724],"frames":[[75,17,485,693],[727,16,484,694],[1284,304,835,388]]},"reactions":{"size":[1024,1536],"frames":[[0,0,512,768],[512,0,512,768],[0,768,512,768],[512,768,512,768]]}},{"id":"bao-7","name":"Báo Mõm","team":1,"avatar":6,"personality":"Miệng rộng, thích gáy","dialogue":{"hitEnemy":["Ai bảo tui chỉ được cái mõm?","Nào! Còn ai muốn gáy nữa không?"],"hitFriend":["Mõm nói một đằng, tay làm một nẻo!","Ơ! Kịch bản không có đoạn này!"],"miss":["Đợi đấy! Tui chưa gáy xong!","Đây gọi là chiến thuật tâm lý!"],"eliminated":["Khoan! Cho tui gáy câu cuối!"],"selfHit":["Tui gáy to quá, tên lửa quay lại nghe!"],"streak":{"2":"Hai mạng! Mõm có bằng chứng nha!","3":"Ba mạng! Ai bảo tui chỉ biết gáy?","4":"Bốn mạng! Bật loa lên, tui gáy tiếp!","5":"Năm mạng! Xin phép gáy tới sáng!"},"shutdown":["Đang gáy chuỗi hả? Nhường micro cho tui!"]},"art":{"size":[2172,724],"frames":[[59,14,543,690],[679,14,542,690],[1270,302,862,395]]},"reactions":{"size":[1024,1536],"frames":[[0,0,512,768],[512,0,512,768],[0,768,512,768],[512,768,512,768]]}},{"id":"bao-8","name":"Báo Lầy","team":1,"avatar":7,"personality":"Láu cá, hài hước","dialogue":{"hitEnemy":["Xin lỗi nha! Tay tui tự bấm!","Thôi xong! Có người về chuồng rồi!"],"hitFriend":["Tui tưởng bắn giao lưu thôi mà!","Anh em đừng giận, tui đùa tí!"],"miss":["Trúng không khí! Quá xuất sắc!","Tui đang kiểm tra chất lượng tên lửa!"],"eliminated":["Tui giả chết thôi, tin không?"],"selfHit":["Tui thử nút tự hủy thôi… ai ngờ hàng thật!"],"streak":{"2":"Hai mạng! Giao lưu hơi nhiệt tình rồi!","3":"Ba mạng! Tui đùa mà tên lửa làm thật!","4":"Bốn mạng! Ai đặt dịch vụ về chuồng tiếp nè?","5":"Năm mạng! Đùa một chút, dọn luôn cả đội!"},"shutdown":["Chuỗi dài quá, tui cắt ngắn cho gọn nha!"]},"art":{"size":[2172,724],"frames":[[53,21,508,680],[695,21,508,680],[1284,310,835,379]]},"reactions":{"size":[1024,1536],"frames":[[0,0,512,768],[512,0,512,768],[0,768,512,768],[512,768,512,768]]}},{"id":"bao-9","name":"Báo Động","team":1,"avatar":8,"personality":"Mũ cảnh báo","dialogue":{"hitEnemy":["BÁO ĐỘNG! Địch đã bay màu!","Tít tít! Phát hiện cú bắn cực đỉnh!"],"hitFriend":["BÁO ĐỘNG ĐỎ! BẮN NHẦM PHE!","CỨU! TUI VỪA PHÁ TEAM!"],"miss":["BÁO ĐỘNG! TÊN LỬA MẤT TÍCH!","A LÔ! MỤC TIÊU ĐÂU RỒI?"],"eliminated":["BÁO ĐỘNG! TUI BAY MÀU RỒI!"],"selfHit":["BÁO ĐỘNG! TỌA ĐỘ MỤC TIÊU LÀ TUI!"],"streak":{"2":"TÍT TÍT! XÁC NHẬN HAI MỤC TIÊU!","3":"BÁO ĐỘNG CẤP BA! CHUỖI ĐANG TĂNG!","4":"CẤP BỐN! ĐỐI PHƯƠNG CẦN CHÚ Ý!","5":"CẤP NĂM! TOÀN BỘ ĐỐI THỦ ĐÃ BAY MÀU!"},"shutdown":["TÍT! ĐÃ VÔ HIỆU HÓA CHUỖI NGUY HIỂM!"]},"art":{"size":[2172,724],"frames":[[67,11,490,693],[729,12,486,693],[1360,306,783,385]]},"reactions":{"size":[1024,1536],"frames":[[0,0,512,768],[512,0,512,768],[0,768,512,768],[512,768,512,768]]}},{"id":"bao-10","name":"Báo Non","team":1,"avatar":9,"personality":"Bé nhỏ, mũ bảo hiểm quá khổ","dialogue":{"hitEnemy":["Ai bảo non là không biết bắn?","Mẹ ơi! Con bắn trúng rồi!"],"hitFriend":["Em xin lỗi! Em mới tập chơi!","Đừng đuổi em khỏi đội mà!"],"miss":["Cho em thử lại một lần nữa!","Em còn non, các anh thông cảm!"],"eliminated":["Mẹ ơi! Con muốn về nhà!"],"selfHit":["Em tưởng nút này là gọi mẹ…"],"streak":{"2":"Hai mạng rồi! Em tiến bộ chưa ạ?","3":"Ba mạng! Tay em hết run rồi nè!","4":"Bốn mạng! Mũ còn rộng, trình hết non!","5":"Năm mạng! Mẹ ơi, con gánh được cả đội!"},"shutdown":["Em còn non… mà chặn được cao thủ rồi!"]},"art":{"size":[2172,724],"frames":[[81,34,452,665],[710,34,452,665],[1272,295,858,399]]},"reactions":{"size":[1024,1536],"frames":[[0,0,512,768],[512,0,512,768],[0,768,512,768],[512,768,512,768]]}}],"maps":[{"id":"valley","name":"Thung Lũng Xanh","subtitle":"Cỏ xanh, suối mát và những cú bắn bất ngờ","theme":"green","art":0,"positions":[[16.176,36.735],[38.235,38.776],[55.147,41.837],[70.588,50],[86.029,40.816],[12.5,64.286],[35.294,60.204],[51.471,65.306],[67.647,69.388],[88.235,67.347],[9.559,87.755],[31.618,90.816],[49.265,87.755],[70.588,91.837],[94.118,95.918]]},{"id":"rock","name":"Cao Nguyên Đá","subtitle":"Vách đá vàng, chiến thuật không giới hạn","theme":"rock","art":1,"positions":[[16.176,36.735],[38.235,38.776],[55.147,41.837],[70.588,50],[86.029,40.816],[12.5,64.286],[35.294,60.204],[51.471,65.306],[67.647,69.388],[88.235,67.347],[9.559,87.755],[31.618,90.816],[49.265,87.755],[70.588,91.837],[94.118,95.918]]},{"id":"snow","name":"Núi Tuyết","subtitle":"Giữ cái đầu lạnh giữa trận chiến nóng","theme":"snow","art":2,"positions":[[16.176,36.735],[38.235,38.776],[55.147,41.837],[70.588,50],[86.029,40.816],[12.5,64.286],[35.294,60.204],[51.471,65.306],[67.647,69.388],[88.235,67.347],[9.559,87.755],[31.618,90.816],[49.265,87.755],[70.588,91.837],[94.118,95.918]]},{"id":"desert","name":"Ốc Đảo Hoàng Hôn","subtitle":"Cuộc chiến bốc mùi giữa những đồi cát","theme":"desert","art":3,"positions":[[16.176,36.735],[38.235,38.776],[55.147,41.837],[70.588,50],[86.029,40.816],[12.5,64.286],[35.294,60.204],[51.471,65.306],[67.647,69.388],[88.235,67.347],[9.559,87.755],[31.618,90.816],[49.265,87.755],[70.588,91.837],[94.118,95.918]]},{"id":"blossom","name":"Thung Lũng Hoa Anh Đào","subtitle":"Tên lửa trứng thối giữa mùa hoa","theme":"blossom","art":4,"positions":[[16.176,36.735],[38.235,38.776],[55.147,41.837],[70.588,50],[86.029,40.816],[12.5,64.286],[35.294,60.204],[51.471,65.306],[67.647,69.388],[88.235,67.347],[9.559,87.755],[31.618,90.816],[49.265,87.755],[70.588,91.837],[94.118,95.918]]}]};});
+
+</script>
+<script>
+(function(root,factory){if(typeof module==='object'&&module.exports)module.exports=factory();else root.BaoQuestions=factory();})(globalThis,function(){
+  'use strict';
+  const norm=value=>String(value??'').normalize('NFC').trim().toLowerCase().replace(/\s+/g,' ');
+  function fromVocabulary(raw){
+    const rows=(Array.isArray(raw)?raw:[]).map(w=>({word:String(w.word||'').normalize('NFC').trim(),meaning:String(w.meaning||'').normalize('NFC').trim()}));
+    const meaningsByWord=new Map();
+    for(const w of rows){const key=norm(w.word);if(!meaningsByWord.has(key))meaningsByWord.set(key,new Set());meaningsByWord.get(key).add(norm(w.meaning));}
+    const seen=new Set();
+    const words=rows.filter(w=>{const m=norm(w.meaning);if(!norm(w.word)||!m||seen.has(m)||meaningsByWord.get(norm(w.word)).size!==1)return false;seen.add(m);return true;});
+    if(words.length<4)throw Error('Bài học cần ít nhất 4 từ có nghĩa khác nhau. Hãy chọn lớp khác hoặc bổ sung từ vựng cho bài học.');
+    return words.map((w,i)=>({id:'class-'+i,question:'“'+w.word+'” có nghĩa là gì?',
+      options:[w.meaning,...[1,2,3].map(n=>words[(i+n)%words.length].meaning)],correctAnswer:0,
+      explanation:w.word+' = '+w.meaning,difficulty:'Theo lớp',category:'Từ vựng'}));
+  }
+  const samples=[
+    ['What does “brave” mean?',['Dũng cảm','Lười biếng','Buồn ngủ','Đói bụng'],'Brave means dũng cảm.','Từ vựng'],
+    ['Which animal can fly?',['A bird','A cat','A dog','A rabbit'],'Birds can fly.','Từ vựng'],
+    ['The opposite of “hot” is ___.',['cold','big','fast','long'],'Hot and cold are opposites.','Từ vựng'],
+    ['Which word is a fruit?',['Apple','Carrot','Potato','Onion'],'An apple is a fruit.','Từ vựng'],
+    ['What do you wear on your feet?',['Shoes','Gloves','A hat','A scarf'],'We wear shoes on our feet.','Từ vựng'],
+    ['“Library” means ___.',['Thư viện','Bệnh viện','Sân bay','Nhà bếp'],'A library is a place to read or borrow books.','Từ vựng'],
+    ['She ___ a student.',['is','am','are','be'],'Use “is” with she.','Ngữ pháp'],
+    ['They ___ football every Sunday.',['play','plays','playing','is play'],'Use the base verb with they.','Ngữ pháp'],
+    ['I have ___ orange.',['an','a','two','many'],'Use “an” before a vowel sound.','Ngữ pháp'],
+    ['There ___ three books on the table.',['are','is','am','be'],'Three books is plural: there are.','Ngữ pháp'],
+    ['We ___ to the zoo yesterday.',['went','go','goes','going'],'The past tense of go is went.','Ngữ pháp'],
+    ['Look! The baby ___ sleeping.',['is','are','am','do'],'Present continuous: is sleeping.','Ngữ pháp'],
+    ['Someone says “Thank you.” You say:',['You’re welcome.','Good night.','I am ten.','It is red.'],'You’re welcome is a polite reply.','Giao tiếp'],
+    ['How are you?',['I’m fine, thank you.','I’m at school.','I’m twelve years old.','My name is Lan.'],'The question asks how you feel.','Giao tiếp'],
+    ['What do you say when you meet someone in the morning?',['Good morning!','Good night!','Goodbye!','See you tomorrow!'],'Use Good morning in the morning.','Giao tiếp'],
+    ['How do you ask for permission politely?',['May I come in?','Come in now!','I came in.','You come in.'],'May I…? asks for permission politely.','Giao tiếp'],
+    ['“Would you like some juice?” — “___”',['Yes, please.','I am a pupil.','It is Monday.','She is tall.'],'Yes, please politely accepts an offer.','Giao tiếp'],
+    ['“Where do you live?” — “___”',['In Hanoi.','At seven o’clock.','I am happy.','With a pencil.'],'Where asks about a place.','Giao tiếp'],
+    ['Tom has a red bike. He rides it to school. What colour is his bike?',['Red','Blue','Yellow','Green'],'The text says Tom has a red bike.','Đọc hiểu'],
+    ['Anna gets up at seven. Then she has breakfast. What does she do after getting up?',['Has breakfast','Goes to bed','Watches a film','Plays tennis'],'Then she has breakfast.','Đọc hiểu'],
+    ['Ben has two cats and one dog. How many pets does he have?',['Three','One','Two','Four'],'Two cats plus one dog equals three pets.','Đọc hiểu'],
+    ['It is raining. Lucy takes an umbrella. Why does she take it?',['Because it is raining','Because it is sunny','Because it is snowing','Because she is hungry'],'The umbrella helps keep Lucy dry.','Đọc hiểu'],
+    ['Sam likes apples but does not like bananas. Which fruit does Sam like?',['Apples','Bananas','Oranges','Grapes'],'Sam likes apples.','Đọc hiểu'],
+    ['Mai reads books every evening. She loves stories. What does Mai do in the evening?',['Reads books','Swims','Cooks lunch','Plays basketball'],'Mai reads books every evening.','Đọc hiểu'],
+    ['How many days are there in a week?',['Seven','Five','Six','Eight'],'A week has seven days.','Kiến thức cơ bản'],
+    ['Which month comes after January?',['February','March','December','April'],'February follows January.','Kiến thức cơ bản'],
+    ['What is the plural of “child”?',['Children','Childs','Childes','Childrens'],'Child has the irregular plural children.','Kiến thức cơ bản'],
+    ['Which letter comes after B?',['C','A','D','E'],'The alphabet begins A, B, C.','Kiến thức cơ bản'],
+    ['What colour do you get by mixing blue and yellow paint?',['Green','Purple','Orange','Pink'],'Blue and yellow paint make green.','Kiến thức cơ bản'],
+    ['Which season comes after spring?',['Summer','Winter','Autumn','Spring'],'Summer comes after spring.','Kiến thức cơ bản']
+  ].map((r,i)=>({id:'demo-'+(i+1),question:r[0],options:r[1],correctAnswer:0,explanation:r[2],difficulty:i<18?'Dễ':'Vừa',category:r[3]}));
+  return{fromVocabulary,samples};
+});
+
+
+</script>
+<script>
+/* Pure battle rules: the DOM never decides occupancy, damage or victory. */
+(function(root,factory){
+  if(typeof module==='object'&&module.exports) module.exports=factory(); else root.BaoEngine=factory();
+})(globalThis,function(){
+  'use strict';
+  const PHASE=Object.freeze({READY:'READY',QUESTION:'QUESTION',ANSWER_RESULT:'ANSWER_RESULT',AIMING:'AIMING',FIRING:'FIRING',IMPACT_RESULT:'IMPACT_RESULT',NEXT_TURN:'NEXT_TURN',GAME_OVER:'GAME_OVER'});
+  function shuffle(items,random=Math.random){
+    const result=items.slice();
+    for(let i=result.length-1;i>0;i--){const j=Math.floor(random()*(i+1));[result[i],result[j]]=[result[j],result[i]];}
+    return result;
+  }
+  function validateQuestions(questions){
+    return Array.isArray(questions)&&questions.length>0&&questions.every(q=>
+      typeof q.id==='string'&&typeof q.question==='string'&&q.question.trim()&&
+      Array.isArray(q.options)&&q.options.length===4&&q.options.every(o=>typeof o==='string'&&o.trim())&&
+      new Set(q.options.map(o=>o.trim().toLowerCase())).size===4&&
+      Number.isInteger(q.correctAnswer)&&q.correctAnswer>=0&&q.correctAnswer<4)&&new Set(questions.map(q=>q.id)).size===questions.length;
+  }
+  class Game{
+    constructor({characters,maps,questions,random=Math.random}){
+      if(!validateQuestions(questions))throw Error('Bộ câu hỏi cần 4 đáp án riêng biệt và một đáp án đúng.');
+      if(characters.length!==10||new Set(characters.map(c=>c.id)).size!==10)throw Error('Cần đúng 10 nhân vật riêng biệt để chia hai đội.');
+      this.catalog=characters;this.maps=maps;this.questions=questions;this.random=random;
+      this.state={phase:PHASE.READY};this.lastLayout='';
+    }
+    start(mapId){
+      const map=this.maps.find(m=>m.id===mapId);
+      if(!map||map.positions.length!==15)throw Error('Bản đồ cần đúng 15 ngọn đồi.');
+      const locations=shuffle(Array.from({length:15},(_,i)=>i+1),this.random);
+      if(locations.slice(0,10).join(',')===this.lastLayout)locations.push(locations.shift());
+      this.lastLayout=locations.slice(0,10).join(',');
+      // Team assignment is independent of hill placement and stays fixed for this match.
+      const blueIds=new Set(shuffle(this.catalog.map(c=>c.id),this.random).slice(0,5));
+      const characters=this.catalog.map((c,i)=>({...c,team:blueIds.has(c.id)?0:1,hillId:locations[i],isAlive:true,isRevealed:false,turns:0,streak:0}));
+      const hills=map.positions.map((position,i)=>({id:i+1,mapId,position:position.slice(),
+        occupantId:characters.find(c=>c.hillId===i+1)?.id||null,isDestroyed:false,wasTargeted:false}));
+      this.deck=[];this.lastQuestion=null;
+      this.state={phase:PHASE.NEXT_TURN,mapId,characters,hills,team:Math.floor(this.random()*2),turn:0,
+        target:null,missile:0,shooterId:null,question:null,answer:null,impact:null,radar:null,winner:null,
+        stats:[{correct:0,wrong:0,hits:0,friendly:0,misses:0,radars:0},{correct:0,wrong:0,hits:0,friendly:0,misses:0,radars:0}]};
+      this.nextTurn(true);return this.state;
+    }
+    nextTurn(first=false){
+      const s=this.state;if(s.phase!==PHASE.NEXT_TURN)return false;
+      if(!first)s.team=1-s.team;
+      const alive=s.characters.filter(c=>c.team===s.team&&c.isAlive);
+      if(!alive.length){s.winner=1-s.team;s.phase=PHASE.GAME_OVER;return false;}
+      const count=Math.min(...alive.map(c=>c.turns));
+      const actor=shuffle(alive.filter(c=>c.turns===count),this.random)[0];
+      actor.turns++;s.shooterId=actor.id;
+      if(!this.deck.length){
+        this.deck=shuffle(this.questions,this.random);
+        if(this.deck.length>1&&this.deck[this.deck.length-1].id===this.lastQuestion)
+          [this.deck[0],this.deck[this.deck.length-1]]=[this.deck[this.deck.length-1],this.deck[0]];
+      }
+      const source=this.deck.pop();this.lastQuestion=source.id;
+      const options=shuffle(source.options.map((text,i)=>({text,correct:i===source.correctAnswer})),this.random);
+      s.question={...source,options:options.map(o=>o.text),correctAnswer:options.findIndex(o=>o.correct)};
+      s.turn++;s.target=null;s.missile=0;s.answer=null;s.impact=null;s.radar=null;s.phase=PHASE.QUESTION;return true;
+    }
+    answer(index){
+      const s=this.state;if(s.phase!==PHASE.QUESTION||!Number.isInteger(index)||index<0||index>3)return false;
+      const correct=index===s.question.correctAnswer;s.answer={index,correct};s.stats[s.team][correct?'correct':'wrong']++;
+      s.missile=correct?1:0;if(!correct)s.characters.find(c=>c.id===s.shooterId).isRevealed=true;
+      s.phase=PHASE.ANSWER_RESULT;return true;
+    }
+    continueAnswer(){
+      const s=this.state;if(s.phase!==PHASE.ANSWER_RESULT)return false;
+      s.phase=s.answer.correct?PHASE.AIMING:PHASE.NEXT_TURN;return true;
+    }
+    aim(hillId){
+      const s=this.state,hill=s.hills.find(h=>h.id===hillId);
+      if(s.phase!==PHASE.AIMING||!hill||hill.isDestroyed)return false;s.target=hillId;return true;
+    }
+    fire(){
+      const s=this.state;
+      if(s.phase!==PHASE.AIMING||s.missile!==1||s.target==null||s.hills.find(h=>h.id===s.target).isDestroyed)return false;
+      s.missile=0;s.phase=PHASE.FIRING;return true;
+    }
+    canRadar(){
+      const s=this.state;
+      return s.phase===PHASE.AIMING&&s.missile===1&&s.characters.some(c=>c.team!==s.team&&c.isAlive&&!c.isRevealed);
+    }
+    radar(){
+      if(!this.canRadar())return false;
+      const s=this.state,candidates=s.characters.filter(c=>c.team!==s.team&&c.isAlive&&!c.isRevealed);
+      const enemy=candidates[Math.floor(this.random()*candidates.length)];
+      enemy.isRevealed=true;s.missile=0;s.target=null;s.stats[s.team].radars++;
+      s.radar={characterId:enemy.id,hillId:enemy.hillId};s.phase=PHASE.NEXT_TURN;
+      return s.radar;
+    }
+    impact(){
+      const s=this.state;if(s.phase!==PHASE.FIRING)return false;
+      const hill=s.hills.find(h=>h.id===s.target),shooter=s.characters.find(c=>c.id===s.shooterId);
+      const victim=s.characters.find(c=>c.id===hill.occupantId);
+      const kind=victim?(victim.team===shooter.team?'hitFriend':'hitEnemy'):'miss';
+      const selfHit=victim?.id===shooter.id,endedStreak=victim?.streak||0;
+      if(kind==='hitEnemy')shooter.streak++;
+      else if(kind==='miss'||selfHit)shooter.streak=0;
+      hill.isDestroyed=true;hill.wasTargeted=true;
+      if(victim){victim.isAlive=false;victim.isRevealed=true;victim.streak=0;}
+      s.stats[s.team][kind==='hitEnemy'?'hits':kind==='hitFriend'?'friendly':'misses']++;
+      const lines=shooter.dialogue[selfHit?'selfHit':kind];
+      const milestone=kind==='hitEnemy'&&shooter.streak>=2?shooter.streak:null;
+      const shutdown=kind==='hitEnemy'&&endedStreak>=2;
+      s.impact={kind,selfHit,streak:shooter.streak,milestone,endedStreak:shutdown?endedStreak:0,
+        shutdownLine:shutdown?shooter.dialogue.shutdown[0]:null,hillId:hill.id,shooterId:shooter.id,victimId:victim?.id||null,
+        line:milestone?shooter.dialogue.streak[milestone]:lines[Math.floor(this.random()*lines.length)],eliminated:victim?.dialogue.eliminated[0]||null};
+      const empty=[0,1].find(team=>!s.characters.some(c=>c.team===team&&c.isAlive));
+      if(empty!==undefined)s.winner=1-empty;
+      s.phase=PHASE.IMPACT_RESULT;return s.impact;
+    }
+    finishImpact(){
+      const s=this.state;if(s.phase!==PHASE.IMPACT_RESULT)return false;
+      s.phase=s.winner===null?PHASE.NEXT_TURN:PHASE.GAME_OVER;return true;
+    }
+    publicHills(){
+      return(this.state.hills||[]).map(h=>{
+        const c=this.state.characters.find(c=>c.id===h.occupantId);
+        return{id:h.id,position:h.position.slice(),isDestroyed:h.isDestroyed,wasTargeted:h.wasTargeted,
+          character:c?.isRevealed?{id:c.id,name:c.name,avatar:c.avatar,team:c.team,isAlive:c.isAlive}:null};
+      });
+    }
+  }
+  return{Game,PHASE,shuffle,validateQuestions};
+});
+
+
+</script>
+<script>
+(function(){
+  'use strict';
+  const $=id=>document.getElementById(id),{PHASE}=BaoEngine,bootstrap=window.BAO_BOOTSTRAP;
+  const sourceLabel=bootstrap?.mode==='class'?bootstrap.label:'Bản chơi thử · Câu hỏi minh họa';
+  let questions;
+  try{questions=bootstrap?.mode==='class'?BaoQuestions.fromVocabulary(bootstrap.words):BaoQuestions.samples;}
+  catch(error){$('setup-title').textContent='Chưa thể vào trận';$('setup-source').textContent=error.message;$('start').disabled=true;return;}
+  const engine=new BaoEngine.Game({...BaoData,questions}),motion=matchMedia('(prefers-reduced-motion: reduce)');
+  const names=['Đội Xanh','Đội Đỏ'];
+  let selectedMap=null,generation=0,timers=new Set(),animations=new Set(),sound=bootstrap?.sound!==false,skip=motion.matches,impactStage='idle';
+  function make(tag,cls,text){const e=document.createElement(tag);if(cls)e.className=cls;if(text!==undefined)e.textContent=text;return e;}
+  const sheetURLs=new Map();
+  function avatar(character,cls=''){
+    const e=make('span','avatar '+cls);e.dataset.team=character.team===0?'blue':'red';
+    e.setAttribute('role','img');e.setAttribute('aria-label',character.name);
+    // Keep the existing soul artwork and animation unchanged.
+    if(cls.includes('soul-character')){
+      e.style.setProperty('--ax',(character.avatar%5)*25+'%');
+      e.style.setProperty('--ay',character.avatar<5?'0%':'100%');
+      e.classList.toggle('team-swapped',character.team!==(character.avatar<5?0:1));
+      if(character.avatar===5)e.style.setProperty('--body-clip','inset(0 3% 0 0)');
+      return e;
+    }
+    const catalog=BaoData.characters.find(c=>c.id===character.id),reaction=cls.includes('reaction-friend')||cls.includes('reaction-hit');
+    const state=reaction?(cls.includes('reaction-hit')?2:0)+character.team:cls.includes('fallen-character')?2:character.team;
+    const kind=reaction?'reactions':cls.includes('full-character')||cls.includes('fallen-character')?'art':'portrait';
+    const sheetKey=catalog.id+'-'+kind+'-'+state;
+    e.classList.add('character-sprite');e.dataset.character=character.id;e.dataset.pose=reaction?(state<2?'friend-':'hit-')+e.dataset.team:state===2?'fallen':state===0?'blue':'red';
+    if(!sheetURLs.has(sheetKey)){
+      const value=getComputedStyle(document.documentElement).getPropertyValue('--'+sheetKey).trim();
+      sheetURLs.set(sheetKey,value.slice(4,-1).replace(/^['"]|['"]$/g,''));
+    }
+    const img=document.createElement('img');img.alt='';img.src=sheetURLs.get(sheetKey);img.draggable=false;
+    e.append(img);return e;
+  }
+  function delay(fn,ms){const g=generation,id=setTimeout(()=>{timers.delete(id);if(g===generation)fn();},ms);timers.add(id);return id;}
+  function stopPending(){
+    stopSounds();
+    generation++;impactStage='idle';$('battle-map').dataset.impactStage='idle';timers.forEach(clearTimeout);timers.clear();animations.forEach(a=>a.cancel());animations.clear();
+    window.speechSynthesis?.cancel();$('effects').replaceChildren();$('battle-map').classList.remove('shake');$('impact-banner').hidden=true;
+  }
+  // User-selected recordings. Keep file URLs literal for the preview/hosting builder.
+  const soundFiles={hover:'https://bungbutq.github.io/zeva-education-app/Game/biet_doi_bao_thu/audio/hover.wav?v=a005358f8c4fb840',select:'https://bungbutq.github.io/zeva-education-app/Game/biet_doi_bao_thu/audio/select.wav?v=8c66b12ae8d31f6a',
+    flight:'https://bungbutq.github.io/zeva-education-app/Game/biet_doi_bao_thu/audio/flight.mp3?v=1c6e5c5f334c4b2f',explosion:'https://bungbutq.github.io/zeva-education-app/Game/biet_doi_bao_thu/audio/explosion.mp3?v=7203fcd50b3606d1',
+    hitEnemy:'https://bungbutq.github.io/zeva-education-app/Game/biet_doi_bao_thu/audio/hit-enemy.mp3?v=5fa556d6ad287023',hitFriend:'https://bungbutq.github.io/zeva-education-app/Game/biet_doi_bao_thu/audio/friendly-miss.wav?v=75bdf650ec6ec11b',miss:'https://bungbutq.github.io/zeva-education-app/Game/biet_doi_bao_thu/audio/friendly-miss.wav?v=75bdf650ec6ec11b',
+    radarScan:'https://bungbutq.github.io/zeva-education-app/Game/biet_doi_bao_thu/audio/radar.wav?v=478195e5618b5a14',radarFound:'https://bungbutq.github.io/zeva-education-app/Game/biet_doi_bao_thu/audio/reveal.wav?v=7a5c0b2fb7f7cf77',exposed:'https://bungbutq.github.io/zeva-education-app/Game/biet_doi_bao_thu/audio/reveal.wav?v=7a5c0b2fb7f7cf77',
+    victory:'https://bungbutq.github.io/zeva-education-app/Game/biet_doi_bao_thu/audio/victory.mp3?v=bd79c9d35a9ad542'};
+  const soundPlayers=new Map(),playingSounds=new Map();let lastHover=-Infinity,musicWanted=false,voiceActive=false;
+  const music=new Audio('https://bungbutq.github.io/zeva-education-app/Game/biet_doi_bao_thu/audio/music.mp3?v=a5bb345c23849ad0');music.loop=true;music.preload='metadata';music.volume=.1;
+  for(const [name,url] of Object.entries(soundFiles)){const player=new Audio(url);player.preload='auto';soundPlayers.set(name,player);}
+  function syncMusic(){
+    music.volume=(voiceActive||playingSounds.has('victory')) ? .025 : .1;
+    if(sound&&musicWanted&&!document.hidden){if(music.paused)void music.play().catch(()=>{});}
+    else music.pause();
+  }
+  function stopSound(name){
+    const entry=playingSounds.get(name);if(!entry)return;
+    clearTimeout(entry.timer);entry.player.onplaying=null;entry.player.onended=null;entry.player.onerror=null;
+    entry.player.pause();try{entry.player.currentTime=0;}catch(_){}playingSounds.delete(name);
+  }
+  function stopSounds(){for(const name of [...playingSounds.keys()])stopSound(name);voiceActive=false;syncMusic();}
+  function play(name,duration){
+    if(!sound||document.hidden||!soundPlayers.has(name))return;
+    if(name==='hover'){const now=performance.now();if(now-lastHover<120)return;lastHover=now;}
+    if(name==='select')stopSound('hover');
+    if(name==='flight'||name==='explosion'){stopSound('hover');stopSound('select');}
+    if(name==='explosion')stopSound('flight');
+    if(name==='radarFound')stopSound('radarScan');
+    stopSound(name);
+    const player=soundPlayers.get(name),entry={player,timer:null};playingSounds.set(name,entry);
+    player.volume=name==='hover'?.25:name==='select'?.45:.75;
+    const limit=name==='hover'?.22:name==='select'?.65:name==='flight'?(duration||1):name==='radarScan'?.95:null;
+    const finish=()=>{if(playingSounds.get(name)===entry){stopSound(name);syncMusic();}};
+    player.onended=finish;player.onerror=finish;
+    player.onplaying=()=>{if(playingSounds.get(name)!==entry){player.pause();return;}if(limit)entry.timer=setTimeout(finish,limit*1000);};
+    try{player.currentTime=0;void player.play().catch(finish);}catch(_){finish();}
+    syncMusic();
+  }
+  // A class frame can open without activation. Retry only on a real interaction.
+  document.addEventListener('pointerdown',syncMusic,{capture:true});
+  document.addEventListener('keydown',syncMusic,{capture:true});
+  document.addEventListener('visibilitychange',()=>{if(document.hidden)stopSounds();syncMusic();});
+  function speak(line){
+    if(!sound||skip||!window.speechSynthesis||!window.SpeechSynthesisUtterance)return;
+    try{
+      speechSynthesis.cancel();const voice=speechSynthesis.getVoices().find(v=>v.lang.toLowerCase().startsWith('vi'));
+      if(!voice)return;const utterance=new SpeechSynthesisUtterance(line);utterance.lang='vi-VN';utterance.voice=voice;utterance.rate=1.08;
+      voiceActive=true;syncMusic();const done=()=>{voiceActive=false;syncMusic();};utterance.onend=done;utterance.onerror=done;
+      speechSynthesis.speak(utterance);
+    }catch(_){}
+  }
+
+  function applyMap(id){
+    const map=BaoData.maps.find(m=>m.id===id);
+    $('game').className='game theme-'+map.theme+(skip?' no-motion':'');
+    $('battle-map').setAttribute('aria-label',map.name+' — 15 ngọn đồi');
+  }
+  function lockBackground(locked){document.querySelectorAll('.topbar,.battle-layout,.question-panel').forEach(e=>e.inert=locked);}
+  function closeResponse(){$('turn-dialog').hidden=true;lockBackground(false);}
+  function showResponse(title,entries,kicker){
+    $('turn-dialog-title').textContent=title;$('turn-dialog-kicker').textContent=kicker||names[engine.state.team];
+    const container=$('dialogue-characters');container.replaceChildren();container.classList.toggle('single',entries.length===1);
+    entries.forEach(({id,line,role,extra,pose})=>{
+      const c=engine.state.characters.find(c=>c.id===id),card=make('article','dialogue-card'+(role==='victim'?' victim':''));
+      const bubble=make('div','dialogue-bubble');bubble.append(make('p','',line));
+      if(extra)bubble.append(make('p','shutdown-bubble',extra));
+      card.append(bubble,avatar(c,'full-character'+(pose?' reaction-'+pose:'')),make('strong','',c.name),make('span','dialogue-role',role==='victim'?'TRÚNG TRỨNG THỐI':role==='radar'?'ĐÃ BỊ PHÁT HIỆN':names[c.team]));
+      container.append(card);
+    });
+    $('continue').textContent=engine.state.phase===PHASE.GAME_OVER?'XEM KẾT QUẢ':'LƯỢT TIẾP';
+    $('turn-dialog').hidden=false;lockBackground(true);$('continue').focus({preventScroll:true});
+    const last=entries[entries.length-1];if(last)speak(last.line);
+  }
+  function renderRoster(){
+    // Preserve the visible roster and counters until the complete impact sequence ends.
+    if(engine.state.phase===PHASE.IMPACT_RESULT&&impactStage!=='dialog')return;
+    const s=engine.state,characters=s.characters||BaoData.characters;
+    [0,1].forEach(team=>{
+      const list=$(team===0?'roster-blue':'roster-red');list.replaceChildren();
+      list.parentElement.classList.toggle('turn-team',characters.find(c=>c.id===s.shooterId)?.team===team);
+      characters.filter(c=>c.team===team).forEach(c=>{
+        const dead=c.isAlive===false,row=make('div','roster-item'+(dead?' dead':'')+(s.shooterId===c.id&&!dead?' active':''));
+        row.dataset.character=c.id;row.setAttribute('aria-label',c.name+(dead?' — đã bị loại':s.shooterId===c.id?' — đang trả lời':' — còn sống'));
+        row.append(avatar(c),make('strong','',c.name));list.append(row);
+      });
+      const remaining=characters.filter(c=>c.team===team&&c.isAlive!==false).length;
+      $(team===0?'score-blue':'score-red').textContent='Còn lại: '+remaining+'/5';
+      const lives=$(team===0?'lives-blue':'lives-red');lives.replaceChildren();
+      for(let i=0;i<5;i++){const life=make('span','life'+(i>=remaining?' lost':''));life.innerHTML='<svg viewBox="0 0 32 32" aria-hidden="true"><use href="#bao-person"/></svg>';lives.append(life);}
+      $(team===0?'points-blue':'points-red').textContent=s.stats?.[team].correct||0;
+    });
+  }
+  function renderMap(){
+    const s=engine.state,container=$('hills');container.replaceChildren();
+    engine.publicHills().forEach(h=>{
+      const button=make('button','hill'+(h.isDestroyed?' destroyed':'')+(s.phase===PHASE.AIMING&&s.target===h.id?' selected':''));button.type='button';
+      button.style.left=h.position[0]+'%';button.style.top=h.position[1]+'%';button.dataset.hill=String(h.id);
+      button.disabled=s.phase!==PHASE.AIMING||h.isDestroyed;button.setAttribute('aria-pressed',String(s.target===h.id));
+      let label='Đồi '+h.id+(h.isDestroyed?' — đã trúng trứng thối':'');
+      const pending=s.phase===PHASE.IMPACT_RESULT&&s.impact?.hillId===h.id;
+      const poisonReady=!pending||['poison','fallen','soul','dialog'].includes(impactStage);
+      const bodyReady=!pending||['fallen','soul','dialog'].includes(impactStage);
+      if(h.isDestroyed&&poisonReady){
+        const stain=make('span','stink-stain'),smoke=make('span','stink-smoke');stain.setAttribute('aria-hidden','true');smoke.setAttribute('aria-hidden','true');
+        for(let i=0;i<4;i++){const puff=make('i');puff.style.setProperty('--i',i);smoke.append(puff);}button.append(stain,smoke);
+      }
+      if(!h.isDestroyed||!poisonReady)button.append(make('span','number',h.id));
+      if(h.character){
+        label+=' — '+h.character.name+(h.character.isAlive?' đã lộ vị trí':' đã bị loại');
+        if(h.character.isAlive){button.append(avatar(h.character,'revealed'+(h.character.team===1?' red':'')),make('span','warning','!'));}
+        else if(bodyReady){
+          const fallen=make('span','fallen-bao');fallen.dataset.team=h.character.team===0?'blue':'red';fallen.append(avatar(h.character,'fallen-character'));
+          button.append(fallen);
+        }
+      }
+      button.setAttribute('aria-label',label);
+      button.addEventListener('pointerenter',event=>{if(event.pointerType==='mouse'&&!button.disabled&&!button.inert&&$('turn-dialog').hidden)play('hover');});
+      button.addEventListener('click',()=>{if(engine.aim(h.id)){play('select');renderMap();renderActions();container.querySelector('[data-hill="'+h.id+'"]').focus({preventScroll:true});}});
+      container.append(button);
+    });
+  }
+  function renderActions(){
+    const s=engine.state;
+    $('fire').disabled=!(s.phase===PHASE.AIMING&&s.target!==null&&s.missile===1);
+    $('fire').querySelector('.action-label').textContent=s.phase===PHASE.AIMING&&s.target!==null?'BẮN ĐỒI '+s.target:'PHÓNG TÊN LỬA';
+    $('radar').disabled=!engine.canRadar();
+    $('radar').title=s.phase===PHASE.AIMING&&!engine.canRadar()?'Mọi đối thủ còn sống đều đã lộ vị trí':'Phát hiện 1 đối thủ; không được bắn trong lượt này';
+  }
+  function renderQuestion(){
+    const s=engine.state,c=s.characters.find(c=>c.id===s.shooterId);
+    $('question').textContent=s.question.question;
+    $('question-category').textContent=names[s.team]+' · '+c.name+' trả lời';
+    $('question-category').dataset.team=s.team===0?'blue':'red';
+    $('question-source').textContent=s.question.category||'Tiếng Anh';
+    $('answers').replaceChildren(...s.question.options.map((option,i)=>{
+      const b=make('button','answer');b.type='button';b.dataset.answer=i;
+      b.append(make('b','',String.fromCharCode(65+i)),make('span','',option));b.addEventListener('click',()=>answer(i));return b;
+    }));
+    $('feedback').textContent='Trả lời đúng để chọn tên lửa hoặc Radar.';document.querySelector('.quiz-copy').scrollTop=0;
+  }
+  function renderBattle(newQuestion=false){renderRoster();renderMap();if(newQuestion)renderQuestion();renderActions();}
+  function begin(){
+    stopPending();closeResponse();const choices=BaoData.maps.filter(m=>m.id!==selectedMap);
+    selectedMap=BaoData.maps.some(m=>m.id===bootstrap?.mapId)?bootstrap.mapId:choices[Math.floor(Math.random()*choices.length)].id;engine.start(selectedMap);applyMap(selectedMap);
+    $('setup').hidden=true;$('result').hidden=true;musicWanted=true;syncMusic();renderBattle(true);$('answers').querySelector('button').focus({preventScroll:true});
+  }
+  function answer(index){
+    if(!engine.answer(index))return;const s=engine.state;
+    $('answers').querySelectorAll('button').forEach((b,i)=>{b.disabled=true;if(i===s.question.correctAnswer)b.classList.add('correct');if(i===index&&!s.answer.correct)b.classList.add('wrong');});
+    const correction='Đáp án '+String.fromCharCode(65+s.question.correctAnswer)+': '+s.question.options[s.question.correctAnswer]+'. ';
+    $('feedback').textContent=(s.answer.correct?'Chính xác! Chọn đồi để bắn, hoặc dùng Radar. ':'Chưa đúng. '+correction)+(s.question.explanation||'');
+    if(!s.answer.correct)play('exposed');
+    if(s.answer.correct){engine.continueAnswer();renderBattle();$('radar').focus({preventScroll:true});}
+    else{renderBattle();showResponse('Ối! Vị trí đã bị lộ',[{id:s.shooterId,line:correction+(s.question.explanation||''),role:'actor'}],'TRẢ LỜI CHƯA ĐÚNG');}
+  }
+  function advance(){
+    if($('turn-dialog').hidden)return;
+    stopPending();closeResponse();const s=engine.state;
+    if(s.phase===PHASE.ANSWER_RESULT)engine.continueAnswer();
+    if(s.phase===PHASE.GAME_OVER){showResult();return;}
+    if(s.phase===PHASE.NEXT_TURN){engine.nextTurn();renderBattle(true);$('answers').querySelector('button').focus({preventScroll:true});}
+  }
+  function missileFlight(done){
+    const g=generation,box=$('battle-map').getBoundingClientRect(),target=engine.state.hills.find(h=>h.id===engine.state.target);
+    const x=box.width*target.position[0]/100,end=box.height*target.position[1]/100,start=-box.top-120;
+    // This zero-size anchor is the rocket nose and the shared impact point.
+    const missile=make('div','missile');missile.append(make('i','missile-art'));$('effects').append(missile);
+    const frames=[{transform:'translate('+x+'px,'+start+'px)',opacity:1},{transform:'translate('+x+'px,'+end+'px)',opacity:1}];
+    play('flight',missile.animate?1:.35);
+    if(!missile.animate){delay(()=>{missile.remove();done();},350);return;}
+    const animation=missile.animate(frames,{duration:1000,easing:'cubic-bezier(.45,0,.85,.65)',fill:'forwards'});animations.add(animation);
+    animation.finished.then(()=>{animations.delete(animation);missile.remove();if(g===generation)done();}).catch(()=>{});
+  }
+  function fire(){if(!engine.fire())return;setImpactStage('missile');renderBattle();if(skip)resolveImpact();else missileFlight(resolveImpact);}
+  function setImpactStage(stage){impactStage=stage;$('battle-map').dataset.impactStage=stage;}
+  function afterAnimation(node,done){
+    const g=generation,running=node.getAnimations({subtree:true}).filter(a=>a.effect.getComputedTiming().iterations!==Infinity);
+    running.forEach(a=>animations.add(a));
+    Promise.all(running.map(a=>a.finished)).then(()=>{running.forEach(a=>animations.delete(a));if(g===generation)done();}).catch(()=>{});
+  }
+  function floatSoul(event,done){
+    if(!event.victimId){done();return;}
+    const c=engine.state.characters.find(c=>c.id===event.victimId),h=engine.state.hills.find(h=>h.id===event.hillId);
+    const soul=make('div','soul');soul.append(avatar(c,'full-character soul-character'),make('i','halo'));
+    const box=$('battle-map').getBoundingClientRect();soul.style.setProperty('--soul-lift',-(box.top+box.height*h.position[1]/100+120)+'px');
+    soul.style.left=h.position[0]+'%';soul.style.top=h.position[1]+'%';$('effects').append(soul);afterAnimation(soul,()=>{soul.remove();done();});
+  }
+  function finishImpactSequence(){
+    const s=engine.state;if(s.phase!==PHASE.IMPACT_RESULT)return;const e=s.impact;
+    setImpactStage('dialog');engine.finishImpact();renderBattle();$('impact-banner').hidden=true;
+    if(skip)delay(()=>play(e.kind),550);else play(e.kind);
+    const entries=[{id:e.shooterId,line:e.line,role:e.selfHit?'victim':'actor',extra:e.shutdownLine,pose:e.selfHit?'hit':e.kind==='hitFriend'?'friend':null},...(e.victimId&&!e.selfHit?[{id:e.victimId,line:e.eliminated,role:'victim',pose:'hit'}]:[])];
+    showResponse(e.selfHit?'Ối! Tự bắn trúng mình rồi!':e.milestone?'CHUỖI '+e.milestone+' — QUÁ ĐỈNH!':e.endedStreak?'CHẤM DỨT CHUỖI '+e.endedStreak+'!':e.kind==='hitEnemy'?'Trứng thối trúng đối thủ!':e.kind==='hitFriend'?'Ối! Trúng quân mình rồi!':'Bốc mùi… nhưng đồi trống!',entries,'ĐỒI '+e.hillId+' · '+names[s.team].toUpperCase());
+  }
+  function resolveImpact(){
+    const event=engine.impact();if(!event)return;setImpactStage('mushroom');renderBattle();play('explosion');
+    $('feedback').textContent='Đồi '+event.hillId+' đã trúng tên lửa trứng thối!';
+    if(skip){finishImpactSequence();return;}
+    const h=engine.state.hills.find(h=>h.id===event.hillId),blast=make('div','mushroom'),ring=make('div','shockwave');
+    blast.append(make('i','mushroom-art'));ring.append(make('i','shockwave-art'));
+    for(const e of [blast,ring]){e.style.left=h.position[0]+'%';e.style.top=h.position[1]+'%';$('effects').append(e);}
+    afterAnimation(blast,()=>{
+      blast.remove();ring.remove();setImpactStage('poison');renderMap();
+      const hill=$('hills').querySelector('[data-hill="'+event.hillId+'"]'),stain=hill.querySelector('.stink-stain');
+      stain.animate([{opacity:0},{opacity:1}],{duration:450,easing:'ease-out',fill:'both'});
+      afterAnimation(stain,()=>{
+        if(!event.victimId){finishImpactSequence();return;}
+        setImpactStage('fallen');renderMap();
+        const body=$('hills').querySelector('[data-hill="'+event.hillId+'"] .fallen-bao');
+        body.animate([{opacity:0,transform:'translate(-50%,-25px) rotate(-12deg)'},{opacity:1,transform:'translate(-50%,0) rotate(0)'}],{duration:500,easing:'ease-in',fill:'both'});
+        afterAnimation(body,()=>{setImpactStage('soul');floatSoul(event,finishImpactSequence);});
+      });
+    });
+  }
+  function scan(){
+    const event=engine.radar();if(!event)return;renderBattle();play('radarScan');
+    const c=engine.state.characters.find(c=>c.id===event.characterId),h=engine.state.hills.find(h=>h.id===event.hillId);
+    const done=()=>{if(skip)delay(()=>play('radarFound'),950);else play('radarFound');showResponse('Radar phát hiện đối thủ!',[{id:c.id,line:c.name+' đang ẩn ở đồi '+event.hillId+'. Vị trí này đã bị lộ cho cả trận.',role:'radar'}],'ĐÃ DÙNG RADAR · KHÔNG CÒN LƯỢT BẮN');};
+    if(skip){done();return;}
+    const pulse=make('div','radar-pulse');pulse.style.left=h.position[0]+'%';pulse.style.top=h.position[1]+'%';$('effects').append(pulse);
+    delay(()=>{pulse.remove();done();},950);
+  }
+  function showResult(){
+    const s=engine.state;stopPending();closeResponse();lockBackground(true);$('result').hidden=false;
+    $('result-title').textContent=names[s.winner].toUpperCase()+' CHIẾN THẮNG!';$('result-title').style.color=s.winner===0?'#1672bd':'#c52e3d';
+    const alive=s.characters.filter(c=>c.team===s.winner&&c.isAlive);$('result-caption').textContent=alive.length+' chiến binh trụ vững sau '+s.turn+' lượt chơi.';
+    $('survivors').replaceChildren(...alive.map(c=>avatar(c)));$('result-stats').replaceChildren();
+    s.stats.forEach((stats,i)=>{const box=make('div');box.append(make('strong','',names[i]),make('span','','Đúng '+stats.correct+' · Sai '+stats.wrong),make('span','','Hạ địch '+stats.hits+' · Nhầm đội '+stats.friendly),make('span','','Radar '+stats.radars+' · Bắn trượt '+stats.misses));$('result-stats').append(box);});
+    play('victory');$('replay').focus({preventScroll:true});
+  }
+  function home(){
+    musicWanted=false;stopPending();music.currentTime=0;closeResponse();$('result').hidden=true;engine.state={phase:PHASE.READY};renderActions();
+    if(bootstrap?.mode==='class'&&window.parent!==window){parent.postMessage({type:'zeva-heist-home'},'*');return;}
+    $('setup').hidden=false;lockBackground(true);$('start').focus({preventScroll:true});
+  }
+  $('start').addEventListener('click',begin);$('replay').addEventListener('click',begin);
+  $('fire').addEventListener('click',fire);$('radar').addEventListener('click',scan);$('continue').addEventListener('click',advance);
+  $('home-control').addEventListener('click',home);$('result-home').addEventListener('click',home);
+  $('sound-control').addEventListener('click',()=>{
+    sound=!sound;if(bootstrap?.mode==='class')parent.postMessage({type:'zeva-heist-sound',sound},'*');stopSounds();syncMusic();if(!sound)window.speechSynthesis?.cancel();
+    $('sound-control').setAttribute('aria-pressed',String(sound));$('sound-control').setAttribute('aria-label',sound?'Tắt âm thanh':'Bật âm thanh');$('sound-control').title=sound?'Tắt âm thanh':'Bật âm thanh';
+  });
+  motion.addEventListener('change',e=>{
+    skip=e.matches;$('game').classList.toggle('no-motion',skip);
+    if(skip){stopPending();if(engine.state.phase===PHASE.FIRING)resolveImpact();else if(engine.state.phase===PHASE.IMPACT_RESULT)finishImpactSequence();else if(engine.state.radar&&$('turn-dialog').hidden){const e=engine.state.radar,c=engine.state.characters.find(c=>c.id===e.characterId);showResponse('Radar phát hiện đối thủ!',[{id:c.id,line:c.name+' đang ở đồi '+e.hillId+'.',role:'radar'}],'ĐÃ DÙNG RADAR');}}
+  });
+  document.addEventListener('keydown',event=>{
+    if(!$('turn-dialog').hidden&&event.key==='Tab'){event.preventDefault();$('continue').focus();return;}
+    if(event.ctrlKey||event.metaKey||event.altKey||!$('setup').hidden||!$('result').hidden||!$('turn-dialog').hidden)return;
+    if(event.target.closest('input,textarea,select,[contenteditable=true]'))return;
+    if(engine.state.phase===PHASE.AIMING&&engine.state.target!==null&&(event.code==='Space'||event.key==='Enter')){event.preventDefault();if(!event.repeat)fire();return;}
+    if(engine.state.phase!==PHASE.QUESTION)return;
+    const index='abcd'.indexOf(event.key.toLowerCase()),number=Number(event.key)-1,choice=index>=0?index:/^[1-4]$/.test(event.key)?number:-1;
+    if(choice>=0){event.preventDefault();answer(choice);}
+  });
+  window.addEventListener('pagehide',()=>{musicWanted=false;stopPending();music.pause();});
+  document.querySelector('.setup-mascots').replaceChildren(avatar({...BaoData.characters[2],team:0}),make('span','','VS'),avatar({...BaoData.characters[3],team:1}));
+  $('setup-source').textContent=sourceLabel+' · '+questions.length+' câu hỏi';applyMap(BaoData.maps[0].id);renderRoster();renderActions();lockBackground(true);
+  $('sound-control').setAttribute('aria-pressed',String(sound));$('sound-control').setAttribute('aria-label',sound?'Tắt âm thanh':'Bật âm thanh');$('sound-control').title=sound?'Tắt âm thanh':'Bật âm thanh';
+  if(bootstrap?.mode==='class')begin();
+})();
+
+</script>
+</body>
+</html>
+

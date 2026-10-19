@@ -1,17 +1,17 @@
 /* ZEVA Education GitHub wrapper service worker */
-const CACHE_NAME = 'zeva-education-wrapper-v6-2026-09-22.4';
+const CACHE_NAME = 'zeva-education-organized-20261019';
 const SHELL_FILES = [
   './',
   './index.html',
-  './config.js',
+  './System/PWA/config.js',
   './manifest.webmanifest',
-  './icon-192.png',
-  './icon-512.png',
-  './icon-512-maskable.png',
-  './icon-master-1024.png',
-  './apple-touch-icon.png',
-  './favicon-32.png',
-  './favicon-64.png'
+  './UI/thuong-hieu/icon-192.png',
+  './UI/thuong-hieu/icon-512.png',
+  './UI/thuong-hieu/icon-512-maskable.png',
+  './UI/thuong-hieu/icon-master-1024.png',
+  './UI/thuong-hieu/apple-touch-icon.png',
+  './UI/thuong-hieu/favicon-32.png',
+  './UI/thuong-hieu/favicon-64.png'
 ];
 
 self.addEventListener('install', function(event) {
