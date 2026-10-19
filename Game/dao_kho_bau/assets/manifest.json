@@ -788,6 +788,26 @@
       "sha256": "854ed1bebcb3f4c070f4acd816d27d1713642c3d4f27467635c0dc418119b6f2"
     },
     {
+      "path": "ui-upgrade-hull.png",
+      "bytes": 1378650,
+      "sha256": "9ac8a1cb65c8bcc89669fc6a2f5f80dc4606cc6643776305dae822d3c15d61d8"
+    },
+    {
+      "path": "ui-upgrade-provisions.png",
+      "bytes": 2386488,
+      "sha256": "8dcc42a94ce8d7c2fe25c70b74dde68edc857cd7b427ea3d4e3f051252e4f5c2"
+    },
+    {
+      "path": "merchant-red-bristol.png",
+      "bytes": 2778325,
+      "sha256": "e2da11e6db49e1b25f7f997bd8a67916cc6ef6e4b1f714b863fea6f7875d258d"
+    },
+    {
+      "path": "merchant-blue-dover.png",
+      "bytes": 2667858,
+      "sha256": "147c6326a55986e41d7408b3eafdf6b181ab2ad057721c9bd49244b53aa51597"
+    },
+    {
       "path": "Nunito.ttf",
       "bytes": 276932,
       "sha256": "bb55a5ca5c2042335b3991af27c4d0705d0ef41cac6164ac737fd8f2a1e85207"
