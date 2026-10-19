@@ -161,7 +161,7 @@
  let words=[],deck=[],damage=[0,0],turn=0,round=0,question=null,locked=true,generation=0,session='',timers=[];
  // Audio is optional: failures must never block vocabulary loading or damage updates.
  const soundFiles={music:'nhacnen.mp3',cannon:'cannon-fire-161072.mp3',break:'wooden-ship-break-85277.mp3',explosion:'massive-explosion-2-397983.mp3',sink:'big-bubbles-1-169077.mp3'};
- const soundBase=window.ZevaNavalAudioBase||'https://raw.githubusercontent.com/bungbutq/zeva-education-app/517dbd1d4d65ff2d9e8055c084f1619569489d3c/game/hai-chien-tu-vung/audio/';
+ const soundBase=window.ZevaNavalAudioBase||'https://raw.githubusercontent.com/bungbutq/zeva-education-app/324ce3124125074901d8eb6a6425de13f8e096c3/Game/dai_hai_trinh/audio/';
  let audioContext=null,musicSource=null,musicGain=null,audioActive=false,musicEnabled=true,effectsEnabled=true,duckUntil=0;
  const soundBuffers=new Map(),soundLoads=new Map(),effectSources=new Set();
  try{const saved=JSON.parse(localStorage.getItem('zeva-naval-audio')||'{}');musicEnabled=saved.music!==false;effectsEnabled=saved.effects!==false;}catch(_){}

@@ -1,5 +1,0 @@
-Nunito variable font, unchanged original file.
-Source: https://github.com/google/fonts/tree/main/ofl/nunito
-Downloaded 2026-10-14 from https://raw.githubusercontent.com/google/fonts/main/ofl/nunito/Nunito%5Bwght%5D.ttf
-SIL Open Font License: OFL.txt in this directory.
-Bundled with game and host to keep Vietnamese glyphs and font weights consistent offline.
