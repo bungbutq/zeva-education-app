@@ -1,0 +1,951 @@
+{
+  "commit": "984cbd22b6ea1858227509f371335d10b3307150",
+  "baseURL": "https://raw.githubusercontent.com/bungbutq/zeva-education-app/984cbd22b6ea1858227509f371335d10b3307150/Game/dao_kho_bau/",
+  "files": [
+    {
+      "path": "captains-atlas.png",
+      "bytes": 1919412,
+      "sha256": "5c18c25c0e5380da668a4f8b60f2e311af3b9f5ddf30c929fd0c511ca681fc4d"
+    },
+    {
+      "path": "chest-closed.png",
+      "bytes": 1164994,
+      "sha256": "8d6a34a67826c176e03de1c06dc389b11a196d3ba1ac3325da092238c19403de"
+    },
+    {
+      "path": "chest-open.png",
+      "bytes": 1740689,
+      "sha256": "e97bfdc2a0afbd7f6adaebdf2bb4b13525924cc275f95f9f6065cc97a109cd34"
+    },
+    {
+      "path": "map-board-clean.png",
+      "bytes": 2522066,
+      "sha256": "6bff4b10749c87997857af790f246e999e6a3b05ca286bd00c4ba0e23acbf2c2"
+    },
+    {
+      "path": "map-board.png",
+      "bytes": 2565425,
+      "sha256": "f271232fe921a62105447b072a0712aa0d02d7c8e11a6f4d9cd73023775ce915"
+    },
+    {
+      "path": "result-backdrop.png",
+      "bytes": 2446682,
+      "sha256": "259b79c00be6a97b54f7fc31a6f6bc9c39f27fca6b500c65870c02bfaaafd523"
+    },
+    {
+      "path": "result-captains-atlas.png",
+      "bytes": 1462858,
+      "sha256": "2e01032193f3cebd822c861520b7c6e2103a5cce75946d78cbc5e53054c7e711"
+    },
+    {
+      "path": "ship-blue.png",
+      "bytes": 1051803,
+      "sha256": "6409911cff0ae45ec2f184254cddab6efb168bf49c47ddeb7777f244fbb66e43"
+    },
+    {
+      "path": "ship-red.png",
+      "bytes": 1130477,
+      "sha256": "a831832c3f7f2720af4e3b957432de28dd107ab89e01c4eb2970642a7acc86ad"
+    },
+    {
+      "path": "ui-action-green.png",
+      "bytes": 1235922,
+      "sha256": "5a9463e4edf4b910ad890cbaa625a4490f4203fe7bd5774d01b4b3887e8566a3"
+    },
+    {
+      "path": "ui-buttons-atlas.png",
+      "bytes": 1321447,
+      "sha256": "732019731ef57ea8b43101b19eda997773ab834ce511129acf8638ffc9491fd3"
+    },
+    {
+      "path": "ui-icons-atlas.png",
+      "bytes": 1662662,
+      "sha256": "cc01978add46bc16b25f6794a3bb5a9712eb90c831581cf22326593c2f112659"
+    },
+    {
+      "path": "ui-island-label.png",
+      "bytes": 1051845,
+      "sha256": "1690c40e7447fa5dbf7eb47fe023508c27e9a7ef8b20bfb1e97aa3247a629c1c"
+    },
+    {
+      "path": "ui-navigation.png",
+      "bytes": 1809885,
+      "sha256": "90bc1311955373bd5cde24f9062dcb4eeb89bf8a647529049ace1d14271848dc"
+    },
+    {
+      "path": "ui-question-frame.png",
+      "bytes": 2121560,
+      "sha256": "33a6c6510f6a363a6539730a83c245e9d19c7e8c05f4e4d5c43f849f09bfdfc9"
+    },
+    {
+      "path": "ui-team-blue.png",
+      "bytes": 1815485,
+      "sha256": "6776682ddce655d0c7538a89f893c520bd02a0c1523d1d2af3dba03d3df02ead"
+    },
+    {
+      "path": "ui-team-red.png",
+      "bytes": 1659147,
+      "sha256": "1f523bba3ce2c78e13ea3b1864f9887d06f328a39f547eabde33c50e0063ea01"
+    },
+    {
+      "path": "ui-title.png",
+      "bytes": 1683501,
+      "sha256": "e47d0454c59b83bc71dd0ee4b937d05f9e525606a5fe23a9a7eb1fa60299e4a6"
+    },
+    {
+      "path": "ocean-background.png",
+      "bytes": 1949635,
+      "sha256": "314f31b608e3a65784a7f806a2d7e520434e1efbc88f185adedc7e4c1720c3d4"
+    },
+    {
+      "path": "island-01-volcano.png",
+      "bytes": 2291630,
+      "sha256": "ca254de13c0b5d9111476953e0a5a908bc93fe853ba4d2d860826f6ae15d2e0b"
+    },
+    {
+      "path": "island-02-skull.png",
+      "bytes": 2148795,
+      "sha256": "84230589ef716988d94a7112a482bb43e072d6d8292fef36c6202f2b23303c8b"
+    },
+    {
+      "path": "island-03-lighthouse.png",
+      "bytes": 1982436,
+      "sha256": "61f9aafc2fa7b44ae903bc99c4eb7a974f3ae24b51a96703c77085c6e67e71e3"
+    },
+    {
+      "path": "island-04-ruins.png",
+      "bytes": 2456240,
+      "sha256": "6f2e7891d59bb3e748df1a218b9e23e79730e22e7b9a98688f87bad2c940b72a"
+    },
+    {
+      "path": "island-05-waterfall.png",
+      "bytes": 2448542,
+      "sha256": "5714f678ff8e55516c76046ae0c1831c9b2b20ca606e6f291f4d612495dcdab2"
+    },
+    {
+      "path": "island-06-village.png",
+      "bytes": 2198796,
+      "sha256": "732e0f2a36ffb15db629c082434e6531218b421048283dadc53a691480195053"
+    },
+    {
+      "path": "island-07-crab.png",
+      "bytes": 2379455,
+      "sha256": "9d7b89b8587581632e699a41efa2ec8946ff92d1509469200977dd2ee950e77c"
+    },
+    {
+      "path": "island-08-shipwreck.png",
+      "bytes": 2100269,
+      "sha256": "c41cba8cb252f6c029056ad239b2b7478f21ef86553cebe401e20e7d15a2ec46"
+    },
+    {
+      "path": "island-09-lookout.png",
+      "bytes": 2156470,
+      "sha256": "9f1f46c60fef718d5c034400aaa8eca586a4b3dc49b2b86b24775ca1457d2c81"
+    },
+    {
+      "path": "island-10-totem.png",
+      "bytes": 2202156,
+      "sha256": "3a46f971e01c3416b3e807fe9776744140277b51a805810e334efa63be620b15"
+    },
+    {
+      "path": "island-11-cave.png",
+      "bytes": 2299708,
+      "sha256": "b28c6f00f11829966c2d4021fcbd083b86a0480dba124d18fb0d974a48589f1b"
+    },
+    {
+      "path": "ocean-water.png",
+      "bytes": 1883478,
+      "sha256": "2974ee643e3312d9a38d0896a0d7beb4cf51ab2029e0de31b478ac2a3eb85ea0"
+    },
+    {
+      "path": "map-foreground.png",
+      "bytes": 744286,
+      "sha256": "b46cbf3f7f288a5ed806c638e0bd14f291b5e5d460689b3dfcf8b88e305b87ab"
+    },
+    {
+      "path": "ui-picker-frame-clean.png",
+      "bytes": 2109171,
+      "sha256": "f27e3562d59244cfd4f569f7b3c1a7161374011a12718ac43d1398fb3e0de349"
+    },
+    {
+      "path": "island-12-crystal.png",
+      "bytes": 2642640,
+      "sha256": "4a9efe36a862fbf7f20bd1c320d748c2d40a20dd824353a611a22b8a9a9e6b65"
+    },
+    {
+      "path": "island-13-turtle.png",
+      "bytes": 2501434,
+      "sha256": "53c93bcc4a6b56916347aa13e20d493b3699d610979211a5d2b8be0cc8996d2a"
+    },
+    {
+      "path": "island-14-fortress.png",
+      "bytes": 2608244,
+      "sha256": "0613192f10d3b197a34b1ee00ebcf9a466cf90d05fe6d43b106fa9794ef0b795"
+    },
+    {
+      "path": "island-15-mangrove.png",
+      "bytes": 2972288,
+      "sha256": "09b6e7922a11d7bfd85627c3d9bd2dd06b67b973d675989d8885e90f4c0dd2fa"
+    },
+    {
+      "path": "island-16-mushroom.png",
+      "bytes": 2643767,
+      "sha256": "a29f8a46ec729216323cd40842c092a729beb6eeefab5d27e42b10aad46e70cb"
+    },
+    {
+      "path": "island-17-pearl.png",
+      "bytes": 2764820,
+      "sha256": "d13b03148ecba1942fcf90843e419e92d623ca9baac2dc1d35cab89e2cd4160a"
+    },
+    {
+      "path": "island-18-dragon.png",
+      "bytes": 2684192,
+      "sha256": "da75ed8e3c4b27d71bd806d751e23cb35ca0c40452e48d6373f4fe0fc256c51f"
+    },
+    {
+      "path": "island-19-thunder.png",
+      "bytes": 1960187,
+      "sha256": "730824104b1baf7201921cadae3656736c711dd1d133834c348edbcbeba48fcd"
+    },
+    {
+      "path": "island-20-windmill.png",
+      "bytes": 2206586,
+      "sha256": "f18596f60886d5606126fac35bd96efbfa32519f78dd89d84727039bb60662e1"
+    },
+    {
+      "path": "island-21-sword.png",
+      "bytes": 2380174,
+      "sha256": "77c0501686ad23b4fce701c433f95177fd62ef083390898e2c1f6fd99cf04c1f"
+    },
+    {
+      "path": "island-22-fossil.png",
+      "bytes": 2741655,
+      "sha256": "39255dc83a08a43283e590833e722e3da569ea1bf7d7cd98265df38fad37903e"
+    },
+    {
+      "path": "island-23-kraken.png",
+      "bytes": 1857281,
+      "sha256": "0eb7a2afd630616099e9ed8fdf0e28907663c98792592965aac3453eaf510d55"
+    },
+    {
+      "path": "kraken-tentacle.png",
+      "bytes": 1621143,
+      "sha256": "8e51b97559409fc1e7e6601a1b52ff4cd0b64f850c404cb0af7dd840c02b82b9"
+    },
+    {
+      "path": "island-24-whale.png",
+      "bytes": 2175197,
+      "sha256": "14c3473443323d18a789ab14cfeb88a9823a80bd457ff85754d71eb39b8d4d3e"
+    },
+    {
+      "path": "island-05-waterfall-hd.png",
+      "bytes": 2580428,
+      "sha256": "47dc2c0df17d38ea998ced991f109587224f9944188c4d7af278c7f2486dbb4e"
+    },
+    {
+      "path": "island-06-village-hd.png",
+      "bytes": 2240081,
+      "sha256": "a1f910dad1d86c8adb73f29b48f1d3e531b73d4472af889ae1feb0edd8a5d850"
+    },
+    {
+      "path": "island-07-crab-base-hd.png",
+      "bytes": 2431552,
+      "sha256": "fa065d62a28e1a35765721e7d806811e224004b00e284a4aedcd3f94529d5126"
+    },
+    {
+      "path": "island-09-lookout-hd.png",
+      "bytes": 2386397,
+      "sha256": "bbda79e284a199417bf9da9bcd26f208990ccda06a43a189302f4706af87f9dc"
+    },
+    {
+      "path": "island-10-totem-hd.png",
+      "bytes": 2492863,
+      "sha256": "8502544cf2f125eb9f754348f0d7d23d794407c7313dbb8e3f8221a93ed47769"
+    },
+    {
+      "path": "island-11-cave-hd.png",
+      "bytes": 2480116,
+      "sha256": "3c17308c5876dcda3fcff2cec6c4895c4d8e0d7c0f4abbf30371f6909ad1ce0e"
+    },
+    {
+      "path": "island-15-mangrove-hd.png",
+      "bytes": 3041045,
+      "sha256": "edfa53c10dbc28d756504648d9e096c1231262ca180569650d1ac6373cd260a0"
+    },
+    {
+      "path": "island-25-mist.png",
+      "bytes": 2530731,
+      "sha256": "e37bee9fb12449bfca464d52f6ae40a35f4c09276043b3816c77db14dedc2689"
+    },
+    {
+      "path": "island-26-storm-base.png",
+      "bytes": 2071232,
+      "sha256": "159127149c9c4921009e5402783d3b1215565f76ef2eee64abac32ef0ae7ba1c"
+    },
+    {
+      "path": "island-26-storm.png",
+      "bytes": 2464696,
+      "sha256": "d56ad81b5c2bb2bffbf1bfb1a13aee1a7a9199ba9890dd2e2ed8905407559350"
+    },
+    {
+      "path": "island-27-sandbar.png",
+      "bytes": 2338789,
+      "sha256": "87bda1105023aa1bd52d8b0fa0cf209747ff390d007e3d9f6f2176cee7dec48c"
+    },
+    {
+      "path": "island-28-drift-ice.png",
+      "bytes": 1942939,
+      "sha256": "f8b282989d4102a1f7239bc67835bcbbf231f468b974737d8655b1a67c41c2f9"
+    },
+    {
+      "path": "island-29-reef-rocks.png",
+      "bytes": 2140012,
+      "sha256": "6208a96bbdf4e1f623908221d8d470bb4e0ff95652b7f28ce76016d2e54070da"
+    },
+    {
+      "path": "island-30-snow.png",
+      "bytes": 2247272,
+      "sha256": "3cead3bb502c13f22908c4f16b083ef668f47146816cb03ac5e92367ce42eee8"
+    },
+    {
+      "path": "island-31-fruit-mountain.png",
+      "bytes": 2886377,
+      "sha256": "0e06b385228ccd48f898e84374f54d2c28389a7c8aa5b7069b0ab55ed28e4abd"
+    },
+    {
+      "path": "island-32-sakura.png",
+      "bytes": 2684443,
+      "sha256": "78cf5a4272eb56c5022c4b0b6dc1b42fbc9116d744a447fdafbad8423b07d630"
+    },
+    {
+      "path": "island-33-island-village.png",
+      "bytes": 2705826,
+      "sha256": "144c82dc8fda615c8948a1c62b51d73ba5059b56d1d466122153f382983edac6"
+    },
+    {
+      "path": "island-34-snake-base.png",
+      "bytes": 2387174,
+      "sha256": "d54001e567c12e986bf335e1874279e8636a9a4958f4249ea167197157dd42c2"
+    },
+    {
+      "path": "island-35-sharks-base.png",
+      "bytes": 2283473,
+      "sha256": "b8fabb47e8557b450701d1fd9b71795794a2a6416c726aba4fa5413e1ed23f01"
+    },
+    {
+      "path": "island-36-coral.png",
+      "bytes": 2608495,
+      "sha256": "48bd0816985f201936776aaf2bc1eb43b7a926c642a77efc27401698724cd25f"
+    },
+    {
+      "path": "sprite-giant-crab.png",
+      "bytes": 2000242,
+      "sha256": "0d50b49819906829ab9d3cdac7fac562c16dce9680f1bb106c97731d2d89e629"
+    },
+    {
+      "path": "sprite-giant-snake.png",
+      "bytes": 1821660,
+      "sha256": "981a85e2e755c65300b80ba35b6321fe1585ae477d581c4211d5c6eb994a16d6"
+    },
+    {
+      "path": "sprite-guard-walk.png",
+      "bytes": 1867845,
+      "sha256": "91ff1809a21fea28139902e63552158ac18eaed4edbfafee0e9ec49f473cb171"
+    },
+    {
+      "path": "sprite-mangrove-fish.png",
+      "bytes": 2045672,
+      "sha256": "638910f944b8aa44e859ed6b9b57c982ad86c53323816238dfb8c7139a69c338"
+    },
+    {
+      "path": "sprite-totem-bird.png",
+      "bytes": 1063216,
+      "sha256": "6634c6b459d48e6376ea874507d0fc4f832534850c366bd855210c44a2ce6398"
+    },
+    {
+      "path": "sprite-villagers-walk.png",
+      "bytes": 1020447,
+      "sha256": "108c8c9363e473335e01c58bcb3375421c54e16a8d1049129d5ad4cba1804c8b"
+    },
+    {
+      "path": "sprite-swimming-shark-v2.png",
+      "bytes": 1412001,
+      "sha256": "72bb38c0350f785c1011d08456810e5ed06e833367da0b5fbc26af369201fcc2"
+    },
+    {
+      "path": "island-25-mist-clear.png",
+      "bytes": 2476440,
+      "sha256": "7f035dfafa92c74b8d6d247cfd308258eabc1f416106fa9a0c2eb59ea38b8839"
+    },
+    {
+      "path": "sprite-snake-overhead.png",
+      "bytes": 1030109,
+      "sha256": "1b4268716ab3a7548e356b7b80c1243a5950317286608409003158be6b12b3f3"
+    },
+    {
+      "path": "sprite-shark-overhead.png",
+      "bytes": 1422871,
+      "sha256": "83ffbc3237d7837d7d2f77f98a881486b5ad6a042a6dd1c44571a0fd0725f984"
+    },
+    {
+      "path": "sprite-island-patrol.png",
+      "bytes": 2173412,
+      "sha256": "adb2cf396f0e53391ce203efe8e6bdd739e19c688fd31ae8baebcedd15560d16"
+    },
+    {
+      "path": "island-17-mermaid-bay.png",
+      "bytes": 3068433,
+      "sha256": "a80fb052b9be128dc973fd858c132b92328783cd35b6f39c98d989dd07257468"
+    },
+    {
+      "path": "sprite-mermaid-swim.png",
+      "bytes": 1845786,
+      "sha256": "b1e63d07cc9dba5619d24049a69a52ba89d00470eb8882c4dd210811900254c4"
+    },
+    {
+      "path": "sprite-penguin-walk.png",
+      "bytes": 1774480,
+      "sha256": "bd1a71b0bffa88087f8a0f6fdc0a600aab93ed038cf578c83aca52efd19e6000"
+    },
+    {
+      "path": "sprite-mermaid-poses-v2.png",
+      "bytes": 1713363,
+      "sha256": "f306ebb1f75e6fe75704d7fca1757c702e1f10e1fa53d07b935b8d38621477cc"
+    },
+    {
+      "path": "sprite-monkey-climb.png",
+      "bytes": 1875333,
+      "sha256": "243c617d34751ac35b1b13e639d06b256a7a5d21d7705a74dc9eeb748446ec96"
+    },
+    {
+      "path": "island-31-fruit-base.png",
+      "bytes": 2826286,
+      "sha256": "db0cc08d6265908d2ae4b7d0a479015dfefe310016a05be0e50b9556097cd183"
+    },
+    {
+      "path": "ui-tools-atlas.png",
+      "bytes": 1279551,
+      "sha256": "3dc4197febb97b4814997d74d9fe7c2bffa179874c9ef3f4a7e432f9d2cac91c"
+    },
+    {
+      "path": "ui-island-challenge-frame.png",
+      "bytes": 2129625,
+      "sha256": "2894a5152801a988edfbc15144012f00457a10ea044aa53a592cdbaa14e4c0e0"
+    },
+    {
+      "path": "ui-island-info.png",
+      "bytes": 1910042,
+      "sha256": "5157811c89e020aeb66177a11a03d84ecd212b36741ca04262c3b5c6c7698ad4"
+    },
+    {
+      "path": "ocean-challenge.png",
+      "bytes": 1893245,
+      "sha256": "5977a72eab6b0949664774a490a1d1abff472804e3a485a927cc1f483d07c9a8"
+    },
+    {
+      "path": "ui-challenge-board-clean.png",
+      "bytes": 1960126,
+      "sha256": "9aec22ee7c609df8a0f32e86d7de61446d157acef9a187ea44978f7231d02354"
+    },
+    {
+      "path": "ui-challenge-rocks.png",
+      "bytes": 1588650,
+      "sha256": "6ce10d7c36f26f8e60993ea48b01262257bdefc84ea421a79fbda766fec24ff4"
+    },
+    {
+      "path": "ui-challenge-barrel.png",
+      "bytes": 1664016,
+      "sha256": "031a3e2f718ca21873ed871a80e693aa5c37ce988c38837d8538266b5feadd0a"
+    },
+    {
+      "path": "ship-red-h0-c0-s0.png",
+      "bytes": 791186,
+      "sha256": "5969933ed740cc4f95376dac2d8afa40674e9f5befa522d21d23e444092e7bf5"
+    },
+    {
+      "path": "ship-red-h1-c0-s0.png",
+      "bytes": 1015514,
+      "sha256": "7ba83384963f15687f8ea04c8c6e83b48972a8d7a8f6df7d6b9be0ff7202db30"
+    },
+    {
+      "path": "ship-red-h1-c0-s1.png",
+      "bytes": 1215156,
+      "sha256": "f4ee98ee4c011afdc0697abffebb43e50a2635a049b099d8aa03f5d5fbc5a2f9"
+    },
+    {
+      "path": "ship-red-h1-c1-s0.png",
+      "bytes": 1012408,
+      "sha256": "4b039bc151e9c288b14cf290dfc53d6d1e80ec924848d46d538f3c3d32340c21"
+    },
+    {
+      "path": "ship-red-h1-c1-s1.png",
+      "bytes": 1338774,
+      "sha256": "fdc1bb04f33d57765362b442cddcbb689d6590f25e4e86bca4c2b84a88522503"
+    },
+    {
+      "path": "ship-red-h2-c0-s0.png",
+      "bytes": 1101453,
+      "sha256": "a647fbef4adf1e88c82211efc1b3f3cc30dc7f1e812fa8a53adfe9b3398fb784"
+    },
+    {
+      "path": "ship-red-h2-c0-s1.png",
+      "bytes": 1278230,
+      "sha256": "acff6402270562402456df3c5bd746101b6b7665b5801f2a53eeb927e5f30223"
+    },
+    {
+      "path": "ship-red-h2-c0-s2.png",
+      "bytes": 1400988,
+      "sha256": "a65842457960d8e7c835ecea3f4235489f5683e551650d718aa6a7f0aaa8ed6e"
+    },
+    {
+      "path": "ship-red-h2-c1-s0.png",
+      "bytes": 1093522,
+      "sha256": "7f7a7434cc68c4e0708279f714228c66495e5f2dd6e53fe7384cc9612d216320"
+    },
+    {
+      "path": "ship-red-h2-c1-s1.png",
+      "bytes": 1227834,
+      "sha256": "4dda989174aa49e7c54415b0d77d3aff2b1d549f01f93b0eaad4bf03292b73d5"
+    },
+    {
+      "path": "ship-red-h2-c1-s2.png",
+      "bytes": 1380903,
+      "sha256": "dae165b5b9d3419455b43fce4fd0dbcc0ef2ffccebc4af9a18b8013661c98858"
+    },
+    {
+      "path": "ship-red-h2-c2-s0.png",
+      "bytes": 1087420,
+      "sha256": "03a0b76e5db62667f8634d8b4c1b86814ac97991511ce7ee6b4191769c893615"
+    },
+    {
+      "path": "ship-red-h2-c2-s1.png",
+      "bytes": 1281972,
+      "sha256": "29b9418f611ba6dc6bf4865d7113d09ea1eb745700724ad6ae80fad5f275ce71"
+    },
+    {
+      "path": "ship-red-h2-c2-s2.png",
+      "bytes": 1558216,
+      "sha256": "63c44efe3eee056b91a11d8c2b00e3ef968fc813ff31e3cb87c88d866cf49ba9"
+    },
+    {
+      "path": "ship-red-h3-c0-s0.png",
+      "bytes": 1200339,
+      "sha256": "182a5e43649f4bfaf55c97ec5d52fb162b529df7fac8669bdd5b75196580c4cd"
+    },
+    {
+      "path": "ship-red-h3-c0-s1.png",
+      "bytes": 1332327,
+      "sha256": "512148a4b9418f29727819ce6e72ecbdadc43078984acdc10e21e4bff75739aa"
+    },
+    {
+      "path": "ship-red-h3-c0-s2.png",
+      "bytes": 1490078,
+      "sha256": "fd97d46e0e712fc269a89a8f8d4672042cd5608056293722a185ae74c5fe5050"
+    },
+    {
+      "path": "ship-red-h3-c0-s3.png",
+      "bytes": 1695147,
+      "sha256": "a5d667941be2c429c3e62479af39a44acfe803c68b221ca3ed34b6d6d8a2c246"
+    },
+    {
+      "path": "ship-red-h3-c1-s0.png",
+      "bytes": 1163898,
+      "sha256": "78325b3f77bbce8a26135a2b8ab2a316ad12ada29a56668e8cca13d847f417a6"
+    },
+    {
+      "path": "ship-red-h3-c1-s1.png",
+      "bytes": 1344673,
+      "sha256": "bf1d2d6c0c238ba480ff39410845a635b658adb083512b25b38a36e9dbb71d50"
+    },
+    {
+      "path": "ship-red-h3-c1-s2.png",
+      "bytes": 1491324,
+      "sha256": "53b05e6e1ee41e1e8f8fcbacdd98b761c985834091de237dbd1f77c51138931a"
+    },
+    {
+      "path": "ship-red-h3-c1-s3.png",
+      "bytes": 1665381,
+      "sha256": "066fee7abf67c4f20cd2aabde9d1405ac274beda9b60ba732595f534a8db2b71"
+    },
+    {
+      "path": "ship-red-h3-c2-s0.png",
+      "bytes": 1201904,
+      "sha256": "cb9656e2e908fb9166413eafa9786be11646039c56c43dc3d49a2f3d43976b8c"
+    },
+    {
+      "path": "ship-red-h3-c2-s1.png",
+      "bytes": 1367887,
+      "sha256": "71410fc34df7e734143e9a0bdff6e2e4a59e9ffc61500801bf152f20effdebb3"
+    },
+    {
+      "path": "ship-red-h3-c2-s2.png",
+      "bytes": 1504224,
+      "sha256": "e5d532e4839aba3b23ee894ceb79843249ace4eddc5193895f32caee5bf1fbc7"
+    },
+    {
+      "path": "ship-red-h3-c2-s3.png",
+      "bytes": 1686973,
+      "sha256": "1e53582d7cc09b75df0286ff186c4ca16e48e6e4c0d21c7806f2af616590f1ee"
+    },
+    {
+      "path": "ship-red-h3-c3-s0.png",
+      "bytes": 1120687,
+      "sha256": "8f4bc20d26a65a6fc77d594d74edc30a4ce0e69cabe11ff22b702e4708c5d403"
+    },
+    {
+      "path": "ship-red-h3-c3-s1.png",
+      "bytes": 1388471,
+      "sha256": "4a2ff2b17d39b88d0aef4642037c0af8c3c6133f5570643237054a82bd9292bf"
+    },
+    {
+      "path": "ship-red-h3-c3-s2.png",
+      "bytes": 1513634,
+      "sha256": "5c4b2e1d3b36634d29ef0eb59549d6036b8e6bd264d9bf3705244199914f1eb1"
+    },
+    {
+      "path": "ship-red-h3-c3-s3.png",
+      "bytes": 1734190,
+      "sha256": "ccb6486c10e133e67550808d4d816471957463d079cd11932e478629cb0f0c40"
+    },
+    {
+      "path": "ship-blue-h0-c0-s0.png",
+      "bytes": 804263,
+      "sha256": "9274b05334837102ae9f99b4daa4373e8a7720341a2bd4687389487c2ddf529f"
+    },
+    {
+      "path": "ship-blue-h1-c0-s0.png",
+      "bytes": 1007720,
+      "sha256": "b3d2ff718001396c364698f8251624d40b9612fbd07da46ee4fe74a524b1593a"
+    },
+    {
+      "path": "ship-blue-h1-c0-s1.png",
+      "bytes": 1225869,
+      "sha256": "c9c6e9b3f8936fb11df67e3286b28e15c5ac77251a84b77918ca41796f1e001b"
+    },
+    {
+      "path": "ship-blue-h1-c1-s0.png",
+      "bytes": 1053268,
+      "sha256": "e6bb808f126fec6c264da31352ed72b00bbbe1f865442977dd02c38cb48b5da7"
+    },
+    {
+      "path": "ship-blue-h1-c1-s1.png",
+      "bytes": 1319452,
+      "sha256": "4d222ae4001284922f4330ef6174a8706903b6375e025c65c1651f1e48f28c25"
+    },
+    {
+      "path": "ship-blue-h2-c0-s0.png",
+      "bytes": 1061975,
+      "sha256": "85469a72b096bd0457d997c0129ab3b7f0c28d8284670139b1f0aa1ec8e31ee5"
+    },
+    {
+      "path": "ship-blue-h2-c0-s1.png",
+      "bytes": 1315633,
+      "sha256": "1b6f399fa9cd7f8619daaea9643fbf37638e1ff428fc5785bf7638a9bbc7018c"
+    },
+    {
+      "path": "ship-blue-h2-c0-s2.png",
+      "bytes": 1509814,
+      "sha256": "64d1502e3bad782f758900dc86fac910cdaf90db3f6c8829f4432e1342c7bfed"
+    },
+    {
+      "path": "ship-blue-h2-c1-s0.png",
+      "bytes": 1115514,
+      "sha256": "e781c6349ed9cc0dfc111ef5d5ae1d47967bc6f6cccecaca3c7184a8ebc8062b"
+    },
+    {
+      "path": "ship-blue-h2-c1-s1.png",
+      "bytes": 1310961,
+      "sha256": "53d3a52ccf49c4f7a293a6767db372176e57a0b2395f47e1140d80b02c5063b5"
+    },
+    {
+      "path": "ship-blue-h2-c1-s2.png",
+      "bytes": 1490664,
+      "sha256": "74e67c7fa9041d1514170a44b5756bdceb9d47c9ef01c16ef18db9037e3724e5"
+    },
+    {
+      "path": "ship-blue-h2-c2-s0.png",
+      "bytes": 1120382,
+      "sha256": "d873a35f1105717f2e1247eb6b23e96dbfa29ebd6e15f2d1ff9818c06ecbdf12"
+    },
+    {
+      "path": "ship-blue-h2-c2-s1.png",
+      "bytes": 1341905,
+      "sha256": "1e564bbfbf9b42f0bfc57210681d409f1f4000aa68b3f2ee4a763364527bb215"
+    },
+    {
+      "path": "ship-blue-h2-c2-s2.png",
+      "bytes": 1512619,
+      "sha256": "d0f21f9c34253c14745fe60bc36aace1b317359a0e628911e0b6b23cddbace0c"
+    },
+    {
+      "path": "ship-blue-h3-c0-s0.png",
+      "bytes": 1136965,
+      "sha256": "8a4e00114737d91180ce2544d1a597d4e2d8b5c52192bf05e6cb2719da066d88"
+    },
+    {
+      "path": "ship-blue-h3-c0-s1.png",
+      "bytes": 1364218,
+      "sha256": "3bfa10258101b69bf8a866a520ef84151d8e683ef1b5c60fc8b5d7526f4117b4"
+    },
+    {
+      "path": "ship-blue-h3-c0-s2.png",
+      "bytes": 1525725,
+      "sha256": "510f18f67ebcdcfd397fa79b50f0407ec3249d6b491d17e1782b011ebe154b37"
+    },
+    {
+      "path": "ship-blue-h3-c0-s3.png",
+      "bytes": 1701321,
+      "sha256": "a631cfae473e29c9b671bb4f42d414a58b2004e372e266e4ec64bc8349b9dba5"
+    },
+    {
+      "path": "ship-blue-h3-c1-s0.png",
+      "bytes": 1158431,
+      "sha256": "54319b1357052d8bdc8e61852028bca5a1dc9afc2a3bb1c98e253480b641bbc6"
+    },
+    {
+      "path": "ship-blue-h3-c1-s1.png",
+      "bytes": 1370248,
+      "sha256": "24649c6ff2c04c13f077e1a513ee18991e7e0188ff4c872bbb271eb1be163053"
+    },
+    {
+      "path": "ship-blue-h3-c1-s2.png",
+      "bytes": 1503946,
+      "sha256": "c7e1bbf39b8600e7b8575516f5293195a71fd4a33974162da2baff972019c4e9"
+    },
+    {
+      "path": "ship-blue-h3-c1-s3.png",
+      "bytes": 1690301,
+      "sha256": "8da71e4a383b1c8c9cd290ba153bdb5e3267775d3d36865b6ee7b27fad9f1377"
+    },
+    {
+      "path": "ship-blue-h3-c2-s0.png",
+      "bytes": 1168137,
+      "sha256": "082b7a7ff4897f80517cf5ded45defe6fcc23606bbe8a0f3ac583e52eced1075"
+    },
+    {
+      "path": "ship-blue-h3-c2-s1.png",
+      "bytes": 1362324,
+      "sha256": "36edf60f2e22dee98e9fb3093162e73921bedd23e399973fdc1de92ef17871ff"
+    },
+    {
+      "path": "ship-blue-h3-c2-s2.png",
+      "bytes": 1507016,
+      "sha256": "69290a4a46100c25e56d15f6ea7df564f66c558dd4012ca0ffbcd420ac5f4f3e"
+    },
+    {
+      "path": "ship-blue-h3-c2-s3.png",
+      "bytes": 1705410,
+      "sha256": "b289f504bccd58b55a69bb48548fd9ec1e5f0f2a6d4e3f0cffe04d8fd2872dad"
+    },
+    {
+      "path": "ship-blue-h3-c3-s0.png",
+      "bytes": 1162710,
+      "sha256": "9db37531fed0656e0276e0a389b8ec7938742156ec79e58a773f5bc7a1407f13"
+    },
+    {
+      "path": "ship-blue-h3-c3-s1.png",
+      "bytes": 1374536,
+      "sha256": "c972c8ce4ecc08778d41757873ee194779553fa05c6079f0779140d319beee49"
+    },
+    {
+      "path": "ship-blue-h3-c3-s2.png",
+      "bytes": 1499860,
+      "sha256": "493438a68a62e237b8fb207a83f8cf4268d3e0b4e67747d08e65fafdc8e145f9"
+    },
+    {
+      "path": "ship-blue-h3-c3-s3.png",
+      "bytes": 1720773,
+      "sha256": "50c23208dd1eeca85040f96a9390e7e7d0af2ade4140c56143b7d3def6081549"
+    },
+    {
+      "path": "base-blue-dover.png",
+      "bytes": 2497997,
+      "sha256": "17c45b03141e0c6bb41122a8060e166617e8b1ac059bba649cd7a5e875c2429c"
+    },
+    {
+      "path": "base-red-bristol.png",
+      "bytes": 2847256,
+      "sha256": "a05bfdd8aac1fa61ff5c11621f4b1e8623361fc3391717848cd422d7f7b140df"
+    },
+    {
+      "path": "harbor-blue-dover.png",
+      "bytes": 2595582,
+      "sha256": "bb0e9fae785df02aa6a2c56935d271461525bf08a10dfd57d6cbaff16592a84b"
+    },
+    {
+      "path": "harbor-red-bristol.png",
+      "bytes": 2774446,
+      "sha256": "c20c680552080dfcebfcf9132468bb03bb796691d4c2b786824bdf66dabaffea"
+    },
+    {
+      "path": "ui-upgrade-icons.png",
+      "bytes": 1603802,
+      "sha256": "4fb2b372106823d323c38299633d6547a4074eb7e387328af56b285ff6a0cf8b"
+    },
+    {
+      "path": "ui-upgrade-tab.png",
+      "bytes": 1379831,
+      "sha256": "854ed1bebcb3f4c070f4acd816d27d1713642c3d4f27467635c0dc418119b6f2"
+    },
+    {
+      "path": "ui-upgrade-hull.png",
+      "bytes": 1378650,
+      "sha256": "9ac8a1cb65c8bcc89669fc6a2f5f80dc4606cc6643776305dae822d3c15d61d8"
+    },
+    {
+      "path": "ui-upgrade-provisions.png",
+      "bytes": 2386488,
+      "sha256": "8dcc42a94ce8d7c2fe25c70b74dde68edc857cd7b427ea3d4e3f051252e4f5c2"
+    },
+    {
+      "path": "merchant-red-bristol.png",
+      "bytes": 2689682,
+      "sha256": "901d788a0f86e5ecb99fe36f813e8ed72ec825460639f2abd1b8234495f3ecaf"
+    },
+    {
+      "path": "merchant-blue-dover.png",
+      "bytes": 2667858,
+      "sha256": "147c6326a55986e41d7408b3eafdf6b181ab2ad057721c9bd49244b53aa51597"
+    },
+    {
+      "path": "ui-tool-merchant.png",
+      "bytes": 1745061,
+      "sha256": "a2b8a423be6aab73ac182e7e9cd67e6054dae8368a7458a93a2b2251622943b8"
+    },
+    {
+      "path": "product-01.png",
+      "bytes": 1935459,
+      "sha256": "98c7f2e5d418924b6d8d35cdfae89650f733f8e0b988da9ef2ecc5f61df2eb60"
+    },
+    {
+      "path": "product-05.png",
+      "bytes": 1778978,
+      "sha256": "08494d379e3a251d9fba83fe4d267714d477b158472b98413c8f0b60f4e870bb"
+    },
+    {
+      "path": "product-06.png",
+      "bytes": 1802592,
+      "sha256": "79ded0798ee1093399600b29e877bcc2a48cd7f3aa985fbfdd2f7f7cb801454b"
+    },
+    {
+      "path": "product-07.png",
+      "bytes": 1351873,
+      "sha256": "192ad30e88d47e0331261916096da354adf1215bdf01152365587c5cc299aa57"
+    },
+    {
+      "path": "product-09.png",
+      "bytes": 1267167,
+      "sha256": "834bcc7b2417b6f2787767cafa15a831f7e115978822b309095e285bf8e6c568"
+    },
+    {
+      "path": "product-12.png",
+      "bytes": 1731558,
+      "sha256": "60d1fb3e5ad0034188ebd221bd70a92ad7158c53e3043b4a87a91366de4a601a"
+    },
+    {
+      "path": "product-13.png",
+      "bytes": 1543220,
+      "sha256": "3e71139b13b5dc34cb28dd4bbf3f011cc7c18194ff86c1863ee38269500c5774"
+    },
+    {
+      "path": "product-14.png",
+      "bytes": 1449489,
+      "sha256": "7af7861186ad796981315903c2a3f1dc9a2e193179fe40965df24ae6c9170ceb"
+    },
+    {
+      "path": "product-15.png",
+      "bytes": 1881214,
+      "sha256": "aadeb8eb87ec50f472c8542d88d59cb3907ab8431d47da8a1264f68d54c1b02d"
+    },
+    {
+      "path": "product-16.png",
+      "bytes": 2120157,
+      "sha256": "b067f999237ba2fc347264c713e863c6ae0731aa4ab80cfad697f778039615f3"
+    },
+    {
+      "path": "product-17.png",
+      "bytes": 1654591,
+      "sha256": "7431b927aafc38361361a3080a5a6318b2e76d841e218d1d1abec68515eea241"
+    },
+    {
+      "path": "product-18.png",
+      "bytes": 2105503,
+      "sha256": "20c9343e5edc27273637b7523fe9fbfc889737772982f5961380586222c3a46c"
+    },
+    {
+      "path": "product-11.png",
+      "bytes": 2316270,
+      "sha256": "c32d7c6e7d0136ab07e2ba5889bba6e624135b6c6878df6ded5cac857f996fc7"
+    },
+    {
+      "path": "product-19.png",
+      "bytes": 2180538,
+      "sha256": "7bdaa30531e42477fb382bf40690502d1fda55f9e7fe59b74c824c0625f30ba2"
+    },
+    {
+      "path": "product-20.png",
+      "bytes": 1915427,
+      "sha256": "6d51e3494fc8cb5440eb3c720293572861c0f0dfb9f43b482dbd2e6e27a9f255"
+    },
+    {
+      "path": "product-24.png",
+      "bytes": 1644664,
+      "sha256": "beb2c807c6d4a336bfaeeacd507ceb7ecbc985804366fe75e7b1eac7048a6496"
+    },
+    {
+      "path": "product-27.png",
+      "bytes": 1866507,
+      "sha256": "f676f5a2460fa27273373b7714078b3a1ea1f228549799477b815fbbe10020e5"
+    },
+    {
+      "path": "product-29.png",
+      "bytes": 1885083,
+      "sha256": "8cd6fa7bac20b6e5e2cde7889493af7a22f8e2a115a4b090851669f5561b1e1a"
+    },
+    {
+      "path": "product-28.png",
+      "bytes": 1384896,
+      "sha256": "dbc389de36e84f088063849d431082721208a55044e8dd8da45cd14153caa718"
+    },
+    {
+      "path": "product-30.png",
+      "bytes": 1813640,
+      "sha256": "4dd9109c8ed28ea3602016c979612419c60afa488e19ba2d70e3c73018144a68"
+    },
+    {
+      "path": "product-31.png",
+      "bytes": 2053913,
+      "sha256": "54a091e77e14873b8416b7a2debb424da3db0579f6069b41fba83fa2c1da8b8d"
+    },
+    {
+      "path": "product-32.png",
+      "bytes": 979700,
+      "sha256": "a8b2e9a81e81d352f496d7133a6da43de6616bd900844e9a3f802c459060ee66"
+    },
+    {
+      "path": "product-33.png",
+      "bytes": 1628287,
+      "sha256": "1103c3a23b35aca4b11b0a29770a4ea17d24fbcf2d910f4ec6a971f1d16985b7"
+    },
+    {
+      "path": "product-34.png",
+      "bytes": 1318932,
+      "sha256": "812c58bc533384158f31f2c4b42adb1ac97e46acf72e1b7e4e3902e0f1102f57"
+    },
+    {
+      "path": "product-35.png",
+      "bytes": 1627499,
+      "sha256": "5ea4b8cbe747fa81ebb6b77cdab94d243cf94a16ddc0717107911d2303d563ab"
+    },
+    {
+      "path": "Nunito.ttf",
+      "bytes": 276932,
+      "sha256": "bb55a5ca5c2042335b3991af27c4d0705d0ef41cac6164ac737fd8f2a1e85207"
+    },
+    {
+      "path": "OFL.txt",
+      "bytes": 4385,
+      "sha256": "580df76c95a1ec5ab878ceb25bb3d85c6a076804e9c970c8c6972aea775fdf65"
+    }
+  ]
+}
