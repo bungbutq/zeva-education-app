@@ -546,7 +546,7 @@
           const s=sailingGame.state;
           if(game===sailingGame&&s.phase==='REWARD'&&s.reward?.type==='product'&&TRADE.product(s.productReward?.id)?.category==='harvest'&&!s.productReward.full){
             sounds.stop('sail');
-            await sounds.play('chest',{wait:true});
+            sounds.play('chest');
           }
         }finally{if(game===sailingGame){busy=false;render();}}
       }

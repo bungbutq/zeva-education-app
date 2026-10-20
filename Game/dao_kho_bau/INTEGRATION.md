@@ -180,3 +180,5 @@ Bổ sung cục bộ 20/10/2026 — đã áp dụng mặt nước hai cảng:
 - Bảng Chiến thuyền chỉ giữ ảnh và 9 chỉ số, bỏ sản vật/chiến lợi phẩm/cảnh báo bên dưới, bỏ cuộn và tăng lề phải. Tốc độ hiển thị giá trị thực có tính đói.
 
 - Bổ sung lại nút Luật hải trình dưới tên đội theo yêu cầu mới; nâng cụm ảnh tàu, cân các hàng chỉ số. Luật một cột đánh số La Mã, tiêu đề giữa, lề cân và cuộn không hiện thanh. Khung riêng bỏ bốn họa tiết trong giấy. Hai lựa chọn cảng dùng ảnh PNG trong suốt được tạo mới, xuất bản bằng commit ghim trong assets/hosting.json.
+
+- Cập nhật theo yêu cầu mới: bảng khai thác hiện ngay khi tàu đến, đồng thời phát tiếng mở rương; không chờ ended. Nâng cấp vẫn giữ thời điểm đổi ảnh sau âm thanh như trước.

@@ -49,9 +49,8 @@ const root=path.resolve(__dirname,'..');
    __render();document.querySelector('#islands button[data-id="'+i.id+'"]').click();
   });
   await f.waitForFunction(()=>__plays.includes('mở rương.mp3'));
-  assert.equal(await f.locator('#action-layer').isVisible(),false,'harvest result waits for audio');
-  await f.evaluate(()=>__media.find(a=>decodeURIComponent(a.src).endsWith('mở rương.mp3')).events.ended());
   await f.locator('.harvest-status').waitFor({state:'visible'});
+  assert.equal(await f.evaluate(()=>__media.find(a=>decodeURIComponent(a.src).endsWith('mở rương.mp3')).paused),false,'harvest panel is visible while sound is still playing, without an ended event');
   assert.match(await f.locator('#action-title').innerText(),/Đã khai thác/);
   assert.deepEqual(await f.evaluate(()=>({team:__game.actor.id,fresh:__game.state.productReward.dailyFood,stored:__game.state.productReward.quantity})),{team:0,fresh:20,stored:30},'red hull Lv1 eats 20 of its 50 fresh food before storing 30');
   for(const [product,edible] of [[28,true],[24,false]]){
