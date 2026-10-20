@@ -54,11 +54,11 @@ test('Whale is common harvesting, has no special lottery or stat bonus and yield
  assert.equal(h.actor.cargo[24],25);assert.equal(h.actor.hp,2);assert.equal(h.actor.attack,5);assert.equal(h.actor.gold,100);
  assert.equal(h.state.phase,'REWARD');assert.equal(h.canExplore(),false);
 });
-test('landing at either base always opens the yard before any co-located enemy encounter',()=>{
- for(const base of [1,24]){const g=launch(make()),near=g.map.edges.find(e=>e.includes(base)).find(id=>id!==base);g.actor.position=near;g.opponent.position=base;g.actor.speed=30;g.state.distanceLeft=30;assert.ok(g.move(base));assert.equal(g.state.phase,'PORT');assert.equal(g.state.active,0);const moves=g.state.distanceLeft;g.leavePort();assert.equal(g.state.phase,'MAP');assert.equal(g.state.active,1);}
+test('landing at own base always opens the yard before any co-located enemy encounter',()=>{
+ for(const base of [1,24]){const first=base===1?1:0,g=launch(make(first)),near=g.map.edges.find(e=>e.includes(base)).find(id=>id!==base);g.actor.position=near;g.opponent.position=base;g.actor.speed=30;g.state.distanceLeft=30;assert.ok(g.move(base));assert.equal(g.state.phase,'PORT');assert.equal(g.state.active,first);g.leavePort();assert.equal(g.state.phase,'MAP');assert.equal(g.state.active,1-first);}
 });
 test('upgrades while docked cannot add free distance mid-day; the new speed applies next day',()=>{
- const g=launch(make());g.actor.position=1;g.opponent.position=2;g.actor.gold=4800;g.state.phase='PORT';g.state.distanceLeft=10;g.upgrade('hull');g.upgrade('sail');g.leavePort();assert.equal(g.state.phase,'MAP');assert.equal(g.state.distanceLeft,10);g.skipRemaining();
+ const g=launch(make());g.actor.position=24;g.opponent.position=2;g.actor.gold=4800;g.state.phase='PORT';g.state.distanceLeft=10;g.upgrade('hull');g.upgrade('sail');g.leavePort();assert.equal(g.state.phase,'MAP');assert.equal(g.state.distanceLeft,10);g.skipRemaining();
  g.skipRemaining();assert.equal(g.actor.id,0);assert.equal(g.state.distanceLeft,20);
 });
 test('sail level three provides 40 nautical miles per day at launch and can end remaining movement early',()=>{

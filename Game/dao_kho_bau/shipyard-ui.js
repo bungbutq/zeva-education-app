@@ -80,9 +80,6 @@
       $('port-ship').src='assets/'+Y.filename(t.id,u);
       $('port-ship').alt=t.name+': Thân tàu Lv'+u.hull+', '+Y.cannonCount(u.cannon)+' khẩu đại bác trong '+Y.gunportCount(u.hull)+' cửa, '+Y.sailDescriptions[u.sail];
       $('port-ship').dataset.portScale=String((.78+u.hull*.0733)*1.5);
-      // Small starter sails leave headroom in the square artwork; large sails
-      // fill it. Let the harbor fit only the visible ship below the team HUD.
-      $('port-ship').dataset.headroom=String(u.sail?.02:[.36,.22,.20,.12][u.hull]);
       water.setActive(!shop,base.color);
       const error=game.state.notice.startsWith('Chưa tải được ảnh tàu.');
       $('port-notice').textContent=error?game.state.notice:'';$('port-notice').hidden=!error;

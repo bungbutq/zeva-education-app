@@ -20,8 +20,8 @@ test('attacking again without a repair can sink the ship and keeps every hit on 
  const b=attack(g,i);assert.equal(g.actor.hp,0);assert.equal(i.defender.hp,470);assert.equal(b.rounds.length,2);assert.equal(g.state.phase,'RESULT');assert.equal(g.state.winner,1);assert.deepEqual(g.actor.loot,{});
 });
 
-test('either port resets only the repaired ship; island damage survives repairs, turns and repeated visits',()=>{
- for(const base of [1,24])for(const team of [0,1]){
+test('own port resets only the repaired ship; island damage survives repairs, turns and repeated visits',()=>{
+ for(const team of [0,1])for(const base of [team?1:24]){
   const g=make(team),t=g.actor,i=g.state.islands.find(i=>i.category==='combat');g.opponent.monsterAttacksSinceRepair=2;
   attack(g,i);g.continueReward();g.skipRemaining();assert.equal(g.actor.id,team);assert.equal(i.defender.hp,480);assert.equal(t.monsterAttacksSinceRepair,1);
   dock(g,base);assert.equal(t.hp,t.maxHp);assert.equal(t.monsterAttacksSinceRepair,0);assert.equal(g.opponent.monsterAttacksSinceRepair,2);assert.equal(i.defender.hp,480);

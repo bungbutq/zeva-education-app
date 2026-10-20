@@ -66,7 +66,7 @@
       return this.state.markets[baseId]||this.refreshMarket(baseId);
     }
     marketPrices(){
-      if(this.state.phase!=='PORT'||!this.base)return null;
+      if(this.state.phase!=='PORT'||!this.base||this.base.team!==this.actor.id)return null;
       return this.viewMarketPrices(this.base.id);
     }
     sellProduct(id,quantity=1){
@@ -108,7 +108,7 @@
 
     upgradeStatus(kind){
       const t=this.actor,level=t.upgrades[kind];
-      if(!YARD.UPGRADES.some(u=>u.id===kind)||this.state.phase!=='PORT'||!this.base)return {ok:false,reason:'Chỉ nâng cấp khi đang ở bến cảng.'};
+      if(!YARD.UPGRADES.some(u=>u.id===kind)||this.state.phase!=='PORT'||!this.base||this.base.team!==this.actor.id)return {ok:false,reason:'Chỉ nâng cấp khi đang ở bến cảng.'};
       if(level>=YARD.MAX_LEVEL)return {ok:false,reason:'Đã đạt cấp tối đa.'};
       if(kind!=='hull'&&level+1>t.upgrades.hull)return {ok:false,reason:'Cần Thân tàu Lv'+(level+1)};
       const cost=YARD.upgradeCost(level);
@@ -162,7 +162,7 @@
     }
     settleDay(){
       const s=this.state,t=this.actor;this.spendDay();t.travelPermit=null;
-      if(this.base){t.voyageDays=0;t.provisionCredit=0;t.dayFood=0;t.cargoMealRation=0;this.setHungry(false);return;}
+      if(this.base&&this.base.team===t.id){t.voyageDays=0;t.provisionCredit=0;t.dayFood=0;t.cargoMealRation=0;this.setHungry(false);return;}
       const supply=TRADE.daySupply(t),remaining=TRADE.remainingDays(t)-supply.reserveUsed;
       t.voyageDays++;this.setReserveDays(remaining);t.dayFood=0;
       this.setHungry(supply.shortfall>0);
@@ -221,6 +221,7 @@
       t.travelPermit=null;destination.explored=true;destination.owner??=t.id;
       this.note(this.actor.name+' cập bến điểm '+id+'.');
       if(this.base&&this.base.team!==t.id&&s.portChoice==='raid'){s.phase='PORT_BATTLE';s.distanceLeft=0;s.purpose='raid';s.notice='Cướp bóc căn cứ · Sống sót qua 10 loạt pháo để cướp 50% vàng.';}
+      else if(this.base&&this.base.team!==t.id){s.notice='Đi qua căn cứ đối phương · Không cập cảng, sửa tàu hoặc tiếp tế.';this.finishAction();}
       else if(this.base){this.actor.voyageDays=0;this.actor.provisionCredit=0;this.actor.dayFood=0;this.actor.cargoMealRation=0;this.actor.hp=this.actor.maxHp;this.actor.monsterAttacksSinceRepair=0;this.setHungry(false);this.state.phase='PORT';this.state.notice='Đã sửa tàu, tiếp tế đầy và đặt lại lần tấn công quái vật tại '+this.base.name+'.';}
       else if(this.enemyHere){result.duel=true;this.beginDuel();}
       else if(this.island.kind==='kraken'&&s.kraken.hp>0)this.state.phase='ENCOUNTER';

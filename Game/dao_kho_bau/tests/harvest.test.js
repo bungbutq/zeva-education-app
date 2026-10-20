@@ -103,9 +103,9 @@ test('rare food yields 25 units at hull Lv0 and combines fractional reserve with
  finish(g);assert.equal(t.hp,30);assert.equal(T.remainingDays(t),0);assert.deepEqual(t.cargo,{16:10});
 });
 
-test('returning to either port clears food credits and refills reserve even after a long voyage',()=>{
+test('returning to own port clears food credits and refills reserve even after a long voyage',()=>{
  for(const base of [1,24]){
-  const g=make(),t=g.actor;t.position=g.map.edges.find(e=>e.includes(base)).find(id=>id!==base);t.voyageDays=20;t.provisionCredit=18;t.hp=12;t.cargo={6:7};g.state.distanceLeft=30;
+  const g=make();g.state.active=base===1?1:0;const t=g.actor;t.position=g.map.edges.find(e=>e.includes(base)).find(id=>id!==base);t.voyageDays=20;t.provisionCredit=18;t.hp=12;t.cargo={6:7};g.state.distanceLeft=30;
   assert.equal(T.remainingDays(t),1);g.move(base);assert.equal(g.state.phase,'PORT');assert.equal(t.provisionCredit,0);assert.equal(t.dayFood,0);assert.equal(t.voyageDays,0);assert.equal(T.remainingDays(t),3);assert.equal(t.hp,t.maxHp);assert.deepEqual(t.cargo,{6:7});
   t.gold=200;assert.equal(g.upgrade('hull'),true);assert.equal(g.upgrade('provisions'),true);assert.equal(T.remainingDays(t),6);
  }

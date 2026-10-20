@@ -62,8 +62,11 @@
     if(location.protocol!=='file:')backdrop.crossOrigin='anonymous';
     let active=false,color='red',frame=0,last=0,scale=1,anchor={x:520,y:680},ready=false;
     function fitShip(){
-      const requested=Number(ship.dataset.portScale)||1,headroom=Number(ship.dataset.headroom)||0;
-      ship.style.scale=String(Math.min(requested,(anchor.y+55-205)/(470*(1-headroom))));
+      const requested=Number(ship.dataset.portScale)||1;
+      // Fit the largest hull with full sails once, then preserve hull-level ratios.
+      // Per-sail headroom used to shrink the entire hull when sails were upgraded.
+      const harborFit=Math.min(1,Math.max(0,anchor.y+55-205)/(470*1.5));
+      ship.style.scale=String(requested*harborFit);
     }
     function fit(){
       ready=false;if(!active||!backdrop.complete||!backdrop.naturalWidth)return;

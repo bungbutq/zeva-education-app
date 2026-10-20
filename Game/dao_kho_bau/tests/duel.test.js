@@ -18,7 +18,7 @@ test('different routes do not collide and a ship can leave a previous meeting po
  const h=make();h.actor.transit={from:leg[0],to:leg[1],travelled:15};h.opponent.position=leg[0];h.opponent.transit={from:leg[0],to:leg[1],travelled:15};h.state.distanceLeft=5;h.move(leg[1]);assert.equal(h.state.phase,'TRAVEL');assert.equal(h.actor.transit.travelled,20);
 });
 test('both starting islands are safe, even when both ships are present; waters outside remain combat zones',()=>{
- for(const base of [1,24]){const g=make();g.actor.position=E.EDGES.find(e=>e.includes(base)).find(id=>id!==base);g.opponent.position=base;g.move(base);assert.equal(g.state.phase,'PORT');assert.equal(g.enemyHere,false);assert.equal(g.fight(),false);assert.equal(g.opponent.hp,200);}
+ for(const base of [1,24]){const g=make(base===1?1:0);g.actor.position=E.EDGES.find(e=>e.includes(base)).find(id=>id!==base);g.opponent.position=base;g.move(base);assert.equal(g.state.phase,'PORT');assert.equal(g.enemyHere,false);assert.equal(g.fight(),false);assert.equal(g.opponent.hp,200);}
  const g=make(),to=E.EDGES.find(e=>e.includes(1)&&!e.includes(24)).find(id=>id!==1);g.actor.position=1;g.opponent.position=to;g.opponent.transit={from:to,to:1,travelled:10};g.move(to);assert.equal(g.state.phase,'DUEL_BATTLE');
 });
 test('a sunk ship never fires back and no further volleys occur after either ship sinks',()=>{

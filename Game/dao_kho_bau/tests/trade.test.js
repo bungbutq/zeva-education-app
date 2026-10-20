@@ -78,7 +78,7 @@ test('wrong gate answer, opening the yard and waiting at home cannot refresh pri
 
 test('visiting or leaving the other base keeps its merchant prices unchanged',()=>{
  let random=0;const g=make(()=>random);g.marketPrices();g.leavePort();const bluePrices=g.marketPrices();g.leavePort();random=.999;
- g.actor.speed=30;g.state.distanceLeft=30;g.move(1);assert.equal(g.state.phase,'PORT');assert.equal(g.marketPrices(),bluePrices);g.encounter('leave');
+ g.actor.speed=30;g.state.distanceLeft=30;g.move(1);assert.equal(g.state.phase,'MAP');assert.equal(g.marketPrices(),null);assert.equal(g.state.markets[1],bluePrices);
  // Resolve only port/encounter routing; ship 0 is still at blue base and leaves it.
  g.state.phase='MAP';g.state.active=0;g.state.distanceLeft=30;g.state.teams[1].position=24;g.move(24);assert.deepEqual(g.state.markets[1],bluePrices);
 });

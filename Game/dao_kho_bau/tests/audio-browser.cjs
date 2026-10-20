@@ -140,6 +140,25 @@ const root=path.resolve(__dirname,'..');
    await f.locator('#info-layer .close').click();
   }
   await f.evaluate(()=>{__game.win(0,'Audio QA');__render();__render();});
+  await f.locator('.result-scene').evaluate(img=>img.decode());
+  assert.equal(await f.locator('#loser-captain').isVisible(),false);
+  assert.equal(await f.locator('#winner-captain').isVisible(),false);
+  assert.match(await f.locator('.result-scene').getAttribute('src'),/result-victory-red/);
+  assert.equal(await f.locator('.result-title').isVisible(),false);
+  assert.equal(await f.locator('#review').innerText(),'Đội Đỏ thắng');
+  assert.equal(await f.locator('#review').evaluate(n=>n.classList.contains('winner-red')),true);
+  assert.equal(await f.locator('#team-1').evaluate(n=>getComputedStyle(n).filter),'grayscale(1)');
+  assert.equal(await f.locator('#team-0').evaluate(n=>n.classList.contains('defeated')),false);
+  if(process.env.TREASURE_RESULT_QA){fs.mkdirSync(process.env.TREASURE_RESULT_QA,{recursive:true});await page.screenshot({path:path.join(process.env.TREASURE_RESULT_QA,'winner-0.png')});}
+  for(const winner of [1,null]){
+   await f.evaluate(winner=>{__game.state.winner=winner;__render();},winner);
+   assert.equal(await f.locator('.team-panel.defeated').count(),winner===null?0:1);
+   await f.locator('.result-scene').evaluate(img=>img.decode());
+   assert.match(await f.locator('.result-scene').getAttribute('src'),winner===1?/result-victory-blue/:/result-backdrop/);
+   assert.equal(await f.locator('#review').innerText(),winner===1?'Đội Xanh thắng':'Hai đội hòa');
+   if(process.env.TREASURE_RESULT_QA&&winner!==null){fs.mkdirSync(process.env.TREASURE_RESULT_QA,{recursive:true});await page.screenshot({path:path.join(process.env.TREASURE_RESULT_QA,'winner-'+winner+'.png')});}
+   if(winner===1)assert.equal(await f.locator('#team-0').evaluate(n=>getComputedStyle(n).filter),'grayscale(1)');
+  }
   assert.equal(await f.evaluate(()=>__plays.filter(n=>n==='chiến thắng.mp3').length),1);
   assert.equal(await f.evaluate(()=>__media.find(a=>decodeURIComponent(a.src).endsWith('nhạc nền.ogg')).paused),true);
   // Decode every actual supplied file in the sandbox, rather than only checking extension.

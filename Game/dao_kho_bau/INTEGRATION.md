@@ -182,3 +182,8 @@ Bổ sung cục bộ 20/10/2026 — đã áp dụng mặt nước hai cảng:
 - Bổ sung lại nút Luật hải trình dưới tên đội theo yêu cầu mới; nâng cụm ảnh tàu, cân các hàng chỉ số. Luật một cột đánh số La Mã, tiêu đề giữa, lề cân và cuộn không hiện thanh. Khung riêng bỏ bốn họa tiết trong giấy. Hai lựa chọn cảng dùng ảnh PNG trong suốt được tạo mới, xuất bản bằng commit ghim trong assets/hosting.json.
 
 - Cập nhật theo yêu cầu mới: bảng khai thác hiện ngay khi tàu đến, đồng thời phát tiếng mở rương; không chờ ended. Nâng cấp vẫn giữ thời điểm đổi ảnh sau âm thanh như trước.
+
+- Sửa tỷ lệ tàu tại cảng: lấy giới hạn chung của thân Lv3/buồm đầy, nhân tỷ lệ theo cấp thân; không đổi tỷ lệ khi nâng buồm hoặc pháo. PASS 60 biến thể x 3 viewport.
+- Căn cứ địch: Đi qua chỉ dùng quãng đường, tiếp tục nếu còn hải lí; không mở xưởng/cửa hàng, không sửa tàu hoặc tiếp tế. Engine chặn mua bán/nâng cấp tại cảng địch, kể cả phase PORT. Chỉ cảng nhà được tiếp tế và xóa đói. PASS 128 unit tests.
+
+- Kết quả: bỏ bảng tiêu đề chiến thắng, xám toàn bộ HUD đội thua, nút thống kê đổi tên/màu theo đội thắng; hòa giữ cả hai HUD có màu. Hai ảnh nền hoàn chỉnh thể hiện thuyền trưởng đội thắng mở rương, tàu nhà neo đậu và tàu địch bốc cháy/chìm; ẩn cả hai sprite thuyền trưởng cũ. Ảnh tải sẵn và ghim commit qua hosting.json.

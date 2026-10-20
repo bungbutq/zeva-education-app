@@ -22,13 +22,13 @@ test('hunger halves every sail tier once, governs next-day travel and clears aft
   t.cargo={6:100};g.skipRemaining();assert.equal(t.hungry,false);assert.equal(t.speed,Y.speed(level));
  }
 });
-test('fresh complete harvest and arrival at either port clear hunger without granting extra current-day distance',()=>{
+test('fresh complete harvest and arrival at own port clear hunger without granting extra current-day distance',()=>{
  for(const first of [0,1]){
   const g=make(first),t=g.actor;t.upgrades.sail=3;g.setHungry(true);g.move(t.position);
   assert.equal(t.hungry,false);assert.equal(t.speed,40);assert.equal(g.state.distanceLeft,0);
  }
  for(const base of [1,24]){
-  const g=make(),t=g.actor;t.upgrades.sail=2;g.setHungry(true);t.position=g.map.edges.find(e=>e.includes(base)).find(id=>id!==base);g.state.distanceLeft=30;g.move(base);
+  const g=make(base===1?1:0),t=g.actor;t.upgrades.sail=2;g.setHungry(true);t.position=g.map.edges.find(e=>e.includes(base)).find(id=>id!==base);g.state.distanceLeft=30;g.move(base);
   assert.equal(g.state.phase,'PORT');assert.equal(t.hungry,false);assert.equal(t.speed,30);assert.equal(t.hp,t.maxHp);assert.equal(g.state.distanceLeft,0);
  }
 });

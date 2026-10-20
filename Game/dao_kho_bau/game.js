@@ -313,6 +313,7 @@
     const s=game.state;
     for(const team of s.teams){
       const panel=$('team-'+team.id);panel.classList.toggle('active',s.active===team.id&&s.phase!=='RESULT');
+      panel.classList.toggle('defeated',s.phase==='RESULT'&&s.winner!==null&&s.winner!==team.id);
       panel.querySelector('.team-name').textContent=team.name;
       panel.querySelector('.score').textContent=team.gold;panel.querySelector('.score').title=team.gold+' vàng';panel.querySelector('.hud-wallet').setAttribute('aria-label',team.gold+' vàng');
       panel.querySelector('.hud-coin').innerHTML=window.TreasureShipyardUI.icon('gold','hud-gold-icon');
@@ -358,7 +359,7 @@
       $('action-title').textContent='Chọn hướng hành động';
       body.innerHTML='<p class="port-choice-intro">Thuyền trưởng, chúng ta sẽ làm gì tại căn cứ này?</p><div class="port-choice-options"></div><p class="port-defense">Pháo cảng: <b>10 sát thương / loạt</b> · Không thể nâng cấp'+(defending?'<br>Tàu đối phương đang ở cảng và sẽ cùng bắn trả.':'')+'</p>';
       const options=body.querySelector('.port-choice-options');
-      for(const [choice,title,detail] of [['pass','Đi qua','Ghé cảng, sửa tàu và tiếp tế. Không giao chiến.'],['raid','Cướp bóc','Sống sót qua 10 loạt bắn trả để lấy 50% vàng đối phương.']]){
+      for(const [choice,title,detail] of [['pass','Đi qua','Đi tiếp theo hải trình. Không cập cảng, mua bán hay nâng cấp.'],['raid','Cướp bóc','Sống sót qua 10 loạt bắn trả để lấy 50% vàng đối phương.']]){
         const b=document.createElement('button');b.type='button';b.className='port-option '+choice;b.dataset.portChoice=choice;
         b.innerHTML=window.TreasureShipyardUI.icon(choice,'port-choice-icon')+'<strong>'+title+'</strong><span>'+detail+'</span>';
         b.addEventListener('click',()=>{if(busy)return;const id=game.selectPort(choice);if(id!==false)void sail(id,true);});options.append(b);
@@ -477,9 +478,15 @@
     $('result').hidden=!(isResult&&viewResult); $('show-result').hidden=!(isResult&&!viewResult);
     if(!isResult)return;
     if(victoryGame!==game){victoryGame=game;sounds.stop();sounds.setMusic(false);sounds.play('victory');}
-    const winner=s.winner===null?null:s.teams[s.winner]; $('winner-name').textContent=winner?winner.name+' chiến thắng!':'Hai đội hòa nhau!';
+    const winner=s.winner===null?null:s.teams[s.winner];
+    $('review').textContent=winner?(winner.id?'Đội Xanh thắng':'Đội Đỏ thắng'):'Hai đội hòa';
+    $('review').classList.toggle('winner-red',winner?.id===0);
+    $('review').classList.toggle('blue',winner?.id===1);
+    $('review').title='Xem thống kê trận đấu';
+    $('winner-name').textContent=winner?winner.name+' chiến thắng!':'Hai đội hòa nhau!';
     $('winner-reason').textContent=s.kraken.hp<=0?'Kraken đã bị hạ · So tổng sát thương':s.teams.some(t=>t.hp<=0)?s.reason:'Hết '+E.TURN_LIMIT+' lượt mỗi đội · So vàng đang giữ';$('winner-reason').title=s.reason;
-    $('winner-captain').hidden=!winner;$('loser-captain').hidden=!winner;
+    $('winner-captain').hidden=true;$('loser-captain').hidden=true;
+    $('result').querySelector('.result-scene').src='assets/'+(winner?'result-victory-'+(winner.id?'blue':'red')+'.png':'result-backdrop.png');
     $('winner-captain').className='captain result-captain '+(winner?.id?'blue':'red');
     $('loser-captain').className='result-loser '+(winner?.id?'red':'blue');
     $('result-scores').innerHTML='<h3>✦ Kết quả hải trình</h3>'+s.teams.map(t=>'<div class="result-score-row">'+escape(t.name)+(t.id===s.winner?' ♛':'')+'<span>Vàng đang giữ: '+t.gold+' · Độ bền '+YARD.durability(t)+'%</span><span>Sát thương Kraken: '+s.kraken.damageBy[t.id]+' · Đã chơi '+t.turns+'/'+E.TURN_LIMIT+' lượt</span></div>').join('');
@@ -612,7 +619,7 @@
   });
   function showRules(){
     const rules=[
-      ['Căn cứ','Đội Xanh xuất phát ở Dover (ô 1), Đội Đỏ ở Bristol (ô 24). Mỗi đội có 100 vàng, 100% độ bền, sát thương 5, 1 pháo và 1 cột buồm chính nhỏ. Cập bến một trong hai căn cứ tự hồi đầy độ bền, tiếp đầy lương thực và mở xưởng nâng cấp.'],
+      ['Căn cứ','Đội Xanh xuất phát ở Dover (ô 1), Đội Đỏ ở Bristol (ô 24). Mỗi đội có 100 vàng, 100% độ bền, sát thương 5, 1 pháo và 1 cột buồm chính nhỏ. Chỉ cập căn cứ của đội mình mới hồi đầy độ bền, tiếp tế, mua bán và nâng cấp. Căn cứ địch chỉ được đi qua hoặc cướp bóc.'],
       ['Đảo chưa khám phá','Câu hỏi xuất hiện trước khi đi tới đảo chưa khám phá. Đúng: mở khóa di chuyển đến đảo đó, không cộng vàng. Sai: còn một nửa vàng (làm tròn xuống), giữ nguyên vị trí và kết thúc ngày. Một chuyến đi nhiều ngày chỉ hỏi một lần; chỉ đánh dấu đã khám phá khi cập bến. Đảo đã khám phá không hỏi lại khi đi tới, khai thác hoặc giao chiến.'],
       ['Nâng cấp','Đại bác, Thân tàu, Buồm, Kho hàng và Kho lương bắt đầu Lv0, tối đa Lv3. Giá nâng cấp: Lv0 → Lv1 là 100 vàng, Lv1 → Lv2 là 500 vàng, Lv2 → Lv3 là 1.000 vàng. Đại bác, Buồm, Kho hàng và Kho lương không được vượt cấp Thân tàu. Đại bác thêm 5 sát thương; Thân tàu bắt đầu 50 điểm độ bền và khai thác 25 đơn vị/ngày, mỗi cấp thêm và phục hồi 50 điểm độ bền, thêm 25 đơn vị khai thác/ngày; Buồm thêm 10 hải lí/ngày.'],
       ['Di chuyển','24 điểm đến nối vòng, mỗi điểm có 3 đường. Mỗi lượt của một đội là một ngày; mỗi đường nối dài 30 hải lí. Tốc độ ban đầu 10 hải lí/ngày. Khi đang giữa đường có thể đi tiếp hoặc quay lại: đã đi 20 hải lí thì cần đi lại 20 hải lí để về đảo cũ, rồi mới rẽ sang đường khác. Quãng đường dư được dùng tiếp trong cùng ngày. Nâng buồm có hiệu lực từ ngày tiếp theo; chuẩn bị ra khơi áp dụng ngay.'],
@@ -624,7 +631,7 @@
       ['Ba vùng đảo','Vùng 1 và 3: mỗi vùng có một căn cứ, ba khai thác thường, một khai thác quý, hai chiến đấu và một kho báu. Mỗi căn cứ nối trực tiếp một đảo khai thác thực phẩm ăn được gần cảng: ô 2 hoặc 3 bên Dover, ô 22 hoặc 23 bên Bristol. Đảo quý ở ô 8 và 17 nối thẳng vào vùng 2. Vùng 2 có hai khai thác quý, bốn chiến đấu, một kho báu và Kraken ở tâm (ô 12 hoặc 13).'],
       ['Hai tàu gặp nhau','Ngoài hai cảng Dover và Bristol, tàu tới đảo có đối thủ hoặc chạm đối thủ trên cùng tuyến đường sẽ tự giao chiến. Tàu đang di chuyển bắn trước; mỗi bên bắn tối đa 10 lần trong lượt đó. Tàu bị hạ không được bắn trả, và giao tranh dừng ngay khi một tàu chìm. Trên biển, tàu dừng tại điểm gặp nhau và kết thúc quãng đường của ngày; ngày sau có thể đi tiếp hoặc quay lại. Tại cảng khởi đầu không tự đánh nhau: chọn Đi qua hoặc Cướp bóc. Cướp bóc phải sống sót qua 10 loạt pháo cảng (10 sát thương/loạt, không nâng cấp) và tàu phòng thủ nếu có, mới lấy 50% vàng đang có của đối phương (làm tròn xuống). Không có vàng thì không nhận vàng. Không tự rút lui giữ máu; tàu chìm kết thúc trận ngay.'],
       ['Đảo chiến đấu','Mỗi đảo chiến đấu có 500 độ bền, gây 10 sát thương mỗi phát. Khi cập đảo, tàu tự giao chiến ngay trên bản đồ tối đa 10 loạt trong một ngày. Hết loạt thứ 10, giữ độ bền mục tiêu để đánh tiếp ngày sau. Dừng sớm khi một bên hết độ bền hoặc kích hoạt bảo vệ lần đầu. Tàu bắn trước; bên bị hạ không phản công. Thắng đảo nhận chiến lợi phẩm độc nhất, bán được 1.000 vàng và không chiếm kho hàng.'],
-      ['Bảo vệ lần tấn công đầu','Lần đầu tấn công đảo chiến đấu hoặc Kraken kể từ khi sửa ở cảng: nếu giao tranh có thể làm tàu hết độ bền, tự ngừng ở 30% độ bền tối đa để người chơi quay về sửa. Nếu tàu vốn dưới 30% thì dừng ở độ bền hiện tại, không tự hồi máu. Tấn công tiếp khi chưa sửa sẽ tính sát thương bình thường và có thể chìm. Cập một trong hai cảng sẽ sửa đầy tàu và đặt lại lần tấn công. Mỗi đội tính riêng; đấu với tàu đối thủ không áp dụng.'],
+      ['Bảo vệ lần tấn công đầu','Lần đầu tấn công đảo chiến đấu hoặc Kraken kể từ khi sửa ở cảng: nếu giao tranh có thể làm tàu hết độ bền, tự ngừng ở 30% độ bền tối đa để người chơi quay về sửa. Nếu tàu vốn dưới 30% thì dừng ở độ bền hiện tại, không tự hồi máu. Tấn công tiếp khi chưa sửa sẽ tính sát thương bình thường và có thể chìm. Cập cảng của đội mình sẽ sửa đầy tàu và đặt lại lần tấn công. Mỗi đội tính riêng; đấu với tàu đối thủ không áp dụng.'],
       ['Máu đảo sau giao tranh','Đảo giữ nguyên lượng độ bền còn lại sau từng lần bị tấn công, kể cả khi tàu rút lui, đổi đội hay về cảng sửa. Khi quay lại, đánh tiếp từ lượng máu đó; sửa tàu không hồi máu cho đảo. Chỉ nhận chiến lợi phẩm khi đã hạ đảo.'],
       ['Chiến thắng','Mỗi đội được chơi tối đa '+E.TURN_LIMIT+' lượt; khi cả hai hoàn thành, đội còn giữ nhiều vàng chưa sử dụng hơn thắng. Không cộng vàng đã tiêu hoặc giá trị hàng chưa bán. Nếu một tàu hết độ bền, đội còn sống thắng ngay. Khi Kraken bị tiêu diệt, so tổng sát thương thực tế mỗi đội đã gây lên Kraken (không cộng phần vượt máu còn lại); đội gây nhiều hơn thắng. Sát thương bằng nhau thì so vàng đang giữ; vàng cũng bằng nhau thì hòa. Kraken có 1.000 độ bền, 30 sát thương và chỉ phản đòn khi còn sống.'],
       ['Phân loại sản vật','Chỉ Nấm Truffle, Vây cá mập, Nước mắt người cá và Đá sấm sét là khai thác quý. Cá Voi thuộc khai thác thường, cho Mỡ cá voi; Nhân sâm và Mỡ cá voi không ăn được.']

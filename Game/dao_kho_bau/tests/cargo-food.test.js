@@ -61,8 +61,8 @@ test('actual sailing loses the food deficit at 80%, then consumes cargo below 70
  }
 });
 
-test('arrival at either port resets only the visiting ship; subsequent cargo upgrades use the new base ration',()=>{
- for(const teamId of [0,1])for(const port of [1,24]){
+test('arrival at own port resets only the visiting ship; subsequent cargo upgrades use the new base ration',()=>{
+ for(const teamId of [0,1])for(const port of [teamId?1:24]){
   const g=make(teamId);place(g);const t=g.actor,other=g.opponent;t.cargoMealRation=40;other.cargoMealRation=32;
   t.position=g.map.edges.find(e=>e.includes(port)).find(id=>id!==port);g.state.distanceLeft=30;
   assert.ok(g.move(port));assert.equal(g.state.phase,'PORT');assert.equal(t.cargoMealRation,0);assert.equal(T.cargoFoodRequired(t),20);assert.equal(T.remainingDays(t),3);assert.equal(t.hp,50);assert.equal(T.cargoFoodRequired(other),32);

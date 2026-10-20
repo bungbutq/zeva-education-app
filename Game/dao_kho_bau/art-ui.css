@@ -218,3 +218,10 @@
 .port-choice-icon{width:96px;height:96px;object-fit:contain;filter:drop-shadow(0 3px 1px #7e4b1933)}
 .port-option strong{font-size:30px}.port-option span{font-size:19px;line-height:1.35;min-height:60px}
 .port-defense{font-size:18px;line-height:1.45;margin:20px 0 0;color:#80451f}
+
+/* Defeated HUD stays readable, but all its artwork and stats lose their color. */
+.team-panel.defeated{filter:grayscale(1)}
+.showing-result .result-title{display:none}
+
+#review.winner-red{position:relative;isolation:isolate;color:#fff;text-shadow:0 2px 3px #6d0904}
+#review.winner-red::before{content:"";position:absolute;inset:16% 5%;border-radius:999px;background:linear-gradient(#ffb0a0 0%,#ff493b 20%,#e51e19 55%,#a80909 100%);box-shadow:inset 0 2px 2px #fff5,inset 0 -3px 2px #720909;z-index:-1}
