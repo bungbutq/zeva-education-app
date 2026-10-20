@@ -56,7 +56,8 @@ const root=path.resolve(__dirname,'..');
   assert.deepEqual(await f.evaluate(()=>({team:__game.actor.id,fresh:__game.state.productReward.dailyFood,stored:__game.state.productReward.quantity})),{team:0,fresh:20,stored:30},'red hull Lv1 eats 20 of its 50 fresh food before storing 30');
   for(const [product,edible] of [[28,true],[24,false]]){
    await f.evaluate(id=>{__game.state.productReward.id=id;__game.state.turn++;__render();},product);
-   assert.equal(await f.locator('.harvest-edibility').innerText(),edible?'Ăn được · Dùng làm thực phẩm':'Không ăn được · Chỉ cất kho hoặc bán');
+   assert.equal(await f.locator('.harvest-edibility').innerText(),edible?'Thực phẩm ăn được':'Không ăn được');
+   assert.equal(await f.locator('.harvest-edibility').evaluate(n=>getComputedStyle(n).color),edible?'rgb(35, 120, 60)':'rgb(179, 38, 30)');
    if(process.env.TREASURE_LABEL_QA){
     fs.mkdirSync(process.env.TREASURE_LABEL_QA,{recursive:true});
     await f.locator('.chest-art').evaluate(img=>img.decode());

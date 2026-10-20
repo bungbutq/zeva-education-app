@@ -126,6 +126,9 @@
 .harvest-reward .reward-layout{grid-template-columns:240px minmax(0,400px);gap:32px;text-align:left;min-height:0}
 .harvest-reward .reward-layout .chest-art{width:240px;height:230px;max-height:100%}
 .harvest-reward .reward-details h3{font-size:32px;margin:0 0 12px}.harvest-reward .reward-details p{font-size:21px;line-height:1.45;margin:0}
+.harvest-reward .reward-details .harvest-edibility{font-size:19px;line-height:1.4;margin:0 0 8px;font-weight:900}
+.harvest-reward .harvest-edibility.edible{color:#23783c}
+.harvest-reward .harvest-edibility.inedible{color:#b3261e}
 .harvest-reward .reward-details :is(.island-battle-summary,.harvest-food-summary){font-size:18px;line-height:1.4;margin-top:12px;font-weight:800;color:#97551b}
 .harvest-reward .harvest-status{font-size:20px;line-height:30px;font-weight:900;color:#76511b;white-space:nowrap;margin:0}
 .harvest-reward #action-buttons{margin:0;align-items:center}

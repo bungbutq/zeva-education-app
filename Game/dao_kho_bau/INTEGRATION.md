@@ -167,5 +167,6 @@ Bổ sung cục bộ 20/10/2026 — đã áp dụng mặt nước hai cảng:
 - Gate UI_SHARED PASS; gate --all vẫn vướng attendance index và các ngưỡng CSS có từ trước.
 - Đã triển khai phiên bản 1154, chỉ thay include game; bản live chính xác tại artifacts/treasure-single-whale-20261020/deployment/whale-only-include.html.
 
-- Bảng khai thác hiển thị rõ Ăn được · Dùng làm thực phẩm hoặc Không ăn được · Chỉ cất kho hoặc bán dưới tên sản vật, dùng cùng thuộc tính edible với luật khẩu phần. Cập nhật mô tả Chim cánh cụt. Không đổi phân loại các sản vật khác.
+- Bảng khai thác hiển thị rõ Thực phẩm ăn được (xanh lá) hoặc Không ăn được (đỏ) dưới tên sản vật, dùng cùng thuộc tính edible với luật khẩu phần. Cập nhật mô tả Chim cánh cụt. Không đổi phân loại các sản vật khác.
 - PASS 30 kiểm thử cargo-food/harvest/island-rules; cập nhật kỳ vọng tên Katana Susano trong bài test cũ cho khớp tên đã có từ trước. Kiểm tra nhãn bằng trình duyệt cho Chim cánh cụt và Mỡ cá voi, giữ kiểm tra thứ tự ended → đổi ảnh/hiện bảng.
+- Nhãn nằm ngay dưới tên sản vật: xanh lá #23783c / đỏ #b3261e, chữ đậm 19px. Đã kiểm tra ảnh thật cả hai nhãn và màu tính toán trong trình duyệt.
