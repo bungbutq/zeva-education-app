@@ -54,6 +54,19 @@ const root=path.resolve(__dirname,'..');
   await f.locator('.harvest-status').waitFor({state:'visible'});
   assert.match(await f.locator('#action-title').innerText(),/Đã khai thác/);
   assert.deepEqual(await f.evaluate(()=>({team:__game.actor.id,fresh:__game.state.productReward.dailyFood,stored:__game.state.productReward.quantity})),{team:0,fresh:20,stored:30},'red hull Lv1 eats 20 of its 50 fresh food before storing 30');
+  for(const [product,edible] of [[28,true],[24,false]]){
+   await f.evaluate(id=>{__game.state.productReward.id=id;__game.state.turn++;__render();},product);
+   assert.equal(await f.locator('.harvest-edibility').innerText(),edible?'Ăn được · Dùng làm thực phẩm':'Không ăn được · Chỉ cất kho hoặc bán');
+   if(process.env.TREASURE_LABEL_QA){
+    fs.mkdirSync(process.env.TREASURE_LABEL_QA,{recursive:true});
+    await f.locator('.chest-art').evaluate(img=>img.decode());
+    await f.locator('#action-card').evaluate(async card=>{
+     const urls=[null,'::before','::after'].flatMap(pseudo=>[...getComputedStyle(card,pseudo).backgroundImage.matchAll(/url\(["']?(.*?)["']?\)/g)].map(m=>m[1]));
+     await Promise.all(urls.map(url=>{const img=new Image();img.src=url;return img.decode();}));
+    });
+    await f.locator('#action-card').screenshot({path:path.join(process.env.TREASURE_LABEL_QA,'food-'+product+'.png')});
+   }
+  }
   // Real renderer and handlers, with controlled engine state to isolate audio events.
   await f.evaluate(()=>{document.getElementById('port-layer').hidden=true;const g=__game;g.state.phase='CHEST';g.state.purpose='dig';Object.assign(g.state.treasure,{owner:g.actor.id,location:g.actor.position,claimedBy:null});__render();});
   await f.locator('#action-buttons button').click();

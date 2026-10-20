@@ -9,7 +9,7 @@
     [12,'Pha lê',false],[13,'Rùa biển',false],[15,'Tôm sú',true],
     [16,'Nấm Truffle',true],[17,'Nước mắt người cá',false],[19,'Đá sấm sét',false],
     [20,'Lúa mì',true],[24,'Mỡ cá voi',false],[27,'Sò điệp',true],
-    [28,'Chim cánh cụt',false],[29,'Hải sâm',true],[31,'Hồng đào',true],
+    [28,'Chim cánh cụt',true],[29,'Hải sâm',true],[31,'Hồng đào',true],
     [34,'Mật rắn',false],[35,'Vây cá mập',true]
   ];
   const combat=[

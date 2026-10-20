@@ -18,7 +18,7 @@
     20:'Những hạt lúa mì vàng óng từ cánh đồng bên cối xay gió, dùng để tiếp tế.',
     24:'Sản vật đặc trưng của vùng biển cá voi, có thể mang về cảng để trao đổi.',
     27:'Sò điệp nép mình trong lớp vỏ xòe như cánh quạt, là thực phẩm của biển.',
-    28:'Cư dân nhỏ bé của vùng băng trôi, khoác bộ lông đen trắng đáng yêu.',
+    28:'Sản vật của vùng băng trôi, có thể dùng làm thực phẩm để tiếp tế cho tàu.',
     29:'Sản vật sống dưới đáy biển, có thể dùng làm thực phẩm trong chuyến đi.',
     31:'Trái đào chín mọng từ khu vườn trên đảo, bổ sung thực phẩm cho thủy thủ.',
     34:'Sản vật đặc trưng của đảo rắn, được cất giữ để trao đổi tại cảng.',

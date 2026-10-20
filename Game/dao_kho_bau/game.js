@@ -419,6 +419,11 @@
         const reward=s.productReward,item=productReward;
         const description=item.description||'Chiến lợi phẩm độc nhất từ '+node(t.position).name+'. Bán cho gian thương được 1.000 vàng.';
         body.innerHTML='<div class="reward-layout"><img class="chest-art" src="assets/product-'+String(item.id).padStart(2,'0')+'.png" alt="'+escape(item.name)+'"><div class="reward-details"><h3>'+escape(item.name)+'</h3><p>'+escape(description)+'</p></div></div>';
+        if(harvest){
+          const label=document.createElement('p');label.className='harvest-edibility';
+          const text=document.createElement('strong');text.textContent=item.edible?'Ăn được · Dùng làm thực phẩm':'Không ăn được · Chỉ cất kho hoặc bán';
+          label.append(text);body.querySelector('.reward-details h3').after(label);
+        }
         if(!harvest&&s.battle?.type==='island'){
           const summary=document.createElement('p');summary.className='island-battle-summary';
           summary.textContent='Hạ đảo sau '+s.battle.rounds.length+' lượt bắn · Tàu còn '+t.hp+'/'+t.maxHp+' độ bền';body.querySelector('.reward-details').append(summary);

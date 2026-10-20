@@ -163,6 +163,9 @@ Bổ sung cục bộ 20/10/2026 — đã áp dụng mặt nước hai cảng:
 - Tiếng bấm nút tăng .35→.70, tiếng tàu di chuyển .50→1.00. File âm thanh không thay đổi.
 - Nâng cấp: giải mã ảnh mới trước, phát nâng cấp.mp3 một lần, đợi ended rồi mới nâng cấp và đổi ảnh tàu trong cảng. Khóa thao tác trùng trong lúc chờ. Tắt âm, ẩn tab, đóng game hoặc phát lỗi giải phóng chờ; yêu cầu media bị treo có giới hạn 10 giây.
 - Khai thác thực phẩm/sản vật thành công: dùng tiếng mở rương theo yêu cầu cuối, một lần; bảng sản vật chỉ hiện khi kết thúc âm thanh. Không phát nếu kho đầy và không khai thác được.
-- PASS unit audio; browser kiểm tra ảnh tàu không đổi trước ended, bảng khai thác ẩn trước ended và hiện sau ended; production host smoke; cá voi một con với thay đổi pixel và giảm chuyển động. 39 kiểm thử thực phẩm/khai thác/hành trình đạt cả hai đội. Đã đối chiếu Vùng Băng Trôi: Chim cánh cụt là sản vật không ăn được. Người dùng hủy yêu cầu đổi quy tắc, giữ nguyên cho cả hai đội.
+- PASS unit audio; browser kiểm tra ảnh tàu không đổi trước ended, bảng khai thác ẩn trước ended và hiện sau ended; production host smoke; cá voi một con với thay đổi pixel và giảm chuyển động. 39 kiểm thử thực phẩm/khai thác/hành trình đạt cả hai đội. Theo yêu cầu cuối, Chim cánh cụt (Vùng Băng Trôi) được tính là thực phẩm cho cả hai đội. Kiểm thử cả hai thứ tự bắt đầu xác nhận tàu hull Lv1/cargo Lv0 hết dự trữ: khai thác 50, dùng 20, cất 30, không trừ hai lần.
 - Gate UI_SHARED PASS; gate --all vẫn vướng attendance index và các ngưỡng CSS có từ trước.
 - Đã triển khai phiên bản 1154, chỉ thay include game; bản live chính xác tại artifacts/treasure-single-whale-20261020/deployment/whale-only-include.html.
+
+- Bảng khai thác hiển thị rõ Ăn được · Dùng làm thực phẩm hoặc Không ăn được · Chỉ cất kho hoặc bán dưới tên sản vật, dùng cùng thuộc tính edible với luật khẩu phần. Cập nhật mô tả Chim cánh cụt. Không đổi phân loại các sản vật khác.
+- PASS 30 kiểm thử cargo-food/harvest/island-rules; cập nhật kỳ vọng tên Katana Susano trong bài test cũ cho khớp tên đã có từ trước. Kiểm tra nhãn bằng trình duyệt cho Chim cánh cụt và Mỡ cá voi, giữ kiểm tra thứ tự ended → đổi ảnh/hiện bảng.
