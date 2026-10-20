@@ -135,16 +135,18 @@
     return {width:WIDTH,viewWidth:VIEW_WIDTH,islands,edges};
   }
   function create(rng=Math.random){
+    const hasFoodRoute=layout=>[[1,[2,3]],[24,[22,23]]].every(([base,near])=>near.some(id=>layout.edges.some(e=>e.includes(base)&&e.includes(id))));
     const seed=Math.floor(rng()*2**32)>>>0;
     for(let attempt=0;attempt<24;attempt++){
       const layout=place(random((seed^Math.imul(attempt,2246822519))>>>0));
+      if(!hasFoodRoute(layout))continue;
       const routes=Routes.plan(layout.islands,layout.edges,coastLimit);
       // A route conflict invalidates placement too. Move surrounding islands
       // with a fresh deterministic proposal before accepting the whole map.
       if(routes)return {...layout,routes,placementAttempts:attempt+1};
     }
     const layout=place(random(0)),routes=Routes.plan(layout.islands,layout.edges,coastLimit);
-    if(!routes)throw Error('No safe island and route layout');
+    if(!routes||!hasFoodRoute(layout))throw Error('No safe island and route layout with nearby food access');
     return {...layout,routes,placementAttempts:25};
   }
   return Object.freeze({WIDTH,VIEW_WIDTH,FOOTPRINT,MIN_WATER_GAP,MIN_VISIBLE_ROUTE,MIN_ROUTE_GAP:Routes.MIN_ROUTE_GAP,create,coastLimit,waterGap,separated});

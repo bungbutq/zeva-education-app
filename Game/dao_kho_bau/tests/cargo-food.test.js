@@ -17,7 +17,7 @@ test('both starting orders alternate two independent cargo rations: 20, 25, 32, 
    g.skipRemaining();assert.equal(t.hp,35);assert.equal(t.cargo[6],left);assert.equal(T.cargoFoodRequired(t),next);
    assert.equal(JSON.stringify(other),before,'only the acting ship eats');
   }
-  for(let n=0;n<2;n++){const t=g.actor;g.skipRemaining();assert.equal(t.hp,30);assert.equal(t.cargo[6],23);assert.equal(T.cargoFoodRequired(t),40,'no increase without a completed cargo meal');}
+  for(let n=0;n<2;n++){const t=g.actor;g.skipRemaining();assert.equal(t.hp,18);assert.equal(t.cargo[6]||0,0);assert.equal(T.cargoFoodRequired(t),50,'partial cargo meals also increase the next ration');}
  }
 });
 
@@ -51,13 +51,13 @@ test('normal reserve days retain the higher ration and do not consume cargo or a
  for(let n=0;n<2;n++){const t=g.actor;g.skipRemaining();assert.equal(t.hp,35);assert.equal(t.cargo[6],60);assert.equal(T.cargoFoodRequired(t),50);}
 });
 
-test('actual sailing waits at 80%, then consumes cargo at 70% for either team',()=>{
+test('actual sailing loses the food deficit at 80%, then consumes cargo below 70% for either team',()=>{
  for(const first of [0,1]){
   const g=make(first),t=g.actor;t.voyageDays=3;t.hp=40;t.cargo={6:100};
   const to=g.map.edges.find(e=>e.includes(t.position)&&!e.includes(first?24:1)).find(id=>id!==t.position);
-  assert.ok(g.move(to));assert.equal(g.state.phase,'TRAVEL');g.continueTravel();assert.equal(t.hp,35);assert.equal(t.cargo[6],100);
-  g.skipRemaining();assert.equal(g.actor,t);assert.ok(g.move(to));g.continueTravel();assert.equal(t.hp,35);assert.equal(t.cargo[6],80);assert.equal(T.cargoFoodRequired(t),25);
-  g.skipRemaining();g.skipRemaining();assert.equal(t.hp,35);assert.equal(t.cargo[6],55);assert.equal(T.cargoFoodRequired(t),32);
+  assert.ok(g.move(to));assert.equal(g.state.phase,'TRAVEL');g.continueTravel();assert.equal(t.hp,20);assert.equal(t.cargo[6],100);
+  g.skipRemaining();assert.equal(g.actor,t);assert.ok(g.move(to));g.continueTravel();assert.equal(t.hp,20);assert.equal(t.cargo[6],80);assert.equal(T.cargoFoodRequired(t),25);
+  g.skipRemaining();g.skipRemaining();assert.equal(t.hp,20);assert.equal(t.cargo[6],55);assert.equal(T.cargoFoodRequired(t),32);
  }
 });
 
@@ -72,7 +72,7 @@ test('arrival at either port resets only the visiting ship; subsequent cargo upg
 
 test('drift ice feeds both teams before storage: 50 penguins yield a meal of 20 and cargo of 30',()=>{
  for(const first of [0,1]){
-  const g=make(first),island=g.state.islands.find(i=>i.product===28);
+  const g=make(first),island=g.state.islands.find(i=>i.category==='harvest'&&i.edible);Object.assign(island,{themeId:28,product:28,edible:true});
   assert.ok(island);assert.equal(island.edible,true);assert.equal(T.product(28).edible,true);
   for(let turn=0;turn<2;turn++){
    const t=g.actor;g.opponent.position=g.opponent.id?1:24;

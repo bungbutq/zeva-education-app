@@ -31,7 +31,7 @@
       RULES.validateMap(map);
       const startingTeam=first===1?1:0;
       this.state={phase:'PORT',active:startingTeam,startingTeam,turn:1,distanceLeft:10,dayStarted:false,dayReport:null,portInitial:true,launchQueue:[1-startingTeam],
-        teams:[0,1].map(id=>({id,name:String(names[id]||(id?'Đội Xanh':'Đội Đỏ')).slice(0,22),hp:YARD.maxDurability(0),maxHp:YARD.maxDurability(0),attack:YARD.attack(0),armor:0,shield:false,speed:YARD.speed(0),periscope:false,scouted:[],position:YARD.BASES.find(b=>b.team===id).id,transit:null,gold:YARD.START_GOLD,upgrades:{hull:0,cannon:0,sail:0,cargo:0,provisions:0},cargo:{},loot:{},dayFood:0,cargoMealRation:0,provisionCredit:0,voyageDays:0,totalDays:0,chests:0,turns:0,monsterAttacksSinceRepair:0})),
+        teams:[0,1].map(id=>({id,name:String(names[id]||(id?'Đội Xanh':'Đội Đỏ')).slice(0,22),hp:YARD.maxDurability(0),maxHp:YARD.maxDurability(0),attack:YARD.attack(0),armor:0,shield:false,speed:YARD.speed(0),hungry:false,periscope:false,scouted:[],position:YARD.BASES.find(b=>b.team===id).id,transit:null,gold:YARD.START_GOLD,upgrades:{hull:0,cannon:0,sail:0,cargo:0,provisions:0},cargo:{},loot:{},dayFood:0,cargoMealRation:0,provisionCredit:0,voyageDays:0,totalDays:0,chests:0,turns:0,monsterAttacksSinceRepair:0})),
         islands:map.islands.map(i=>{const base=YARD.BASES.find(b=>b.id===i.id),theme=RULES.theme(i.art?.id??i.themeId),product=!base&&i.kind!=='kraken'?TRADE.product(theme.id):null;return {id:i.id,kind:i.kind,themeId:theme.id,category:theme.category,rarity:theme.rarity??null,edible:theme.edible??null,explored:!!base,opened:false,start:!!base,baseTeam:base?.team??null,owner:base?.team??null,attempts:0,effectId:theme.category==='treasure'?'search':null,product:product?.id??null,productCollectedBy:null,defender:theme.category==='combat'?{hp:ISLAND_DURABILITY,maxHp:ISLAND_DURABILITY,attack:ISLAND_ATTACK}:null};}),
         markets:{},kraken:{hp:KRAKEN_DURABILITY,maxHp:KRAKEN_DURABILITY,attack:KRAKEN_ATTACK,damageBy:[0,0]},treasure:{location:null,owner:null,claimedBy:null,clues:[[],[]],progress:[{},{}],lastSearchTurn:[null,null]},
         question:null,selected:null,correct:null,goldDelta:0,productReward:null,purpose:null,reward:null,battle:null,winner:null,reason:null,log:[],history:[],notice:'Nâng cấp tàu tại căn cứ trước khi ra khơi.'};
@@ -41,7 +41,20 @@
     get island(){return this.state.islands.find(i=>i.id===this.actor.position);}
     note(message){this.state.log.push({turn:this.state.turn,message});}
     get base(){return !this.actor.transit&&YARD.BASES.find(b=>b.id===this.actor.position);}
-    get enemyHere(){return !this.actor.transit&&!this.opponent.transit&&this.opponent.position===this.actor.position;}
+    get enemyHere(){return !this.base&&!this.actor.transit&&!this.opponent.transit&&this.opponent.position===this.actor.position;}
+    beginDuel(){
+      this.state.purpose='duel';this.state.phase='DUEL_BATTLE';this.state.distanceLeft=0;
+      this.state.notice='Hai tàu chạm nhau · Tự giao chiến tối đa 10 loạt pháo mỗi bên.';
+    }
+    intercept(trip,start,end){
+      const other=this.opponent;let point=null;
+      if(other.transit){
+        const p=other.transit;
+        if(p.from===trip.from&&p.to===trip.to)point=p.travelled;
+        else if(p.to===trip.from&&p.from===trip.to)point=LEG_DISTANCE-p.travelled;
+      }else if(other.position===trip.to&&!YARD.BASES.some(b=>b.id===trip.to))point=LEG_DISTANCE;
+      return point!==null&&point>start+1e-6&&point<=end+1e-6?point:null;
+    }
     refreshMarket(baseId){
       if(!YARD.BASES.some(b=>b.id===baseId))return null;
       const prices={};
@@ -74,6 +87,7 @@
       const harvested=harvest?TRADE.harvestYield(item,t.upgrades.hull):1,ration=TRADE.foodRequired(t.upgrades.cargo);
       const dailyFood=harvest&&item.edible?Math.min(harvested,Math.max(0,ration-t.dayFood)):0;
       t.dayFood+=dailyFood;
+      if(t.dayFood>=ration)this.setHungry(false);
       const quantity=harvest?Math.min(free,harvested-dailyFood):1,stock=harvest?t.cargo:t.loot;
       if(quantity)stock[item.id]=(stock[item.id]||0)+quantity;
       const overflow=harvested-dailyFood-quantity,room=(TRADE.voyageCapacity(t.upgrades.provisions)-TRADE.remainingDays(t))*ration;
@@ -87,6 +101,9 @@
     setReserveDays(days){
       const t=this.actor,capacity=TRADE.voyageCapacity(t.upgrades.provisions),remaining=Math.max(0,Math.min(capacity,days));
       t.provisionCredit=Math.round(Math.max(0,t.voyageDays-capacity+remaining)*1e8)/1e8;
+    }
+    setHungry(value){
+      const t=this.actor;if(t.hungry===!!value)return;t.hungry=!!value;t.speed=YARD.speed(t.upgrades.sail)*(t.hungry?.5:1);
     }
 
     upgradeStatus(kind){
@@ -103,7 +120,7 @@
       const t=this.actor;t.gold-=status.cost;t.upgrades[kind]++;
       if(kind==='cannon')t.attack=YARD.attack(t.upgrades.cannon);
       if(kind==='hull'){const maximum=YARD.maxDurability(t.upgrades.hull);t.hp+=maximum-t.maxHp;t.maxHp=maximum;}
-      if(kind==='sail')t.speed=YARD.speed(t.upgrades.sail);
+      if(kind==='sail')t.speed=YARD.speed(t.upgrades.sail)*(t.hungry?.5:1);
       this.state.notice=YARD.UPGRADES.find(u=>u.id===kind).name+' lên Lv'+t.upgrades[kind]+' · −'+status.cost+' vàng';
       this.note(t.name+': '+this.state.notice);return true;
     }
@@ -145,22 +162,33 @@
     }
     settleDay(){
       const s=this.state,t=this.actor;this.spendDay();t.travelPermit=null;
-      if(this.base){t.voyageDays=0;t.provisionCredit=0;t.dayFood=0;t.cargoMealRation=0;return;}
+      if(this.base){t.voyageDays=0;t.provisionCredit=0;t.dayFood=0;t.cargoMealRation=0;this.setHungry(false);return;}
       const supply=TRADE.daySupply(t),remaining=TRADE.remainingDays(t)-supply.reserveUsed;
       t.voyageDays++;this.setReserveDays(remaining);t.dayFood=0;
+      this.setHungry(supply.shortfall>0);
       if(supply.foodNeeded===0){
         if(supply.fresh){s.dayReport=t.name+' đã dùng '+supply.fresh+' thực phẩm mới khai thác cho khẩu phần hôm nay.';this.note(s.dayReport);}
         return;
       }
-      if(supply.plan){
+      if(supply.cargoUsed){
         for(const {id,quantity} of supply.plan){t.cargo[id]-=quantity;if(!t.cargo[id])delete t.cargo[id];}
         t.cargoMealRation=Math.ceil(supply.cargoRation*1.25);
-        s.dayReport=t.name+' dùng thêm '+supply.foodNeeded+' đơn vị thực phẩm trong kho, giữ nguyên độ bền. Khẩu phần kho hàng lần tiếp theo: '+t.cargoMealRation+' đơn vị/ngày.';
+        s.dayReport=t.name+' dùng thêm '+supply.cargoUsed+' đơn vị thực phẩm trong kho'+(supply.shortfall?'':', giữ nguyên độ bền')+'. Khẩu phần kho hàng lần tiếp theo: '+t.cargoMealRation+' đơn vị/ngày.';
         this.note(s.dayReport+' '+supply.plan.map(p=>p.quantity+' '+TRADE.product(p.id).name).join(', ')+'.');
-      }else{
-        const damage=t.maxHp*.1;t.hp=Math.max(0,t.hp-damage);
-        s.dayReport=t.name+(supply.cargoAllowed?' không đủ thực phẩm thay thế':' đã hết lương thực; chỉ tự dùng hàng ăn được khi độ bền còn 70% trở xuống')+': −10% độ bền tối đa (−'+damage+' điểm).';this.note(s.dayReport);
       }
+      if(supply.shortfall){
+        const damage=supply.shortfall;t.hp=Math.max(0,t.hp-damage);
+        const warning=t.name+' thiếu '+damage+' đơn vị thức ăn: −'+damage+' độ bền · Đói: tốc độ di chuyển giảm 50%.';
+        s.dayReport=(s.dayReport?s.dayReport+' ':'')+warning;this.note(warning);
+      }
+    }
+    choosePort(id){
+      if(!this.canMove(id)||!YARD.BASES.some(b=>b.id===id&&b.team!==this.actor.id))return false;
+      this.state.portDestination=id;this.state.phase='PORT_CHOICE';return true;
+    }
+    selectPort(choice){
+      const s=this.state;if(s.phase!=='PORT_CHOICE'||!['pass','raid'].includes(choice))return false;
+      s.portChoice=choice;s.phase='MAP';return s.portDestination;
     }
     move(id){
       if(!this.canMove(id))return false;
@@ -180,7 +208,11 @@
       if(t.transit||from!==id){
         if(!t.transit){if(YARD.BASES.some(b=>b.id===from&&b.team===t.id))this.refreshMarket(from);t.transit={from,to:id,travelled:0};t.travelPermit=null;}
         const trip=t.transit,step=Math.min(s.distanceLeft,LEG_DISTANCE-trip.travelled);
-        result.start=trip.travelled/LEG_DISTANCE;trip.travelled+=step;s.distanceLeft-=step;result.end=trip.travelled/LEG_DISTANCE;
+        const contact=this.intercept(trip,trip.travelled,trip.travelled+step);
+        result.start=trip.travelled/LEG_DISTANCE;trip.travelled=contact??trip.travelled+step;s.distanceLeft-=step;result.end=trip.travelled/LEG_DISTANCE;
+        if(contact!==null&&contact<LEG_DISTANCE){
+          result.arrived=false;result.duel=true;this.beginDuel();return result;
+        }
         if(trip.travelled<LEG_DISTANCE){
           s.phase='TRAVEL';s.notice='Đang đi tới đảo '+id+' · '+trip.travelled+'/'+LEG_DISTANCE+' hải lí';result.arrived=false;return result;
         }
@@ -188,8 +220,10 @@
       }else s.distanceLeft=0;
       t.travelPermit=null;destination.explored=true;destination.owner??=t.id;
       this.note(this.actor.name+' cập bến điểm '+id+'.');
-      if(this.base){this.actor.voyageDays=0;this.actor.provisionCredit=0;this.actor.dayFood=0;this.actor.cargoMealRation=0;this.actor.hp=this.actor.maxHp;this.actor.monsterAttacksSinceRepair=0;this.state.phase='PORT';this.state.notice='Đã sửa tàu, tiếp tế đầy và đặt lại lần tấn công quái vật tại '+this.base.name+'.';}
-      else if(this.enemyHere||this.island.kind==='kraken'&&s.kraken.hp>0)this.state.phase='ENCOUNTER';
+      if(this.base&&this.base.team!==t.id&&s.portChoice==='raid'){s.phase='PORT_BATTLE';s.distanceLeft=0;s.purpose='raid';s.notice='Cướp bóc căn cứ · Sống sót qua 10 loạt pháo để cướp 50% vàng.';}
+      else if(this.base){this.actor.voyageDays=0;this.actor.provisionCredit=0;this.actor.dayFood=0;this.actor.cargoMealRation=0;this.actor.hp=this.actor.maxHp;this.actor.monsterAttacksSinceRepair=0;this.setHungry(false);this.state.phase='PORT';this.state.notice='Đã sửa tàu, tiếp tế đầy và đặt lại lần tấn công quái vật tại '+this.base.name+'.';}
+      else if(this.enemyHere){result.duel=true;this.beginDuel();}
+      else if(this.island.kind==='kraken'&&s.kraken.hp>0)this.state.phase='ENCOUNTER';
       else this.arrive();
       return result;
     }
@@ -302,36 +336,62 @@
       if(!this.checkWinner())this.state.phase='REWARD';return this.state.reward;
     }
     fight(){
-      if(this.state.phase!=='ENCOUNTER'||!this.enemyHere)return false;
-      const a=this.actor,b=this.opponent,hit=this.hurt(b,a.attack);
-      this.state.battle={type:'duel',attacker:a.id,defender:b.id,damageA:0,damageB:hit.damage,shields:[false,hit.blocked]};
-      this.note(a.name+' bắn '+b.name+' mất '+hit.damage+' máu.');
-      // Resolve the first fatal impact immediately. A destroyed ship never fires back.
-      if(this.checkWinner())return;
-      const counter=this.hurt(a,b.attack);this.state.battle.damageA=counter.damage;this.state.battle.shields[0]=counter.blocked;
-      this.note(b.name+' phản công: '+a.name+' mất '+counter.damage+' máu.');
-      if(!this.checkWinner())this.state.phase='BATTLE';
+      const s=this.state;
+      if((s.phase!=='DUEL_BATTLE'&&!(s.phase==='ENCOUNTER'&&this.enemyHere))||this.base)return false;
+      const a=this.actor,b=this.opponent,battle={type:'duel',attacker:a.id,defender:b.id,damageA:0,damageB:0,shields:[false,false],shotsA:0,shotsB:0,rounds:[]};
+      s.battle=battle;s.distanceLeft=0;
+      for(let round=0;round<10;round++){
+        const hit=this.hurt(b,a.attack);battle.damageB+=hit.damage;battle.shields[1]||=hit.blocked;battle.shotsA++;
+        const step={damageB:hit.damage,damageA:0};battle.rounds.push(step);
+        if(this.checkWinner())return battle;
+        const counter=this.hurt(a,b.attack);battle.damageA+=counter.damage;battle.shields[0]||=counter.blocked;battle.shotsB++;step.damageA=counter.damage;
+        if(this.checkWinner())return battle;
+      }
+      this.note('Hai tàu giao chiến 10 loạt pháo mỗi bên: '+a.name+' mất '+battle.damageA+' độ bền; '+b.name+' mất '+battle.damageB+' độ bền.');
+      s.phase='BATTLE';return battle;
+    }
+    raidPort(){
+      const s=this.state,a=this.actor,b=this.opponent;
+      if(s.phase!=='PORT_BATTLE'||!this.base||this.base.team===a.id)return false;
+      const defending=!b.transit&&b.position===a.position;
+      const battle={type:'raid',attacker:a.id,defender:b.id,islandId:a.position,damageA:0,damageB:0,shields:[false,false],shotsA:0,shotsB:0,portShots:0,gold:0,rounds:[],defending};
+      s.battle=battle;s.distanceLeft=0;s.portChoice=null;
+      for(let n=0;n<10;n++){
+        const step={damageA:0,damageB:0};battle.rounds.push(step);battle.shotsA++;
+        // The port has no destructible hull. A defending ship can be hit normally.
+        if(defending){const hit=this.hurt(b,a.attack);step.damageB=hit.damage;battle.damageB+=hit.damage;battle.shields[1]||=hit.blocked;if(this.checkWinner())return battle;}
+        const port=this.hurt(a,10);battle.portShots++;step.damageA+=port.damage;battle.damageA+=port.damage;battle.shields[0]||=port.blocked;
+        if(this.checkWinner())return battle;
+        if(defending){const hit=this.hurt(a,b.attack);battle.shotsB++;step.damageA+=hit.damage;battle.damageA+=hit.damage;battle.shields[0]||=hit.blocked;if(this.checkWinner())return battle;}
+      }
+      battle.gold=Math.floor(b.gold*.5);b.gold-=battle.gold;a.gold+=battle.gold;
+      this.note(a.name+' sống sót qua 10 loạt pháo, cướp '+battle.gold+' vàng từ '+b.name+'.');s.phase='BATTLE';return battle;
     }
     fightKraken(){
       if(this.state.phase!=='ENCOUNTER'||this.island.kind!=='kraken'||this.state.kraken.hp<=0)return false;
-      const a=this.actor,k=this.state.kraken,safety=this.monsterSafety(k,1),damage=Math.min(k.hp,a.attack);a.monsterAttacksSinceRepair=(a.monsterAttacksSinceRepair||0)+1;k.hp-=damage;
-      k.damageBy[a.id]+=damage;
-      this.state.battle={type:'kraken',attacker:a.id,damageB:damage,damageA:0,shields:[false,false]};
-      this.note(a.name+' gây '+damage+' sát thương lên Kraken, còn '+k.hp+' máu.');
-      if(k.hp===0){this.island.explored=true;this.checkWinner();return;}
-      const counter=this.hurt(a,k.attack,safety.minimumHp);this.state.battle.damageA=counter.damage;this.state.battle.shields[0]=counter.blocked;
-      this.note('Kraken phản đòn: '+a.name+' mất '+counter.damage+' máu.');
-      if(safety.protectedAttack&&a.hp<=safety.minimumHp){this.retreatFromMonster(this.state.battle);return;}
-      if(!this.checkWinner())this.state.phase='BATTLE';
+      const a=this.actor,k=this.state.kraken,s=this.state,safety=this.monsterSafety(k,10);
+      a.monsterAttacksSinceRepair=(a.monsterAttacksSinceRepair||0)+1;this.spendDay();s.distanceLeft=0;
+      const battle={type:'kraken',attacker:a.id,damageB:0,damageA:0,shields:[false,false],rounds:[]};s.battle=battle;
+      for(let n=0;n<10;n++){
+        const damage=Math.min(k.hp,a.attack);k.hp-=damage;k.damageBy[a.id]+=damage;battle.damageB+=damage;
+        const step={damageB:damage,damageA:0};battle.rounds.push(step);
+        if(k.hp===0){this.island.explored=true;this.checkWinner();return battle;}
+        const counter=this.hurt(a,k.attack,safety.minimumHp);battle.damageA+=counter.damage;battle.shields[0]||=counter.blocked;step.damageA=counter.damage;
+        if(safety.protectedAttack&&a.hp<=safety.minimumHp){this.retreatFromMonster(battle);return battle;}
+        if(this.checkWinner())return battle;
+      }
+      this.note(a.name+' đánh Kraken '+battle.rounds.length+' loạt; Kraken còn '+k.hp+' độ bền.');s.phase='BATTLE';return battle;
     }
+
     fightIsland(){
       const s=this.state,i=this.island,a=this.actor;
       if(s.phase!=='ISLAND_BATTLE'||i.category!=='combat'||i.defender.hp<=0||i.productCollectedBy!==null||a.hp<=0||!Number.isFinite(a.attack)||a.attack<=0)return false;
-      const defender=i.defender,safety=this.monsterSafety(defender),battle={type:'island',attacker:a.id,islandId:i.id,damageA:0,damageB:0,rounds:[]};
+      const defender=i.defender,safety=this.monsterSafety(defender,10),battle={type:'island',attacker:a.id,islandId:i.id,damageA:0,damageB:0,shields:[false,false],rounds:[]};
+      this.spendDay();s.distanceLeft=0;
       a.monsterAttacksSinceRepair=(a.monsterAttacksSinceRepair||0)+1;
       s.battle=battle;
       // The arriving ship fires first, as in other encounters. Fatal hits stop retaliation.
-      while(a.hp>0&&defender.hp>0){
+      while(a.hp>0&&defender.hp>0&&battle.rounds.length<10){
         const damage=Math.min(defender.hp,a.attack);defender.hp-=damage;
         const counter=defender.hp>0?this.hurt(a,defender.attack,safety.minimumHp):{damage:0,blocked:false};
         battle.damageB+=damage;battle.damageA+=counter.damage;
@@ -340,6 +400,7 @@
       }
       this.note(a.name+' giao chiến tại điểm '+i.id+': tàu còn '+a.hp+'/'+a.maxHp+' độ bền, đảo còn '+defender.hp+'/'+defender.maxHp+'.');
       if(this.checkWinner())return battle;
+      if(defender.hp>0){s.phase='BATTLE';return battle;}
       s.phase='ENCOUNTER';this.arrive();
       s.reward.effect.name='Chiến thắng trên đảo';
       s.reward.effect.detail='Hạ đảo sau '+battle.rounds.length+' lượt bắn. Tàu còn '+a.hp+'/'+a.maxHp+' độ bền. '+s.reward.effect.detail;

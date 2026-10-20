@@ -13,7 +13,7 @@ test('catalog preserves the approved 17 harvest, 8 combat, 10 treasure, one boss
   assert.equal(T.product(5).name,'Nhân sâm');assert.equal(T.product(5).edible,false);
   assert.equal(T.product(24).name,'Mỡ cá voi');assert.equal(T.product(24).edible,false);
   assert.deepEqual(R.THEMES.filter(t=>t.category==='combat').map(t=>T.product(t.id).name),[
-    'Chân cua khổng lồ','Kim cương đen','Xác ướp','Ruby đỏ','Vảy rồng','Tuyết liên','Katana Susano','Vật tổ'
+    'Càng cua khổng lồ','Kim cương đen','Xác ướp','Ruby đỏ','Vảy rồng','Tuyết liên','Katana Susano','Vật tổ'
   ]);
 });
 test('1000 draws enforce each region, include all rare resources and combat themes without duplicates',()=>{
@@ -32,6 +32,7 @@ test('1000 draws enforce each region, include all rare resources and combat them
     assert.equal(count(middle,'harvest','rare'),2);assert.equal(count(middle,'harvest','common'),0);
     assert.equal(slots[7].rarity,'rare');assert.equal(slots[16].rarity,'rare');
     for(const base of [1,24])assert.ok(E.EDGES.some(e=>e.includes(base)&&slots[e.find(id=>id!==base)-1].rarity==='common'));
+    for(const [base,near] of [[1,[2,3]],[24,[22,23]]])assert.ok(near.some(id=>slots[id-1].edible&&slots[id-1].category==='harvest'&&E.EDGES.some(e=>e.includes(base)&&e.includes(id))));
     const boss=slots.findIndex(t=>t.category==='boss')+1;assert.ok([12,13].includes(boss));seenBoss.add(boss);
     assert.deepEqual(slots.filter(t=>t.category==='combat').map(t=>t.id).sort((a,b)=>a-b),[7,9,11,14,18,30,32,33]);
     assert.deepEqual(slots.filter(t=>t.rarity==='rare').map(t=>t.id).sort((a,b)=>a-b),[16,17,19,35]);
@@ -44,6 +45,7 @@ test('actual geometry puts Kraken at the central anchor and rare islands on the 
   for(let seed=1;seed<=12;seed++){
     const map=L.create(random(seed)),position=R.bossPosition(map),decorated=decorate(map,R.selectThemes(random(seed),position,map.edges));
     assert.ok([12,13].includes(position));positions.add(position);assert.equal(R.validateMap(decorated),true);
+    for(const [base,near] of [[1,[2,3]],[24,[22,23]]])assert.ok(near.some(id=>R.theme(decorated.islands[id-1].themeId).edible&&decorated.edges.some(e=>e.includes(base)&&e.includes(id))));
     const g=new E.Game({questions,map:decorated}),boss=g.state.islands.find(i=>i.kind==='kraken');
     assert.equal(boss.id,position);assert.equal(map.islands.find(i=>i.id===boss.id).x,2400);
     assert.equal(map.islands.find(i=>i.id===boss.id).y,490);

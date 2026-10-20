@@ -170,3 +170,13 @@ Bổ sung cục bộ 20/10/2026 — đã áp dụng mặt nước hai cảng:
 - Bảng khai thác hiển thị rõ Thực phẩm ăn được (xanh lá) hoặc Không ăn được (đỏ) dưới tên sản vật, dùng cùng thuộc tính edible với luật khẩu phần. Cập nhật mô tả Chim cánh cụt. Không đổi phân loại các sản vật khác.
 - PASS 30 kiểm thử cargo-food/harvest/island-rules; cập nhật kỳ vọng tên Katana Susano trong bài test cũ cho khớp tên đã có từ trước. Kiểm tra nhãn bằng trình duyệt cho Chim cánh cụt và Mỡ cá voi, giữ kiểm tra thứ tự ended → đổi ảnh/hiện bảng.
 - Nhãn nằm ngay dưới tên sản vật: xanh lá #23783c / đỏ #b3261e, chữ đậm 19px. Đã kiểm tra ảnh thật cả hai nhãn và màu tính toán trong trình duyệt.
+
+
+## Đói, giao tranh và cướp căn cứ — 2026-10-20
+- Thiếu N đơn vị thức ăn cuối ngày trừ N độ bền. Dùng hết phần thực phẩm kho có thể ăn trước khi tính thiếu; giữ ngưỡng tự ăn hàng ở <=70% độ bền. Khi đói giảm tốc độ còn 50%, không cộng dồn; có đủ khẩu phần mới hoặc về cảng thì phục hồi tốc độ. HUD thêm biểu tượng đói thứ sáu.
+- Đổi Chân cua khổng lồ thành Càng cua khổng lồ. Bản đồ mới luôn có đảo thực phẩm thường nối trực tiếp cảng tại 2/3 và 22/23.
+- Hai tàu gặp nhau tại đảo ngoài căn cứ hoặc trên cùng cạnh đường biển tự giao chiến; tàu đang đi dừng tại điểm gặp. Một lượt đánh tiêu thụ một ngày và tối đa 10 loạt, áp dụng đấu tàu, đảo, Kraken và cướp bóc. Dừng sớm khi tàu/mục tiêu bị hạ hoặc cơ chế bảo vệ đảo/Kraken kích hoạt; máu mục tiêu giữ lại.
+- Khi chọn căn cứ địch trên bản đồ, popup có hai biểu tượng Đi qua / Cướp bóc. Đi qua cập cảng hòa bình và tiếp tế theo luật cũ. Cướp bóc chỉ đánh khi thực sự đến nơi, không sửa tàu trước trận. Cảng bắn 10 sát thương/loạt cố định; tàu phòng thủ nếu đang ở đó cùng tham chiến. Không áp dụng bảo vệ/rút lui của quái vật. Sống sót qua đủ 10 loạt mới chuyển floor(vàng đối phương/2) sang người cướp; 0 vàng nhận 0. Một tàu chìm kết thúc trận ngay, không tiếp tục loạt sau.
+- Bảng Chiến thuyền chỉ giữ ảnh và 9 chỉ số, bỏ sản vật/chiến lợi phẩm/cảnh báo bên dưới, bỏ cuộn và tăng lề phải. Tốc độ hiển thị giá trị thực có tính đói.
+
+- Bổ sung lại nút Luật hải trình dưới tên đội theo yêu cầu mới; nâng cụm ảnh tàu, cân các hàng chỉ số. Luật một cột đánh số La Mã, tiêu đề giữa, lề cân và cuộn không hiện thanh. Khung riêng bỏ bốn họa tiết trong giấy. Hai lựa chọn cảng dùng ảnh PNG trong suốt được tạo mới, xuất bản bằng commit ghim trong assets/hosting.json.

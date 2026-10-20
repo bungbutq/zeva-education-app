@@ -72,5 +72,5 @@
     if(kind==='cave')return '<div class="cave-glow"></div><div class="cave-fire"><i></i><i></i><i></i></div>';
     return '';
   }
-  root.TreasureArtwork=Object.freeze({islands,files:['ocean-water.png','map-foreground.png','ui-picker-frame-clean.png','kraken-tentacle.png','sprite-giant-crab.png','sprite-mangrove-fish.png','sprite-guard-walk.png','sprite-villagers-walk.png','sprite-totem-bird.png','sprite-shark-overhead.png','sprite-snake-overhead.png','sprite-island-patrol.png','sprite-mermaid-poses-v2.png','sprite-monkey-climb.png','sprite-penguin-walk.png','island-26-storm.png',...islands.map(i=>i.file)],effects,shuffledIslands});
+  root.TreasureArtwork=Object.freeze({islands,files:['ui-port-pass.png','ui-port-raid.png','ui-rules-frame.png','ocean-water.png','map-foreground.png','ui-picker-frame-clean.png','kraken-tentacle.png','sprite-giant-crab.png','sprite-mangrove-fish.png','sprite-guard-walk.png','sprite-villagers-walk.png','sprite-totem-bird.png','sprite-shark-overhead.png','sprite-snake-overhead.png','sprite-island-patrol.png','sprite-mermaid-poses-v2.png','sprite-monkey-climb.png','sprite-penguin-walk.png','island-26-storm.png',...islands.map(i=>i.file)],effects,shuffledIslands});
 })(window);

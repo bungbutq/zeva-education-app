@@ -55,7 +55,8 @@
     const ration=foodRequired(team.upgrades.cargo),fresh=Math.min(ration,team.dayFood||0),needed=Math.max(0,1-fresh/ration),reserveUsed=Math.min(remainingDays(team),needed);
     const cargoRation=cargoFoodRequired(team),foodNeeded=Math.max(0,Math.ceil((needed-reserveUsed)*cargoRation-1e-6));
     const cargoAllowed=team.hp*100<=team.maxHp*70;
-    return {ration,cargoRation,fresh,reserveUsed,foodNeeded,cargoAllowed,plan:foodNeeded?(cargoAllowed?foodPlan(team,foodNeeded):null):[]};
+    const cargoUsed=cargoAllowed?Math.min(foodNeeded,foodCount(team)):0;
+    return {ration,cargoRation,fresh,reserveUsed,foodNeeded,cargoAllowed,cargoUsed,shortfall:foodNeeded-cargoUsed,plan:cargoUsed?foodPlan(team,cargoUsed):[]};
   }
   function quote(item,rng=Math.random){const range=priceRange(item);if(!range)return null;if(range.min===range.max)return range.min;return range.min+Math.floor(Math.min(.999999,Math.max(0,rng()))*(range.max-range.min+1));}
   const MERCHANTS=Object.freeze({

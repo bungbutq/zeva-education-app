@@ -77,6 +77,69 @@ const root=path.resolve(__dirname,'..');
    await f.locator('.answer-option').nth(correct?0:1).click();await f.locator('#submit-answer').click();
    assert.equal(await f.evaluate(name=>__plays.filter(n=>n===name).length,correct?'Trả lời đúng.mp3':'trả lời sai.mp3'),1);
   }
+  if(process.env.TREASURE_HUNGER_QA){
+   fs.mkdirSync(process.env.TREASURE_HUNGER_QA,{recursive:true});
+   await f.evaluate(()=>{const g=__game,s=g.state;s.phase='MAP';s.portInitial=false;s.reward=null;s.turn++;const active=s.active;for(const t of s.teams){s.active=t.id;g.setHungry(true);}s.active=active;__render();});
+   assert.equal(await f.locator('.ship-stat[data-stat="hunger"]').count(),2);
+   assert.deepEqual(await f.locator('.ship-stat[data-stat="hunger"] b').allTextContents(),['−50%','−50%']);
+   for(const width of [1368,768,390]){
+    await page.setViewportSize({width,height:838});
+    await f.evaluate(()=>new Promise(requestAnimationFrame));
+    const within=await f.locator('.team-panel .stats').evaluateAll(rows=>rows.every(row=>{const p=row.closest('.team-panel').getBoundingClientRect(),r=row.getBoundingClientRect();return r.left>=p.left-1&&r.right<=p.right+1;}));
+    assert.equal(within,true,'six icons stay within each HUD at '+width);
+    await page.screenshot({path:path.join(process.env.TREASURE_HUNGER_QA,'hud-'+width+'.png')});
+   }
+   await page.setViewportSize({width:1368,height:838});
+   await f.evaluate(()=>{const g=__game,active=g.state.active;for(const t of g.state.teams){g.state.active=t.id;g.setHungry(false);}g.state.active=active;__render();});
+   assert.equal(await f.locator('.ship-stat[data-stat="hunger"]').count(),0);
+  }
+  if(process.env.TREASURE_DUEL_QA){
+   await page.emulateMedia({reducedMotion:'no-preference'});
+   const before=await f.evaluate(()=>__plays.filter(n=>n==='đánh nhau hỗ loạn.mp3').length);
+   await f.evaluate(()=>{
+    const g=__game,s=g.state,edge=g.map.edges.find(e=>e.every(id=>![1,24].includes(id)));
+    s.phase='MAP';s.turn++;s.distanceLeft=30;s.reward=null;s.battle=null;s.portInitial=false;
+    for(const t of s.teams){t.hp=t.maxHp=200;t.attack=5;t.armor=0;t.shield=false;t.transit=null;t.speed=30;t.hungry=false;}
+    g.actor.position=edge[0];g.opponent.position=edge[1];s.islands.find(i=>i.id===edge[1]).explored=true;
+    __render();document.querySelector('#islands button[data-id="'+edge[1]+'"]').click();
+   });
+   await f.locator('.island-battle-fx').waitFor({state:'attached'});
+   await f.waitForFunction(()=>__game.state.phase==='BATTLE');
+   assert.deepEqual(await f.evaluate(()=>[__game.state.battle.shotsA,__game.state.battle.shotsB,__game.actor.hp,__game.opponent.hp]),[10,10,150,150]);
+   assert.equal(await f.evaluate(()=>__plays.filter(n=>n==='đánh nhau hỗ loạn.mp3').length),before+1,'one combat sound per automatic duel');
+   assert.match(await f.locator('.battle-caption').innerText(),/10 \/ 10/);
+   await page.emulateMedia({reducedMotion:'reduce'});
+  }
+  if(process.env.TREASURE_RAID_QA){
+   fs.mkdirSync(process.env.TREASURE_RAID_QA,{recursive:true});
+   await f.evaluate(()=>{const g=__game,s=g.state;s.phase='MAP';s.turn++;s.distanceLeft=30;s.battle=null;s.portInitial=false;for(const t of s.teams){t.hp=t.maxHp=500;t.attack=5;t.armor=0;t.shield=false;t.transit=null;t.position=t.id?1:24;t.gold=100;}__render();document.querySelector('#islands button[data-id="'+g.opponent.position+'"]').click();});
+   await f.locator('.port-choice-options').waitFor({state:'visible'});
+   assert.equal(await f.locator('.port-option').count(),2);
+   await f.locator('#action-card').evaluate(async card=>{const urls=[null,'::before','::after'].flatMap(p=>[...getComputedStyle(card,p).backgroundImage.matchAll(/url\(["']?(.*?)["']?\)/g)].map(m=>m[1]));await Promise.all(urls.map(src=>{const img=new Image();img.src=src;return img.decode();}));});
+   await page.screenshot({path:path.join(process.env.TREASURE_RAID_QA,'port-choice.png')});
+   await f.locator('[data-port-choice="raid"]').click();
+   await f.waitForFunction(()=>__game.state.phase==='BATTLE');
+   assert.deepEqual(await f.evaluate(()=>[__game.state.battle.portShots,__game.state.battle.shotsB,__game.actor.gold,__game.opponent.gold]),[10,10,150,50]);
+   assert.match(await f.locator('#action-title').innerText(),/CƯỚP BÓC/);
+  }
+  if(process.env.TREASURE_RAID_QA){
+   await f.evaluate(()=>{__game.state.phase='MAP';__game.state.turn++;__render();});
+   await f.locator('#ship-button').click();
+   await f.locator('.active-fleet').waitFor({state:'visible'});
+   assert.equal(await f.locator('.fleet-cargo').count(),0);
+   assert.equal(await f.locator('.fleet-portrait #fleet-rules').count(),1);
+   assert.equal(await f.locator('.fleet-card dl>div').count(),9);
+   assert.equal(await f.locator('#info-content').evaluate(n=>n.scrollHeight<=n.clientHeight+1),true,'ship stats fit without scrolling');
+   await f.locator('.info-card').evaluate(async n=>{const img=new Image();img.src=getComputedStyle(n).backgroundImage.slice(5,-2);await img.decode();});
+   await page.screenshot({path:path.join(process.env.TREASURE_RAID_QA,'ship-stats.png')});
+   await f.locator('#fleet-rules').click();
+   assert.equal(await f.locator('.rules-card .rule-box').first().locator('h3').innerText(),'I · Căn cứ');
+   assert.equal(await f.locator('.rules-card .rule-box').nth(1).locator('h3').innerText(),'II · Đảo chưa khám phá');
+   await f.locator('.rules-card').evaluate(async n=>{const img=new Image();img.src=getComputedStyle(n).backgroundImage.slice(5,-2);await img.decode();});
+   await page.screenshot({path:path.join(process.env.TREASURE_RAID_QA,'rules.png')});
+   assert.equal(await f.locator('#info-content').evaluate(n=>{n.scrollTop=10000;return n.scrollTop>0;}),true);
+   await f.locator('#info-layer .close').click();
+  }
   await f.evaluate(()=>{__game.win(0,'Audio QA');__render();__render();});
   assert.equal(await f.evaluate(()=>__plays.filter(n=>n==='chiến thắng.mp3').length),1);
   assert.equal(await f.evaluate(()=>__media.find(a=>decodeURIComponent(a.src).endsWith('nhạc nền.ogg')).paused),true);

@@ -13,7 +13,7 @@
     [34,'Mật rắn',false],[35,'Vây cá mập',true]
   ];
   const combat=[
-    [7,'Chân cua khổng lồ'],[9,'Kim cương đen'],[11,'Xác ướp'],[14,'Ruby đỏ'],
+    [7,'Càng cua khổng lồ'],[9,'Kim cương đen'],[11,'Xác ướp'],[14,'Ruby đỏ'],
     [18,'Vảy rồng'],[30,'Tuyết liên'],[32,'Katana Susano'],[33,'Vật tổ']
   ];
   const rare=new Set([16,17,19,35]);
@@ -38,7 +38,10 @@
   }
   function selectThemes(rng=Math.random,krakenPosition=12+Math.min(1,Math.floor(rng()*2)),edges){
     if(![12,13].includes(krakenPosition))throw Error('Kraken phải ở ô 12 hoặc 13.');
-    const common=shuffle(THEMES.filter(t=>t.category==='harvest'&&t.rarity==='common'),rng).slice(0,6);
+    const pool=THEMES.filter(t=>t.category==='harvest'&&t.rarity==='common');
+    const food=shuffle(pool.filter(t=>t.edible),rng).slice(0,2);
+    const extra=shuffle(pool.filter(t=>!food.includes(t)),rng).slice(0,4);
+    const common=[food[0],...extra.slice(0,2),food[1],...extra.slice(2)];
     const precious=shuffle(THEMES.filter(t=>t.rarity==='rare'),rng);
     const fighters=shuffle(THEMES.filter(t=>t.category==='combat'),rng);
     const chests=shuffle(THEMES.filter(t=>t.category==='treasure'),rng).slice(0,3);
@@ -47,12 +50,12 @@
     const middle=shuffle([...precious.slice(2),...fighters.slice(2,6),chests[1]],rng);
     middle.splice(krakenPosition-9,0,theme(23));
     const slots=[theme(37),...first,precious[0],...middle,precious[1],...last,theme(38)];
-    if(edges)for(const [base,start,end] of [[1,2,7],[24,18,23]]){
-      const neighbors=edges.filter(e=>e.includes(base)).map(e=>e.find(id=>id!==base)).filter(id=>id>=start&&id<=end);
-      if(neighbors.some(id=>slots[id-1].rarity==='common'))continue;
-      if(!neighbors.length)throw Error('Căn cứ '+base+' cần đường nối tới đảo trong vùng.');
+    for(const [base,start,end,near] of [[1,2,7,[2,3]],[24,18,23,[22,23]]]){
+      const neighbors=near.filter(id=>!edges||edges.some(e=>e.includes(base)&&e.includes(id)));
+      if(neighbors.some(id=>slots[id-1].rarity==='common'&&slots[id-1].edible))continue;
+      if(!neighbors.length)throw Error('Căn cứ '+base+' cần đường nối tới một trong hai đảo cạnh cảng.');
       const target=neighbors[Math.min(neighbors.length-1,Math.floor(rng()*neighbors.length))]-1;
-      const donors=slots.map((t,i)=>({t,i})).filter(({t,i})=>i>=start-1&&i<end&&t.rarity==='common');
+      const donors=slots.map((t,i)=>({t,i})).filter(({t,i})=>i>=start-1&&i<end&&t.rarity==='common'&&t.edible);
       const donor=donors[Math.min(donors.length-1,Math.floor(rng()*donors.length))].i;
       [slots[target],slots[donor]]=[slots[donor],slots[target]];
     }
@@ -78,6 +81,8 @@
     }
     for(const base of [1,24])if(!map.edges.some(e=>e.includes(base)&&types[e.find(id=>id!==base)-1]?.rarity==='common'))
       throw Error('Căn cứ '+base+' phải nối trực tiếp ít nhất một đảo khai thác thường.');
+    for(const [base,near] of [[1,[2,3]],[24,[22,23]]])if(!near.some(id=>types[id-1].category==='harvest'&&types[id-1].edible&&map.edges.some(e=>e.includes(base)&&e.includes(id))))
+      throw Error('Căn cứ '+base+' phải nối tới đảo thực phẩm tại ô '+near.join(' hoặc ')+'.');
     const boss=slots.find((s,i)=>types[i].category==='boss');
     if(![12,13].includes(boss.id)||boss.id!==bossPosition(map))throw Error('Kraken phải ở chính giữa vùng 2, ô 12 hoặc 13.');
     return true;

@@ -322,7 +322,7 @@
       const food=panel.querySelector('.food-meter'),remaining=TRADE.remainingDays(team),capacity=TRADE.voyageCapacity(team.upgrades.provisions);
       labelMeter(food,{label:'Dự trữ thức ăn '+team.name,value:remaining,max:capacity,text:formatDays(remaining)+'/'+capacity+' ngày'});
       food.innerHTML=window.TreasureShipyardUI.icon('provisions','food-reserve-icon')+'<b class="food-value">'+formatDays(remaining)+'/'+capacity+'</b><small>NGÀY</small>';
-      panel.querySelector('.stats').innerHTML=[['cannon','attack','Sát thương',team.attack],['sail','sail','Tốc độ (hải lí/ngày)',team.speed],['cargo','cargo','Kho hàng',TRADE.cargoCount(team)+'/'+TRADE.capacity(team.upgrades.cargo)],['harvest','harvest','Tốc độ khai thác (đơn vị/ngày)',TRADE.harvestRate(team.upgrades.hull)],['consumption','consumption','Tiêu thụ thực phẩm từ kho hàng (đơn vị/ngày)',TRADE.cargoFoodRequired(team)]].map(([icon,kind,label,value])=>'<span class="ship-stat" data-stat="'+kind+'" title="'+label+': '+value+'" aria-label="'+label+': '+value+'">'+window.TreasureShipyardUI.icon(icon,'hud-stat-icon')+'<b>'+value+'</b></span>').join('');
+      panel.querySelector('.stats').innerHTML=[['cannon','attack','Sát thương',team.attack],['sail','sail','Tốc độ (hải lí/ngày)',team.speed],['cargo','cargo','Kho hàng',TRADE.cargoCount(team)+'/'+TRADE.capacity(team.upgrades.cargo)],['harvest','harvest','Tốc độ khai thác (đơn vị/ngày)',TRADE.harvestRate(team.upgrades.hull)],['consumption','consumption','Tiêu thụ thực phẩm từ kho hàng (đơn vị/ngày)',TRADE.cargoFoodRequired(team)],...(team.hungry?[['hunger','hunger','Đói · Tốc độ di chuyển giảm 50%','−50%']]:[])].map(([icon,kind,label,value])=>'<span class="ship-stat" data-stat="'+kind+'" title="'+label+': '+value+'" aria-label="'+label+': '+value+'">'+window.TreasureShipyardUI.icon(icon,'hud-stat-icon')+'<b>'+value+'</b></span>').join('');
     }
     const preparing=s.portInitial;
     $('turn-banner').textContent=s.phase==='RESULT'?'HẢI TRÌNH HOÀN TẤT':preparing?game.actor.name+' · Chuẩn bị ra khơi':game.actor.name+' · Ngày '+(game.actor.turns+1)+'/'+E.TURN_LIMIT+' · '+s.distanceLeft+' hải lí';
@@ -333,7 +333,7 @@
   }
   function drawAction() {
     const s=game.state,phase=s.phase;
-    const visible=!busy&&!mapPreview&&['TRAVEL','ENCOUNTER','QUESTION','ANSWER','CHEST','REWARD','BATTLE'].includes(phase);
+    const visible=!busy&&!mapPreview&&['PORT_CHOICE','TRAVEL','ENCOUNTER','QUESTION','ANSWER','CHEST','REWARD','BATTLE'].includes(phase);
     const challenge=visible&&(phase==='QUESTION'||phase==='ANSWER');
     const productReward=visible&&phase==='REWARD'&&s.reward?.type==='product'&&TRADE.product(s.productReward?.id);
     const retreat=visible&&phase==='REWARD'&&s.reward?.type==='retreat';
@@ -342,6 +342,7 @@
     $('stage').classList.toggle('challenge-active',challenge);
     $('action-layer').classList.toggle('island-challenge',challenge);
     $('action-layer').classList.toggle('harvest-reward',!!productReward||retreat);
+    $('action-layer').classList.toggle('port-choice',phase==='PORT_CHOICE');
     $('challenge-island').hidden=!challenge;
     $('map-viewport').inert=visible;
     $('action-layer').hidden=!visible;
@@ -351,6 +352,18 @@
     $('action-content').replaceChildren();$('action-buttons').replaceChildren();
     $('action-kicker').textContent=game.actor.name.toUpperCase()+' · ĐIỂM '+game.actor.position+' · '+node(game.actor.position).name.toUpperCase();
     const body=$('action-content'),t=game.actor;
+    if(phase==='PORT_CHOICE'){
+      const target=node(s.portDestination),defending=!game.opponent.transit&&game.opponent.position===s.portDestination;
+      $('action-kicker').textContent='CĂN CỨ ĐỐI PHƯƠNG · '+target.name.toUpperCase();
+      $('action-title').textContent='Chọn hướng hành động';
+      body.innerHTML='<p class="port-choice-intro">Thuyền trưởng, chúng ta sẽ làm gì tại căn cứ này?</p><div class="port-choice-options"></div><p class="port-defense">Pháo cảng: <b>10 sát thương / loạt</b> · Không thể nâng cấp'+(defending?'<br>Tàu đối phương đang ở cảng và sẽ cùng bắn trả.':'')+'</p>';
+      const options=body.querySelector('.port-choice-options');
+      for(const [choice,title,detail] of [['pass','Đi qua','Ghé cảng, sửa tàu và tiếp tế. Không giao chiến.'],['raid','Cướp bóc','Sống sót qua 10 loạt bắn trả để lấy 50% vàng đối phương.']]){
+        const b=document.createElement('button');b.type='button';b.className='port-option '+choice;b.dataset.portChoice=choice;
+        b.innerHTML=window.TreasureShipyardUI.icon(choice,'port-choice-icon')+'<strong>'+title+'</strong><span>'+detail+'</span>';
+        b.addEventListener('click',()=>{if(busy)return;const id=game.selectPort(choice);if(id!==false)void sail(id,true);});options.append(b);
+      }
+    }
     if(phase==='TRAVEL'){
       const trip=t.transit,daysLeft=Math.ceil((E.LEG_DISTANCE-trip.travelled)/t.speed);
       $('action-title').textContent='Tàu đang trên hải trình';
@@ -359,6 +372,8 @@
       const supply=document.createElement('p');supply.className='combat-preview';
       const plan=TRADE.daySupply(t);
       supply.textContent='Số thực phẩm dự trữ còn '+formatDays(TRADE.remainingDays(t)-plan.reserveUsed)+' ngày';
+      if(plan.shortfall)supply.textContent+=' · Cuối ngày còn thiếu '+plan.shortfall+' thức ăn: mất '+plan.shortfall+' độ bền và giảm 50% tốc độ';
+      else if(t.hungry)supply.textContent+=' · Ăn đủ cuối ngày sẽ hết giảm tốc vì đói';
       body.append(supply);
       button('Kết thúc ngày',()=>game.continueTravel());
     }
@@ -447,15 +462,15 @@
       }
     }
     if(phase==='BATTLE'){
-      const b=s.battle,a=s.teams[b.attacker];$('action-title').textContent=b.type==='kraken'?'ĐẠI CHIẾN KRAKEN':'HAI TÀU GIAO CHIẾN';
-      const defender=b.type==='kraken'?'<div class="battle-team"><img src="assets/'+node(a.position).art.file+'" alt="Kraken"><div>Kraken</div><strong>−'+b.damageB+' MÁU</strong><small>♥ '+s.kraken.hp+'/'+s.kraken.maxHp+' · ⚔ '+s.kraken.attack+' sát thương</small></div>':battleTeam(s.teams[b.defender],b.damageB,b.shields[1]);
-      body.innerHTML='<div class="battle-ships">'+battleTeam(a,b.damageA,b.shields[0])+'<div class="versus"><span class="icon swords" aria-hidden="true"></span></div>'+defender+'</div><p class="battle-caption">'+escape(a.name)+' khai hỏa trước. Mục tiêu còn sống đã phản đòn.</p>';
-      button('Tiếp tục hành trình',()=>game.continueBattle());
+      const b=s.battle,a=s.teams[b.attacker];$('action-title').textContent=b.type==='raid'?'CƯỚP BÓC THÀNH CÔNG':b.type==='island'?'HOÀN TẤT LƯỢT ĐÁNH':b.type==='kraken'?'ĐẠI CHIẾN KRAKEN':'HAI TÀU GIAO CHIẾN';
+      const defender=b.type==='island'?'<div class="battle-team"><img src="assets/'+node(a.position).art.file+'" alt="Đảo chiến đấu"><div>'+escape(node(a.position).name)+'</div><strong>−'+b.damageB+' ĐỘ BỀN</strong><small>Còn '+game.island.defender.hp+'/'+game.island.defender.maxHp+' · Đánh tiếp vào ngày sau</small></div>':b.type==='raid'?'<div class="battle-team"><img src="assets/'+node(a.position).art.file+'" alt="Căn cứ đối phương"><div>'+escape(node(a.position).name)+'</div><strong>+'+b.gold+' VÀNG</strong><small>Cảng bắn '+b.portShots+' loạt · Tàu phòng thủ bắn '+b.shotsB+' loạt</small></div>':b.type==='kraken'?'<div class="battle-team"><img src="assets/'+node(a.position).art.file+'" alt="Kraken"><div>Kraken</div><strong>−'+b.damageB+' MÁU</strong><small>♥ '+s.kraken.hp+'/'+s.kraken.maxHp+' · ⚔ '+s.kraken.attack+' sát thương</small></div>':battleTeam(s.teams[b.defender],b.damageB,b.shields[1]);
+      body.innerHTML='<div class="battle-ships">'+battleTeam(a,b.damageA,b.shields[0])+'<div class="versus"><span class="icon swords" aria-hidden="true"></span></div>'+defender+'</div><p class="battle-caption">'+escape(a.name)+' khai hỏa trước.'+(b.type==='duel'?' Hai bên đã bắn '+b.shotsA+' / '+b.shotsB+' loạt pháo trong lượt này.':b.type==='raid'?' Đã vượt qua 10 loạt bắn trả.':' Đã bắn '+b.rounds.length+' / 10 loạt. Mục tiêu giữ lại độ bền còn lại.')+'</p>';
+      button('Kết thúc ngày',()=>game.continueBattle());
     }
     $('action-card').scrollTop=0;requestAnimationFrame(()=>{const first=$('action-card').querySelector('button:not(:disabled)');(first||$('action-card')).focus({preventScroll:true});});
   }
   function teamStats(t){return '<div class="reward-stats"><span>♥ Độ bền '+YARD.durability(t)+'%</span><span>⚔ '+t.attack+' sát thương</span><span>◈ '+t.armor+' giáp</span></div>';}
-  function battleTeam(t,damage,blocked){return '<div class="battle-team"><img src="'+shipSrc(t)+'" alt=""><div>'+escape(t.name)+'</div><strong>'+(blocked?'KHIÊN ĐÃ CHẶN':'−'+Math.round(damage/t.maxHp*1000)/10+'% ĐỘ BỀN')+'</strong><small>♥ Còn '+YARD.durability(t)+'% · ⚔ '+t.attack+' · ◈ '+t.armor+'</small></div>';}
+  function battleTeam(t,damage,blocked){return '<div class="battle-team"><img src="'+shipSrc(t)+'" alt=""><div>'+escape(t.name)+'</div><strong>'+(blocked&&!damage?'KHIÊN ĐÃ CHẶN':'−'+Math.round(damage/t.maxHp*1000)/10+'% ĐỘ BỀN')+'</strong><small>♥ Còn '+YARD.durability(t)+'% · ⚔ '+t.attack+' · ◈ '+t.armor+'</small></div>';}
   function drawResult() {
     const s=game.state,isResult=s.phase==='RESULT';
     $('stage').classList.toggle('showing-result',isResult&&viewResult);
@@ -471,21 +486,30 @@
   }
   function render() { if(game){if(game.state.phase==='BATTLE'&&lastBattle!==game.state.battle){lastBattle=game.state.battle;sounds.stop('sail');sounds.play('battle');}drawMap();drawHud();drawAction();portUI.render(game,busy,mapPreview);drawResult();} }
   async function resolveIslandBattle(){
-    const current=game;if(!current||current.state.phase!=='ISLAND_BATTLE')return;
+    const current=game;if(!current||!['ISLAND_BATTLE','DUEL_BATTLE','PORT_BATTLE'].includes(current.state.phase))return;
+    const duel=current.state.phase==='DUEL_BATTLE',raid=current.state.phase==='PORT_BATTLE';
     const controller=new AbortController();islandBattleAbort=controller;
     sounds.stop('sail');sounds.play('battle');
     const islandId=current.actor.position,teamId=current.actor.id;
     drawMap();drawHud();$('action-layer').hidden=true;
     try{
       await window.TreasureEffects.playIslandBattle({stage:$('stage'),reduced:reduced.matches,signal:controller.signal,
-        ships:()=>camera.ships(teamId),islands:()=>camera.containers().map(world=>world.querySelector('.island-scene[data-id="'+islandId+'"]')).filter(Boolean),
-        label:current.actor.name+' đang giao chiến tại '+node(islandId).name});
+        ships:()=>camera.ships(teamId),islands:()=>duel?camera.ships(1-teamId):camera.containers().map(world=>world.querySelector('.island-scene[data-id="'+islandId+'"]')).filter(Boolean),
+        label:duel?'Hai tàu đang giao chiến · Tối đa 10 loạt pháo mỗi bên':current.actor.name+' đang giao chiến tại '+node(islandId).name});
     }catch{/* Missing or canceled decorative effects must not prevent battle resolution. */}
-    finally{if(controller.signal.aborted)sounds.stop('battle');if(islandBattleAbort===controller)islandBattleAbort=null;if(game===current&&!controller.signal.aborted&&current.state.phase==='ISLAND_BATTLE')current.fightIsland();}
+    finally{
+      if(controller.signal.aborted)sounds.stop('battle');if(islandBattleAbort===controller)islandBattleAbort=null;
+      if(game===current&&!controller.signal.aborted){
+        if(raid&&current.state.phase==='PORT_BATTLE'){current.raidPort();lastBattle=current.state.battle;}
+        else if(duel&&current.state.phase==='DUEL_BATTLE'){current.fight();lastBattle=current.state.battle;}
+        else if(!duel&&current.state.phase==='ISLAND_BATTLE')current.fightIsland();
+      }
+    }
   }
-  async function sail(id) {
+  async function sail(id,portChosen=false) {
     if(!game||busy||!$('info-layer').hidden)return;
     if(!game.canMove(id))return;
+    if(!portChosen&&game.choosePort(id)){render();return;}
     const sailingGame=game,who=game.actor.id, oldPoint=boatPosition(game.actor);
     const result=game.move(id); if(!result)return;
     if(result.question){render();return;}
@@ -555,6 +579,7 @@
   $('skip').addEventListener('click',()=>{if(busy)return;if(mapPreview){mapPreview=false;render();$('map-button').focus({preventScroll:true});return;}if(game?.skipRemaining())render();});
   function showInfo(title,html,kind='') {
     $('info-layer').querySelector('.info-card').classList.toggle('chart-card',kind==='chart');
+    $('info-layer').querySelector('.info-card').classList.toggle('rules-card',kind==='rules');
     focusBeforeInfo=document.activeElement;$('info-title').textContent=title;$('info-content').innerHTML=html;
     $('info-layer').hidden=false;$('info-content').scrollTop=0;$('close-info').focus({preventScroll:true});
   }
@@ -583,7 +608,7 @@
     if(!game||busy||upgrading)return;
     if(portUI.returnToYard())return;
     showInfo('Chiến thuyền · '+game.actor.name,TRADE_UI.ship(game.actor));
-    const rules=document.createElement('button');rules.id='fleet-rules';rules.className='button small';rules.type='button';rules.textContent='Luật hải trình';rules.addEventListener('click',showRules);$('info-content').append(rules);
+    const rules=document.createElement('button');rules.id='fleet-rules';rules.className='button small';rules.type='button';rules.textContent='Luật hải trình';rules.addEventListener('click',showRules);$('info-content').querySelector('.fleet-portrait').append(rules);
   });
   function showRules(){
     const rules=[
@@ -592,18 +617,19 @@
       ['Nâng cấp','Đại bác, Thân tàu, Buồm, Kho hàng và Kho lương bắt đầu Lv0, tối đa Lv3. Giá nâng cấp: Lv0 → Lv1 là 100 vàng, Lv1 → Lv2 là 500 vàng, Lv2 → Lv3 là 1.000 vàng. Đại bác, Buồm, Kho hàng và Kho lương không được vượt cấp Thân tàu. Đại bác thêm 5 sát thương; Thân tàu bắt đầu 50 điểm độ bền và khai thác 25 đơn vị/ngày, mỗi cấp thêm và phục hồi 50 điểm độ bền, thêm 25 đơn vị khai thác/ngày; Buồm thêm 10 hải lí/ngày.'],
       ['Di chuyển','24 điểm đến nối vòng, mỗi điểm có 3 đường. Mỗi lượt của một đội là một ngày; mỗi đường nối dài 30 hải lí. Tốc độ ban đầu 10 hải lí/ngày. Khi đang giữa đường có thể đi tiếp hoặc quay lại: đã đi 20 hải lí thì cần đi lại 20 hải lí để về đảo cũ, rồi mới rẽ sang đường khác. Quãng đường dư được dùng tiếp trong cùng ngày. Nâng buồm có hiệu lực từ ngày tiếp theo; chuẩn bị ra khơi áp dụng ngay.'],
       ['Kho hàng và sản vật','Kho hàng Lv0 chứa 100 đơn vị, mỗi cấp thêm 50 đơn vị. Cả tài nguyên thường và quý đều khai thác 25/50/75/100 đơn vị/ngày ở Thân tàu Lv0/1/2/3 và dùng hết phần còn lại của ngày. Có thể ở lại đảo khai thác trực tiếp ngày sau, không hỏi lại. Khi kho hàng đầy, vẫn được khai thác tài nguyên ăn được để dùng trong ngày và bù vào kho lương, ở mọi mức độ bền. Thực phẩm mới ưu tiên bù khẩu phần hôm nay, phần dư cất vào kho hàng rồi vào kho lương, tối đa sức dự trữ của tàu; giữ cả phần ngày lẻ. Vật phẩm không ăn được chỉ thu tới khi đầy kho. Mỗi đảo chiến đấu có đúng một chiến lợi phẩm cho cả trận, không tái sinh và không chiếm kho hàng. Đảo kho báu dùng để tìm manh mối.'],
-      ['Dự trữ hải trình','Dự trữ ban đầu 3 ngày, mỗi cấp thêm 3 ngày. Mỗi lượt của đội là một ngày, kể cả đứng yên. Cuối ngày chỉ trừ dự trữ cho phần khẩu phần chưa được thực phẩm mới khai thác bù đủ. Về căn cứ trong ngày được tiếp tế đầy. Ngày dùng nốt dự trữ vẫn an toàn. Khi hết lương thực và độ bền còn 70% trở xuống, tàu tự ăn sản vật trong kho nếu đủ khẩu phần còn thiếu, không giảm thêm độ bền do đói. Khi chưa đủ điều kiện này, thiếu khẩu phần mất 10% độ bền tối đa mỗi ngày. Độ bền về 0% thì tàu chìm.'],
-      ['Thực phẩm thay thế','Khẩu phần mỗi ngày bằng 20% sức chứa tối đa: 20/30/40/50 đơn vị ở Kho hàng Lv0/1/2/3. Thực phẩm mới khai thác bù khẩu phần trước, sau đó dùng lương thực dự trữ. Nếu vẫn thiếu và độ bền hiện tại còn 70% trở xuống, tự lấy đúng phần thiếu từ tài nguyên ăn được trong kho, ưu tiên thường trước quý, giữ nguyên độ bền. Trên 70% chưa tự ăn hàng trong kho. Sau mỗi ngày đã ăn hàng trong kho, khẩu phần kho hàng cho lần tiếp theo tăng 25% so với lần trước, làm tròn lên (20 → 25 → 32 → 40…). Mức tăng theo riêng từng đội, giữ qua ngày dùng dự trữ hoặc thực phẩm mới và chỉ đặt lại khi về cảng tiếp tế. Nếu chỉ thiếu một phần ngày, lấy theo tỷ lệ khẩu phần kho hàng hiện tại. Không đủ phần cần lấy thì giữ nguyên hàng trong kho và trừ 10% độ bền tối đa. Thực phẩm khai thác vượt kho bổ sung lại kho lương theo cùng khẩu phần.'],
+      ['Dự trữ hải trình','Dự trữ ban đầu 3 ngày, mỗi cấp thêm 3 ngày. Mỗi lượt của đội là một ngày, kể cả đứng yên. Cuối ngày chỉ trừ dự trữ cho phần khẩu phần chưa được thực phẩm mới khai thác bù đủ. Về căn cứ trong ngày được tiếp tế đầy. Ngày dùng nốt dự trữ vẫn an toàn. Khi hết lương thực và độ bền còn 70% trở xuống, tàu tự ăn sản vật trong kho để bù khẩu phần, kể cả khi kho không đủ. Mỗi đơn vị thức ăn vẫn còn thiếu làm mất 1 điểm độ bền. Tàu bị đói giảm 50% tốc độ di chuyển cho tới khi ăn đủ hoặc về cảng tiếp tế. Độ bền về 0% thì tàu chìm.'],
+      ['Thực phẩm thay thế','Khẩu phần mỗi ngày bằng 20% sức chứa tối đa: 20/30/40/50 đơn vị ở Kho hàng Lv0/1/2/3. Thực phẩm mới khai thác bù khẩu phần trước, sau đó dùng lương thực dự trữ. Nếu vẫn thiếu và độ bền hiện tại còn 70% trở xuống, tự lấy đúng phần thiếu từ tài nguyên ăn được trong kho, ưu tiên thường trước quý, giữ nguyên độ bền. Trên 70% chưa tự ăn hàng trong kho. Sau mỗi ngày đã ăn hàng trong kho, khẩu phần kho hàng cho lần tiếp theo tăng 25% so với lần trước, làm tròn lên (20 → 25 → 32 → 40…). Mức tăng theo riêng từng đội, giữ qua ngày dùng dự trữ hoặc thực phẩm mới và chỉ đặt lại khi về cảng tiếp tế. Nếu chỉ thiếu một phần ngày, lấy theo tỷ lệ khẩu phần kho hàng hiện tại. Không đủ phần cần lấy thì dùng hết phần ăn được hiện có; mỗi đơn vị còn thiếu trừ 1 điểm độ bền. Khi bị đói, tốc độ giảm 50%; không cộng dồn mức giảm qua nhiều ngày. Thực phẩm khai thác vượt kho bổ sung lại kho lương theo cùng khẩu phần.'],
       ['Gian thương','Mỗi cảng có một gian thương riêng. Tài nguyên khai thác thường luôn bán 1 vàng/đơn vị, loại quý 5 vàng/đơn vị tại cả hai cảng; chiến lợi phẩm độc nhất vẫn 1.000 vàng/món. Giá cố định qua các ngày và các chuyến đi. Bán sản vật lấy vàng nâng cấp tàu; chiến lợi phẩm không chiếm kho hàng.'],
       ['Kho báu','Ba đảo kho báu là nơi tìm manh mối. Tìm 3 ngày trên một đảo được một manh mối; mỗi đội chỉ lấy một manh mối từ mỗi đảo. Đội đầu tiên đủ 2 manh mối làm xuất hiện rương duy nhất, ngẫu nhiên trên 7 đảo ngoài căn cứ thuộc vùng nhà (Xanh: 2–8, Đỏ: 17–23). Chỉ đội đó thấy vị trí và được đào. Cập bến rồi dành riêng 1 ngày đào, mở rương nhận 3.000 vàng. Tiến độ lưu riêng cho từng đội; kho báu không chiếm Kho hàng.'],
-      ['Ba vùng đảo','Vùng 1 và 3: mỗi vùng có một căn cứ, ba khai thác thường, một khai thác quý, hai chiến đấu và một kho báu. Mỗi căn cứ nối trực tiếp ít nhất một đảo khai thác thường. Đảo quý ở ô 8 và 17 nối thẳng vào vùng 2. Vùng 2 có hai khai thác quý, bốn chiến đấu, một kho báu và Kraken ở tâm (ô 12 hoặc 13).'],
-      ['Đảo chiến đấu','Mỗi đảo chiến đấu có 500 độ bền, gây 10 sát thương mỗi phát. Khi cập đảo, tàu tự giao chiến ngay trên bản đồ đến khi một bên hết độ bền hoặc kích hoạt bảo vệ lần đầu. Tàu bắn trước; bên bị hạ không phản công. Thắng đảo nhận chiến lợi phẩm độc nhất, bán được 1.000 vàng và không chiếm kho hàng.'],
+      ['Ba vùng đảo','Vùng 1 và 3: mỗi vùng có một căn cứ, ba khai thác thường, một khai thác quý, hai chiến đấu và một kho báu. Mỗi căn cứ nối trực tiếp một đảo khai thác thực phẩm ăn được gần cảng: ô 2 hoặc 3 bên Dover, ô 22 hoặc 23 bên Bristol. Đảo quý ở ô 8 và 17 nối thẳng vào vùng 2. Vùng 2 có hai khai thác quý, bốn chiến đấu, một kho báu và Kraken ở tâm (ô 12 hoặc 13).'],
+      ['Hai tàu gặp nhau','Ngoài hai cảng Dover và Bristol, tàu tới đảo có đối thủ hoặc chạm đối thủ trên cùng tuyến đường sẽ tự giao chiến. Tàu đang di chuyển bắn trước; mỗi bên bắn tối đa 10 lần trong lượt đó. Tàu bị hạ không được bắn trả, và giao tranh dừng ngay khi một tàu chìm. Trên biển, tàu dừng tại điểm gặp nhau và kết thúc quãng đường của ngày; ngày sau có thể đi tiếp hoặc quay lại. Tại cảng khởi đầu không tự đánh nhau: chọn Đi qua hoặc Cướp bóc. Cướp bóc phải sống sót qua 10 loạt pháo cảng (10 sát thương/loạt, không nâng cấp) và tàu phòng thủ nếu có, mới lấy 50% vàng đang có của đối phương (làm tròn xuống). Không có vàng thì không nhận vàng. Không tự rút lui giữ máu; tàu chìm kết thúc trận ngay.'],
+      ['Đảo chiến đấu','Mỗi đảo chiến đấu có 500 độ bền, gây 10 sát thương mỗi phát. Khi cập đảo, tàu tự giao chiến ngay trên bản đồ tối đa 10 loạt trong một ngày. Hết loạt thứ 10, giữ độ bền mục tiêu để đánh tiếp ngày sau. Dừng sớm khi một bên hết độ bền hoặc kích hoạt bảo vệ lần đầu. Tàu bắn trước; bên bị hạ không phản công. Thắng đảo nhận chiến lợi phẩm độc nhất, bán được 1.000 vàng và không chiếm kho hàng.'],
       ['Bảo vệ lần tấn công đầu','Lần đầu tấn công đảo chiến đấu hoặc Kraken kể từ khi sửa ở cảng: nếu giao tranh có thể làm tàu hết độ bền, tự ngừng ở 30% độ bền tối đa để người chơi quay về sửa. Nếu tàu vốn dưới 30% thì dừng ở độ bền hiện tại, không tự hồi máu. Tấn công tiếp khi chưa sửa sẽ tính sát thương bình thường và có thể chìm. Cập một trong hai cảng sẽ sửa đầy tàu và đặt lại lần tấn công. Mỗi đội tính riêng; đấu với tàu đối thủ không áp dụng.'],
       ['Máu đảo sau giao tranh','Đảo giữ nguyên lượng độ bền còn lại sau từng lần bị tấn công, kể cả khi tàu rút lui, đổi đội hay về cảng sửa. Khi quay lại, đánh tiếp từ lượng máu đó; sửa tàu không hồi máu cho đảo. Chỉ nhận chiến lợi phẩm khi đã hạ đảo.'],
       ['Chiến thắng','Mỗi đội được chơi tối đa '+E.TURN_LIMIT+' lượt; khi cả hai hoàn thành, đội còn giữ nhiều vàng chưa sử dụng hơn thắng. Không cộng vàng đã tiêu hoặc giá trị hàng chưa bán. Nếu một tàu hết độ bền, đội còn sống thắng ngay. Khi Kraken bị tiêu diệt, so tổng sát thương thực tế mỗi đội đã gây lên Kraken (không cộng phần vượt máu còn lại); đội gây nhiều hơn thắng. Sát thương bằng nhau thì so vàng đang giữ; vàng cũng bằng nhau thì hòa. Kraken có 1.000 độ bền, 30 sát thương và chỉ phản đòn khi còn sống.'],
       ['Phân loại sản vật','Chỉ Nấm Truffle, Vây cá mập, Nước mắt người cá và Đá sấm sét là khai thác quý. Cá Voi thuộc khai thác thường, cho Mỡ cá voi; Nhân sâm và Mỡ cá voi không ăn được.']
     ];
-    showInfo('Luật hải trình','<div class="rules-grid">'+rules.map(([h,p])=>'<div class="rule-box"><h3>'+h+'</h3><p>'+p+'</p></div>').join('')+'</div>');
+    showInfo('Luật hải trình','<div class="rules-grid">'+rules.map(([h,p],i)=>'<div class="rule-box"><h3>'+['I','II','III','IV','V','VI','VII','VIII','IX','X','XI','XII','XIII','XIV','XV','XVI','XVII','XVIII','XIX','XX'][i]+' · '+h+'</h3><p>'+p+'</p></div>').join('')+'</div>','rules');
   }
   // Delegated UI feedback also covers buttons created during rendering.
   function audioButton(target){const b=target?.closest?.('button,[role="button"]');return b&&!b.disabled&&b.getAttribute('aria-disabled')!=='true'&&!b.closest('[hidden],[inert]')?b:null;}

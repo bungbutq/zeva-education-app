@@ -1,6 +1,6 @@
 {
-  "commit": "984cbd22b6ea1858227509f371335d10b3307150",
-  "baseURL": "https://raw.githubusercontent.com/bungbutq/zeva-education-app/984cbd22b6ea1858227509f371335d10b3307150/Game/dao_kho_bau/",
+  "commit": "88ecd13ed4a3143f71af746d28852749cdf92d07",
+  "baseURL": "https://raw.githubusercontent.com/bungbutq/zeva-education-app/88ecd13ed4a3143f71af746d28852749cdf92d07/Game/dao_kho_bau/",
   "files": [
     {
       "path": "captains-atlas.png",
@@ -946,6 +946,21 @@
       "path": "OFL.txt",
       "bytes": 4385,
       "sha256": "580df76c95a1ec5ab878ceb25bb3d85c6a076804e9c970c8c6972aea775fdf65"
+    },
+    {
+      "path": "ui-port-pass.png",
+      "bytes": 1863393,
+      "sha256": "691760d9447de3a3b9a15e48223696ecf6ee1c9196ade8fb6cdeba0d6d7d6231"
+    },
+    {
+      "path": "ui-port-raid.png",
+      "bytes": 1833136,
+      "sha256": "98191894191d5115afec013e04f0d51c33766e16e1abb701ae5e0173219c9f6b"
+    },
+    {
+      "path": "ui-rules-frame.png",
+      "bytes": 2022672,
+      "sha256": "112e165ddd96d1a47c39cf3f48545e371bfd21f1abb48b9855d3ce60a138b01a"
     }
   ]
 }

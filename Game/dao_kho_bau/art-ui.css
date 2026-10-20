@@ -40,6 +40,7 @@
 .ship-stat .hud-stat-icon{display:block;width:37px;height:37px;overflow:hidden;filter:drop-shadow(0 1px 1px #231309)}
 .ship-stat b{display:block;max-width:58px;font-size:16px;line-height:17px;text-align:center;font-variant-numeric:tabular-nums;text-shadow:0 1px #2d190e}
 .ship-stat[data-stat="cargo"] b{font-size:13px}
+.stats .ship-stat[data-stat="hunger"]{border-color:#ff9a79;background:linear-gradient(135deg,#9a3529,#542018);color:#ffe3d5}
 .brand{top:0;left:500px;width:600px;height:200px;background:url("assets/ui-title.png") center/100% 100% no-repeat}
 .brand-board{position:absolute;inset:0;background:none;padding:0;transform:none}.brand small{display:none}
 .brand h1{position:absolute;top:0;left:0;width:600px;height:120px;font-size:47px;letter-spacing:-1.4px;line-height:1;margin:0}
@@ -204,3 +205,16 @@
 /* Keep the green atlas crop at its native ratio so neither end cap is squeezed. */
 .island-challenge #action-buttons .button{box-sizing:border-box;display:flex;align-items:center;justify-content:center;align-self:flex-start;width:300px;min-width:300px;min-height:0;height:auto;aspect-ratio:1254 / 310;padding:8px 28px;background:url("assets/ui-buttons-atlas.png") center 11.228814%/100% 404.516129% no-repeat;color:#fff;font-size:30px;line-height:1.1;text-align:center;white-space:nowrap;text-shadow:0 2px 2px #074c1c}
 .island-challenge #action-buttons .button:disabled{filter:saturate(.65);opacity:.7}
+
+/* Enemy-port decision: parchment, carved cards and distinct sailing/raid emblems. */
+.port-choice .action-card{padding:176px 120px 86px}
+.port-choice .action-card h2{margin:10px 0;color:#593016}
+.port-choice-intro{font-size:22px;margin:12px 0 18px}
+.port-choice-options{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.port-option{display:flex;flex-direction:column;align-items:center;gap:8px;border:3px solid #ab7133;border-radius:22px;padding:12px 22px;background:linear-gradient(#fff7d6,#efd394);color:#593016;box-shadow:0 5px 0 #75441f;cursor:pointer;font:inherit;transition:transform .15s,filter .15s}
+.port-option:hover{transform:translateY(-3px);filter:brightness(1.06)}
+.port-option:focus-visible{outline:5px solid #1a8ca9;outline-offset:4px}
+.port-option.raid{background:linear-gradient(#ffe0ad,#eaa36a);border-color:#a54b26}
+.port-choice-icon{width:96px;height:96px;object-fit:contain;filter:drop-shadow(0 3px 1px #7e4b1933)}
+.port-option strong{font-size:30px}.port-option span{font-size:19px;line-height:1.35;min-height:60px}
+.port-defense{font-size:18px;line-height:1.45;margin:20px 0 0;color:#80451f}
