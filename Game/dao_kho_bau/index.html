@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="vi">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#034b65"><title>Đảo Kho Báu · ZEVA</title><link rel="icon" href="assets/chest-closed.png"><link rel="stylesheet" href="styles.css"><link rel="stylesheet" href="art-ui.css"><link rel="stylesheet" href="island-art.css"><link rel="stylesheet" href="shipyard.css"></head>
+<body>
+<svg width="0" height="0" aria-hidden="true" style="position:absolute;pointer-events:none"><defs><filter id="turn-red-paint" color-interpolation-filters="sRGB"><feColorMatrix in="SourceGraphic" values="0 1 0 0 0 1 0 0 0 0 0 0 1 0 0 0 0 0 1 0" result="swapped"/><feBlend in="SourceGraphic" in2="swapped" mode="lighten" result="higher"/><feBlend in="SourceGraphic" in2="swapped" mode="darken" result="lower"/><feColorMatrix in="higher" values="1 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 0 1 0" result="redBlue"/><feColorMatrix in="lower" values="0 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 1 0" result="green"/><feComposite in="redBlue" in2="green" operator="arithmetic" k2="1" k3="1" result="paint"/><feComposite in="paint" in2="SourceGraphic" operator="in"/></filter></defs></svg>
+<main id="stage" class="preparing" aria-label="Game Đảo kho báu">
+  <canvas id="ocean-motion" class="ocean-waves" aria-hidden="true"></canvas><img class="map-foreground" src="assets/map-foreground.png" alt="" aria-hidden="true">
+  <div id="map-viewport" tabindex="0" role="region" aria-label="Bản đồ 24 điểm đến. Kéo hoặc vuốt ngang để khám phá." inert>
+    <div id="map-world">
+      <i class="map-snap" style="left:0" aria-hidden="true"></i><i class="map-snap" style="left:1600px" aria-hidden="true"></i><i class="map-snap" style="left:3200px" aria-hidden="true"></i>
+      <div id="island-scenes" aria-hidden="true"></div><svg id="routes" viewBox="0 0 4800 900" aria-hidden="true"></svg>
+      <section id="islands" aria-label="Các đảo và đường đi"></section>
+      <div id="ship-0" class="ship red" hidden><img data-game-src="assets/ship-red-h0-c0-s0.png" alt="Thuyền Đỏ"><span></span></div>
+      <div id="ship-1" class="ship blue" hidden><img data-game-src="assets/ship-blue-h0-c0-s0.png" alt="Thuyền Xanh"><span></span></div>
+    </div>
+  </div>
+  <header id="hud">
+    <section class="team-panel wood red" id="team-0" aria-label="Đội Đỏ">
+      <div class="portrait"><div class="captain red"></div></div>
+      <div class="team-info"><h2 class="team-name">Đội Đỏ</h2><div class="health-hearts health-meter"></div><div class="hud-wallet" aria-label="Vàng đang giữ"><strong class="score">100</strong><span class="hud-coin" aria-hidden="true"></span></div></div>
+      <div class="food-paper food-meter"></div><div class="stats" aria-label="Chỉ số tàu"></div>
+    </section>
+    <div class="brand"><div class="brand-board wood"><small>ZEVA · HẢI TRÌNH TRI THỨC</small><h1 aria-label="ĐẢO KHO BÁU"><svg class="brand-title-curve" viewBox="0 0 600 120" aria-hidden="true"><defs><path id="brand-title-arc" d="M70 102 Q307 45 544 102"/></defs><text><textPath href="#brand-title-arc" startOffset="50%" text-anchor="middle">ĐẢO KHO BÁU</textPath></text></svg></h1></div><div id="turn-banner" class="ribbon">CHỌN LỚP · GIƯƠNG BUỒM</div></div>
+    <section class="team-panel wood blue" id="team-1" aria-label="Đội Xanh">
+      <div class="portrait"><div class="captain blue"></div></div>
+      <div class="team-info"><h2 class="team-name">Đội Xanh</h2><div class="health-hearts health-meter"></div><div class="hud-wallet" aria-label="Vàng đang giữ"><strong class="score">100</strong><span class="hud-coin" aria-hidden="true"></span></div></div>
+      <div class="food-paper food-meter"></div><div class="stats" aria-label="Chỉ số tàu"></div>
+    </section>
+  </header>
+  <footer id="map-footer">
+    <div class="map-prompt"><div id="status" role="status" aria-live="polite">Lượt Đội Đỏ</div><button id="skip" class="button small" hidden>Kết thúc lượt</button></div>
+    <nav class="map-tools" aria-label="Công cụ">
+      <button id="merchant-button" type="button" aria-label="Gian thương" title="Gian thương" hidden></button>
+      <button id="map-button" type="button" aria-label="Bản đồ" title="Bản đồ"></button>
+      <button id="ship-button" type="button" aria-label="Chiến thuyền" title="Chiến thuyền"></button>
+      <button id="game-home" type="button" aria-label="Trang chủ" title="Trang chủ"></button>
+      <button id="sound-button" type="button" aria-label="Bật âm thanh" title="Bật âm thanh" aria-pressed="false"></button>
+    </nav>
+  </footer>
+  <section id="setup" class="screen setup">
+    <div class="setup-captain captain red" aria-hidden="true"></div><div class="setup-captain captain blue" aria-hidden="true"></div>
+    <form id="setup-form" class="paper setup-card">
+      <div class="eyebrow">24 ĐẢO · 3 HẢI VỰC · 45 NGÀY MỖI ĐỘI</div>
+      <div class="picker-heading">
+        <button id="picker-sound" class="picker-control" type="button" aria-label="Bật âm thanh" title="Bật âm thanh" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 4 6 8H3v8h3l5 4Z"/><path class="sound-waves" d="M15 8a6 6 0 0 1 0 8m3-11a10 10 0 0 1 0 14"/><path class="sound-muted" d="m16 9 6 6m0-6-6 6"/></svg></button>
+        <h2 id="picker-title">Chọn lớp, <em>ra khơi!</em></h2>
+        <button id="exit-button" class="picker-control" type="button" aria-label="Trở về ZEVA" title="Trở về ZEVA"><svg viewBox="0 0 24 24" aria-hidden="true"><path class="home-symbol" d="m3 10 9-7 9 7M5 9v12h5v-7h4v7h5V9"/><path class="back-symbol" d="m10 5-7 7 7 7M3 12h18" style="display:none"/></svg></button>
+      </div>
+      <div id="lesson-context" hidden><span id="selected-class"></span></div>
+      <div class="class-picker"><input id="class-search" type="search" placeholder="Tìm tên hoặc mã lớp…" aria-label="Tìm lớp học" autocomplete="off"><div id="class-list" aria-label="Danh sách lớp"></div><p id="class-status" role="status" aria-live="polite" hidden></p><button id="class-retry" type="button" hidden>Thử lại</button><button id="demo-button" type="button" hidden>Chơi thử với 32 câu mẫu</button></div>
+      <div id="game-loading" hidden>
+        <strong id="loading-title">Đang chuẩn bị hải trình…</strong>
+        <progress id="game-progress" max="100" value="0" aria-label="Tiến độ tải trò chơi"></progress>
+        <p id="loading-status" role="status" aria-live="polite"></p>
+      </div>
+      <div class="question-source"><span id="bank-label">Chưa chọn lớp</span><button type="button" id="import-button">Nhập JSON</button><button type="button" id="sample-button">Tải mẫu</button></div>
+      <p id="import-error" role="alert" hidden></p><input type="file" id="question-file" accept=".json,application/json" hidden>
+    </form>
+    <div class="setup-note">Khám phá để mạnh hơn · Hạ Kraken hoặc đánh chìm đối thủ</div>
+  </section>
+  <section id="result" class="screen result" hidden aria-label="Kết quả trận đấu">
+    <img class="result-scene" data-game-src="assets/result-backdrop.png" alt="" aria-hidden="true">
+    <div class="result-title wood"><div class="eyebrow">THUYỀN TRƯỞNG HUYỀN THOẠI</div><h2 id="winner-name"></h2><div class="ribbon" id="winner-reason"></div></div>
+    <div id="winner-captain" class="captain result-captain" aria-hidden="true"><img data-game-src="assets/result-captains-atlas.png" alt=""></div><div id="loser-captain" class="result-loser" aria-hidden="true"><img data-game-src="assets/result-captains-atlas.png" alt=""></div>
+    <div class="paper result-scores" id="result-scores"></div>
+    <div class="result-actions"><button id="replay" class="button green"><span class="icon replay" aria-hidden="true"></span>Chơi lại</button><button id="review" class="button blue"><span class="icon book" aria-hidden="true"></span>Xem thống kê</button><button id="back-map" class="button"><span class="icon map" aria-hidden="true"></span>Xem bản đồ</button></div>
+  </section>
+  <button id="show-result" class="button result-return" hidden>Xem kết quả ✦</button>
+  <div id="action-layer" class="overlay" hidden>
+    <aside id="challenge-island" aria-label="Hòn đảo được chọn" hidden>
+      <div class="challenge-illustration"><div id="challenge-island-scene" class="island-scene"></div><img id="challenge-ship" alt="" aria-hidden="true"></div>
+      <div class="challenge-island-caption">
+        <div class="challenge-nameplate"><b id="challenge-island-number"></b><h3 id="challenge-island-name"></h3></div>
+        <p id="challenge-island-description"></p>
+      </div>
+    </aside>
+    <section id="action-card" class="paper action-card" role="dialog" aria-modal="true" aria-labelledby="action-title" tabindex="-1">
+      <div id="action-kicker" class="eyebrow"></div><h2 id="action-title"></h2><div id="action-content"></div><div id="action-buttons"></div>
+    </section>
+    <img id="challenge-rocks" class="challenge-decoration" data-game-src="assets/ui-challenge-rocks.png" alt="" aria-hidden="true">
+    <img id="challenge-barrel" class="challenge-decoration" data-game-src="assets/ui-challenge-barrel.png" alt="" aria-hidden="true">
+    <canvas id="challenge-surf" aria-hidden="true"></canvas>
+  </div>
+  <section id="port-layer" hidden role="dialog" aria-modal="true" aria-labelledby="port-title" tabindex="-1">
+    <img id="port-backdrop" class="port-backdrop" alt="">
+    <canvas id="port-water" aria-hidden="true"></canvas>
+    <div class="port-city"><i class="port-flag" aria-hidden="true"></i><div><small id="port-owner"></small><h2 id="port-city-name"></h2></div></div>
+    <img id="port-ship" class="port-ship" alt="">
+    <canvas id="port-water-front" aria-hidden="true"></canvas>
+    <div class="port-panel">
+      <h2 id="port-title">Nâng cấp tàu chiến</h2>
+      <div id="port-upgrades" tabindex="0" aria-label="Danh sách nâng cấp tàu chiến"></div>
+      <div id="port-shop" hidden></div>
+      <p id="port-notice" class="port-notice" role="status" aria-live="polite" hidden></p>
+    </div>
+    <button id="port-depart" type="button">Ra khơi</button>
+  </section>
+  <div id="info-layer" class="overlay info-overlay" hidden>
+    <section class="paper info-card" role="dialog" aria-modal="true" aria-labelledby="info-title" tabindex="-1"><button id="close-info" class="close" aria-label="Đóng"><span class="icon cross" aria-hidden="true"></span></button><h2 id="info-title"></h2><div id="info-content"></div></section>
+  </div>
+  <div id="asset-warning" hidden role="alert"></div>
+</main>
+<p id="portrait-hint">Xoay ngang màn hình để nhìn rõ toàn bộ bản đồ.</p>
+<!-- TREASURE_BOOT -->
+<script src="map-routes.js"></script><script src="map-layout.js"></script><script src="map-camera.js"></script><script src="shipyard.js"></script><script src="island-rules.js"></script><script src="trade.js"></script><script src="engine.js"></script><script src="questions.js"></script><script src="data-source.js"></script><script src="artwork.js"></script><script src="atmosphere-effects.js"></script><script src="life-effects.js"></script><script src="artwork-renderer.js"></script><script src="effects.js"></script><script src="port-water.js"></script><script src="trade-ui.js"></script><script src="shipyard-ui.js"></script><script src="audio.js"></script><script src="game.js"></script>
+</body></html>

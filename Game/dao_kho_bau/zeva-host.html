@@ -1,0 +1,89 @@
+<!-- Đảo Kho Báu: signed read-only host. Assets resolved by build-host.cjs. -->
+<style>
+html.ztb-open,body.ztb-open{overflow:hidden;overscroll-behavior:none}
+#ztbDialog{position:fixed;inset:0;width:100vw;height:100dvh;max-width:none;max-height:none;margin:0;padding:0;border:0;background:#034b65;overflow:hidden}
+#ztbDialog::backdrop{background:#034b65}#ztbFrame{width:100%;height:100%;border:0;display:block}
+</style>
+<dialog id="ztbDialog" aria-label="Đảo Kho Báu"><iframe id="ztbFrame" title="Đảo Kho Báu" sandbox="allow-scripts allow-downloads" allow="fullscreen" referrerpolicy="no-referrer"></iframe></dialog>
+<!-- TREASURE_DOCUMENT -->
+<script>
+(function(){
+  'use strict';
+  const dialog=document.getElementById('ztbDialog'),frame=document.getElementById('ztbFrame'),template=document.getElementById('ztbTemplate'),list=document.getElementById('gamesCardList');
+  if(!dialog||!template||!list)return;
+  let trigger=list.querySelector('[data-zeva-game="treasure"]');
+  if(!trigger){trigger=document.createElement('button');trigger.type='button';trigger.className='zeva-game-card zeva-game-card--treasure';trigger.dataset.zevaGame='treasure';trigger.setAttribute('aria-haspopup','dialog');trigger.setAttribute('aria-controls','ztbDialog');trigger.innerHTML='<span class="zeva-game-art" aria-hidden="true"></span><span class="zeva-game-copy"><span class="zeva-game-eyebrow">Đối kháng · Khám phá</span><strong class="zeva-game-title">Đảo dấu vàng</strong></span>';list.append(trigger);}
+  let generation=0,session='',channel='',watch=null,previousFocus=null,classes=[],lessons=[],lessonClass='',loading=false;
+  const token=()=>String(window.BBG_STATE?.session?.token||'');
+  const valid=g=>g===generation&&dialog.open&&session&&token()===session;
+  function close(){
+    generation++;clearInterval(watch);watch=null;session='';channel='';classes=[];lessons=[];lessonClass='';loading=false;
+    frame.removeAttribute('srcdoc');document.documentElement.classList.remove('ztb-open');document.body.classList.remove('ztb-open');
+    if(dialog.open)dialog.close();if(previousFocus?.isConnected)previousFocus.focus({preventScroll:true});previousFocus=null;
+  }
+  async function read(params,g){
+    if(typeof window.bbgCall!=='function')throw Error('Kết nối bài học chưa sẵn sàng.');
+    let timeout;
+    try{
+      const result=await Promise.race([
+        window.bbgCall('getBbgVocabularySample',Object.assign({token:session,gameMode:'naval',contentType:'vocabulary'},params),{priority:'interactive'}),
+        new Promise((_,reject)=>{timeout=setTimeout(()=>reject(Error('Tải bài học quá lâu. Hãy thử lại.')),25000);})
+      ]);
+      if(!valid(g))return null;
+      if(!result?.ok)throw Error(result?.error?.message||'Không tải được dữ liệu lớp.');
+      return result.data;
+    }finally{clearTimeout(timeout);}
+  }
+  trigger.onclick=()=>{
+    if(dialog.open)return;
+    if(!token()){window.alert('Vui lòng đăng nhập để chọn lớp và chơi.');return;}
+    session=token();generation++;classes=[];lessons=[];lessonClass='';
+    channel=Array.from(crypto.getRandomValues(new Uint32Array(4)),v=>v.toString(16)).join('-');
+    previousFocus=document.activeElement;document.documentElement.classList.add('ztb-open');document.body.classList.add('ztb-open');
+    dialog.showModal();
+    const boot=JSON.stringify({mode:'zeva',channel,parentOrigin:location.origin}).replace(/</g,'\\u003c');
+    const doc=JSON.parse(template.textContent);
+    frame.srcdoc=doc.replace('<!-- TREASURE_BOOT -->',()=>'<script>window.TREASURE_BOOTSTRAP='+boot+';<'+ '/script>');
+    watch=setInterval(()=>{if(token()!==session)close();},400);
+  };
+  dialog.addEventListener('cancel',event=>{event.preventDefault();close();});
+  dialog.addEventListener('close',()=>{if(session)close();});
+  window.addEventListener('message',async event=>{
+    const msg=event.data;
+    if(!dialog.open||event.source!==frame.contentWindow||msg?.channel!==channel)return;
+    if(token()!==session){close();return;}
+    if(msg.type==='zeva-treasure-close'){close();return;}
+    if(msg.type!=='zeva-treasure-read'||typeof msg.id!=='string'||msg.id.length>40||!['classes','lessons','lesson'].includes(msg.action))return;
+    const g=generation,requestChannel=channel;
+    const reply=(ok,data,error)=>{if(valid(g))frame.contentWindow.postMessage({type:'zeva-treasure-result',channel:requestChannel,id:msg.id,ok,data,error},'*');};
+    if(loading){reply(false,null,'Đang tải dữ liệu, vui lòng thử lại.');return;}
+    loading=true;
+    try{
+      if(msg.action==='classes'){
+        lessons=[];lessonClass='';
+        const data=await read({listClasses:true},g);if(!data||!valid(g))return;
+        classes=(Array.isArray(data.classes)?data.classes:[]).filter(c=>typeof c.classCode==='string'&&c.classCode).map(c=>({classCode:c.classCode,className:String(c.className||'')}));
+        reply(true,{classes});
+      }else{
+        const selected=classes.find(c=>c.classCode===msg.classCode);
+        if(!selected)throw Error('Hãy chọn một lớp trong danh sách được tải.');
+        if(msg.action==='lessons'){
+          lessons=[];lessonClass='';
+          const data=await read({classCode:selected.classCode,listLessons:true},g);if(!data||!valid(g))return;
+          if(!Array.isArray(data.lessons))throw Error('Chưa tải được danh sách buổi học. Hãy thử lại.');
+          lessons=data.lessons.filter(item=>typeof item?.lessonKey==='string'&&item.lessonKey&&typeof item.lessonId==='string'&&item.lessonId&&/^\d{4}-\d{2}-\d{2}$/.test(item.learnedOn)).slice(0,10).map(item=>({lessonKey:item.lessonKey,lessonId:item.lessonId,learnedOn:item.learnedOn,startedAt:String(item.startedAt||'')}));
+          lessonClass=selected.classCode;reply(true,{lessons,classCode:lessonClass});return;
+        }
+        const selectedLesson=lessonClass===selected.classCode&&lessons.find(item=>item.lessonKey===msg.lessonKey);
+        if(!selectedLesson)throw Error('Hãy chọn một buổi học trong danh sách của lớp.');
+        const data=await read({classCode:selected.classCode,lessonKey:selectedLesson.lessonKey},g);if(!data||!valid(g))return;
+        if(!data.lesson||data.lesson.lessonKey!==selectedLesson.lessonKey||data.lesson.lessonId!==selectedLesson.lessonId)throw Error('Buổi học đã thay đổi. Hãy chọn lại lớp và buổi học.');
+        const raw=Array.isArray(data.rows)?data.rows.map(r=>({word:r[1],meaning:r[2]})):data.words;
+        const words=(Array.isArray(raw)?raw:[]).map(w=>({word:String(w?.word||'').normalize('NFC').trim(),meaning:String(w?.meaning||'').normalize('NFC').trim()}));
+        reply(true,{words,label:(selected.className||selected.classCode)+' · '+selectedLesson.lessonId,classCode:selected.classCode,lessonKey:selectedLesson.lessonKey,lessonId:selectedLesson.lessonId});
+      }
+    }catch(error){if(valid(g))reply(false,null,error.message);}
+    finally{if(valid(g))loading=false;}
+  });
+})();
+</script>

@@ -1,0 +1,99 @@
+/* Separate ocean, illustrated islands and their effects share engine coordinates. */
+#map-viewport{position:absolute;inset:0;overflow-x:auto;overflow-y:hidden;scrollbar-width:none;touch-action:none;overscroll-behavior-x:contain;cursor:grab;z-index:2;outline:none}
+#map-viewport::-webkit-scrollbar{display:none}
+#map-viewport.dragging{scroll-snap-type:none;cursor:grabbing;user-select:none}
+#map-viewport.dragging .island{cursor:grabbing}
+#map-track{position:relative;width:8000px;height:100%;overflow:hidden}
+#map-world{position:absolute;top:0;width:4800px;height:100%;isolation:isolate}
+.map-echo{position:absolute;top:0;width:1600px;height:100%;overflow:hidden;pointer-events:none;contain:layout paint}
+.map-snap{position:absolute;top:0;width:1600px;height:100%;scroll-snap-align:start;pointer-events:none}
+#map-world #routes{width:4800px;height:900px}
+.ocean-waves{position:absolute;inset:0;width:100%;height:100%;z-index:1;pointer-events:none}
+.map-foreground{background:url("assets/map-foreground.png") center/100% 100% no-repeat;position:absolute;inset:0;width:100%;height:100%;object-fit:fill;z-index:1;pointer-events:none}
+.island-liquid{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.island-life{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.island-ambient{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.island-scene[data-art-id="10"]>:is(img,.island-paint){top:10%;height:90%}
+.island-scene[data-art-id="31"]>:is(img,.island-paint){mask-image:url("assets/island-31-fruit-mountain.png");mask-size:100% 100%;mask-mode:alpha}
+.waterfall-streams,.lava-flow{visibility:hidden}
+#island-scenes{position:absolute;inset:var(--map-offset-y,0px) 0 0;z-index:3;pointer-events:none}
+.island-scene{position:absolute;transform:translate(-50%,-100%);transition:filter .6s ease;isolation:isolate}
+.island-scene.explored{filter:grayscale(1)}
+.island-scene>:is(img,.island-paint){position:absolute;inset:0;width:100%;height:100%;object-fit:fill;pointer-events:none}
+.island-paint{visibility:hidden}
+.island-scene[data-painted="true"]>.island-paint{visibility:visible}
+.island-scene[data-painted="true"]>img{opacity:0}
+.shore-ripple{position:absolute;left:3%;right:3%;bottom:2%;height:17%;border:2px solid #d0ffff;border-radius:50%;opacity:0;animation:shore-ripple 3.4s ease-out infinite;z-index:-1}
+.shore-ripple.second{animation-delay:-1.7s}
+@keyframes shore-ripple{0%{transform:scale(.88,.65);opacity:.5}100%{transform:scale(1.09,1.35);opacity:0}}
+.island.explored .island-label{filter:none}
+.island-effect{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+/* Flow paths trace the painted lava channels; warm cores move through a continuous glow. */
+.lava-bed,.lava-flow{fill:none;stroke-linecap:round;stroke-linejoin:round}
+.lava-bed{stroke:#ff801a;stroke-width:25;opacity:.35;filter:blur(4px)}
+.lava-flow{stroke:#fff4a0;stroke-width:9;stroke-dasharray:58 39 15 62;opacity:.72;filter:drop-shadow(0 0 5px #ffad28);animation:lava-flow 4.6s linear infinite}
+@keyframes lava-flow{to{stroke-dashoffset:-348}}
+.crater-glow{position:absolute;left:44%;top:10%;width:15%;height:13%;border-radius:50%;background:radial-gradient(ellipse,#ffdf5d70,#ff790027 45%,transparent 70%);animation:crater-glow 1.8s ease-in-out infinite alternate}
+@keyframes crater-glow{to{opacity:.5;transform:scale(1.1,.9)}}
+.volcano-smoke{position:absolute;left:50%;top:13%;width:1px;height:1px}
+.volcano-smoke i{position:absolute;left:-17px;bottom:0;width:36px;height:31px;border-radius:46% 54% 39% 61%;background:radial-gradient(ellipse at 40% 40%,#514943d9,#302c29a6 45%,#35302b00 75%);filter:blur(2.3px);transform-origin:center bottom;animation:volcano-smoke 6.2s ease-out infinite;animation-delay:calc(var(--p)*-.443s)}
+@keyframes volcano-smoke{0%{transform:translate(0,3px) scale(.35);opacity:0}12%{opacity:.85}52%{opacity:.68}82%{opacity:.25}100%{transform:translate(43px,-105px) scale(3.4,2.8);opacity:0}}
+.volcano-embers{position:absolute;left:50%;top:15%}.volcano-embers i{position:absolute;width:2px;height:3px;border-radius:50%;background:#ffe29c;box-shadow:0 0 3px #ff7b16;animation:volcano-ember 2.7s ease-out infinite;animation-delay:calc(var(--p)*-.54s)}
+@keyframes volcano-ember{0%{transform:translate(0,0);opacity:0}20%{opacity:.8}100%{transform:translate(14px,-44px);opacity:0}}
+/* Thin vertical ribbons follow both real waterfall tiers, with spray at the foot. */
+.waterfall-flow{--flow-length:98px;fill:none;stroke:#edffff;stroke-width:5;stroke-linecap:round;stroke-dasharray:42 56;opacity:.62;animation:waterfall-flow .85s linear infinite}
+.waterfall-flow path{stroke-dashoffset:calc(var(--p)*19px)}
+.waterfall-flow.lower{--flow-length:140px;stroke-width:6;stroke-dasharray:68 72;animation-duration:1.05s}
+@keyframes waterfall-flow{to{transform:translateY(0);stroke-dashoffset:-280}}
+.waterfall-flow path{animation:waterfall-ribbon .85s linear infinite;animation-delay:calc(var(--p)*-.073s)}
+.waterfall-flow.lower path{animation-duration:1.05s}
+@keyframes waterfall-ribbon{from{stroke-dashoffset:calc(var(--p)*19px)}to{stroke-dashoffset:calc(var(--p)*19px - var(--flow-length))}}
+.waterfall-mist{position:absolute;border-radius:50%;background:radial-gradient(ellipse,#edffff75,#d8ffff00 70%);filter:blur(1px);animation:waterfall-mist 2.1s ease-in-out infinite alternate}
+.waterfall-mist.upper{left:40%;top:31%;width:15%;height:7%}.waterfall-mist.lower{left:54%;top:65%;width:20%;height:10%;animation-delay:-1s}
+@keyframes waterfall-mist{to{transform:translate(2px,-3px) scale(1.2,.9);opacity:.45}}
+.waterfall-spray{position:absolute;left:57%;top:69%;width:15%;height:1px}.waterfall-spray i{position:absolute;left:calc(var(--p)*8%);width:2px;height:2px;background:#eaffff;border-radius:50%;animation:waterfall-spray 1.1s ease-out infinite;animation-delay:calc(var(--p)*-.091s)}
+@keyframes waterfall-spray{0%{transform:translate(0,0);opacity:0}20%{opacity:.8}60%{transform:translate(2px,-7px);opacity:.65}100%{transform:translate(4px,1px);opacity:0}}
+.cave-glow{position:absolute;left:40%;top:44%;width:23%;height:22%;border-radius:50%;background:radial-gradient(ellipse,#ffc24c66,#ff670029 40%,#ff670000 72%);animation:fire-glow .8s ease-in-out infinite alternate}
+.cave-fire{position:absolute;left:50.5%;top:52%;width:12px;height:22px;transform:translateX(-50%)}
+.cave-fire i{position:absolute;bottom:0;left:0;width:100%;height:100%;border-radius:65% 30% 60% 35%;background:linear-gradient(0deg,#fff8b2,#ffcd48 38%,#ff6c16 72%,#ff3a0800);transform-origin:50% 100%;animation:fire-dance .55s ease-in-out infinite alternate;filter:drop-shadow(0 0 3px #ff961e)}
+.cave-fire i:nth-child(2){left:-5px;bottom:0;width:9px;height:18px;animation-delay:-.2s}.cave-fire i:nth-child(3){left:7px;width:8px;height:20px;animation-delay:-.4s}
+@keyframes fire-dance{from{transform:scale(.8,.9) rotate(-7deg)}to{transform:scale(1.1,1.15) rotate(6deg)}}
+@keyframes fire-glow{to{opacity:.6;transform:scale(.94,1.05)}}
+.island-weather,.holy-light,.kraken-tentacles{position:absolute;inset:0;pointer-events:none}
+.weather-cloud{position:absolute;left:24%;top:1%;width:54%;height:20%;filter:drop-shadow(0 2px 2px #14283e55);animation:cloud-drift 5.4s ease-in-out infinite alternate}
+.weather-cloud::before{content:"";position:absolute;left:4%;right:2%;bottom:0;height:47%;border-radius:50%;background:#34485c}
+.weather-cloud i{position:absolute;border-radius:50%;background:radial-gradient(ellipse at 38% 24%,#8a9ba9 0%,#536b80 30%,#2a3b4e 73%,#26384a 90%);box-shadow:inset 0 -2px 3px #10233655;animation:cloud-billow 3.7s ease-in-out infinite alternate;animation-delay:calc(var(--p)*-.47s)}
+@keyframes cloud-drift{from{transform:translateX(-3px)}to{transform:translateX(4px)}}
+@keyframes cloud-billow{to{transform:translateY(-2px) scale(1.04,.94)}}
+.dragon-weather .weather-cloud{left:15%;top:0;width:72%;height:19%;opacity:.9}
+.island-rain{position:absolute;left:17%;top:16%;width:68%;height:70%;overflow:hidden;mask-image:linear-gradient(transparent,#000 10%,#000 80%,transparent)}
+.island-rain i{position:absolute;top:-15%;width:1px;height:11%;border-radius:2px;background:linear-gradient(transparent,#d7f4ffbf);transform:rotate(12deg);animation:rain-fall .72s linear infinite;animation-delay:calc(var(--p)*-.109s)}
+@keyframes rain-fall{to{top:110%;margin-left:-12px}}
+.thunder-bolt{fill:none;stroke:#e8ffff;stroke-width:.85;stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(0 0 1.3px #36baff);opacity:0;animation:thunder-strike 2.8s linear infinite}
+.thunder-bolt.second{animation-delay:-1.4s}
+@keyframes thunder-strike{0%,7%,19%,100%{opacity:0}8%,10%,15%,17%{opacity:1}11%,14%{opacity:.2}}
+.thunder-impact{position:absolute;left:44%;top:20%;width:15%;height:15%;border-radius:50%;background:radial-gradient(#e8ffffbb,#61cbff55 30%,transparent 70%);opacity:0;animation:thunder-strike 2.8s linear infinite}
+.windmill-rotor{transform-origin:0 0;animation:windmill-turn 11s linear infinite;filter:drop-shadow(2px 4px 3px #39250d66)}
+@keyframes windmill-turn{from{transform:rotate(45deg)}to{transform:rotate(405deg)}}
+.holy-light{isolation:isolate}
+.holy-ray{position:absolute;left:35%;top:0;width:32%;height:56%;clip-path:polygon(43% 0,57% 0,100% 100%,0 100%);background:linear-gradient(#fff9d4cc,#ffe18b70 38%,#fff3bd00);animation:holy-ray 3s ease-in-out infinite alternate}
+.holy-ray.second{left:24%;width:40%;height:66%;opacity:.55;transform:rotate(10deg);animation-delay:-1s}
+.holy-ray.third{left:44%;width:31%;height:62%;opacity:.4;transform:rotate(-9deg);animation-delay:-2s}
+.holy-halo{position:absolute;left:37%;top:12%;width:27%;height:28%;border-radius:50%;background:radial-gradient(#fff9df88,#ffe39d33 35%,transparent 70%);animation:holy-ray 2.6s ease-in-out infinite alternate}
+.holy-spark{position:absolute;top:10%;width:2px;height:3px;border-radius:50%;background:#fff9cb;box-shadow:0 0 4px #ffe383;animation:holy-spark 2.8s linear infinite;animation-delay:calc(var(--p)*-.23s)}
+@keyframes holy-ray{to{opacity:.4}}
+@keyframes holy-spark{0%{transform:translateY(-8px);opacity:0}20%{opacity:.9}100%{transform:translate(4px,85px);opacity:0}}
+.island-scene[data-art-id="23"]>:is(img,.island-paint){z-index:1;animation:kraken-bob 3s ease-in-out infinite alternate}
+.kraken-tentacles i{position:absolute;bottom:7%;width:30%;transform-origin:50% 94%;animation:kraken-arm 3.2s ease-in-out infinite alternate;animation-duration:calc(2.7s + var(--p)*.17s);animation-delay:calc(var(--p)*-.63s)}
+.kraken-tentacles i:nth-last-child(-n+2){z-index:2}
+.kraken-tentacles img{width:100%;height:100%;object-fit:fill;transform:scaleX(var(--flip));mask-image:linear-gradient(#000 89%,transparent)}
+@keyframes kraken-arm{from{transform:rotate(calc(var(--tilt) - 16deg)) scaleY(.78)}to{transform:rotate(calc(var(--tilt) + 17deg)) scaleY(1.08)}}
+@keyframes kraken-bob{to{transform:translateY(3px)}}
+.creature-wake{position:absolute;left:10%;right:10%;bottom:8%;height:19%;border-radius:50%;border-bottom:3px solid #d4ffffb3;box-shadow:0 5px 2px -3px #d4ffff88;animation:creature-wake 2s ease-out infinite;z-index:3}
+.whale-wake{left:4%;right:4%;bottom:14%;animation-duration:2.6s}
+@keyframes creature-wake{from{transform:scale(.83,.7);opacity:.8}to{transform:scale(1.12,1.3);opacity:0}}
+.island-scene[data-art-id="24"]>:is(img,.island-paint){left:7%;top:12%;width:86%;height:78%}
+.island-scene[data-art-id="24"][data-animated="true"]>:is(img,.island-paint){opacity:0}
+@media(prefers-reduced-motion:reduce){.island-liquid:not(.whale-swim){display:none}.shore-ripple,.lava-flow,.crater-glow,.volcano-smoke i,.volcano-embers i,.waterfall-flow,.waterfall-flow path,.waterfall-mist,.waterfall-spray i,.cave-glow,.cave-fire i,.weather-cloud,.weather-cloud i,.island-rain i,.thunder-bolt,.thunder-impact,.windmill-rotor,.holy-ray,.holy-halo,.holy-spark,.kraken-tentacles i,.island-scene[data-art-id="23"]>:is(img,.island-paint),.creature-wake{animation:none}.shore-ripple{opacity:.2}.volcano-smoke i{display:none}.volcano-smoke i:nth-child(-n+3){display:block;opacity:.4;transform:translate(calc(var(--p)*9px),calc(var(--p)*-18px)) scale(calc(1 + var(--p)*.5))}.island-rain i{top:calc(var(--p)*11%);opacity:.4}.thunder-bolt{opacity:.45}.holy-spark{display:none}.windmill-rotor{transform:rotate(45deg)}.kraken-tentacles i{transform:rotate(var(--tilt))}}
+
+#map-world .island{transform:translate(-50%,-100%) scale(.795);transform-origin:center bottom}#map-world .island.available:hover{transform:translate(-50%,-100%) scale(.795)}

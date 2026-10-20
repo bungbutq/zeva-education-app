@@ -1,0 +1,59 @@
+{
+  "files": [
+    {
+      "path": "bấm nút.wav",
+      "bytes": 49762,
+      "sha256": "4302484e4ff8d4091adedab252b3f57e65be7ff5b6117bf8936a501b4f90b04c"
+    },
+    {
+      "path": "chiến thắng.mp3",
+      "bytes": 265440,
+      "sha256": "bd79c9d35a9ad542fb73486135bcf3373933020eb4b893d85cd1585628656c4c"
+    },
+    {
+      "path": "di chuột qua nút.wav",
+      "bytes": 40136,
+      "sha256": "fb081bdae3e97522d4526e7f914bf7755cb2a1f963596c1808f6c2a6964aaf8a"
+    },
+    {
+      "path": "mua bán.wav",
+      "bytes": 180768,
+      "sha256": "0c24f5172586b6cbed13cff9099ad59705177fe1cc40c941797983af4e75d717"
+    },
+    {
+      "path": "mở rương.mp3",
+      "bytes": 53380,
+      "sha256": "c010dfcfbdac12cf555a333c4b6e07f9074aabcbeda30ddd1cd738365323afe7"
+    },
+    {
+      "path": "nhạc nền.ogg",
+      "bytes": 864105,
+      "sha256": "3e482fcdff3213ca4b6c50097abcf16384713babd829bd9fa1e14b8fa9434b42"
+    },
+    {
+      "path": "nâng cấp.mp3",
+      "bytes": 398176,
+      "sha256": "4658295176fbc0ffdb128dacffdc285a661de5f6bbdffa9b2494cafae7e2f98f"
+    },
+    {
+      "path": "thuyền di chuyển.mp3",
+      "bytes": 73394,
+      "sha256": "99d7014675f4221cd597ff5b57ac1174199656bbde8f5b3c686bb6ee4185225a"
+    },
+    {
+      "path": "trả lời sai.mp3",
+      "bytes": 63744,
+      "sha256": "707970b8ed61fc9b5c465f37f687b8ca285ef27908e0990358707ef6bf4660a8"
+    },
+    {
+      "path": "Trả lời đúng.mp3",
+      "bytes": 14462,
+      "sha256": "ef1f1e9f5de9da87b15b5b33128d0a67d95d29a7a342fbfeeb32b9a1695ce56d"
+    },
+    {
+      "path": "đánh nhau hỗ loạn.mp3",
+      "bytes": 121669,
+      "sha256": "4e4986bd7121c2cfad403734fc5cda73c3ecda02a31a34710e9ba9ee0fc8d8db"
+    }
+  ]
+}
