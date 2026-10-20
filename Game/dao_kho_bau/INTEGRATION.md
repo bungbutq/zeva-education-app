@@ -157,3 +157,11 @@ Bổ sung cục bộ 20/10/2026 — đã áp dụng mặt nước hai cảng:
 - Bản live được ghép riêng phần âm thanh trên snapshot version 1151; giữ CSS nút thử thách, dòng vàng khi sai và host shell của live. zeva-include.html trên GitHub là bản live đã đối chiếu; build từ nguồn canonical cục bộ vẫn chứa các chỉnh sửa giao diện đang chờ của đợt trước.
 - PASS 14 unit tests audio/treasure/victory; audio-browser trong iframe sandbox giải mã đủ 11 file từ GitHub và kiểm tra nâng cấp một lần, bán hàng, mở rương, đáp án và kết quả; production host smoke PASS; brain_validate --module ui_shared PASS. Gate --all còn lỗi chỉ mục attendance và ngưỡng CSS có từ trước, không thuộc thay đổi âm thanh.
 - Đã triển khai và xác nhận Apps Script version 1152; chỉ client_106_treasure_game thay đổi, các file live khác giữ nguyên.
+
+## Cá voi và thời điểm âm thanh — 2026-10-20
+- Khôi phục đúng thuật toán cá voi đơn từ bản trước living-world: một sprite, thân lượn nhẹ, đuôi quẫy; bỏ đàn bốn con và lớp mặt nước riêng. Giữ cơ chế độ phân giải canvas/giảm chuyển động hiện tại.
+- Tiếng bấm nút tăng .35→.70, tiếng tàu di chuyển .50→1.00. File âm thanh không thay đổi.
+- Nâng cấp: giải mã ảnh mới trước, phát nâng cấp.mp3 một lần, đợi ended rồi mới nâng cấp và đổi ảnh tàu trong cảng. Khóa thao tác trùng trong lúc chờ. Tắt âm, ẩn tab, đóng game hoặc phát lỗi giải phóng chờ; yêu cầu media bị treo có giới hạn 10 giây.
+- Khai thác thực phẩm/sản vật thành công: dùng tiếng mở rương theo yêu cầu cuối, một lần; bảng sản vật chỉ hiện khi kết thúc âm thanh. Không phát nếu kho đầy và không khai thác được.
+- PASS unit audio; browser kiểm tra ảnh tàu không đổi trước ended, bảng khai thác ẩn trước ended và hiện sau ended; production host smoke; cá voi một con với thay đổi pixel và giảm chuyển động. 39 kiểm thử thực phẩm/khai thác/hành trình đạt cả hai đội. Báo lỗi đội đỏ đang cần thông tin đảo/sản vật để tái hiện; chưa thay đổi luật thực phẩm khi chưa xác định được lỗi.
+- Gate UI_SHARED PASS; gate --all vẫn vướng attendance index và các ngưỡng CSS có từ trước.

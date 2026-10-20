@@ -31,45 +31,6 @@
       return {canvas,ctx,image:scene.querySelector('img'),paths,kind:canvas.dataset.liquid};
     }).filter(item=>item.ctx);
   }
-  let podWater;
-  function whalePod(item,t){
-    const {ctx,canvas,image}=item;
-    if(!podWater){podWater=new Image();if(root.location.protocol!=='file:')podWater.crossOrigin='anonymous';podWater.src='assets/ocean-water.png';}
-    ctx.save();ctx.beginPath();ctx.ellipse(768,659,699,316,0,0,Math.PI*2);ctx.clip();
-    const g=ctx.createRadialGradient(768,640,60,768,640,730);g.addColorStop(0,'#077dcdb5');g.addColorStop(1,'#1fe3ed00');ctx.fillStyle=g;ctx.fillRect(0,300,1536,720);
-    if(podWater.complete&&podWater.naturalWidth){
-      ctx.globalAlpha=.32;
-      for(let y=340;y<1000;y+=12){const dy=Math.sin(y*.02-t*1.4)*5;ctx.drawImage(podWater,0,(y+dy)%900,podWater.naturalWidth,14,0,y,1536,14);}
-    }ctx.restore();
-    const actors=[[480,475,640,12,0],[1055,610,550,14,.3],[490,777,475,13,.57],[1070,827,405,11,.8]];
-    let surfaced=0;
-    for(const [i,[cx,cy,width,period,offset]] of actors.entries()){
-      const p=(t/period+offset)%1,surface=Math.sin(p*Math.PI)**2,fade=Math.min(1,p*9,(1-p)*9),x=cx+80-p*160,y=cy+(1-surface)*28;
-      if(surface>.65)surfaced++;
-      ctx.save();ctx.translate(x,y);ctx.rotate(-.04+Math.sin(t*.2+i)*.035);ctx.globalAlpha=fade*(.13+surface*.87);
-      const w=width*(.92+surface*.08),h=w*.54,sw=image.naturalWidth,sh=image.naturalHeight;
-      if(!item.whaleLayer){item.whaleLayer=document.createElement('canvas');item.whaleLayer.width=768;item.whaleLayer.height=512;}
-      const layer=item.whaleLayer,lc=layer.getContext('2d');lc.clearRect(0,0,768,512);lc.save();
-      for(let sx=0;sx<sw;sx+=14){
-        const slice=Math.min(14,sw-sx),u=sx/sw,dy=Math.sin(t*2.8-u*4+i)*(2+25*u*u*u);
-        lc.drawImage(image,sx,0,slice,sh,u*768,dy*512/h,slice/sw*768+.8,512);
-      }
-      lc.globalCompositeOperation='destination-in';const submerged=lc.createLinearGradient(0,512*(.3+surface*.15),0,512*(.52+surface*.23));submerged.addColorStop(0,'#ffffff');submerged.addColorStop(1,'#ffffff00');lc.fillStyle=submerged;lc.fillRect(0,0,768,512);lc.restore();
-      ctx.drawImage(layer,-w/2,-h*.5,w,h);ctx.restore();
-      if(surface>.45){
-        const a=(surface-.45)/.55;
-        ctx.save();ctx.strokeStyle='rgba(224,255,255,'+a*.5+')';ctx.lineWidth=3;
-        for(const side of [-1,1]){ctx.beginPath();ctx.moveTo(x-width*.35,y+side*width*.05);ctx.quadraticCurveTo(x,y+side*width*.2,x+width*.48,y+side*width*.1);ctx.stroke();}
-        ctx.restore();
-      }
-      // Short exhalation on surfacing, then the whole body sinks back below.
-      const blow=(p-.39)/.17;if(blow>0&&blow<1){
-        ctx.save();ctx.globalAlpha=Math.sin(blow*Math.PI)*.72;ctx.strokeStyle='#dfffff';ctx.lineWidth=3;ctx.lineCap='round';
-        for(let k=0;k<9;k++){const a=(k-4)*.15,height=45+Math.sin(k*2.7+i)*13;ctx.beginPath();ctx.moveTo(x-width*.25,y-14);ctx.quadraticCurveTo(x-width*.25+a*25,y-height*blow,x-width*.25+a*55,y-height*Math.sin(blow*Math.PI));ctx.stroke();}ctx.restore();
-      }
-    }
-    canvas.dataset.podCount=String(actors.length);canvas.dataset.surfaced=String(surfaced);canvas.closest('.island-scene').dataset.animated='true';
-  }
   function renderLiquids(t,now){
     for(const item of liquids){
       const {canvas,ctx,image,paths,kind}=item;if(!canvas.isConnected||!image.complete||!image.naturalWidth)continue;
@@ -77,7 +38,15 @@
       fitIslandCanvas(canvas,rect);ctx.imageSmoothingEnabled=true;ctx.imageSmoothingQuality='high';
       ctx.setTransform(1,0,0,1,0,0);ctx.clearRect(0,0,canvas.width,canvas.height);ctx.setTransform(canvas.width/1536,0,0,canvas.height/1024,0,0);
       if(kind==='whale'){
-        whalePod(item,t);
+        // Swim with a travelling body wave, strongest at the tail, using the actual sprite.
+        const sw=image.naturalWidth,sh=image.naturalHeight;
+        ctx.translate(107+Math.sin(t*.7)*88,123+Math.cos(t*.9)*18);ctx.scale(.86,.78);
+        for(let x=0;x<sw;x+=12){
+          const w=Math.min(12,sw-x),u=x/sw,dy=Math.sin(t*3-u*3.2)*(4+66*u*u*u);
+          ctx.drawImage(image,x,0,w,sh,x*1536/sw,dy,w*1536/sw+.7,1024);
+        }
+        canvas.dataset.whaleCount='1';
+        canvas.closest('.island-scene').dataset.animated='true';
       }else if(kind==='waterfall'){
         for(const [i,fall] of falls.entries()){
           const [x,y,w,h]=fall.box,[sx,sy,sw,sh]=fall.source,tile=sh*1.5,offset=(t*fall.speed+i*37)%tile;

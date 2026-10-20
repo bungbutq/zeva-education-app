@@ -8,7 +8,7 @@
     upgrade:'nâng cấp.mp3',music:'nhạc nền.ogg',sail:'thuyền di chuyển.mp3',
     correct:'Trả lời đúng.mp3',incorrect:'trả lời sai.mp3'
   });
-  const VOLUME={music:.2,hover:.22,click:.35,battle:.65,sail:.5,upgrade:.65};
+  const VOLUME={music:.2,hover:.22,click:.7,battle:.65,sail:1,upgrade:.65};
   function create({AudioClass=root.Audio,document=root.document}={}){
     let enabled=false,disposed=false,musicWanted=true,lastHover=-Infinity;
     const active=new Set();
@@ -20,7 +20,7 @@
     function allowed(){return enabled&&!disposed&&!document.hidden;}
     function stop(kind){
       for(const entry of [...active])if(!kind||entry.kind===kind){
-        entry.sound.pause();entry.sound.currentTime=0;active.delete(entry);
+        entry.sound.pause();entry.sound.currentTime=0;entry.release();
       }
     }
     function syncMusic(){
@@ -28,21 +28,26 @@
       if(!music){music=make('music');music.loop=true;}
       if(music.paused)try{Promise.resolve(music.play()).catch(()=>{});}catch{}
     }
-    function play(kind){
+    function play(kind,{wait=false}={}){
       if(!allowed()||!FILES[kind]||kind==='music')return;
       if(kind==='hover'){
         const now=Date.now();if(now-lastHover<90)return;lastHover=now;
       }
       // Restart repeated UI actions without accumulating sounds or delayed timers.
       stop(kind);
-      while(active.size>=8){const oldest=active.values().next().value;oldest.sound.pause();active.delete(oldest);}
-      try{
-        const sound=make(kind),entry={kind,sound};active.add(entry);
-        const release=()=>active.delete(entry);
-        sound.addEventListener('ended',release,{once:true});
-        sound.addEventListener('error',release,{once:true});
-        Promise.resolve(sound.play()).catch(release);
-      }catch{/* Audio failures never block gameplay. */}
+      while(active.size>=8){const oldest=active.values().next().value;oldest.sound.pause();oldest.release();}
+      return new Promise(resolve=>{
+        let entry,timer;
+        const release=()=>{clearTimeout(timer);if(entry)active.delete(entry);resolve();};
+        try{
+          const sound=make(kind);entry={kind,sound,release};active.add(entry);
+          sound.addEventListener('ended',release,{once:true});
+          sound.addEventListener('error',release,{once:true});
+          // A failed/stalled media request must not leave the shipyard locked.
+          if(wait)timer=setTimeout(()=>{sound.pause();release();},10000);
+          Promise.resolve(sound.play()).catch(release);
+        }catch{release();}
+      });
     }
     function setEnabled(value){
       enabled=!!value;

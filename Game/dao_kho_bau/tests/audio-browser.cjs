@@ -19,7 +19,7 @@ const root=path.resolve(__dirname,'..');
   page.on('pageerror',e=>errors.push(e.message));
   await page.addInitScript(()=>{
    Math.random=()=>.3;window.__plays=[];window.__media=[];window.__realAudio=window.Audio;
-   window.Audio=class {constructor(src){this.src=src;this.paused=true;__media.push(this);}play(){this.paused=false;__plays.push(decodeURIComponent(this.src).split('/').pop());return Promise.resolve();}pause(){this.paused=true;}addEventListener(){}};
+   window.Audio=class {constructor(src){this.src=src;this.paused=true;this.events={};__media.push(this);}play(){this.paused=false;__plays.push(decodeURIComponent(this.src).split('/').pop());return Promise.resolve();}pause(){this.paused=true;}addEventListener(n,fn){this.events[n]=fn;}};
    let engine;Object.defineProperty(window,'TreasureEngine',{get:()=>engine,set:v=>engine={...v,Game:class extends v.Game{constructor(args){super({...args,first:0});window.__game=this;this.actor.gold=10000;}}}});
   });
   await page.goto('http://127.0.0.1:'+server.address().port+'/sandbox');
@@ -28,17 +28,36 @@ const root=path.resolve(__dirname,'..');
   assert.equal(await f.evaluate(()=>__plays.filter(n=>n==='nhạc nền.ogg').length),1);
   await f.locator('#demo-button').click();await f.locator('#port-layer').waitFor({state:'visible'});
   await f.evaluate(()=>__plays.length=0);
+  const originalShip=await f.locator('#port-ship').getAttribute('src');
   await f.locator('[data-upgrade="hull"]').click();
+  await f.waitForFunction(()=>__plays.includes('nâng cấp.mp3'));
+  assert.equal(await f.locator('#port-ship').getAttribute('src'),originalShip);
+  assert.equal(await f.evaluate(()=>__game.actor.upgrades.hull),0);
+  await f.evaluate(()=>__media.find(a=>decodeURIComponent(a.src).endsWith('nâng cấp.mp3')).events.ended());
   await f.waitForFunction(()=>__game.actor.upgrades.hull===1);
+  assert.notEqual(await f.locator('#port-ship').getAttribute('src'),originalShip);
   assert.equal(await f.evaluate(()=>__plays.filter(n=>n==='nâng cấp.mp3').length),1);
   await f.evaluate(()=>{const g=__game;window.__product=g.state.islands.find(i=>i.category==='harvest').product;g.actor.cargo[__product]=3;});
   await f.locator('#merchant-button').click();
   const product=await f.evaluate(()=>__product);await f.locator('[data-sell="'+product+'"]').click();
   assert.equal(await f.evaluate(()=>__plays.filter(n=>n==='mua bán.wav').length),1);
+  await f.evaluate(()=>{
+   const g=__game,s=g.state,i=s.islands.find(i=>i.category==='harvest'&&i.edible);
+   s.phase='MAP';s.turn++;s.distanceLeft=30;s.reward=null;s.productReward=null;
+   g.actor.position=i.id;g.actor.transit=null;g.actor.harvestedTurn=-1;i.explored=true;
+   g.actor.voyageDays=3;g.actor.provisionCredit=0;g.actor.cargo={};g.actor.dayFood=0;g.actor.hp=70;
+   __render();document.querySelector('#islands button[data-id="'+i.id+'"]').click();
+  });
+  await f.waitForFunction(()=>__plays.includes('mở rương.mp3'));
+  assert.equal(await f.locator('#action-layer').isVisible(),false,'harvest result waits for audio');
+  await f.evaluate(()=>__media.find(a=>decodeURIComponent(a.src).endsWith('mở rương.mp3')).events.ended());
+  await f.locator('.harvest-status').waitFor({state:'visible'});
+  assert.match(await f.locator('#action-title').innerText(),/Đã khai thác/);
+  assert.deepEqual(await f.evaluate(()=>({team:__game.actor.id,fresh:__game.state.productReward.dailyFood,stored:__game.state.productReward.quantity})),{team:0,fresh:20,stored:30},'red hull Lv1 eats 20 of its 50 fresh food before storing 30');
   // Real renderer and handlers, with controlled engine state to isolate audio events.
   await f.evaluate(()=>{document.getElementById('port-layer').hidden=true;const g=__game;g.state.phase='CHEST';g.state.purpose='dig';Object.assign(g.state.treasure,{owner:g.actor.id,location:g.actor.position,claimedBy:null});__render();});
   await f.locator('#action-buttons button').click();
-  assert.equal(await f.evaluate(()=>__plays.filter(n=>n==='mở rương.mp3').length),1);
+  assert.equal(await f.evaluate(()=>__plays.filter(n=>n==='mở rương.mp3').length),2);
   for(const correct of [true,false]){
    await f.evaluate(()=>{const s=__game.state;s.phase='QUESTION';s.question={text:'Audio test',options:['A','B','C','D'],answer:0};s.questionIsland=2;s.pendingDestination=2;s.turn++;__render();});
    await f.locator('.answer-option').nth(correct?0:1).click();await f.locator('#submit-answer').click();

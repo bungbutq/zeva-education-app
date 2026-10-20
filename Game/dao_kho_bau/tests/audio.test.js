@@ -41,3 +41,13 @@ test('rejected browser playback is handled without uncaught rejection',async()=>
   const api=globalThis.TreasureAudio.create({AudioClass:Blocked,document:doc});
   api.setEnabled(true);api.play('correct');await new Promise(r=>setImmediate(r));api.dispose();
 });
+test('click and sailing gain doubled; awaited upgrade resolves only at completion or cancellation',async()=>{
+  const f=fixture();f.api.setEnabled(true);
+  f.api.play('click');f.api.play('sail');
+  assert.equal(f.sounds('click')[0].volume,.7);assert.equal(f.sounds('sail')[0].volume,1);
+  let done=false;const finished=f.api.play('upgrade',{wait:true}).then(()=>done=true);
+  await Promise.resolve();assert.equal(done,false);
+  f.sounds('upgrade')[0].events.ended();await finished;assert.equal(done,true);
+  const cancelled=f.api.play('upgrade',{wait:true});f.api.setEnabled(false);await cancelled;
+  f.api.dispose();
+});

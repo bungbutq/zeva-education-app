@@ -17,7 +17,14 @@
     $('merchant-button').disabled=true;$('port-depart').disabled=true;
     $('port-notice').textContent='Đang chuẩn bị tàu mới…';$('port-notice').hidden=false;
     const picture=new Image();picture.src='assets/'+YARD.filename(team.id,next);
-    try{await picture.decode();if(game===currentGame&&game.actor===team&&game.upgrade(kind)){sounds.play('upgrade');render();}}
+    try{
+      await picture.decode();
+      if(game===currentGame&&game.actor===team&&game.upgradeStatus(kind).ok){
+        $('port-notice').textContent='Đang nâng cấp tàu…';
+        await sounds.play('upgrade',{wait:true});
+        if(game===currentGame&&game.actor===team&&game.upgrade(kind))render();
+      }
+    }
     catch{if(game===currentGame){game.state.notice='Chưa tải được ảnh tàu. Vàng được giữ nguyên; hãy thử lại.';render();}}
     finally{upgrading=false;$('port-depart').disabled=false;$('merchant-button').disabled=false;}
   },onDepart:()=>{if(!busy&&!upgrading&&game?.leavePort())render();},onSell:(id,quantity)=>{if(!busy&&!upgrading&&game?.sellProduct(id,quantity)){sounds.play('trade');render();return true;}return false;}});
@@ -503,7 +510,18 @@
         if(from===null)await ship.animate([{opacity:0,scale:.5},{opacity:1,scale:1}],{duration:reduced.matches?1:450}).finished;
       }
     }catch{/* A canceled animation must never strand the game. */}
-    finally{if(game===sailingGame){try{await resolveIslandBattle();}finally{if(game===sailingGame){busy=false;render();}}}}
+    finally{
+      if(game===sailingGame){
+        try{
+          await resolveIslandBattle();
+          const s=sailingGame.state;
+          if(game===sailingGame&&s.phase==='REWARD'&&s.reward?.type==='product'&&TRADE.product(s.productReward?.id)?.category==='harvest'&&!s.productReward.full){
+            sounds.stop('sail');
+            await sounds.play('chest',{wait:true});
+          }
+        }finally{if(game===sailingGame){busy=false;render();}}
+      }
+    }
   }
   async function start() {
     if(!bank||classLoading||launching)return;
