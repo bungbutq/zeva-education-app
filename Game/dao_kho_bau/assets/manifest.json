@@ -1394,5 +1394,19 @@
     "height": 1086,
     "alpha": true,
     "bytes": 2022672
+  },
+  {
+    "file": "result-victory-blue.png",
+    "width": 1672,
+    "height": 941,
+    "alpha": false,
+    "bytes": 2644656
+  },
+  {
+    "file": "result-victory-red.png",
+    "width": 1672,
+    "height": 941,
+    "alpha": false,
+    "bytes": 2588517
   }
 ]
