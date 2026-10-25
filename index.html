@@ -2091,6 +2091,75 @@
     };
   }
 
+// Shared verbatim by the task UI and the trusted top-level microphone host.
+function taskAudioCaptureConstructor() {
+  if (!navigator.mediaDevices?.getUserMedia || !window.MediaRecorder) return null;
+  return class {
+    async start() {
+      this.active = true; this.chunks = []; this.bytes = 0;
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({audio:{echoCancellation:true,noiseSuppression:true,autoGainControl:true},video:false});
+        if (!this.active) { stream.getTracks().forEach(t=>t.stop()); return; }
+        this.stream = stream;
+        const mime = ['audio/webm;codecs=opus','audio/mp4','audio/ogg;codecs=opus'].find(t=>MediaRecorder.isTypeSupported(t));
+        this.recorder = new MediaRecorder(stream, { ...(mime ? {mimeType:mime} : {}), audioBitsPerSecond:64000 });
+        this.recorder.ondataavailable = e => {
+          if (!this.active || !e.data.size) return;
+          this.bytes += e.data.size;
+          if (this.bytes > 1000000) { this.fail('audio-too-large'); return; }
+          this.chunks.push(e.data);
+        };
+        this.recorder.onerror = () => this.fail('audio-capture');
+        this.recorder.onstop = () => {
+          this.release();
+          if (!this.active) return;
+          const blob = new Blob(this.chunks,{type:this.recorder.mimeType});this.chunks=[];
+          const reader = new FileReader();
+          reader.onload = () => {
+            if (!this.active) return;
+            this.active=false;
+            this.onaudio?.({audio:String(reader.result).split(',')[1],mime:blob.type.split(';')[0]});
+            this.onend?.();
+          };
+          reader.onerror = () => this.fail('audio-capture');
+          reader.readAsDataURL(blob);
+        };
+        this.recorder.start(250);
+        this.onstart?.();
+        this.timer = setTimeout(()=>this.stop(),20000);
+        // Silence detection only ends recording; it never supplies an answer.
+        const Audio = window.AudioContext || window.webkitAudioContext;
+        if (Audio) {
+          try {
+            this.context = new Audio();
+            this.context.resume().catch(()=>{});
+            const analyser=this.context.createAnalyser();analyser.fftSize=1024;
+            this.context.createMediaStreamSource(stream).connect(analyser);
+            const values=new Float32Array(analyser.fftSize);let lastVoice=0,voiceFrames=0;
+            this.meter=setInterval(()=>{
+              analyser.getFloatTimeDomainData(values);
+              const rms=Math.sqrt(values.reduce((n,v)=>n+v*v,0)/values.length);
+              if(rms>0.012){lastVoice=Date.now();voiceFrames++;}
+              if(voiceFrames>=3 && Date.now()-lastVoice>1800)this.stop();
+            },100);
+          } catch (_) { /* Manual stop and the recording limit remain available. */ }
+        }
+      } catch(error) { this.fail(error.name==='NotAllowedError'?'not-allowed':'audio-capture'); }
+    }
+    release() {
+      clearTimeout(this.timer);clearInterval(this.meter);
+      this.stream?.getTracks().forEach(t=>t.stop());this.stream=null;
+      this.context?.close().catch(()=>{});this.context=null;
+    }
+    stop() {
+      if(this.recorder?.state==='recording')this.recorder.stop();
+      else if(!this.recorder)this.abort();
+    }
+    abort() { this.active=false;this.release();if(this.recorder?.state==='recording')this.recorder.stop();this.chunks=[]; }
+    fail(error) { if(!this.active)return;this.abort();this.onerror?.({error}); }
+  };
+}
+
       let hostSpeech = null;
 
 
@@ -2181,7 +2250,7 @@
         };
 
 
-        const Recognition = taskBrowserRecognitionConstructor();
+        const Recognition = data.engine === 'openpronounce' ? taskAudioCaptureConstructor() : taskBrowserRecognitionConstructor();
 
 
         if (!Recognition) { reply('error', {error:'unsupported'}); return; }
@@ -2210,6 +2279,7 @@
 
         recognition.maxAlternatives = 5;
         recognition.contextPhrases = data.contextPhrases;
+        recognition.onaudio = function(data) { if(hostSpeech === active) reply('audio', data); };
         recognition.onretry = function() { if (hostSpeech === active) reply('retry'); };
 
 
