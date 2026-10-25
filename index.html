@@ -2092,6 +2092,7 @@
   }
 
 // Shared verbatim by the task UI and the trusted top-level microphone host.
+// Shared verbatim by the task UI and the trusted top-level microphone host.
 function taskAudioCaptureConstructor() {
   if (!navigator.mediaDevices?.getUserMedia || !window.MediaRecorder) return null;
   return class {
@@ -2101,19 +2102,27 @@ function taskAudioCaptureConstructor() {
         const stream = await navigator.mediaDevices.getUserMedia({audio:{echoCancellation:true,noiseSuppression:true,autoGainControl:true},video:false});
         if (!this.active) { stream.getTracks().forEach(t=>t.stop()); return; }
         this.stream = stream;
-        const mime = ['audio/webm;codecs=opus','audio/mp4','audio/ogg;codecs=opus'].find(t=>MediaRecorder.isTypeSupported(t));
-        this.recorder = new MediaRecorder(stream, { ...(mime ? {mimeType:mime} : {}), audioBitsPerSecond:64000 });
+        // Prefer the device's own encoder configuration. Some Android encoders
+        // advertise a format but fail when a forced bitrate is used.
+        const types=['audio/webm;codecs=opus','audio/mp4','audio/ogg;codecs=opus'];
+        const candidates=[{},...types.filter(t=>MediaRecorder.isTypeSupported?.(t)).map(mimeType=>({mimeType}))];
+        for(const options of candidates){
+          try{this.recorder=new MediaRecorder(stream,options);break;}catch(_){}
+        }
+        if(!this.recorder){this.fail('recording-unsupported');return;}
         this.recorder.ondataavailable = e => {
           if (!this.active || !e.data.size) return;
           this.bytes += e.data.size;
           if (this.bytes > 1000000) { this.fail('audio-too-large'); return; }
           this.chunks.push(e.data);
         };
-        this.recorder.onerror = () => this.fail('audio-capture');
+        this.recorder.onerror = () => this.fail('recording-failed');
         this.recorder.onstop = () => {
           this.release();
           if (!this.active) return;
-          const blob = new Blob(this.chunks,{type:this.recorder.mimeType});this.chunks=[];
+          const mime=this.chunks.find(chunk=>chunk.type)?.type||this.recorder.mimeType;
+          const blob = new Blob(this.chunks,{type:mime});this.chunks=[];
+          if(!blob.size){this.fail('recording-empty');return;}
           const reader = new FileReader();
           reader.onload = () => {
             if (!this.active) return;
@@ -2121,11 +2130,11 @@ function taskAudioCaptureConstructor() {
             this.onaudio?.({audio:String(reader.result).split(',')[1],mime:blob.type.split(';')[0]});
             this.onend?.();
           };
-          reader.onerror = () => this.fail('audio-capture');
+          reader.onerror = () => this.fail('recording-read-failed');
           reader.readAsDataURL(blob);
         };
-        this.recorder.start(250);
-        this.onstart?.();
+        this.recorder.onstart = () => { if(this.active)this.onstart?.(); };
+        try{this.recorder.start(250);}catch(_){this.fail('recording-unsupported');return;}
         this.timer = setTimeout(()=>this.stop(),20000);
         // Silence detection only ends recording; it never supplies an answer.
         const Audio = window.AudioContext || window.webkitAudioContext;
@@ -2144,7 +2153,7 @@ function taskAudioCaptureConstructor() {
             },100);
           } catch (_) { /* Manual stop and the recording limit remain available. */ }
         }
-      } catch(error) { this.fail(error.name==='NotAllowedError'?'not-allowed':'audio-capture'); }
+      } catch(error) { this.fail(error.name==='NotAllowedError'?'not-allowed':error.name==='NotFoundError'?'audio-capture':error.name==='NotReadableError'?'microphone-busy':'recording-failed'); }
     }
     release() {
       clearTimeout(this.timer);clearInterval(this.meter);
@@ -2206,6 +2215,11 @@ function taskAudioCaptureConstructor() {
 
 
         if (!/^[a-z0-9-]{1,100}$/i.test(requestId)) return;
+        if (data.action === 'probe' && data.engine === 'openpronounce') {
+          event.source.postMessage({type:'ZEVA_EDUCATION_SPEECH',requestId:requestId,status:'capabilities',audioProtocol:2},event.origin);
+          return;
+        }
+
 
 
         if (data.action === 'stop' || data.action === 'abort') {
