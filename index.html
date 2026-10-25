@@ -2021,6 +2021,76 @@
       // this top-level app, bound to the already registered app window + origin.
 
 
+  function taskBrowserRecognitionConstructor() {
+    const Native = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (!Native) return null;
+    return class {
+      constructor() { this.native = null; this.active = false; this.stopping = false; }
+      start() {
+        if (this.active) throw new Error('Speech recognition is already active');
+        this.active = true;
+        this.stopping = false;
+        this.open(!taskBrowserRecognitionConstructor.contextUnavailable);
+      }
+      open(useContext) {
+        const native = new Native();
+        this.native = native;
+        native.lang = this.lang || 'en-US';
+        native.continuous = this.continuous !== false;
+        native.interimResults = this.interimResults !== false;
+        native.maxAlternatives = 5;
+        let hinted = false;
+        if (useContext && 'phrases' in native && typeof window.SpeechRecognitionPhrase === 'function') {
+          try {
+            const words = (Array.isArray(this.contextPhrases) ? this.contextPhrases : [])
+              .filter(word => typeof word === 'string' && /^[a-z][a-z']{2,39}$/.test(word)).slice(0, 24);
+            if (words.length) {
+              native.phrases = words.map(word => new window.SpeechRecognitionPhrase(word, 2));
+              hinted = true;
+            }
+          } catch (_) { /* Optional hints must never prevent normal recognition. */ }
+        }
+        const current = () => this.active && this.native === native;
+        ['start', 'audiostart', 'speechstart', 'speechend', 'result'].forEach(name => {
+          native['on' + name] = event => { if (current()) this['on' + name]?.(event); };
+        });
+        native.onerror = event => {
+          if (!current()) return;
+          if (event.error === 'phrases-not-supported' && hinted && !this.stopping) {
+            taskBrowserRecognitionConstructor.contextUnavailable = true;
+            this.native = null;
+            try { native.abort(); } catch (_) {}
+            this.onretry?.();
+            if (this.active) {
+              try { this.open(false); } catch (_) { this.onerror?.({error:'service-not-allowed'}); }
+            }
+            return;
+          }
+          this.onerror?.(event);
+        };
+        native.onend = event => {
+          if (!current()) return;
+          this.native = null;
+          this.active = false;
+          this.onend?.(event);
+        };
+        try { native.start(); } catch (error) {
+          this.native = null;
+          this.active = false;
+          try { native.abort(); } catch (_) {}
+          throw error;
+        }
+      }
+      stop() { this.stopping = true; this.native?.stop(); }
+      abort() {
+        this.active = false;
+        const native = this.native;
+        this.native = null;
+        try { native?.abort(); } catch (_) {}
+      }
+    };
+  }
+
       let hostSpeech = null;
 
 
@@ -2111,7 +2181,7 @@
         };
 
 
-        const Recognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        const Recognition = taskBrowserRecognitionConstructor();
 
 
         if (!Recognition) { reply('error', {error:'unsupported'}); return; }
@@ -2139,6 +2209,8 @@
 
 
         recognition.maxAlternatives = 5;
+        recognition.contextPhrases = data.contextPhrases;
+        recognition.onretry = function() { if (hostSpeech === active) reply('retry'); };
 
 
         recognition.onstart = function() { if (hostSpeech === active) reply('start'); };
