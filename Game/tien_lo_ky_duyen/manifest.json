@@ -4,481 +4,481 @@
   "files": [
     {
       "path": "AVT/bach-linh-khe.png",
-      "bytes": 2468932,
-      "sha256": "496cc2a782bd258edde209d1bb29d138340c720e6123d35afb7c2506f1152fcc"
+      "bytes": 3025776,
+      "sha256": "a774c492c12f7125a0bdb76550144520b3db06564901b87a09d238fa54b87f91"
     },
     {
       "path": "AVT/co-nhu-nguyet.png",
-      "bytes": 2739128,
-      "sha256": "4dda44b4e97347993d0b4c08f054327e58d1446dd238cc1a47b1b1be45f5061b"
+      "bytes": 2774229,
+      "sha256": "50abc1665f61b5d4e9f50a3baea1da12d359e4a0ff7a1e6693cfde486d0ea232"
     },
     {
       "path": "AVT/co-truong-ca.png",
-      "bytes": 2373721,
-      "sha256": "a94776976168f9502cbd668c4348e0567219cc60ab670baaa77b4e869d4cb928"
+      "bytes": 2823825,
+      "sha256": "5ac711abf1e73cd45c34a4e195277464491f9a6aeac72ec923b77ea9c21443bf"
     },
     {
       "path": "AVT/diep-hong-lien.png",
-      "bytes": 3347426,
-      "sha256": "2b19ea6e529bc5a22a73641d821e1e8123839192c9fab2123d077b171eee3292"
+      "bytes": 3338748,
+      "sha256": "0379de38a68aa9946e0d8b91e127ac6f7d832e3d5fb44b370d59b92067899ebb"
     },
     {
       "path": "AVT/duong-vo-anh.png",
-      "bytes": 2713338,
-      "sha256": "77d8222bb5bd603f6d1a0cffdf7a84d630dd4176b4e629a1025a40d72020377d"
+      "bytes": 3094388,
+      "sha256": "406c3498d358909f2cc7a31a87c5b83e33305afa4670d4c47851b94a7dcf632e"
     },
     {
       "path": "AVT/han-tu-mac.png",
-      "bytes": 2313761,
-      "sha256": "5595a10297694178a5311b4ed4cea3d18957d89d64a1bef3bcf57c2f36897667"
+      "bytes": 2939477,
+      "sha256": "bd9c59b774075906c0a19129d1b87b8d80f8c997d8c475a02c597f94b5a8879f"
     },
     {
       "path": "AVT/lam-thanh-tuyet.png",
-      "bytes": 3279951,
-      "sha256": "74c7da9829782e8e3d0f9980272fc5deb2790aa073121a676ba136ab9c634078"
+      "bytes": 3006468,
+      "sha256": "873db1cbb75480c89843c0a444b235a20ff565b5ee442ea464c659d9fb64474e"
     },
     {
       "path": "AVT/lieu-nhu-yen.png",
-      "bytes": 2375092,
-      "sha256": "2f33ed158dd0bc24f563b955146b2d1ce896b7a8348407e1a89aca31b0ede629"
+      "bytes": 2760365,
+      "sha256": "c7d0306b6e95e41a964e6034b52e7845e694cc6aa755478503aa6ab59bc35a36"
     },
     {
       "path": "AVT/luc-han-phong.png",
-      "bytes": 2598172,
-      "sha256": "576c04afb15fe344b1ddb01eefd26c5b886654218150947d5117539a1eafbb98"
+      "bytes": 3018331,
+      "sha256": "db8abdcffff74561f21e0d94afd480af29375f9702e911dfb716609168e23487"
     },
     {
       "path": "AVT/mac-thien-hanh.png",
-      "bytes": 2334864,
-      "sha256": "0eb2afc751fcb62fc4111de095efbbdc3059dc5b90619d50758360060597d4fa"
+      "bytes": 3006506,
+      "sha256": "8584b99ff5411d8b6141ef3183bb0fbcab58a6e095d8ef346f5b3659ef1fcba5"
     },
     {
       "path": "AVT/mo-thanh-truc.png",
-      "bytes": 2674742,
-      "sha256": "5eb3b8083571110f4109dca7c00bcfe515060198fb48dc1f4ec2035ff57782c5"
+      "bytes": 3212410,
+      "sha256": "81a0c2312c9a80fd7f927dc0c3f9acee0864b8ee867fb1948378860ce41ff6b2"
     },
     {
       "path": "AVT/ta-van-tieu.png",
-      "bytes": 2931672,
-      "sha256": "55745d7a17dfc2c7a65dc4747dba8441587f26d6944762be4d748a352c7f9a40"
+      "bytes": 3057355,
+      "sha256": "65eaba4824b3940ad85bc8f9c034fb33d61c47ec6e7b9d7027619863bba7f004"
     },
     {
       "path": "AVT/tieu-vo-tran.png",
-      "bytes": 3011525,
-      "sha256": "8150de5e9905d8ab391f604e2e7de4cf83500d7e5c740e0058ceafc5e5de5198"
+      "bytes": 3241530,
+      "sha256": "372dce43cc0686056fc639ca4891494e6f3404aa9e62e1b6d3d2f65a960b2008"
     },
     {
       "path": "AVT/to-ngoc-dao.png",
-      "bytes": 2370969,
-      "sha256": "e8fda4eaae28070822ce4afaf5bfe5d282cfb8c61e906ff75c5201e8fe957719"
+      "bytes": 2975368,
+      "sha256": "733f8442115d09068c7569357397b260b09d3a12abe67e2bec1e567c15e0abd6"
     },
     {
       "path": "AVT/truong-tieu-pham.png",
-      "bytes": 3121129,
-      "sha256": "e30c4f08cfdcb4579c2dd033ad69c9087b46c1982a1aa1dd271e7ba44f8cd427"
+      "bytes": 3354266,
+      "sha256": "6b40bac75b2c6f29f810e92f1552241730e8fd18645ac54f5f2d45ac97927d95"
     },
     {
       "path": "AVT/van-to-tam.png",
-      "bytes": 2822055,
-      "sha256": "e2ec226faa7279b9990e0bafde09b0917ec697795985ec3940a94732d8cde05c"
+      "bytes": 2993339,
+      "sha256": "e86707ca7c6e54dfbc1906260fe07e8d598bab8e276602e7ed81c5f039237a50"
     },
     {
-      "path": "dot-kich-v1/bach-linh-khe/nộ.png",
+      "path": "assest/bach-linh-khe/nộ.png",
       "bytes": 3241280,
       "sha256": "801d237d6ca244b3ec09f059a66ad6ffcb2f24164991915b32ad54f9d75d0cfc"
     },
     {
-      "path": "dot-kich-v1/bach-linh-khe/thủ thế.png",
+      "path": "assest/bach-linh-khe/thủ thế.png",
       "bytes": 2617881,
       "sha256": "c4f3a8b7809ecd1e1afcdbfa749cbc033ba33ed425eeac909ac852f4be40f520"
     },
     {
-      "path": "dot-kich-v1/bach-linh-khe/trọng thương.png",
+      "path": "assest/bach-linh-khe/trọng thương.png",
       "bytes": 1877150,
       "sha256": "8a9b8394d565c0152895b41a575457d8d4823ea662a73a58e0a627e5059cb86d"
     },
     {
-      "path": "dot-kich-v1/bach-linh-khe/tu luyện.png",
+      "path": "assest/bach-linh-khe/tu luyện.png",
       "bytes": 2700857,
       "sha256": "8ccd8689367544096bb1e0b36609501cbdc6d11d269b9f27cc15cc3c69612307"
     },
     {
-      "path": "dot-kich-v1/bach-linh-khe/tung chiêu.png",
+      "path": "assest/bach-linh-khe/tung chiêu.png",
       "bytes": 2869779,
       "sha256": "161d3be701a3a8938be4c42111a0e81bc23b31cb57f6ab8b14cdf1553e23d1af"
     },
     {
-      "path": "dot-kich-v1/co-nhu-nguyet/nộ.png",
+      "path": "assest/co-nhu-nguyet/nộ.png",
       "bytes": 2564784,
       "sha256": "bdd11d3a429f8e9405b439cd5aad66c893c791a845b66a2ca9eb146b146853da"
     },
     {
-      "path": "dot-kich-v1/co-nhu-nguyet/thủ thế.png",
+      "path": "assest/co-nhu-nguyet/thủ thế.png",
       "bytes": 2462647,
       "sha256": "9dd64cd5a04b939d091d046c80bb219cbf14795b1436557c2bdd06a780a94acd"
     },
     {
-      "path": "dot-kich-v1/co-nhu-nguyet/trọng thương.png",
+      "path": "assest/co-nhu-nguyet/trọng thương.png",
       "bytes": 1747286,
       "sha256": "539a402db9f4823cf2f0818a24ed1b2a244c78a9b2cd3a1bc1b2ab8de93a1122"
     },
     {
-      "path": "dot-kich-v1/co-nhu-nguyet/tu luyện.png",
+      "path": "assest/co-nhu-nguyet/tu luyện.png",
       "bytes": 2650670,
       "sha256": "1d887051101a6b6b95b95d7fbdfda8aaede489a06bb9c41a46b079d3db70a7dc"
     },
     {
-      "path": "dot-kich-v1/co-nhu-nguyet/tung chiêu.png",
+      "path": "assest/co-nhu-nguyet/tung chiêu.png",
       "bytes": 2628780,
       "sha256": "f7d238b926daa40e571629c0a74ad5be0f20640fc2da6cc76ef9d6e0593d2381"
     },
     {
-      "path": "dot-kich-v1/co-truong-ca/nộ.png",
+      "path": "assest/co-truong-ca/nộ.png",
       "bytes": 3075940,
       "sha256": "7ee3f1c0ccf77248a523bf5c48934d86d0e990ceafb96b1eee821c3a27fe0acf"
     },
     {
-      "path": "dot-kich-v1/co-truong-ca/thủ thế.png",
+      "path": "assest/co-truong-ca/thủ thế.png",
       "bytes": 2382725,
       "sha256": "ab1d48731dfa76c8c4fee7f9dc54a6b820ff7cdfd0df4b4713d66e7b5d6ebeae"
     },
     {
-      "path": "dot-kich-v1/co-truong-ca/trọng thương.png",
+      "path": "assest/co-truong-ca/trọng thương.png",
       "bytes": 1862017,
       "sha256": "35c069e6a413fa80896c53557d7d82c72fcb217cf95d2e93f2babdf2e1e4c9ec"
     },
     {
-      "path": "dot-kich-v1/co-truong-ca/tu luyện.png",
+      "path": "assest/co-truong-ca/tu luyện.png",
       "bytes": 2935787,
       "sha256": "6740f85804bc58ed8b8d825bc99302b59be835dd963baafccb37f3550d59a270"
     },
     {
-      "path": "dot-kich-v1/co-truong-ca/tung chiêu.png",
+      "path": "assest/co-truong-ca/tung chiêu.png",
       "bytes": 2486699,
       "sha256": "c2a8b064fdef221cece7c7b096a955b6bc59f48c293a7fb576379885f015d04f"
     },
     {
-      "path": "dot-kich-v1/diep-hong-lien/nộ.png",
+      "path": "assest/diep-hong-lien/nộ.png",
       "bytes": 3618978,
       "sha256": "7b52c213ab7291d9d49622d285b809dca17cbf9c3801a52e135f08e82c972c9f"
     },
     {
-      "path": "dot-kich-v1/diep-hong-lien/thủ thế.png",
+      "path": "assest/diep-hong-lien/thủ thế.png",
       "bytes": 2946536,
       "sha256": "039df8270248620612e16d5c73700dbbe74869dcb6d8d0f82967a32cfc9f8ddd"
     },
     {
-      "path": "dot-kich-v1/diep-hong-lien/trọng thương.png",
+      "path": "assest/diep-hong-lien/trọng thương.png",
       "bytes": 2111551,
       "sha256": "8199da9470cf8c629cd653dbd298c87d2f75e1a7e64774d38894627c836349c0"
     },
     {
-      "path": "dot-kich-v1/diep-hong-lien/tu luyện.png",
+      "path": "assest/diep-hong-lien/tu luyện.png",
       "bytes": 3382512,
       "sha256": "1dc68d3f4eea0303f2cb40079f41b2466deed2e818e21d30be2827236142f908"
     },
     {
-      "path": "dot-kich-v1/diep-hong-lien/tung chiêu.png",
+      "path": "assest/diep-hong-lien/tung chiêu.png",
       "bytes": 3257001,
       "sha256": "febd2962c9cb7b8338f3ac94a8cc2820f54d2e4da231cec53d3890f172b31cd4"
     },
     {
-      "path": "dot-kich-v1/duong-vo-anh/nộ.png",
+      "path": "assest/duong-vo-anh/nộ.png",
       "bytes": 3011293,
       "sha256": "37b7b73ed09b006cbe2a2acdfff38ffe85fbe1f252a83be569bceb1857154acb"
     },
     {
-      "path": "dot-kich-v1/duong-vo-anh/thủ thế.png",
+      "path": "assest/duong-vo-anh/thủ thế.png",
       "bytes": 2574814,
       "sha256": "0d3b65411dd3ce401955f4c1f5bdc286ab28e477480b79dac81aac04b11050c0"
     },
     {
-      "path": "dot-kich-v1/duong-vo-anh/trọng thương.png",
+      "path": "assest/duong-vo-anh/trọng thương.png",
       "bytes": 1745658,
       "sha256": "f2b80ba4230dfcc8ad4f1727c51ccb061396f0704d0aa760120fd7f10120c4cc"
     },
     {
-      "path": "dot-kich-v1/duong-vo-anh/tu luyện.png",
+      "path": "assest/duong-vo-anh/tu luyện.png",
       "bytes": 2903042,
       "sha256": "d011ed1c565ed9c66e5e6dea3683e8607c5dd2ed8a6d86a8beac8e355d89d729"
     },
     {
-      "path": "dot-kich-v1/duong-vo-anh/tung chiêu.png",
+      "path": "assest/duong-vo-anh/tung chiêu.png",
       "bytes": 2765266,
       "sha256": "98d572a98ca05afbc81c96bc4bde64dc1d48516cdc55c112e24f7e9391b89caa"
     },
     {
-      "path": "dot-kich-v1/han-tu-mac/nộ.png",
+      "path": "assest/han-tu-mac/nộ.png",
       "bytes": 2623032,
       "sha256": "252bf9e45a4ef097d39bb5fb4a11998e4799c06dde5e1496250027bca56387e6"
     },
     {
-      "path": "dot-kich-v1/han-tu-mac/thủ thế.png",
+      "path": "assest/han-tu-mac/thủ thế.png",
       "bytes": 2180288,
       "sha256": "0f7894e2a8dfd12abc0589114997832032f3b20d51077b42a177285ad33f5790"
     },
     {
-      "path": "dot-kich-v1/han-tu-mac/trọng thương.png",
+      "path": "assest/han-tu-mac/trọng thương.png",
       "bytes": 1907301,
       "sha256": "be332f55a3931e0c19818c6b2a6f22826f2a0da4c263e1b61befab99a95607fc"
     },
     {
-      "path": "dot-kich-v1/han-tu-mac/tu luyện.png",
+      "path": "assest/han-tu-mac/tu luyện.png",
       "bytes": 2480447,
       "sha256": "5c3d03e98b7330c9c7ec19023da317bb66af4bfb7ba64dd165c19291f5ab485d"
     },
     {
-      "path": "dot-kich-v1/han-tu-mac/tung chiêu.png",
+      "path": "assest/han-tu-mac/tung chiêu.png",
       "bytes": 2428597,
       "sha256": "7de773ae7df00394f7bfb7b924f69ceec03a4eeb0c68d4d15a08831cfac3423e"
     },
     {
-      "path": "dot-kich-v1/lam-thanh-tuyet/nộ.png",
+      "path": "assest/lam-thanh-tuyet/nộ.png",
       "bytes": 3225434,
       "sha256": "a3ea072dd6ba17d66bb92b1d511a0e38094dd11385e298f333f4ed2a162ecdc8"
     },
     {
-      "path": "dot-kich-v1/lam-thanh-tuyet/thủ thế.png",
+      "path": "assest/lam-thanh-tuyet/thủ thế.png",
       "bytes": 2636999,
       "sha256": "344865b8de8f24397eedb9a6b9720ad6b65b01ebf0c87d44f2e2ec718b53f820"
     },
     {
-      "path": "dot-kich-v1/lam-thanh-tuyet/trọng thương.png",
+      "path": "assest/lam-thanh-tuyet/trọng thương.png",
       "bytes": 1641078,
       "sha256": "8b730ff7d97e4ab38b4786ff122eeec36846af4d0d26e01a77e6e7223d1dda31"
     },
     {
-      "path": "dot-kich-v1/lam-thanh-tuyet/tu luyện.png",
+      "path": "assest/lam-thanh-tuyet/tu luyện.png",
       "bytes": 3243885,
       "sha256": "fd4f29355cd3ba60955b32a2a410e69280fea4e38ae1aae43aa763297926c931"
     },
     {
-      "path": "dot-kich-v1/lam-thanh-tuyet/tung chiêu.png",
+      "path": "assest/lam-thanh-tuyet/tung chiêu.png",
       "bytes": 2318772,
       "sha256": "68b3a9022a8f9098bc415aaeb0890d56c6d4608c0a1f84ff6229e4c476ec2a25"
     },
     {
-      "path": "dot-kich-v1/lieu-nhu-yen/nộ.png",
+      "path": "assest/lieu-nhu-yen/nộ.png",
       "bytes": 2189828,
       "sha256": "461efe85f7416ec70cfc739e7fccb57efa44baa07eaa9123108903fc8321ffbe"
     },
     {
-      "path": "dot-kich-v1/lieu-nhu-yen/thủ thế.png",
+      "path": "assest/lieu-nhu-yen/thủ thế.png",
       "bytes": 1526014,
       "sha256": "f38618d062d8aa740f0430f458bd04b6ed3e66ec62bb3e5349ec8b73e1a4f214"
     },
     {
-      "path": "dot-kich-v1/lieu-nhu-yen/trọng thương.png",
+      "path": "assest/lieu-nhu-yen/trọng thương.png",
       "bytes": 1347566,
       "sha256": "1a18e2baaced41b0e3c5b7f7617aaaa39a45caaef66170c1e7a86456985c895c"
     },
     {
-      "path": "dot-kich-v1/lieu-nhu-yen/tu luyện.png",
+      "path": "assest/lieu-nhu-yen/tu luyện.png",
       "bytes": 2456691,
       "sha256": "3e9839b65597e100764290cfd53e1a6f09dbca1870780a405266e65910a9cb57"
     },
     {
-      "path": "dot-kich-v1/lieu-nhu-yen/tung chiêu.png",
+      "path": "assest/lieu-nhu-yen/tung chiêu.png",
       "bytes": 1792506,
       "sha256": "bc8acf6ff4e0f1b2b9f6ea8ec720f08cbf1b50f5d956cfc1cb5bf4c3788e47bb"
     },
     {
-      "path": "dot-kich-v1/luc-han-phong/nộ.png",
+      "path": "assest/luc-han-phong/nộ.png",
       "bytes": 3272075,
       "sha256": "ba7296dd39729b2a2f9dacf46163897294905bd304867134909509f3eb67bb3a"
     },
     {
-      "path": "dot-kich-v1/luc-han-phong/thủ thế.png",
+      "path": "assest/luc-han-phong/thủ thế.png",
       "bytes": 2536910,
       "sha256": "775cda1eca5e212494ca03a5ac2673a7efea56b6d15b4c400633b997a8304c7e"
     },
     {
-      "path": "dot-kich-v1/luc-han-phong/trọng thương.png",
+      "path": "assest/luc-han-phong/trọng thương.png",
       "bytes": 1674680,
       "sha256": "f14189e22d1821bfe1f8e74584722dbb0e5ea50ba38bab1cb2c328a7b78ec301"
     },
     {
-      "path": "dot-kich-v1/luc-han-phong/tu luyện.png",
+      "path": "assest/luc-han-phong/tu luyện.png",
       "bytes": 2750684,
       "sha256": "5736cd0737eabd878f6e188b56414511eecb7025ba2991f135f66ffd88fac115"
     },
     {
-      "path": "dot-kich-v1/luc-han-phong/tung chiêu.png",
+      "path": "assest/luc-han-phong/tung chiêu.png",
       "bytes": 2853142,
       "sha256": "d1f9937f380a695090b4bc784482f529e3ac1fd0a0b53ef60fc933ef6a254599"
     },
     {
-      "path": "dot-kich-v1/mac-thien-hanh/nộ.png",
+      "path": "assest/mac-thien-hanh/nộ.png",
       "bytes": 2926496,
       "sha256": "a369fa98a4c1d2dd33ef85aeb2be557ccdb3b39838ab0e228d6ff7268bb923a7"
     },
     {
-      "path": "dot-kich-v1/mac-thien-hanh/thủ thế.png",
+      "path": "assest/mac-thien-hanh/thủ thế.png",
       "bytes": 2298001,
       "sha256": "8419adf343e7ef5d5823c67ac6327ae4a4594fc3d2c34cc305c5d85b2cc53c11"
     },
     {
-      "path": "dot-kich-v1/mac-thien-hanh/trọng thương.png",
+      "path": "assest/mac-thien-hanh/trọng thương.png",
       "bytes": 1627081,
       "sha256": "4f51532af28932fd668f52e8ec337499b90b26c1ac1a15f6626a08b0dbbe9f74"
     },
     {
-      "path": "dot-kich-v1/mac-thien-hanh/tu luyện.png",
+      "path": "assest/mac-thien-hanh/tu luyện.png",
       "bytes": 2639658,
       "sha256": "a4ca1430471dc154d6db55998ca7974c01a0bd51c1c1f3af903306bfd7ed8bc6"
     },
     {
-      "path": "dot-kich-v1/mac-thien-hanh/tung chiêu.png",
+      "path": "assest/mac-thien-hanh/tung chiêu.png",
       "bytes": 2206078,
       "sha256": "9dad75ac593cef1f8e4bfff3839c2556a00ce8ff011bae6cde93be79542919fc"
     },
     {
-      "path": "dot-kich-v1/mo-thanh-truc/nộ.png",
+      "path": "assest/mo-thanh-truc/nộ.png",
       "bytes": 3043631,
       "sha256": "be19b36c5158349e24b09b7a03d7b90222d87125019ef5edfcbc424716bec153"
     },
     {
-      "path": "dot-kich-v1/mo-thanh-truc/thủ thế.png",
+      "path": "assest/mo-thanh-truc/thủ thế.png",
       "bytes": 2505206,
       "sha256": "87ecad754fca3b54000de80ca9ba0514d878bc97eec210d0b493c734b8002897"
     },
     {
-      "path": "dot-kich-v1/mo-thanh-truc/trọng thương.png",
+      "path": "assest/mo-thanh-truc/trọng thương.png",
       "bytes": 1875259,
       "sha256": "f149afecd1c95d2e670d8aac691a72c4f601d9a88080ea6f5ff93529e63fe23d"
     },
     {
-      "path": "dot-kich-v1/mo-thanh-truc/tu luyện.png",
+      "path": "assest/mo-thanh-truc/tu luyện.png",
       "bytes": 2762973,
       "sha256": "0a94126f8ca39338e8e40158097f5f4499ad874ebd8380c45f6ee32eb3e40ae7"
     },
     {
-      "path": "dot-kich-v1/mo-thanh-truc/tung chiêu.png",
+      "path": "assest/mo-thanh-truc/tung chiêu.png",
       "bytes": 2500505,
       "sha256": "a5ea871cf7cc90653792965223b63c2ae366216793484ef1eb00a2a9be431a84"
     },
     {
-      "path": "dot-kich-v1/ta-van-tieu/nộ.png",
+      "path": "assest/ta-van-tieu/nộ.png",
       "bytes": 3209098,
       "sha256": "402933a125af2cc45a22e40cc640ca7f9b2b9d63777192a8cd135f71491d5f12"
     },
     {
-      "path": "dot-kich-v1/ta-van-tieu/thủ thế.png",
+      "path": "assest/ta-van-tieu/thủ thế.png",
       "bytes": 2760924,
       "sha256": "49380e49b9ce4580cdbd6562697663d955c0a8009056c82612825aa46eb1fcc3"
     },
     {
-      "path": "dot-kich-v1/ta-van-tieu/trọng thương.png",
+      "path": "assest/ta-van-tieu/trọng thương.png",
       "bytes": 1928379,
       "sha256": "5ff636317160b19d0e0bf0f79a5cb1f4a80fad8e1a8b599dc7ce4b3d6d794bec"
     },
     {
-      "path": "dot-kich-v1/ta-van-tieu/tu luyện.png",
+      "path": "assest/ta-van-tieu/tu luyện.png",
       "bytes": 2541667,
       "sha256": "b5576d2ffeac77d692408007de6285f149c376a5919ec35d3b2aef7592a7942c"
     },
     {
-      "path": "dot-kich-v1/ta-van-tieu/tung chiêu.png",
+      "path": "assest/ta-van-tieu/tung chiêu.png",
       "bytes": 2961968,
       "sha256": "b165256b8d68f6d52f88b41ff7d49c0cb93b8452ee44db58e88f514f5be247e4"
     },
     {
-      "path": "dot-kich-v1/tieu-vo-tran/nộ.png",
+      "path": "assest/tieu-vo-tran/nộ.png",
       "bytes": 3655688,
       "sha256": "2e27361eb0e093cec1088f443bd24c4baa58e53de42f5b3a96aa65d1df06d4e2"
     },
     {
-      "path": "dot-kich-v1/tieu-vo-tran/thủ thế.png",
+      "path": "assest/tieu-vo-tran/thủ thế.png",
       "bytes": 2730354,
       "sha256": "3fbd2822268d1e8d796eed4fb6d21c4fc1896e900f50846b0603ee18a0984fd4"
     },
     {
-      "path": "dot-kich-v1/tieu-vo-tran/trọng thương.png",
+      "path": "assest/tieu-vo-tran/trọng thương.png",
       "bytes": 2185421,
       "sha256": "8062a424bc2aada6e41892182f69514063a4fe817157f8e7198a95407bcd8101"
     },
     {
-      "path": "dot-kich-v1/tieu-vo-tran/tu luyện.png",
+      "path": "assest/tieu-vo-tran/tu luyện.png",
       "bytes": 2933284,
       "sha256": "4c1bf8c225f30701ece696bbda84e66d601935ef3713c6dde5aaaf7d50b81c8a"
     },
     {
-      "path": "dot-kich-v1/tieu-vo-tran/tung chiêu.png",
+      "path": "assest/tieu-vo-tran/tung chiêu.png",
       "bytes": 2877070,
       "sha256": "01096613312c7d836feb4006dda28eba021647602ae5cebc0dde9993048e67b0"
     },
     {
-      "path": "dot-kich-v1/to-ngoc-dao/nộ.png",
+      "path": "assest/to-ngoc-dao/nộ.png",
       "bytes": 3455309,
       "sha256": "97edc9c6d619a46d5a61ab6223f9779206439eef827ac775299640c3fd90c92c"
     },
     {
-      "path": "dot-kich-v1/to-ngoc-dao/thủ thế.png",
+      "path": "assest/to-ngoc-dao/thủ thế.png",
       "bytes": 2782304,
       "sha256": "cf4d41380364d0573dde961766d4de3fa993b5d265170a1b70b3a2624daf3579"
     },
     {
-      "path": "dot-kich-v1/to-ngoc-dao/trọng thương.png",
+      "path": "assest/to-ngoc-dao/trọng thương.png",
       "bytes": 1989716,
       "sha256": "ef79609c8dbd30026715621b9d6ebc11057f5a62b4418bb98caefd352e2fd11c"
     },
     {
-      "path": "dot-kich-v1/to-ngoc-dao/tu luyện.png",
+      "path": "assest/to-ngoc-dao/tu luyện.png",
       "bytes": 2750204,
       "sha256": "44f11fdd1762a146cd5f5a32f39df64f9548aecf4d2bc5189e2a77291359ccf4"
     },
     {
-      "path": "dot-kich-v1/to-ngoc-dao/tung chiêu.png",
+      "path": "assest/to-ngoc-dao/tung chiêu.png",
       "bytes": 2752115,
       "sha256": "6ce02488b99e910d7874ac248ba06975c85a6e126225259431a93ceb198158ae"
     },
     {
-      "path": "dot-kich-v1/truong-tieu-pham/nộ.png",
+      "path": "assest/truong-tieu-pham/nộ.png",
       "bytes": 3536419,
       "sha256": "3e553af898287a9683d52c773587946f17bf73f4cc5a5c3ecbd78ec607901fa9"
     },
     {
-      "path": "dot-kich-v1/truong-tieu-pham/thủ thế.png",
+      "path": "assest/truong-tieu-pham/thủ thế.png",
       "bytes": 2791145,
       "sha256": "079d734cf7fff259c9b2ed5726908b148cd6c895a643a15ed327d38e4c890339"
     },
     {
-      "path": "dot-kich-v1/truong-tieu-pham/trọng thương.png",
+      "path": "assest/truong-tieu-pham/trọng thương.png",
       "bytes": 1986531,
       "sha256": "377b779b6869a5fc6bbc236b7f5dd8b1ec2d57e02b60596688c9d3ab6d640ed3"
     },
     {
-      "path": "dot-kich-v1/truong-tieu-pham/tu luyện.png",
+      "path": "assest/truong-tieu-pham/tu luyện.png",
       "bytes": 3066321,
       "sha256": "1a4453bf84129cef96141f53e2285934bf731de509e09e96b43f00de113d53ab"
     },
     {
-      "path": "dot-kich-v1/truong-tieu-pham/tung chiêu.png",
+      "path": "assest/truong-tieu-pham/tung chiêu.png",
       "bytes": 2622088,
       "sha256": "7d4d251933ff789167fbfb35be141fc853b1b1b3bb29278cb08173390b6a186a"
     },
     {
-      "path": "dot-kich-v1/van-to-tam/nộ.png",
+      "path": "assest/van-to-tam/nộ.png",
       "bytes": 2960581,
       "sha256": "672bd1f4332d781e4763d275b1dce10ab04750fd5765bd385113f3b05f89d696"
     },
     {
-      "path": "dot-kich-v1/van-to-tam/thủ thế.png",
+      "path": "assest/van-to-tam/thủ thế.png",
       "bytes": 2690283,
       "sha256": "35292f26498a923f58982e24777b149bd65ea5d6dcdf94ad6974bcfb503fb939"
     },
     {
-      "path": "dot-kich-v1/van-to-tam/trọng thương.png",
+      "path": "assest/van-to-tam/trọng thương.png",
       "bytes": 1989979,
       "sha256": "3d51aa37847e027656445a3587c07ddb37364de1899ccc4386099764fb69b1ea"
     },
     {
-      "path": "dot-kich-v1/van-to-tam/tu luyện.png",
+      "path": "assest/van-to-tam/tu luyện.png",
       "bytes": 2925176,
       "sha256": "ec9966457af140e03cd454366c09057254b5c4e04785d9ba8579db07ef95a61f"
     },
     {
-      "path": "dot-kich-v1/van-to-tam/tung chiêu.png",
+      "path": "assest/van-to-tam/tung chiêu.png",
       "bytes": 2822380,
       "sha256": "ba7a3e837f09e7b17fe0da2e55dde14bc062d4f6f7e77e7ca240a84072378830"
     },
@@ -758,6 +758,16 @@
       "sha256": "d1df76b54d67c3271c98a463ac280ef82826d371125f00e1cc6c0853934c42af"
     },
     {
+      "path": "scenes/thi-luyen-tong-mon/reference-layout.png",
+      "bytes": 2812415,
+      "sha256": "2cd3a7906fcff95b72ce88179de8bfe52457d33b65eb868e17ac3de069265487"
+    },
+    {
+      "path": "scenes/tu-luyen/00-hau-canh-v2.png",
+      "bytes": 3242458,
+      "sha256": "3774338d1be7a576dcbf717e9b3ffdfadd1986a353d9cb9967bcd0baf6f6b215"
+    },
+    {
       "path": "scenes/tu-luyen/00-hau-canh.png",
       "bytes": 3298437,
       "sha256": "7a96c2e6b46738183aff83f0144e2bfbdd6b156f2815de787e155ca0e3c7c62c"
@@ -803,6 +813,11 @@
       "sha256": "8ed018c6e9475585b5a816609b2255e2f4cf9e29a73a1a96ffa7694e5c8462f9"
     },
     {
+      "path": "ui/shared/tien-lo-ky-duyen-logo.png",
+      "bytes": 1930597,
+      "sha256": "328b4b5961da48cd5ac9fb13ac27f51dfbcd35a3f02417740c72a691e0076c15"
+    },
+    {
       "path": "ui/tang-bao-cac/quan-bao-cac.png",
       "bytes": 2462680,
       "sha256": "81238a83973f0a100560471b2988744e78cd38a97c1bfe54182cc0af942530ac"
@@ -816,6 +831,66 @@
       "path": "ui/tang-bao-cac/ruong-mo.png",
       "bytes": 1704837,
       "sha256": "c95673bba8bdcba09e2dfd103f7b92177a26c0c2c380dd0483cd17471e045535"
+    },
+    {
+      "path": "ui/tuyen-chon-de-tu/khung-assault.png",
+      "bytes": 2020402,
+      "sha256": "b7502a79416d2517253b1af9bfda3756a67d0721684bca6f0464854947c1a702"
+    },
+    {
+      "path": "ui/tuyen-chon-de-tu/khung-carry.png",
+      "bytes": 1975061,
+      "sha256": "64a14590b5f1a32c4bc97fe8da94465c1329c7ecbe18953102cf391fb493e748"
+    },
+    {
+      "path": "ui/tuyen-chon-de-tu/khung-control.png",
+      "bytes": 2059267,
+      "sha256": "435dfcdfd2724d65b490a00770ae25b9c6a74f6810b33ed8dd80142c26a785bc"
+    },
+    {
+      "path": "ui/tuyen-chon-de-tu/khung-healer.png",
+      "bytes": 1741349,
+      "sha256": "b961dcc653bac20c1904558de342ec304d2477c118106175ebd9e8e6d86dc316"
+    },
+    {
+      "path": "ui/tuyen-chon-de-tu/khung-ranged.png",
+      "bytes": 1993019,
+      "sha256": "2f98da49a9cfa81c69b108e48be3adf78b1d6e4e148c2e0d0f64f68c787d7e6f"
+    },
+    {
+      "path": "ui/tuyen-chon-de-tu/khung-support.png",
+      "bytes": 1833502,
+      "sha256": "01b867bf958312dc30ea0cac3837d51b590b8cef2fb8e09fbdcd6f83ec833199"
+    },
+    {
+      "path": "ui/tuyen-chon-de-tu/khung-tank.png",
+      "bytes": 1676457,
+      "sha256": "c55739f3f862404d7db0434d47c0213ce125350f1729dff431dd8f80e7ded173"
+    },
+    {
+      "path": "ui/tuyen-chon-de-tu/khung-vanguard.png",
+      "bytes": 1574050,
+      "sha256": "c4a442b5c82729ffd33f264a72a8910abac25d551ca6a5c6cac2a23c7400d868"
+    },
+    {
+      "path": "ui/tuyen-chon-de-tu/tieu-de.png",
+      "bytes": 1520008,
+      "sha256": "31d8a0dcb1d611ac3b3eea3b2281ddfe94e075849cfe699c82e1acb3e94e4ff4"
+    },
+    {
+      "path": "ui/tuyen-chon-de-tu/truong-lao-long-ho.png",
+      "bytes": 2203574,
+      "sha256": "e65c05c9c8daeee0f0bca073658f146d78cee435fb630b6812450a7dcdd1b1bd"
+    },
+    {
+      "path": "ui/tuyen-chon-de-tu/truong-lao-van-tieu-v2.png",
+      "bytes": 2441221,
+      "sha256": "79302dada490a17a39d69969c5783b02aecff89e7d72c720d85ddf7b0bd9bdae"
+    },
+    {
+      "path": "ui/tuyen-chon-de-tu/truong-lao-van-tieu.png",
+      "bytes": 2453710,
+      "sha256": "c2b9f7917cf876c64f2f72d8a5dd71494c38af2a479fdbc92908389ecb780e08"
     }
   ]
 }
