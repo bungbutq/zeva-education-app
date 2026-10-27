@@ -813,6 +813,26 @@
       "sha256": "8ed018c6e9475585b5a816609b2255e2f4cf9e29a73a1a96ffa7694e5c8462f9"
     },
     {
+      "path": "ui/sect-hud/lenh-tam-bao.png",
+      "bytes": 2553088,
+      "sha256": "1f86e78c35283f155e833be6173bfa03012a1991ba8cdb34b5ed5dd7e41cfe9a"
+    },
+    {
+      "path": "ui/sect-hud/linh-thach.png",
+      "bytes": 1272620,
+      "sha256": "bd5eda6b8dc95eecd7eee508f01def14bee09ef93775206c7c4349007da1c937"
+    },
+    {
+      "path": "ui/sect-hud/long-ho-son.png",
+      "bytes": 2267199,
+      "sha256": "8ae0feef0443be12f199eb9e5f559a7c7f82d91c0907cddf73a6351a42339f5b"
+    },
+    {
+      "path": "ui/sect-hud/van-tieu-son.png",
+      "bytes": 2018291,
+      "sha256": "5d716313c2dcf5d35d4c9afdf171bd52039bae9ac0d01d5b8d988772d2c56897"
+    },
+    {
       "path": "ui/shared/tien-lo-ky-duyen-logo.png",
       "bytes": 1930597,
       "sha256": "328b4b5961da48cd5ac9fb13ac27f51dfbcd35a3f02417740c72a691e0076c15"
