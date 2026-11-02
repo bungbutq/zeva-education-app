@@ -1194,6 +1194,7 @@
 
 
   <script src="./System/PWA/config.js"></script>
+  <script src="./push-client.js"></script>
 
   <script>
 
@@ -1737,6 +1738,7 @@
         });
 
         const savedCookie = safeCookieSet(WRAPPER_SESSION_COOKIE_KEY, cookieRaw, normalized.expiresAt);
+        window.ZevaPush?.refresh();
 
         if (savedStorage || savedCookie) Promise.resolve(tryEnablePersistentStorage()).catch(function() {});
 
@@ -1817,6 +1819,7 @@
         safeRemove(WRAPPER_SESSION_KEY);
 
         safeCookieRemove(WRAPPER_SESSION_COOKIE_KEY);
+        window.ZevaPush?.refresh();
 
       }
 
@@ -2796,11 +2799,15 @@ function taskAudioCaptureConstructor() {
 
           'ZEVA_EDUCATION_REQUEST_SESSION', 'BUNG_BU_REQUEST_SESSION',
 
-          'ZEVA_EDUCATION_REJECT_SESSION', 'ZEVA_EDUCATION_RELOAD_APP'
+          'ZEVA_EDUCATION_REJECT_SESSION', 'ZEVA_EDUCATION_RELOAD_APP', 'ZEVA_EDUCATION_PUSH_TOGGLE'
 
         ];
 
         if (!acceptedTypes.includes(type)) return;
+        if (type === 'ZEVA_EDUCATION_PUSH_TOGGLE') {
+          if (!appMessageSource || event.source !== appMessageSource || !loadSession()) return;
+          window.ZevaPush?.toggle(); return;
+        }
         window.ZevaBoot?.hostMessage(type);
 
         if (type === 'ZEVA_EDUCATION_RELOAD_APP') {
@@ -2915,6 +2922,8 @@ function taskAudioCaptureConstructor() {
 
 
           markAppReady(data.text || data.message || 'Sẵn sàng');
+          window.ZevaPush?.ready();
+          window.ZevaPush?.refresh();
 
 
           return;
@@ -3199,6 +3208,7 @@ function taskAudioCaptureConstructor() {
 
 
 
+      window.ZevaPush?.init({session:loadSession,openInbox:()=>postMessageToApp({type:'ZEVA_EDUCATION_OPEN_NOTIFICATIONS'}),onStatus:status=>postMessageToApp({type:'ZEVA_EDUCATION_PUSH_STATUS',...status})});
       if ('serviceWorker' in navigator) {
 
 

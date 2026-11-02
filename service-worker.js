@@ -1,8 +1,9 @@
 /* ZEVA Education GitHub wrapper service worker */
-const CACHE_NAME = 'zeva-education-organized-20261019';
+const CACHE_NAME = 'zeva-education-push-20261101';
 const SHELL_FILES = [
   './',
   './index.html',
+  './push-client.js',
   './System/PWA/config.js',
   './manifest.webmanifest',
   './UI/thuong-hieu/icon-192.png',
@@ -33,7 +34,7 @@ self.addEventListener('activate', function(event) {
         return Promise.all(
           keys
             .filter(function(key) {
-              return key !== CACHE_NAME;
+              return key.startsWith('zeva-education-') && key !== CACHE_NAME;
             })
             .map(function(key) {
               return caches.delete(key);
@@ -44,6 +45,35 @@ self.addEventListener('activate', function(event) {
         return self.clients.claim();
       })
   );
+});
+
+// No session tokens or private message bodies are sent in a push payload.
+self.addEventListener('push',event=>{
+  event.waitUntil((async()=>{
+    let payload;try{payload=event.data.json();}catch(_){return;}
+    const cache=await caches.open('zeva-push-state-v1');
+    const saved=await cache.match(new URL('./__push_binding',self.registration.scope));
+    const binding=saved&&await saved.text();
+    if(!binding||payload.binding!==binding)return;
+    await self.registration.showNotification('ZEVA Education',{
+      body:String(payload.body||'Bạn có thông báo mới.').slice(0,180),
+      icon:new URL('./UI/thuong-hieu/icon-192.png',self.registration.scope).href,
+      tag:'zeva-'+String(payload.tag||'inbox'),data:{binding},renotify:false
+    });
+  })());
+});
+self.addEventListener('notificationclick',event=>{
+  event.notification.close();
+  event.waitUntil((async()=>{
+    const cache=await caches.open('zeva-push-state-v1');
+    const saved=await cache.match(new URL('./__push_binding',self.registration.scope));
+    if(!saved||await saved.text()!==event.notification.data?.binding)return;
+    const url=new URL('./?zevaNotification=1',self.registration.scope);
+    const clients=await self.clients.matchAll({type:'window',includeUncontrolled:true});
+    const client=clients.find(c=>c.url.startsWith(self.registration.scope));
+    if(client){await client.focus();client.postMessage({type:'ZEVA_PUSH_OPEN'});}
+    else await self.clients.openWindow(url.href);
+  })());
 });
 
 self.addEventListener('fetch', function(event) {

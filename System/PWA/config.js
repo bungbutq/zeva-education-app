@@ -6,3 +6,5 @@ window.ZEVA_WEBAPP_CONFIG = {
   appName: 'ZEVA Education',
   mainAppUrl: 'https://script.google.com/macros/s/AKfycbzXqCBELed2erSIHAWp8FV6ztjB32w8b0eDrLcsaHDD0zj7sz6AZoWIUPAFbTZ-vgPTzA/exec'
 };
+
+window.ZEVA_WEBAPP_CONFIG.pushApiUrl = "https://zeva-180-93-125-231.sslip.io";
