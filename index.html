@@ -942,7 +942,8 @@
   'use strict';
   if (window.__zevaViewportTitleMounted) return;
   window.__zevaViewportTitleMounted = true;
-  const baseTitle = document.title || 'ZEVA Education';
+  // Chrome keeps the page title in a single app window when it starts with the app name.
+  const baseTitle = 'ZEVA Education - N\u1ec1n t\u1ea3ng gi\u00e1o d\u1ee5c';
   // Installed Chromium apps use application-title for their native title bar.
   const appTitle = document.querySelector('meta[name="application-title"]');
   let pending = false;
@@ -955,7 +956,7 @@
     const ratio = (width / height).toFixed(2);
     const dpr = Math.round((window.devicePixelRatio || 1) * 100) / 100;
     const viewportTitle = `${width} \u00d7 ${height} CSS px | ${ratio}:1 | DPR ${dpr}`;
-    document.title = `${viewportTitle} \u2014 ${baseTitle}`;
+    document.title = `${baseTitle} \u2014 ${viewportTitle}`;
     appTitle.content = viewportTitle;
   }
 
