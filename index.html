@@ -935,6 +935,7 @@
   </style>
 
 
+<meta name="application-title" content="ZEVA Education">
 <script id="zeva-window-viewport-title">
 /* UI_SHARED: report the usable viewport in the installed app's window title. */
 (() => {
@@ -942,6 +943,8 @@
   if (window.__zevaViewportTitleMounted) return;
   window.__zevaViewportTitleMounted = true;
   const baseTitle = document.title || 'ZEVA Education';
+  // Installed Chromium apps use application-title for their native title bar.
+  const appTitle = document.querySelector('meta[name="application-title"]');
   let pending = false;
 
   function updateViewportTitle() {
@@ -951,7 +954,9 @@
     if (!width || !height) return;
     const ratio = (width / height).toFixed(2);
     const dpr = Math.round((window.devicePixelRatio || 1) * 100) / 100;
-    document.title = `${width} × ${height} CSS px | ${ratio}:1 | DPR ${dpr} — ${baseTitle}`;
+    const viewportTitle = `${width} \u00d7 ${height} CSS px | ${ratio}:1 | DPR ${dpr}`;
+    document.title = `${viewportTitle} \u2014 ${baseTitle}`;
+    appTitle.content = viewportTitle;
   }
 
   function scheduleViewportTitle() {
