@@ -1,5 +1,5 @@
 /* ZEVA Education GitHub wrapper service worker */
-const CACHE_NAME = 'zeva-education-system-bars-20261117';
+const CACHE_NAME = 'zeva-education-system-bars-bottom-v2-20261117';
 const SHELL_FILES = [
   './',
   './index.html',

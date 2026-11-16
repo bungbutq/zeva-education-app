@@ -982,8 +982,15 @@
 })();
 </script>
 <style id="zeva-system-bars">
-    :root { --zeva-system-top: #17265f; --zeva-system-bottom: #17265f; }
-    html, body { background: linear-gradient(var(--zeva-system-top) 0 50%, var(--zeva-system-bottom) 50% 100%); }
+    :root { --zeva-system-top: #17265f; --zeva-system-bottom: #4a635c; }
+    /* Keep a real opaque canvas color for Android's system navigation area.
+       Its installed WebAPK fallback comes from manifest.theme_color. */
+    html, body { background: var(--zeva-system-bottom); }
+    body::before {
+      content: ""; position: fixed; left: 0; right: 0; top: 0;
+      height: var(--zeva-safe-top); background: var(--zeva-system-top);
+      pointer-events: none; z-index: 2147483647;
+    }
     body::after {
       content: ""; position: fixed; left: 0; right: 0; bottom: 0;
       height: var(--zeva-safe-bottom); background: var(--zeva-system-bottom);

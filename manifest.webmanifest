@@ -9,7 +9,7 @@
   "display": "standalone",
   "orientation": "portrait-primary",
   "background_color": "#eef2f7",
-  "theme_color": "#17265f",
+  "theme_color": "#4a635c",
   "icons": [
     {
       "src": "./UI/thuong-hieu/icon-192.png",
