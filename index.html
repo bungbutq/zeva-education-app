@@ -283,7 +283,7 @@
 
 
 
-  <meta name="theme-color" content="#075ee8">
+  <meta name="theme-color" content="#17265f">
 
   <meta name="mobile-web-app-capable" content="yes">
 
@@ -293,7 +293,7 @@
 
   <meta name="apple-mobile-web-app-title" content="ZEVA">
 
-  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
 
 
@@ -981,6 +981,15 @@
   updateViewportTitle();
 })();
 </script>
+<style id="zeva-system-bars">
+    :root { --zeva-system-top: #17265f; --zeva-system-bottom: #17265f; }
+    html, body { background: linear-gradient(var(--zeva-system-top) 0 50%, var(--zeva-system-bottom) 50% 100%); }
+    body::after {
+      content: ""; position: fixed; left: 0; right: 0; bottom: 0;
+      height: var(--zeva-safe-bottom); background: var(--zeva-system-bottom);
+      pointer-events: none; z-index: 2147483647;
+    }
+  </style>
 </head>
 
 
@@ -2808,6 +2817,17 @@ function taskAudioCaptureConstructor() {
           'ZEVA_EDUCATION_REJECT_SESSION', 'ZEVA_EDUCATION_RELOAD_APP', 'ZEVA_EDUCATION_PUSH_TOGGLE'
 
         ];
+
+        if (type === 'ZEVA_EDUCATION_SYSTEM_COLORS') {
+          // Only the sandbox already registered by the existing app handshake can paint chrome.
+          if (!appMessageSource || event.source !== appMessageSource) return;
+          if (!/^#[0-9a-f]{6}$/i.test(data.top) || !/^#[0-9a-f]{6}$/i.test(data.bottom)) return;
+          const root = document.documentElement;
+          root.style.setProperty('--zeva-system-top', data.top);
+          root.style.setProperty('--zeva-system-bottom', data.bottom);
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', data.top);
+          return;
+        }
 
         if (!acceptedTypes.includes(type)) return;
         if (type === 'ZEVA_EDUCATION_PUSH_TOGGLE') {
