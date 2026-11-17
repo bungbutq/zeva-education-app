@@ -996,6 +996,8 @@
       height: var(--zeva-safe-bottom); background: var(--zeva-system-bottom);
       pointer-events: none; z-index: 2147483647;
     }
+    .zeva-ios-fullbleed body::before,
+    .zeva-ios-fullbleed body::after { display: none; }
   </style>
 </head>
 
@@ -1121,6 +1123,8 @@
       const desktop = window.matchMedia('((min-width: 901px) and (orientation: landscape))');
       let pending = 0;
       let mobileCanvas = null;
+      const ios = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+      const installed = () => navigator.standalone === true || window.matchMedia('(display-mode: standalone)').matches;
 
       function syncMobileDesignViewport() {
         pending = 0;
@@ -1151,14 +1155,17 @@
         const viewportHeight = Math.round((viewport && viewport.height) || window.innerHeight || document.documentElement.clientHeight);
         document.documentElement.style.setProperty('--zeva-viewport-height', viewportHeight + 'px');
         const width = Math.max(1, viewportWidth - left - right);
-        const height = Math.max(1, viewportHeight - top);
+        const fullBleed = mobile.matches && ios && installed() && window.ZEVA_APP_SAFE_AREA_VERSION >= 2;
+        document.documentElement.classList.toggle('zeva-ios-fullbleed', fullBleed);
+        const reservedTop = fullBleed ? 0 : top;
+        const height = Math.max(1, viewportHeight - reservedTop);
         const design = desktop.matches ? desktopReference : reference;
         // Use the approved mobile/PC reference: cards, text and icons all use
         // the same fit scale. A keyboard reduces the scrollport, not the design scale.
         const sameWidth = mobileCanvas && Math.abs(mobileCanvas.width - width) < 2;
         const keyboard = mobile.matches && ((sameWidth && height < mobileCanvas.height - 150)
           || (viewport && window.innerHeight - viewportHeight > 150));
-        const fitHeight = keyboard ? (sameWidth ? mobileCanvas.height : Math.max(height, window.innerHeight - top)) : height;
+        const fitHeight = keyboard ? (sameWidth ? mobileCanvas.height : Math.max(height, window.innerHeight - reservedTop)) : height;
         const fitScale = Math.min(width / design.width, fitHeight / design.height);
         // Keep the embedded app inside its mobile breakpoint, even on wide
         // portrait/square windows or when the keyboard shortens the viewport.
@@ -1177,7 +1184,7 @@
         const keyboardPan = mobile.matches && viewport && window.innerHeight - viewportHeight > 150
           ? Math.max(0, viewport.offsetTop || 0) : 0;
         shell.style.left = left + 'px';
-        shell.style.top = (top + keyboardPan) + 'px';
+        shell.style.top = (reservedTop + keyboardPan) + 'px';
         shell.style.right = 'auto';
         shell.style.bottom = 'auto';
         shell.style.width = width + 'px';
@@ -1188,7 +1195,7 @@
         stage.style.top = canvasTop + 'px';
         stage.style.transform = 'scale(' + scale + ')';
         // Insets use logical canvas units on both platforms.
-        const safeArea = { top: 0, right: 0, bottom: Math.max(0, bottom - canvasTop) / scale, left: 0 };
+        const safeArea = { top: fullBleed ? top / scale : 0, right: 0, bottom: Math.max(0, bottom - canvasTop) / scale, left: 0 };
         window.ZEVA_HOST_SAFE_AREA = safeArea;
         window.dispatchEvent(new CustomEvent('zeva-host-safe-area-change', { detail: safeArea }));
       }
@@ -1198,6 +1205,7 @@
       }
       syncMobileDesignViewport();
       window.addEventListener('resize', scheduleMobileDesignViewport);
+      window.addEventListener('zeva-app-safe-area-ready', scheduleMobileDesignViewport);
       window.addEventListener('pageshow', scheduleMobileDesignViewport);
       window.addEventListener('orientationchange', () => { mobileCanvas = null; scheduleMobileDesignViewport(); });
       window.addEventListener('orientationchange', () => {
@@ -2025,6 +2033,7 @@
           type: 'ZEVA_EDUCATION_HOST_SAFE_AREA',
 
 
+          top: Math.max(0, Number(safeArea.top || 0)),
           bottom: Math.max(0, Number(safeArea.bottom || 0)),
 
 
@@ -2555,6 +2564,8 @@ function taskAudioCaptureConstructor() {
 
 
       function loadFrame(targetUrl, options) {
+        window.ZEVA_APP_SAFE_AREA_VERSION = 0;
+        window.dispatchEvent(new Event('zeva-app-safe-area-ready'));
 
 
         stopHostSpeech();
@@ -2898,6 +2909,8 @@ function taskAudioCaptureConstructor() {
 
 
         if (type === 'ZEVA_EDUCATION_BRIDGE_READY') {
+          window.ZEVA_APP_SAFE_AREA_VERSION = Number(data.safeAreaVersion) || 0;
+          window.dispatchEvent(new Event('zeva-app-safe-area-ready'));
 
           postSafeAreaToFrame();
 
