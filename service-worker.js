@@ -1,5 +1,5 @@
 /* ZEVA Education GitHub wrapper service worker */
-const CACHE_NAME = 'zeva-education-ios-fullbleed-v3-20261117';
+const CACHE_NAME = 'zeva-education-ios-boot-edge-20261121';
 const SHELL_FILES = [
   './',
   './index.html',
