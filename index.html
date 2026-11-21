@@ -1000,6 +1000,19 @@
     html.zeva-ios-installed:has(#appLoading:not(.is-hidden), #appError:not(.is-hidden)) {
       --zeva-system-bottom: #05070d !important;
     }
+    /* WebKit 237961: a fixed root can clip a standalone page above the Home indicator. */
+    html.zeva-ios-installed,
+    html.zeva-ios-installed body {
+      position: static;
+      inset: auto;
+    }
+    html.zeva-ios-installed body {
+      position: relative;
+    }
+    html.zeva-ios-installed .app-shell,
+    html.zeva-ios-installed body::before {
+      position: absolute;
+    }
     .zeva-ios-fullbleed body::before,
     .zeva-ios-installed body::after { display: none; }
   </style>
