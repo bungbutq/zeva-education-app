@@ -1001,7 +1001,7 @@
       --zeva-system-bottom: #05070d !important;
     }
     .zeva-ios-fullbleed body::before,
-    .zeva-ios-fullbleed body::after { display: none; }
+    .zeva-ios-installed body::after { display: none; }
   </style>
 </head>
 
@@ -1159,10 +1159,14 @@
         const iosInstalled = ios && installed();
         document.documentElement.classList.toggle('zeva-ios-installed', iosInstalled);
         let viewportHeight = Math.round((viewport && viewport.height) || window.innerHeight || document.documentElement.clientHeight);
-        // A standalone iPhone may omit the home indicator from visualViewport.
-        // Preserve the smaller visual viewport when the keyboard is open.
-        if (iosInstalled && window.innerHeight > viewportHeight &&
-            window.innerHeight - viewportHeight <= top + bottom + 1) {
+        // In standalone portrait WebKit both viewport APIs can omit the Home
+        // indicator. Use the screen extent only for a full-width iPhone window.
+        const portraitPhone = iosInstalled && /iPhone/.test(navigator.userAgent) &&
+          screen.height > screen.width && Math.abs(screen.width - viewportWidth) <= 1;
+        if (portraitPhone && screen.height >= viewportHeight && screen.height - viewportHeight < 150) {
+          viewportHeight = screen.height;
+        } else if (iosInstalled && window.innerHeight > viewportHeight &&
+                   window.innerHeight - viewportHeight <= top + bottom + 1) {
           viewportHeight = window.innerHeight;
         }
         document.documentElement.style.setProperty('--zeva-viewport-height', viewportHeight + 'px');
