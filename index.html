@@ -1116,6 +1116,39 @@
 
 
 
+  <script>
+    // Local-only diagnostic for the installed app. Keep the marker in the host
+    // document so its position can be compared with the embedded app in a photo.
+    (() => {
+      const logo = document.querySelector('#appLoading img');
+      function showEdgeCheck() {
+        if (document.getElementById('zevaEdgeCheck')) return;
+        const panel = document.createElement('button');
+        panel.id = 'zevaEdgeCheck';
+        panel.style.cssText = 'position:fixed;z-index:2147483647;top:max(50px,env(safe-area-inset-top));left:5px;padding:8px;background:#101828;color:white;font:13px/1.4 monospace;white-space:pre;text-align:left;border:1px solid white;border-radius:5px';
+        const marker = document.createElement('div');
+        marker.style.cssText = 'position:fixed;z-index:2147483647;bottom:0;left:0;right:0;height:4px;background:#00ffff;pointer-events:none';
+        document.body.append(panel, marker);
+        function refresh() {
+          const edge = el => Math.round(el.getBoundingClientRect().bottom);
+          panel.textContent = ['ZEVA · Kiểm tra mép dưới',
+            'Màn hình ' + screen.width + ' × ' + screen.height,
+            'Cửa sổ ' + innerHeight + ' · Vùng thấy ' + Math.round(window.visualViewport?.height || innerHeight),
+            'Khung ' + edge(document.querySelector('.app-frame')) + ' · Vạch xanh ' + edge(marker),
+            'Safe ' + getComputedStyle(document.documentElement).getPropertyValue('--zeva-safe-bottom').trim()
+              + ' · Bridge ' + (window.ZEVA_APP_SAFE_AREA_VERSION || 0),
+            'Chạm bảng để đóng'].join('\n');
+        }
+        refresh();
+        const interval = setInterval(refresh, 500);
+        panel.onclick = () => { clearInterval(interval); marker.remove(); panel.remove(); };
+      }
+      let timer;
+      logo.style.webkitTouchCallout = 'none';
+      logo.addEventListener('pointerdown', () => { clearTimeout(timer); timer = setTimeout(showEdgeCheck, 550); });
+      for (const type of ['pointerup', 'pointercancel']) window.addEventListener(type, () => clearTimeout(timer), true);
+    })();
+  </script>
   <script id="zeva-mobile-design-viewport">
     (() => {
       'use strict';
